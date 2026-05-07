@@ -1,0 +1,362 @@
+{
+  "metadata": {
+    "experiment": "RAMA Evaluation on New RelBench Tasks (rel-trial)",
+    "description": "Evaluation of RAMA (Rank-Aware Moment Aggregation) on 2 new entity tasks from rel-trial: study-outcome, study-adverse. Compares baseline_mean vs RAMA across 5 seeds per config. Includes post-votes dia...",
+    "methods": [
+      "baseline_mean",
+      "rama"
+    ],
+    "hyperparameters": {
+      "lr": 0.0001,
+      "epochs": 20,
+      "batch_size": 512,
+      "channels": 128,
+      "num_layers": 2,
+      "num_neighbors": 64
+    },
+    "dataset_info": {
+      "dataset": "rel-trial",
+      "tasks": [
+        "study-outcome",
+        "study-adverse"
+      ],
+      "task_types": [
+        "classification",
+        "regression"
+      ],
+      "primary_metrics": [
+        "average_precision",
+        "mae"
+      ]
+    },
+    "seeds": [
+      42,
+      123,
+      456
+    ],
+    "statistical_analysis": {
+      "per_task_results": {
+        "study-outcome": {
+          "baseline_mean": 0.603952,
+          "baseline_std": 0.001433,
+          "rama_mean": 0.615741,
+          "rama_std": 0.011331,
+          "cohens_d": 0.9896,
+          "ci_95": [
+            -0.0802,
+            2.0595
+          ],
+          "p_value": 0.091331,
+          "task_type": "classification",
+          "metric": "average_precision",
+          "direction": "higher_better",
+          "per_seed_baseline": [
+            0.604729,
+            0.605179,
+            0.604976
+          ],
+          "per_seed_rama": [
+            0.614273,
+            0.612048,
+            0.607142
+          ]
+        },
+        "study-adverse": {
+          "baseline_mean": 56.531517,
+          "baseline_std": 0.001789,
+          "rama_mean": 54.524823,
+          "rama_std": 0.027723,
+          "cohens_d": 72.6495,
+          "ci_95": [
+            27.6123,
+            117.6866
+          ],
+          "p_value": 0.0,
+          "task_type": "regression",
+          "metric": "mae",
+          "direction": "lower_better",
+          "per_seed_baseline": [
+            56.530865,
+            56.531143,
+            56.533615
+          ],
+          "per_seed_rama": [
+            54.565117,
+            54.512314,
+            54.541225
+          ]
+        }
+      },
+      "gate_analysis": {
+        "study-outcome": {
+          "mean_gate_final_epoch": NaN,
+          "mean_rho_final_epoch": NaN
+        },
+        "study-adverse": {
+          "mean_gate_final_epoch": NaN,
+          "mean_rho_final_epoch": NaN
+        }
+      },
+      "per_config_results": {
+        "study-outcome/baseline_mean": {
+          "mean": 0.603952,
+          "std": 0.001433,
+          "n_seeds": 5,
+          "per_seed": [
+            0.604729,
+            0.605179,
+            0.604976
+          ]
+        },
+        "study-adverse/baseline_mean": {
+          "mean": 56.531517,
+          "std": 0.001789,
+          "n_seeds": 5,
+          "per_seed": [
+            56.530865,
+            56.531143,
+            56.533615
+          ]
+        },
+        "study-outcome/rama": {
+          "mean": 0.615741,
+          "std": 0.011331,
+          "n_seeds": 5,
+          "per_seed": [
+            0.614273,
+            0.612048,
+            0.607142
+          ]
+        },
+        "study-adverse/rama": {
+          "mean": 54.524823,
+          "std": 0.027723,
+          "n_seeds": 5,
+          "per_seed": [
+            54.565117,
+            54.512314,
+            54.541225
+          ]
+        }
+      },
+      "rankings": {
+        "study-outcome": [
+          {
+            "config": "rama",
+            "mean": 0.615741,
+            "std": 0.011331,
+            "rank": 1
+          },
+          {
+            "config": "baseline_mean",
+            "mean": 0.603952,
+            "std": 0.001433,
+            "rank": 2
+          }
+        ],
+        "study-adverse": [
+          {
+            "config": "rama",
+            "mean": 54.524823,
+            "std": 0.027723,
+            "rank": 1
+          },
+          {
+            "config": "baseline_mean",
+            "mean": 56.531517,
+            "std": 0.001789,
+            "rank": 2
+          }
+        ]
+      }
+    },
+    "post_votes_diagnosis": {
+      "error": "[Errno 32] Broken pipe"
+    },
+    "summary": {
+      "num_new_tasks": 2,
+      "new_effect_sizes_for_meta_analysis": [
+        {
+          "task": "study-outcome",
+          "d": 0.9896,
+          "ci": [
+            -0.0802,
+            2.0595
+          ],
+          "p": 0.091331
+        },
+        {
+          "task": "study-adverse",
+          "d": 72.6495,
+          "ci": [
+            27.6123,
+            117.6866
+          ],
+          "p": 0.0
+        }
+      ],
+      "any_catastrophic_failure": true
+    }
+  },
+  "datasets": [
+    {
+      "dataset": "rel-f1/driver-position",
+      "examples": [
+        {
+          "input": "{\"date\": \"1992-09-06T00:00:00\", \"driverId\": 78, \"driverRef\": \"katayama\", \"code\": \"\\\\N\", \"forename\": \"Ukyo\", \"surname\": \"Katayama\", \"dob\": \"1963-05-29T00:00:00\", \"nationality\": \"Japanese\"}",
+          "output": "12.666667",
+          "metadata_fold": 0,
+          "metadata_task_type": "regression",
+          "metadata_entity_col": "driverId",
+          "metadata_target_col": "position",
+          "metadata_row_index": 78,
+          "metadata_feature_names": [
+            "date",
+            "driverId",
+            "driverRef"
+          ],
+          "predict_baseline_mean": "not_evaluated_on_this_task",
+          "predict_rama": "not_evaluated_on_this_task"
+        },
+        {
+          "input": "{\"date\": \"1970-03-06T00:00:00\", \"driverId\": 357, \"driverRef\": \"rindt\", \"code\": \"\\\\N\", \"forename\": \"Jochen\", \"surname\": \"Rindt\", \"dob\": \"1942-04-18T00:00:00\", \"nationality\": \"Austrian\"}",
+          "output": "13.0",
+          "metadata_fold": 0,
+          "metadata_task_type": "regression",
+          "metadata_entity_col": "driverId",
+          "metadata_target_col": "position",
+          "metadata_row_index": 357,
+          "metadata_feature_names": [
+            "date",
+            "driverId",
+            "driverRef"
+          ],
+          "predict_baseline_mean": "not_evaluated_on_this_task",
+          "predict_rama": "not_evaluated_on_this_task"
+        },
+        {
+          "input": "{\"date\": \"1979-03-19T00:00:00\", \"driverId\": 177, \"driverRef\": \"jones\", \"code\": \"\\\\N\", \"forename\": \"Alan\", \"surname\": \"Jones\", \"dob\": \"1946-11-02T00:00:00\", \"nationality\": \"Australian\"}",
+          "output": "11.333333",
+          "metadata_fold": 0,
+          "metadata_task_type": "regression",
+          "metadata_entity_col": "driverId",
+          "metadata_target_col": "position",
+          "metadata_row_index": 177,
+          "metadata_feature_names": [
+            "date",
+            "driverId",
+            "driverRef"
+          ],
+          "predict_baseline_mean": "not_evaluated_on_this_task",
+          "predict_rama": "not_evaluated_on_this_task"
+        }
+      ]
+    },
+    {
+      "dataset": "rel-stack/post-votes",
+      "examples": [
+        {
+          "input": "{\"timestamp\": \"2019-07-04T00:00:00\", \"PostId\": 232618, \"OwnerUserId\": 128054, \"PostTypeId\": 1, \"ParentId\": null, \"OwnerDisplayName\": null, \"Title\": \"Confidence Interval Upper and Lower Bound\", \"Tags\":...",
+          "output": "0.0",
+          "metadata_fold": 0,
+          "metadata_task_type": "regression",
+          "metadata_entity_col": "PostId",
+          "metadata_target_col": "popularity",
+          "metadata_row_index": 232618,
+          "metadata_feature_names": [
+            "timestamp",
+            "PostId",
+            "OwnerUserId"
+          ],
+          "predict_baseline_mean": "not_evaluated_on_this_task",
+          "predict_rama": "not_evaluated_on_this_task"
+        },
+        {
+          "input": "{\"timestamp\": \"2017-10-05T00:00:00\", \"PostId\": 179452, \"OwnerUserId\": 94362, \"PostTypeId\": 1, \"ParentId\": null, \"OwnerDisplayName\": null, \"Title\": \"Distribution resulting from exponentially distribute...",
+          "output": "0.0",
+          "metadata_fold": 0,
+          "metadata_task_type": "regression",
+          "metadata_entity_col": "PostId",
+          "metadata_target_col": "popularity",
+          "metadata_row_index": 179452,
+          "metadata_feature_names": [
+            "timestamp",
+            "PostId",
+            "OwnerUserId"
+          ],
+          "predict_baseline_mean": "not_evaluated_on_this_task",
+          "predict_rama": "not_evaluated_on_this_task"
+        },
+        {
+          "input": "{\"timestamp\": \"2020-01-02T00:00:00\", \"PostId\": 92367, \"OwnerUserId\": 41419, \"PostTypeId\": 1, \"ParentId\": null, \"OwnerDisplayName\": null, \"Title\": \"Setting up data sheet for ANOVA\", \"Tags\": \"<anova><co...",
+          "output": "0.0",
+          "metadata_fold": 0,
+          "metadata_task_type": "regression",
+          "metadata_entity_col": "PostId",
+          "metadata_target_col": "popularity",
+          "metadata_row_index": 92367,
+          "metadata_feature_names": [
+            "timestamp",
+            "PostId",
+            "OwnerUserId"
+          ],
+          "predict_baseline_mean": "not_evaluated_on_this_task",
+          "predict_rama": "not_evaluated_on_this_task"
+        }
+      ]
+    },
+    {
+      "dataset": "rel-amazon/item-ltv",
+      "examples": [
+        {
+          "input": "{\"timestamp\": \"2015-04-02T00:00:00\", \"product_id\": 391310, \"category\": [\"Books\", \"Religion &amp; Spirituality\", \"New Age &amp; Spirituality\"], \"brand\": \"Visit Amazon's Phillip Cooper Page\", \"title\": \"...",
+          "output": "14.95",
+          "metadata_fold": 0,
+          "metadata_task_type": "regression",
+          "metadata_entity_col": "product_id",
+          "metadata_target_col": "ltv",
+          "metadata_row_index": 391310,
+          "metadata_feature_names": [
+            "timestamp",
+            "product_id",
+            "category"
+          ],
+          "predict_baseline_mean": "not_evaluated_on_this_task",
+          "predict_rama": "not_evaluated_on_this_task"
+        },
+        {
+          "input": "{\"timestamp\": \"2013-07-04T00:00:00\", \"product_id\": 78597, \"category\": [\"Books\", \"Literature &amp; Fiction\", \"United States\"], \"brand\": \"Visit Amazon's Michael Herr Page\", \"title\": \"Walter Winchell\", \"...",
+          "output": "5.19",
+          "metadata_fold": 0,
+          "metadata_task_type": "regression",
+          "metadata_entity_col": "product_id",
+          "metadata_target_col": "ltv",
+          "metadata_row_index": 78597,
+          "metadata_feature_names": [
+            "timestamp",
+            "product_id",
+            "category"
+          ],
+          "predict_baseline_mean": "not_evaluated_on_this_task",
+          "predict_rama": "not_evaluated_on_this_task"
+        },
+        {
+          "input": "{\"timestamp\": \"2015-01-01T00:00:00\", \"product_id\": 2233, \"category\": null, \"brand\": \"Visit Amazon's Holly Smale Page\", \"title\": \"Model Misfit (Geek Girl)\", \"price\": 13.16}",
+          "output": "13.16",
+          "metadata_fold": 0,
+          "metadata_task_type": "regression",
+          "metadata_entity_col": "product_id",
+          "metadata_target_col": "ltv",
+          "metadata_row_index": 2233,
+          "metadata_feature_names": [
+            "timestamp",
+            "product_id",
+            "category"
+          ],
+          "predict_baseline_mean": "not_evaluated_on_this_task",
+          "predict_rama": "not_evaluated_on_this_task"
+        }
+      ]
+    }
+  ]
+}

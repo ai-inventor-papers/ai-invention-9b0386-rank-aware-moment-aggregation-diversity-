@@ -1,0 +1,782 @@
+{
+  "metadata": {
+    "experiment": "RAMA Integration: RelGNN vs baseline on rel-f1 and rel-amazon",
+    "method_name": "RAMA (Rank-Aware Moment Aggregation)",
+    "architecture_used": "RelGNN",
+    "description": "Tests RAMA against standard sum aggregation using RelGNN on rel-f1/driver-position and rel-amazon/item-ltv (regression/MAE). RAMA enriches mean pooling with gated per-dimension variance conditioned on spectral rank proxy and cardinality.",
+    "tasks": [
+      "rel-f1/driver-position",
+      "rel-amazon/item-ltv"
+    ],
+    "hyperparameters": {
+      "channels": 128,
+      "lr": 0.005,
+      "epochs": 10,
+      "seeds": [
+        42,
+        123,
+        456,
+        789,
+        1024
+      ],
+      "max_steps_per_epoch": 2000,
+      "rama_gate_hidden": 16,
+      "task_configs": {
+        "rel-f1/driver-position": {
+          "num_model_layers": 1,
+          "channels": 128,
+          "aggr": "sum",
+          "num_heads": 4,
+          "batch_size": 512,
+          "num_neighbors": 128,
+          "subgraph_type": "bidirectional"
+        },
+        "rel-amazon/item-ltv": {
+          "num_model_layers": 2,
+          "channels": 128,
+          "aggr": "sum",
+          "num_heads": 8,
+          "batch_size": 2048,
+          "num_neighbors": 128,
+          "subgraph_type": "directional"
+        }
+      }
+    },
+    "num_seeds": 5,
+    "total_runtime_seconds": 8444.902473449707,
+    "comparison_with_heterosage": {
+      "rel-f1/driver-position": {
+        "heterosage_rama_cohens_d": -0.5,
+        "note": "RAMA was worse with HeteroSAGE on F1"
+      },
+      "rel-amazon/item-ltv": {
+        "heterosage_rama_cohens_d": 10.83,
+        "note": "RAMA was dramatically better with HeteroSAGE on Amazon"
+      }
+    }
+  },
+  "per_run_results": [
+    {
+      "config": "relgnn_sum",
+      "label": "RelGNN+sum (original)",
+      "task": "rel-f1/driver-position",
+      "seed": 42,
+      "test_mae": 4.567229895926358,
+      "best_val_mae": 3.0993986943919576,
+      "train_losses": [
+        9.103183143077786,
+        5.9548550319402915,
+        5.61131987123222
+      ],
+      "epoch_times": [
+        0.8285624980926514,
+        0.814063549041748,
+        0.8203186988830566
+      ],
+      "mean_epoch_time": 0.8300612449645997,
+      "test_metrics": {
+        "r2": -0.12909728872378534,
+        "mae": 4.567229895926358,
+        "rmse": 5.536502981176908
+      },
+      "num_params": 10550145,
+      "gate_stats": {}
+    },
+    {
+      "config": "relgnn_sum",
+      "label": "RelGNN+sum (original)",
+      "task": "rel-f1/driver-position",
+      "seed": 123,
+      "test_mae": 3.98049121998904,
+      "best_val_mae": 3.1017069570685356,
+      "train_losses": [
+        8.969424574035743,
+        5.882988141204597,
+        5.551129487381995
+      ],
+      "epoch_times": [
+        0.8460257053375244,
+        0.8412902355194092,
+        0.8398258686065674
+      ],
+      "mean_epoch_time": 0.8482635974884033,
+      "test_metrics": {
+        "r2": 0.11297272486889864,
+        "mae": 3.98049121998904,
+        "rmse": 4.90725179887257
+      },
+      "num_params": 10550145,
+      "gate_stats": {}
+    },
+    {
+      "config": "relgnn_sum",
+      "label": "RelGNN+sum (original)",
+      "task": "rel-f1/driver-position",
+      "seed": 456,
+      "test_mae": 4.190010654298883,
+      "best_val_mae": 2.9442499540452567,
+      "train_losses": [
+        8.901832006544806,
+        5.80573610848074,
+        5.561559415640934
+      ],
+      "epoch_times": [
+        0.858074426651001,
+        0.8658320903778076,
+        0.8591313362121582
+      ],
+      "mean_epoch_time": 0.8470519542694092,
+      "test_metrics": {
+        "r2": 0.028001134850312748,
+        "mae": 4.190010654298883,
+        "rmse": 5.136919201444896
+      },
+      "num_params": 10550145,
+      "gate_stats": {}
+    },
+    {
+      "config": "relgnn_sum",
+      "label": "RelGNN+sum (original)",
+      "task": "rel-f1/driver-position",
+      "seed": 789,
+      "test_mae": 4.097977528446599,
+      "best_val_mae": 3.0145275811633034,
+      "train_losses": [
+        8.868376055868076,
+        5.867222786653478,
+        5.580656358288164
+      ],
+      "epoch_times": [
+        0.8517842292785645,
+        0.8560593128204346,
+        0.8386409282684326
+      ],
+      "mean_epoch_time": 0.8578322887420654,
+      "test_metrics": {
+        "r2": 0.0788153470555315,
+        "mae": 4.097977528446599,
+        "rmse": 5.000842799536566
+      },
+      "num_params": 10550145,
+      "gate_stats": {}
+    },
+    {
+      "config": "relgnn_sum",
+      "label": "RelGNN+sum (original)",
+      "task": "rel-f1/driver-position",
+      "seed": 1024,
+      "test_mae": 4.571013244034951,
+      "best_val_mae": 2.9298620183864434,
+      "train_losses": [
+        8.988747958415278,
+        5.890291033439887,
+        5.607023719939613
+      ],
+      "epoch_times": [
+        0.8784706592559814,
+        0.8506247997283936,
+        0.864281415939331
+      ],
+      "mean_epoch_time": 0.8572617530822754,
+      "test_metrics": {
+        "r2": -0.14775213257245934,
+        "mae": 4.571013244034951,
+        "rmse": 5.5820524131695715
+      },
+      "num_params": 10550145,
+      "gate_stats": {}
+    },
+    {
+      "config": "relgnn_rama",
+      "label": "RelGNN+RAMA",
+      "task": "rel-f1/driver-position",
+      "seed": 42,
+      "test_mae": 4.499982705199928,
+      "best_val_mae": 3.0039773891986647,
+      "train_losses": [
+        8.897309498292367,
+        5.86796873879084,
+        5.5835778797359
+      ],
+      "epoch_times": [
+        0.9254639148712158,
+        0.9397678375244141,
+        0.9180498123168945
+      ],
+      "mean_epoch_time": 0.9228194713592529,
+      "test_metrics": {
+        "r2": -0.10129677874391696,
+        "mae": 4.499982705199928,
+        "rmse": 5.467918595217483
+      },
+      "num_params": 10568753,
+      "gate_stats": {
+        "aggr_module": {
+          "gate_bias_mean": 0.0,
+          "gate_bias_std": 0.0,
+          "gate_bias_sigmoid_mean": 0.5,
+          "W_sigma_norm": 0.0
+        }
+      }
+    },
+    {
+      "config": "relgnn_rama",
+      "label": "RelGNN+RAMA",
+      "task": "rel-f1/driver-position",
+      "seed": 123,
+      "test_mae": 4.665570769644621,
+      "best_val_mae": 3.109044513880768,
+      "train_losses": [
+        9.16601449109621,
+        5.997697520476771,
+        5.58243763643544
+      ],
+      "epoch_times": [
+        0.9457056522369385,
+        0.9282803535461426,
+        0.9244742393493652
+      ],
+      "mean_epoch_time": 0.9214802980422974,
+      "test_metrics": {
+        "r2": -0.1802759229289559,
+        "mae": 4.665570769644621,
+        "rmse": 5.660589086672615
+      },
+      "num_params": 10568753,
+      "gate_stats": {
+        "aggr_module": {
+          "gate_bias_mean": 0.0,
+          "gate_bias_std": 0.0,
+          "gate_bias_sigmoid_mean": 0.5,
+          "W_sigma_norm": 0.0
+        }
+      }
+    },
+    {
+      "config": "relgnn_rama",
+      "label": "RelGNN+RAMA",
+      "task": "rel-f1/driver-position",
+      "seed": 456,
+      "test_mae": 4.079634210603279,
+      "best_val_mae": 3.1585369238792933,
+      "train_losses": [
+        8.737193784249255,
+        5.798233740604533,
+        5.569452602463762
+      ],
+      "epoch_times": [
+        0.9242753982543945,
+        0.9223039150238037,
+        0.9223251342773438
+      ],
+      "mean_epoch_time": 0.924134087562561,
+      "test_metrics": {
+        "r2": 0.09528097827139781,
+        "mae": 4.079634210603279,
+        "rmse": 4.955947722031053
+      },
+      "num_params": 10568753,
+      "gate_stats": {
+        "aggr_module": {
+          "gate_bias_mean": 0.0,
+          "gate_bias_std": 0.0,
+          "gate_bias_sigmoid_mean": 0.5,
+          "W_sigma_norm": 0.0
+        }
+      }
+    },
+    {
+      "config": "relgnn_rama",
+      "label": "RelGNN+RAMA",
+      "task": "rel-f1/driver-position",
+      "seed": 789,
+      "test_mae": 4.10221525301013,
+      "best_val_mae": 3.066467932023919,
+      "train_losses": [
+        8.93428738447031,
+        5.887855973481076,
+        5.566390201515373
+      ],
+      "epoch_times": [
+        0.9250926971435547,
+        0.9190945625305176,
+        0.9187788963317871
+      ],
+      "mean_epoch_time": 0.9281370162963867,
+      "test_metrics": {
+        "r2": 0.07989107154244546,
+        "mae": 4.10221525301013,
+        "rmse": 4.997922049360363
+      },
+      "num_params": 10568753,
+      "gate_stats": {
+        "aggr_module": {
+          "gate_bias_mean": 0.0,
+          "gate_bias_std": 0.0,
+          "gate_bias_sigmoid_mean": 0.5,
+          "W_sigma_norm": 0.0
+        }
+      }
+    },
+    {
+      "config": "relgnn_rama",
+      "label": "RelGNN+RAMA",
+      "task": "rel-f1/driver-position",
+      "seed": 1024,
+      "test_mae": 4.5313226033511915,
+      "best_val_mae": 3.0637579649706725,
+      "train_losses": [
+        8.969363576499276,
+        5.8790905816305825,
+        5.572102428586247
+      ],
+      "epoch_times": [
+        0.9340004920959473,
+        0.9266619682312012,
+        0.9253859519958496
+      ],
+      "mean_epoch_time": 0.9270637512207032,
+      "test_metrics": {
+        "r2": -0.13101851669129982,
+        "mae": 4.5313226033511915,
+        "rmse": 5.541211328054701
+      },
+      "num_params": 10568753,
+      "gate_stats": {
+        "aggr_module": {
+          "gate_bias_mean": 0.0,
+          "gate_bias_std": 0.0,
+          "gate_bias_sigmoid_mean": 0.5,
+          "W_sigma_norm": 0.0
+        }
+      }
+    },
+    {
+      "config": "relgnn_sum",
+      "label": "RelGNN+sum (original)",
+      "task": "rel-amazon/item-ltv",
+      "seed": 42,
+      "test_mae": 59.08366661659803,
+      "best_val_mae": 53.61648320580916,
+      "train_losses": [
+        48.43983063924634,
+        45.834446558138666,
+        45.54902765738249
+      ],
+      "epoch_times": [
+        72.67316555976868,
+        73.26885151863098,
+        73.11640429496765
+      ],
+      "mean_epoch_time": 73.11065311431885,
+      "test_metrics": {
+        "r2": 0.008592026975434042,
+        "mae": 59.08366661659803,
+        "rmse": 661.7509022970503
+      },
+      "num_params": 3617153,
+      "gate_stats": {}
+    },
+    {
+      "config": "relgnn_sum",
+      "label": "RelGNN+sum (original)",
+      "task": "rel-amazon/item-ltv",
+      "seed": 123,
+      "test_mae": 55.33343596739759,
+      "best_val_mae": 50.17007404172883,
+      "train_losses": [
+        49.99286677724674,
+        47.78144633405024,
+        47.175284204079404
+      ],
+      "epoch_times": [
+        72.83257007598877,
+        73.03581762313843,
+        72.90048003196716
+      ],
+      "mean_epoch_time": 72.83661231994628,
+      "test_metrics": {
+        "r2": 0.01758960589208447,
+        "mae": 55.33343596739759,
+        "rmse": 658.741179205909
+      },
+      "num_params": 3617153,
+      "gate_stats": {}
+    },
+    {
+      "config": "relgnn_sum",
+      "label": "RelGNN+sum (original)",
+      "task": "rel-amazon/item-ltv",
+      "seed": 456,
+      "test_mae": 58.99299352472994,
+      "best_val_mae": 53.5408723698176,
+      "train_losses": [
+        48.37995151187952,
+        45.19215393142625,
+        44.60103395707435
+      ],
+      "epoch_times": [
+        73.15768361091614,
+        72.63338780403137,
+        73.21629238128662
+      ],
+      "mean_epoch_time": 72.94888701438904,
+      "test_metrics": {
+        "r2": 0.007605108472410138,
+        "mae": 58.99299352472994,
+        "rmse": 662.0801974884831
+      },
+      "num_params": 3617153,
+      "gate_stats": {}
+    },
+    {
+      "config": "relgnn_sum",
+      "label": "RelGNN+sum (original)",
+      "task": "rel-amazon/item-ltv",
+      "seed": 789,
+      "test_mae": 58.21226415141676,
+      "best_val_mae": 52.77584483670229,
+      "train_losses": [
+        49.691227152406384,
+        47.767476037393834,
+        45.64897953610635
+      ],
+      "epoch_times": [
+        72.54417300224304,
+        72.87993383407593,
+        72.60591769218445
+      ],
+      "mean_epoch_time": 72.56544668674469,
+      "test_metrics": {
+        "r2": 0.006527100069796066,
+        "mae": 58.21226415141676,
+        "rmse": 662.4396986820749
+      },
+      "num_params": 3617153,
+      "gate_stats": {}
+    },
+    {
+      "config": "relgnn_sum",
+      "label": "RelGNN+sum (original)",
+      "task": "rel-amazon/item-ltv",
+      "seed": 1024,
+      "test_mae": 56.24685383196195,
+      "best_val_mae": 51.20620890786496,
+      "train_losses": [
+        48.26434695697141,
+        46.1009686366754,
+        45.52188219371714
+      ],
+      "epoch_times": [
+        73.31904673576355,
+        73.02963495254517,
+        72.88180589675903
+      ],
+      "mean_epoch_time": 73.28433995246887,
+      "test_metrics": {
+        "r2": 0.013379844455016832,
+        "mae": 56.24685383196195,
+        "rmse": 660.1510679624737
+      },
+      "num_params": 3617153,
+      "gate_stats": {}
+    },
+    {
+      "config": "relgnn_rama",
+      "label": "RelGNN+RAMA",
+      "task": "rel-amazon/item-ltv",
+      "seed": 42,
+      "test_mae": 58.32935410193428,
+      "best_val_mae": 53.03087880438862,
+      "train_losses": [
+        49.76372334389006,
+        46.63997958944798,
+        46.71097872429507
+      ],
+      "epoch_times": [
+        79.4227123260498,
+        82.06229782104492,
+        80.00439119338989
+      ],
+      "mean_epoch_time": 79.80122075080871,
+      "test_metrics": {
+        "r2": 0.009319624392402193,
+        "mae": 58.32935410193428,
+        "rmse": 661.5080271971135
+      },
+      "num_params": 3635761,
+      "gate_stats": {
+        "aggr_module": {
+          "gate_bias_mean": 0.0,
+          "gate_bias_std": 0.0,
+          "gate_bias_sigmoid_mean": 0.5,
+          "W_sigma_norm": 0.0
+        }
+      }
+    },
+    {
+      "config": "relgnn_rama",
+      "label": "RelGNN+RAMA",
+      "task": "rel-amazon/item-ltv",
+      "seed": 123,
+      "test_mae": 56.8316073553107,
+      "best_val_mae": 51.28435695226294,
+      "train_losses": [
+        49.354133517669005,
+        46.73773953268053,
+        46.282444173340345
+      ],
+      "epoch_times": [
+        79.29909586906433,
+        79.57882118225098,
+        79.12232661247253
+      ],
+      "mean_epoch_time": 80.06771352291108,
+      "test_metrics": {
+        "r2": 0.013366226984442453,
+        "mae": 56.8316073553107,
+        "rmse": 660.1556236958395
+      },
+      "num_params": 3635761,
+      "gate_stats": {
+        "aggr_module": {
+          "gate_bias_mean": 0.0,
+          "gate_bias_std": 0.0,
+          "gate_bias_sigmoid_mean": 0.5,
+          "W_sigma_norm": 0.0
+        }
+      }
+    },
+    {
+      "config": "relgnn_rama",
+      "label": "RelGNN+RAMA",
+      "task": "rel-amazon/item-ltv",
+      "seed": 456,
+      "test_mae": 59.192890196443344,
+      "best_val_mae": 53.6460884092598,
+      "train_losses": [
+        50.07448290698439,
+        45.67146523247412,
+        44.67305819540121
+      ],
+      "epoch_times": [
+        80.10929226875305,
+        80.24464917182922,
+        79.53930449485779
+      ],
+      "mean_epoch_time": 79.5852082490921,
+      "test_metrics": {
+        "r2": 0.007735430700593571,
+        "mae": 59.192890196443344,
+        "rmse": 662.0367235648405
+      },
+      "num_params": 3635761,
+      "gate_stats": {
+        "aggr_module": {
+          "gate_bias_mean": 0.0,
+          "gate_bias_std": 0.0,
+          "gate_bias_sigmoid_mean": 0.5,
+          "W_sigma_norm": 0.0
+        }
+      }
+    },
+    {
+      "config": "relgnn_rama",
+      "label": "RelGNN+RAMA",
+      "task": "rel-amazon/item-ltv",
+      "seed": 789,
+      "test_mae": 57.81539337772502,
+      "best_val_mae": 52.77609761315247,
+      "train_losses": [
+        49.13783002495563,
+        45.90264277987407,
+        45.08746770534496
+      ],
+      "epoch_times": [
+        79.76417970657349,
+        79.52392244338989,
+        80.0328459739685
+      ],
+      "mean_epoch_time": 79.7605587720871,
+      "test_metrics": {
+        "r2": 0.011399844070671072,
+        "mae": 57.81539337772502,
+        "rmse": 660.8131486170688
+      },
+      "num_params": 3635761,
+      "gate_stats": {
+        "aggr_module": {
+          "gate_bias_mean": 0.0,
+          "gate_bias_std": 0.0,
+          "gate_bias_sigmoid_mean": 0.5,
+          "W_sigma_norm": 0.0
+        }
+      }
+    },
+    {
+      "config": "relgnn_rama",
+      "label": "RelGNN+RAMA",
+      "task": "rel-amazon/item-ltv",
+      "seed": 1024,
+      "test_mae": 57.78040335729604,
+      "best_val_mae": 51.48070557140811,
+      "train_losses": [
+        48.64952789949727,
+        46.267795302044604,
+        45.20602704600994
+      ],
+      "epoch_times": [
+        80.14093518257141,
+        79.81761717796326,
+        79.63395357131958
+      ],
+      "mean_epoch_time": 79.66642711162567,
+      "test_metrics": {
+        "r2": 0.011196020899588044,
+        "mae": 57.78040335729604,
+        "rmse": 660.8812661917143
+      },
+      "num_params": 3635761,
+      "gate_stats": {
+        "aggr_module": {
+          "gate_bias_mean": 0.0,
+          "gate_bias_std": 0.0,
+          "gate_bias_sigmoid_mean": 0.5,
+          "W_sigma_norm": 0.0
+        }
+      }
+    }
+  ],
+  "datasets": [
+    {
+      "dataset": "rel-f1/driver-position",
+      "examples": [
+        {
+          "input": "{\"date\": \"1992-09-06T00:00:00\", \"driverId\": 78, \"driverRef\": \"katayama\", \"code\": \"\\\\N\", \"forename\": \"Ukyo\", \"surname\": \"Katayama\", \"dob\": \"1963-05-29T00:00:00\", \"nationality\": \"Japanese\"}",
+          "output": "12.666667",
+          "predict_baseline_sum": "4.281345",
+          "predict_rama": "4.375745",
+          "metadata_fold": 0,
+          "metadata_task_type": "regression",
+          "metadata_entity_col": "driverId",
+          "metadata_target_col": "position",
+          "metadata_row_index": 78,
+          "metadata_feature_names": [
+            "date",
+            "driverId",
+            "driverRef",
+            "code",
+            "forename",
+            "surname",
+            "dob",
+            "nationality"
+          ]
+        },
+        {
+          "input": "{\"date\": \"1970-03-06T00:00:00\", \"driverId\": 357, \"driverRef\": \"rindt\", \"code\": \"\\\\N\", \"forename\": \"Jochen\", \"surname\": \"Rindt\", \"dob\": \"1942-04-18T00:00:00\", \"nationality\": \"Austrian\"}",
+          "output": "13.0",
+          "predict_baseline_sum": "4.281345",
+          "predict_rama": "4.375745",
+          "metadata_fold": 0,
+          "metadata_task_type": "regression",
+          "metadata_entity_col": "driverId",
+          "metadata_target_col": "position",
+          "metadata_row_index": 357,
+          "metadata_feature_names": [
+            "date",
+            "driverId",
+            "driverRef",
+            "code",
+            "forename",
+            "surname",
+            "dob",
+            "nationality"
+          ]
+        },
+        {
+          "input": "{\"date\": \"1979-03-19T00:00:00\", \"driverId\": 177, \"driverRef\": \"jones\", \"code\": \"\\\\N\", \"forename\": \"Alan\", \"surname\": \"Jones\", \"dob\": \"1946-11-02T00:00:00\", \"nationality\": \"Australian\"}",
+          "output": "11.333333",
+          "predict_baseline_sum": "4.281345",
+          "predict_rama": "4.375745",
+          "metadata_fold": 0,
+          "metadata_task_type": "regression",
+          "metadata_entity_col": "driverId",
+          "metadata_target_col": "position",
+          "metadata_row_index": 177,
+          "metadata_feature_names": [
+            "date",
+            "driverId",
+            "driverRef",
+            "code",
+            "forename",
+            "surname",
+            "dob",
+            "nationality"
+          ]
+        }
+      ]
+    },
+    {
+      "dataset": "rel-amazon/item-ltv",
+      "examples": [
+        {
+          "input": "{\"timestamp\": \"2015-04-02T00:00:00\", \"product_id\": 391310, \"category\": [\"Books\", \"Religion &amp; Spirituality\", \"New Age &amp; Spirituality\"], \"brand\": \"Visit Amazon's Phillip Cooper Page\", \"title\": \"Candle Magic: A Coveted Collection of Spells, Rituals, and Magical Paradigms\", \"price\": 14.95}",
+          "output": "14.95",
+          "predict_baseline_sum": "57.573843",
+          "predict_rama": "57.989930",
+          "metadata_fold": 0,
+          "metadata_task_type": "regression",
+          "metadata_entity_col": "product_id",
+          "metadata_target_col": "ltv",
+          "metadata_row_index": 391310,
+          "metadata_feature_names": [
+            "timestamp",
+            "product_id",
+            "category",
+            "brand",
+            "title",
+            "price"
+          ]
+        },
+        {
+          "input": "{\"timestamp\": \"2013-07-04T00:00:00\", \"product_id\": 78597, \"category\": [\"Books\", \"Literature &amp; Fiction\", \"United States\"], \"brand\": \"Visit Amazon's Michael Herr Page\", \"title\": \"Walter Winchell\", \"price\": 5.19}",
+          "output": "5.19",
+          "predict_baseline_sum": "57.573843",
+          "predict_rama": "57.989930",
+          "metadata_fold": 0,
+          "metadata_task_type": "regression",
+          "metadata_entity_col": "product_id",
+          "metadata_target_col": "ltv",
+          "metadata_row_index": 78597,
+          "metadata_feature_names": [
+            "timestamp",
+            "product_id",
+            "category",
+            "brand",
+            "title",
+            "price"
+          ]
+        },
+        {
+          "input": "{\"timestamp\": \"2015-01-01T00:00:00\", \"product_id\": 2233, \"category\": null, \"brand\": \"Visit Amazon's Holly Smale Page\", \"title\": \"Model Misfit (Geek Girl)\", \"price\": 13.16}",
+          "output": "13.16",
+          "predict_baseline_sum": "57.573843",
+          "predict_rama": "57.989930",
+          "metadata_fold": 0,
+          "metadata_task_type": "regression",
+          "metadata_entity_col": "product_id",
+          "metadata_target_col": "ltv",
+          "metadata_row_index": 2233,
+          "metadata_feature_names": [
+            "timestamp",
+            "product_id",
+            "category",
+            "brand",
+            "title",
+            "price"
+          ]
+        }
+      ]
+    }
+  ]
+}

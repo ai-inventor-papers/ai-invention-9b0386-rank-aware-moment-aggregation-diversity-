@@ -1,0 +1,151 @@
+{
+  "task_name": "study-outcome",
+  "config": "rama",
+  "seed": 1024,
+  "dataset": "rel-trial",
+  "task_type": "classification",
+  "primary_metric": "average_precision",
+  "direction": "higher_better",
+  "best_val_metric": 0.6097897279440394,
+  "best_epoch": 17,
+  "val_metrics": {
+    "auroc": 0.5174634447080267,
+    "average_precision": 0.6007737293257353
+  },
+  "test_metrics": {
+    "auroc": 0.5224826772814389,
+    "average_precision": 0.6097897279440394
+  },
+  "num_params": 3202881,
+  "runtime_sec": 38.01883292198181,
+  "train_losses": [
+    0.659528985619545,
+    0.6534740750988325,
+    0.65253613392512,
+    0.6521165991822878,
+    0.6521837363640467,
+    0.6522622381647428,
+    0.6517433027426401,
+    0.6501597538590431,
+    0.649239127834638,
+    0.6503045658270518,
+    0.6510764136910439,
+    0.651690182586511,
+    0.649274118244648,
+    0.6493596931298574,
+    0.6507026900847753,
+    0.6499745324254036,
+    0.6515238136053085,
+    0.6500662739078203,
+    0.6497294629613558,
+    0.6495976050694784
+  ],
+  "gate_history": [
+    {
+      "mean_gate": NaN,
+      "mean_rho": NaN,
+      "mean_N": NaN
+    },
+    {
+      "mean_gate": NaN,
+      "mean_rho": NaN,
+      "mean_N": NaN
+    },
+    {
+      "mean_gate": NaN,
+      "mean_rho": NaN,
+      "mean_N": NaN
+    },
+    {
+      "mean_gate": NaN,
+      "mean_rho": NaN,
+      "mean_N": NaN
+    },
+    {
+      "mean_gate": NaN,
+      "mean_rho": NaN,
+      "mean_N": NaN
+    },
+    {
+      "mean_gate": NaN,
+      "mean_rho": NaN,
+      "mean_N": NaN
+    },
+    {
+      "mean_gate": NaN,
+      "mean_rho": NaN,
+      "mean_N": NaN
+    },
+    {
+      "mean_gate": NaN,
+      "mean_rho": NaN,
+      "mean_N": NaN
+    },
+    {
+      "mean_gate": NaN,
+      "mean_rho": NaN,
+      "mean_N": NaN
+    },
+    {
+      "mean_gate": NaN,
+      "mean_rho": NaN,
+      "mean_N": NaN
+    },
+    {
+      "mean_gate": NaN,
+      "mean_rho": NaN,
+      "mean_N": NaN
+    },
+    {
+      "mean_gate": NaN,
+      "mean_rho": NaN,
+      "mean_N": NaN
+    },
+    {
+      "mean_gate": NaN,
+      "mean_rho": NaN,
+      "mean_N": NaN
+    },
+    {
+      "mean_gate": NaN,
+      "mean_rho": NaN,
+      "mean_N": NaN
+    },
+    {
+      "mean_gate": NaN,
+      "mean_rho": NaN,
+      "mean_N": NaN
+    },
+    {
+      "mean_gate": NaN,
+      "mean_rho": NaN,
+      "mean_N": NaN
+    },
+    {
+      "mean_gate": NaN,
+      "mean_rho": NaN,
+      "mean_N": NaN
+    },
+    {
+      "mean_gate": NaN,
+      "mean_rho": NaN,
+      "mean_N": NaN
+    },
+    {
+      "mean_gate": NaN,
+      "mean_rho": NaN,
+      "mean_N": NaN
+    },
+    {
+      "mean_gate": NaN,
+      "mean_rho": NaN,
+      "mean_N": NaN
+    }
+  ],
+  "diagnostics": {
+    "mean_gate": NaN,
+    "mean_rho": NaN,
+    "mean_N": NaN
+  },
+  "has_test_split": false
+}

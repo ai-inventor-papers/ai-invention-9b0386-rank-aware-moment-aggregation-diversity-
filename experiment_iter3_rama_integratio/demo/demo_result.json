@@ -1,0 +1,13 @@
+{
+  "id": "exp_id3_it3__opus",
+  "type": "code",
+  "title": "RAMA Integration into RelGNN: Additive Improvement over SOTA on rel-f1 and rel-amazon",
+  "summary": "Demo notebook that loads pre-computed experiment results (20 runs: 5 seeds x 2 methods x 2 tasks) comparing RelGNN+sum baseline vs RelGNN+RAMA on rel-f1/driver-position and rel-amazon/item-ltv regression tasks. Reproduces statistical analysis including Cohen's d effect sizes, paired t-tests, Wilcoxon tests, and DerSimonian-Laird random-effects meta-analysis. Generates three visualizations: MAE comparison bar chart, effect size forest plot, and training loss curves. Uses mini_demo_data.json (22KB, curated from full results).",
+  "original_path": "/ai-inventor/aii_pipeline/runs/leskovec-predictive-residual-message-passing-v2_sti/3_invention_loop/iter_3/gen_art/exp_id3_it3__opus",
+  "demo_path": "/ai-inventor/aii_pipeline/runs/leskovec-predictive-residual-message-passing-v2_sti/4_gen_paper_repo/exp_id3_it3__opus",
+  "out_expected_files": {
+    "notebook": "code_demo.ipynb",
+    "mini_data_file": "mini_demo_data.json"
+  },
+  "notebook_path": "/ai-inventor/aii_pipeline/runs/leskovec-predictive-residual-message-passing-v2_sti/4_gen_paper_repo/exp_id3_it3__opus/method_code_demo.ipynb"
+}
