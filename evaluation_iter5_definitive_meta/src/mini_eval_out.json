@@ -1,0 +1,230 @@
+{
+  "metadata": {
+    "evaluation_name": "Definitive Meta-Analysis of RAMA/CAMA (Iterations 2-4)",
+    "description": "Rigorous meta-analysis integrating 12 experiments across 8 unique tasks and 6 RelBench datasets. Includes evidence grading, per-task Cohen's d with bootstrap CIs, DerSimonian-Laird random-effects meta-analysis, critical diagnostics, and publication readiness scorecard.",
+    "n_bootstrap": 10000,
+    "random_seed": 42
+  },
+  "metrics_agg": {
+    "n_experiments": 12,
+    "n_task_comparisons": 21,
+    "n_green": 8,
+    "n_yellow": 8,
+    "n_red": 5,
+    "pooled_d_green_only": 0.2150320551691563,
+    "pooled_d_green_only_ci_lo": -0.7181420736394857,
+    "pooled_d_green_only_ci_hi": 1.1482061839777984,
+    "pooled_d_green_only_p": 0.6515252105674076,
+    "pooled_d_green_only_k": 8,
+    "pooled_d_green_only_tau2": 1.1618092715700508,
+    "pooled_d_green_only_I2": 67.42759669809601,
+    "pooled_d_primary": 0.5565904288172712,
+    "pooled_d_primary_ci_lo": -0.36413429366669303,
+    "pooled_d_primary_ci_hi": 1.4773151513012355,
+    "pooled_d_primary_p": 0.23607823989370624,
+    "pooled_d_primary_k": 16,
+    "pooled_d_primary_tau2": 2.373297944815696,
+    "pooled_d_primary_I2": 77.2713652398551,
+    "pooled_d_primary_Q": 65.99604489356653,
+    "pooled_d_primary_Q_p": 2.2844279690126257e-08,
+    "pooled_d_primary_pred_lo": -2.8977615319225727,
+    "pooled_d_primary_pred_hi": 4.010942389557115,
+    "pooled_d_classification": 1.7402431744686142,
+    "pooled_d_classification_ci_lo": 0.35919028709623047,
+    "pooled_d_classification_ci_hi": 3.121296061840998,
+    "pooled_d_classification_p": 0.013520169019425321,
+    "pooled_d_classification_k": 5,
+    "pooled_d_regression": -0.1369018593155861,
+    "pooled_d_regression_ci_lo": -1.173915387779206,
+    "pooled_d_regression_ci_hi": 0.9001116691480336,
+    "pooled_d_regression_p": 0.7958278454754077,
+    "pooled_d_regression_k": 11,
+    "diag_val_test_mean_inflation": -3.6087025488761584,
+    "diag_class_vs_reg_p": 0.7418711172492084,
+    "diag_amazon_sign_consistent": 0.0,
+    "diag_gate_n_stasis": 8.0,
+    "diag_gate_corr_vs_d": 0.0,
+    "diag_n_degenerate_baselines": 11.0,
+    "diag_avito_safety_supported": 0.0,
+    "scorecard_effect_size": 2.0,
+    "scorecard_significance": 0.0,
+    "scorecard_classification": 3.0,
+    "scorecard_safety": 0.0,
+    "scorecard_mechanism": 0.0,
+    "scorecard_reproducibility": 1.0,
+    "scorecard_sota_integration": 0.0,
+    "scorecard_total": 6.0,
+    "scorecard_max": 21.0,
+    "scorecard_recommendation": 1.0
+  },
+  "datasets": [
+    {
+      "dataset": "evidence_registry",
+      "examples": [
+        {
+          "input": "Experiment: exp_id2_it2 (iter 2)\nTask: rel-f1/driver-dnf (classification)\nMethod: RAMA vs baseline (HeteroSAGE)\nMetric: average_precision (higher is better)\nSeeds: 5, Epochs: 10/10\nEval split: test\nGrade: GREEN (flags: none)",
+          "output": "Baseline average_precision: 0.8193, Method average_precision: 0.8369, Cohen's d: 1.125 [0.167, 3.948], p_ttest: 0.1328, p_wilcoxon: 0.1250",
+          "predict_baseline": "0.819302",
+          "predict_our_method": "0.836936",
+          "eval_cohens_d": 1.1250187672770355,
+          "eval_cohens_d_ci_lo": 0.16715055151884242,
+          "eval_cohens_d_ci_hi": 3.9484089497156805,
+          "eval_se_d": 0.7256491732735276,
+          "eval_p_ttest": 0.13279265702225088,
+          "eval_p_wilcoxon": 0.125,
+          "eval_raw_effect": 0.017634162115427343,
+          "eval_raw_effect_ci_lo": -0.0007193620021519395,
+          "eval_raw_effect_ci_hi": 0.035987686233006626,
+          "eval_n_seeds": 5.0,
+          "eval_grade_code": 3.0,
+          "eval_is_classification": 1.0,
+          "eval_val_test_identical": 0.0,
+          "eval_iteration": 2.0
+        },
+        {
+          "input": "Experiment: exp_id2_it2 (iter 2)\nTask: rel-f1/driver-position (regression)\nMethod: RAMA vs baseline (HeteroSAGE)\nMetric: mae (lower is better)\nSeeds: 5, Epochs: 10/10\nEval split: test\nGrade: GREEN (flags: none)",
+          "output": "Baseline mae: 4.3614, Method mae: 4.5419, Cohen's d: -0.499 [-2.808, 1.152], p_ttest: 0.5578, p_wilcoxon: 0.4375",
+          "predict_baseline": "4.361427",
+          "predict_our_method": "4.541920",
+          "eval_cohens_d": -0.49896237576920044,
+          "eval_cohens_d_ci_lo": -2.808176142569437,
+          "eval_cohens_d_ci_hi": 1.1515152601562582,
+          "eval_se_d": 0.6518407361030181,
+          "eval_p_ttest": 0.5578374855624988,
+          "eval_p_wilcoxon": 0.4375,
+          "eval_raw_effect": -0.18049305518468195,
+          "eval_raw_effect_ci_lo": -0.7344983612215386,
+          "eval_raw_effect_ci_hi": 0.37351225085217465,
+          "eval_n_seeds": 5.0,
+          "eval_grade_code": 3.0,
+          "eval_is_classification": 0.0,
+          "eval_val_test_identical": 0.0,
+          "eval_iteration": 2.0
+        },
+        {
+          "input": "Experiment: exp_id3_it2 (iter 2)\nTask: rel-stack/post-votes (regression)\nMethod: RAMA vs baseline (HeteroSAGE)\nMetric: mae (lower is better)\nSeeds: 5, Epochs: 5/10\nEval split: test\nGrade: RED (flags: degenerate_baseline, zero_variance_baseline, epoch_deviation_5_vs_10)",
+          "output": "Baseline mae: 0.0617, Method mae: 0.0617, Cohen's d: 0.000 [0.000, 0.000], p_ttest: 1.0000, p_wilcoxon: 1.0000",
+          "predict_baseline": "0.061690",
+          "predict_our_method": "0.061690",
+          "eval_cohens_d": 0.0,
+          "eval_cohens_d_ci_lo": 0.0,
+          "eval_cohens_d_ci_hi": 0.0,
+          "eval_se_d": 0.6324555320336759,
+          "eval_p_ttest": 1.0,
+          "eval_p_wilcoxon": 1.0,
+          "eval_raw_effect": 0.0,
+          "eval_raw_effect_ci_lo": 0.0,
+          "eval_raw_effect_ci_hi": 0.0,
+          "eval_n_seeds": 5.0,
+          "eval_grade_code": 1.0,
+          "eval_is_classification": 0.0,
+          "eval_val_test_identical": 0.0,
+          "eval_iteration": 2.0
+        }
+      ]
+    },
+    {
+      "dataset": "meta_analysis_pools",
+      "examples": [
+        {
+          "input": "Meta-analysis pool: green_only",
+          "output": "k=8, pooled_d=0.2150, CI=[-0.7181, 1.1482], p=0.651525, tau2=1.1618, I2=67.4%",
+          "predict_baseline": "0.0",
+          "predict_our_method": "0.215032",
+          "eval_pooled_d": 0.2150320551691563,
+          "eval_ci_lo": -0.7181420736394857,
+          "eval_ci_hi": 1.1482061839777984,
+          "eval_p_value": 0.6515252105674076,
+          "eval_tau2": 1.1618092715700508,
+          "eval_I2": 67.42759669809601,
+          "eval_Q": 21.490584944313337,
+          "eval_k": 8.0
+        },
+        {
+          "input": "Meta-analysis pool: green_yellow",
+          "output": "k=16, pooled_d=0.5566, CI=[-0.3641, 1.4773], p=0.236078, tau2=2.3733, I2=77.3%",
+          "predict_baseline": "0.0",
+          "predict_our_method": "0.556590",
+          "eval_pooled_d": 0.5565904288172712,
+          "eval_ci_lo": -0.36413429366669303,
+          "eval_ci_hi": 1.4773151513012355,
+          "eval_p_value": 0.23607823989370624,
+          "eval_tau2": 2.373297944815696,
+          "eval_I2": 77.2713652398551,
+          "eval_Q": 65.99604489356653,
+          "eval_k": 16.0
+        },
+        {
+          "input": "Meta-analysis pool: classification_only",
+          "output": "k=5, pooled_d=1.7402, CI=[0.3592, 3.1213], p=0.013520, tau2=1.4942, I2=65.5%",
+          "predict_baseline": "0.0",
+          "predict_our_method": "1.740243",
+          "eval_pooled_d": 1.7402431744686142,
+          "eval_ci_lo": 0.35919028709623047,
+          "eval_ci_hi": 3.121296061840998,
+          "eval_p_value": 0.013520169019425321,
+          "eval_tau2": 1.4941798659096626,
+          "eval_I2": 65.50829379107503,
+          "eval_Q": 11.596990812141884,
+          "eval_k": 5.0
+        }
+      ]
+    },
+    {
+      "dataset": "diagnostics",
+      "examples": [
+        {
+          "input": "Diagnostic: Val-Test Inflation Factor",
+          "output": "Mean inflation ratio: -3.609 across 8 comparisons",
+          "predict_baseline": "1.0",
+          "predict_our_method": "-3.608703",
+          "eval_mean_inflation_ratio": -3.6087025488761584,
+          "eval_n_comparisons": 8.0
+        },
+        {
+          "input": "Diagnostic: Classification vs Regression Subgroup",
+          "output": "Classification mean d=2.420 (n=5), Regression mean d=1.795 (n=11), p_difference=0.7419",
+          "predict_baseline": "1.795190",
+          "predict_our_method": "2.420069",
+          "eval_cls_mean_d": 2.420068784033858,
+          "eval_reg_mean_d": 1.795189656676139,
+          "eval_p_subgroup": 0.7418711172492084
+        },
+        {
+          "input": "Diagnostic: Amazon Stability",
+          "output": "n_experiments=3, d_range=[-1.377, 10.828], sign_consistent=False",
+          "predict_baseline": "0.0",
+          "predict_our_method": "0.0",
+          "eval_n_amazon_experiments": 3.0,
+          "eval_amazon_sign_consistent": 0.0
+        }
+      ]
+    },
+    {
+      "dataset": "publication_scorecard",
+      "examples": [
+        {
+          "input": "Scorecard dimension: effect_size",
+          "output": "Score: 2/3",
+          "predict_baseline": "3.0",
+          "predict_our_method": "2.0",
+          "eval_score": 2.0
+        },
+        {
+          "input": "Scorecard dimension: significance",
+          "output": "Score: 0/3",
+          "predict_baseline": "3.0",
+          "predict_our_method": "0.0",
+          "eval_score": 0.0
+        },
+        {
+          "input": "Scorecard dimension: classification_evidence",
+          "output": "Score: 3/3",
+          "predict_baseline": "3.0",
+          "predict_our_method": "3.0",
+          "eval_score": 3.0
+        }
+      ]
+    }
+  ]
+}

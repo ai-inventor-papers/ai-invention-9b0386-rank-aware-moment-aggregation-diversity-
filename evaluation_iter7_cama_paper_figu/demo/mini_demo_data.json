@@ -1,0 +1,159 @@
+{
+  "cohens_d": {
+    "rel-amazon/item-ltv": {
+      "d": 13.576388879112448,
+      "ci_low": 10.576388879112448,
+      "ci_high": 16.57638887911245,
+      "p_value": 0.001,
+      "task_type": "regression",
+      "metric": "mae"
+    },
+    "rel-avito/ad-ctr": {
+      "d": -0.8227,
+      "ci_low": -2.1137,
+      "ci_high": 0.4683,
+      "p_value": 0.05,
+      "task_type": "regression",
+      "metric": "mae"
+    },
+    "rel-f1/driver-dnf": {
+      "d": 0.505,
+      "ci_low": -0.7437,
+      "ci_high": 3.6203,
+      "p_value": 0.01,
+      "task_type": "classification",
+      "metric": "average_precision"
+    },
+    "rel-f1/driver-position": {
+      "d": -0.2515,
+      "ci_low": -2.6277,
+      "ci_high": 1.0794,
+      "p_value": 0.1,
+      "task_type": "regression",
+      "metric": "mae"
+    },
+    "rel-stack/post-votes": {
+      "d": 0.0,
+      "ci_low": 0.0,
+      "ci_high": 0.0,
+      "p_value": 1.0,
+      "task_type": "regression",
+      "metric": "mae"
+    },
+    "rel-stack/user-engagement": {
+      "d": 7.9519744098092175,
+      "ci_low": 6.974429593401235,
+      "ci_high": 15.720036586419182,
+      "p_value": 0.001,
+      "task_type": "classification",
+      "metric": "roc_auc"
+    },
+    "rel-trial/study-adverse": {
+      "d": -2.4515943053027023,
+      "ci_low": -7.6845845393920325,
+      "ci_high": -1.3314793995188083,
+      "p_value": 0.01,
+      "task_type": "regression",
+      "metric": "mae"
+    },
+    "rel-trial/study-outcome": {
+      "d": 0.1414803269145083,
+      "ci_low": -1.5019240756329182,
+      "ci_high": 1.4356374187351708,
+      "p_value": 0.2,
+      "task_type": "classification",
+      "metric": "average_precision"
+    }
+  },
+  "compression_edges": [
+    {"task": "rel-f1/driver-dnf", "edge_type": "layer_0/races__rev_f2p_raceId__standings", "compression_ratio": 1.0, "cardinality": 1.0, "svd_rank": 1.0},
+    {"task": "rel-f1/driver-dnf", "edge_type": "layer_0/standings__f2p_driverId__drivers", "compression_ratio": 0.385463, "cardinality": 49.22, "svd_rank": 13.490431},
+    {"task": "rel-f1/driver-dnf", "edge_type": "layer_0/drivers__rev_f2p_driverId__standings", "compression_ratio": 1.0, "cardinality": 1.0, "svd_rank": 1.0},
+    {"task": "rel-trial/study-adverse", "edge_type": "layer_0/designs__f2p_nct_id__studies", "compression_ratio": 1.0, "cardinality": 1.0, "svd_rank": 1.0},
+    {"task": "rel-trial/study-adverse", "edge_type": "layer_0/studies__rev_f2p_nct_id__designs", "compression_ratio": 1.0, "cardinality": 1.0, "svd_rank": 1.0},
+    {"task": "rel-trial/study-adverse", "edge_type": "layer_0/eligibilities__f2p_nct_id__studies", "compression_ratio": 1.0, "cardinality": 1.0, "svd_rank": 1.0},
+    {"task": "rel-stack/user-engagement", "edge_type": "layer_0/comments__f2p_UserId__users", "compression_ratio": 0.601961, "cardinality": 7.854, "svd_rank": 1.834057},
+    {"task": "rel-stack/user-engagement", "edge_type": "layer_0/users__rev_f2p_UserId__comments", "compression_ratio": 1.0, "cardinality": 1.0, "svd_rank": 1.0},
+    {"task": "rel-stack/user-engagement", "edge_type": "layer_0/comments__f2p_PostId__posts", "compression_ratio": 0.583025, "cardinality": 3.241, "svd_rank": 1.259233}
+  ],
+  "spectral": {
+    "mean_compression_ratio": 0.842,
+    "rank_collapse_observed": true,
+    "cross_task": {}
+  },
+  "gate_analysis_exp2_it4": {
+    "study-outcome": {
+      "L0_designs__f2p_nct_id__studies": {"mean_across_seeds": 0.502},
+      "L0_studies__rev_f2p_nct_id__designs": {"mean_across_seeds": 0.498},
+      "L0_eligibilities__f2p_nct_id__studies": {"mean_across_seeds": 0.511},
+      "L1:designs__f2p_nct_id__studies": {"mean_across_seeds": 0.496},
+      "L1:studies__rev_f2p_nct_id__designs": {"mean_across_seeds": 0.503}
+    },
+    "study-adverse": {
+      "L0_designs__f2p_nct_id__studies": {"mean_across_seeds": 0.487},
+      "L0_studies__rev_f2p_nct_id__designs": {"mean_across_seeds": 0.512},
+      "L0_eligibilities__f2p_nct_id__studies": {"mean_across_seeds": 0.495},
+      "L1:designs__f2p_nct_id__studies": {"mean_across_seeds": 0.508},
+      "L1:studies__rev_f2p_nct_id__designs": {"mean_across_seeds": 0.491}
+    },
+    "user-engagement": {
+      "L0_comments__f2p_UserId__users": {"mean_across_seeds": 0.523},
+      "L0_users__rev_f2p_UserId__comments": {"mean_across_seeds": 0.489},
+      "L0_comments__f2p_PostId__posts": {"mean_across_seeds": 0.515},
+      "L1:comments__f2p_UserId__users": {"mean_across_seeds": 0.501},
+      "L1:users__rev_f2p_UserId__comments": {"mean_across_seeds": 0.497}
+    }
+  },
+  "ablation": {
+    "per_method_results": {
+      "standard_mean": {"mean_mae": 3.8102, "std_mae": 0.0069},
+      "mean_layernorm": {"mean_mae": 3.847, "std_mae": 0.0236},
+      "ungated_moment": {"mean_mae": 3.7742, "std_mae": 0.0275},
+      "rama_full": {"mean_mae": 3.6526, "std_mae": 0.0175},
+      "pna_style": {"mean_mae": 3.7754, "std_mae": 0.0504},
+      "rama_no_rank": {"mean_mae": 3.6492, "std_mae": 0.0299}
+    },
+    "hypothesis_tests": {
+      "rama_vs_baseline": {"d": 11.82, "p_value": 0.001},
+      "gating_necessity": {"d": 5.28, "p_value": 0.001},
+      "rama_vs_pna": {"d": 3.25, "p_value": 0.001}
+    }
+  },
+  "table1_f1": {
+    "driver-position": {
+      "mean": {"test_mae_mean": 3.8102},
+      "sum": {"test_mae_mean": 3.7912},
+      "mean_cama": {"test_mae_mean": 3.6526}
+    },
+    "driver-dnf": {
+      "mean": {"test_ap_mean": 0.312},
+      "sum": {"test_ap_mean": 0.318},
+      "mean_cama": {"test_ap_mean": 0.335}
+    }
+  },
+  "rank_analysis": {
+    "mean_aggregation": {"entity_embeddings": {"erank": 18.01}},
+    "sum_aggregation": {"entity_embeddings": {"erank": 22.53}},
+    "collapse_ratio": 0.80
+  },
+  "sum_vs_mean_rank": {
+    "grand_mean_rank_ratio": 0.98
+  },
+  "stack_updated": {},
+  "metrics_agg": {
+    "figure_generation_success_count": 3,
+    "figure_generation_total": 3,
+    "placeholder_fill_rate": 1.0,
+    "placeholder_filled": 16,
+    "placeholder_total": 16,
+    "latex_compilation_success": 1,
+    "table_completeness": 2,
+    "bibliography_completeness": 18,
+    "tasks_evaluated": 8,
+    "pooled_cohens_d": 0.84,
+    "classification_pooled_d": 2.87,
+    "regression_pooled_d": 2.01,
+    "compression_ratio": 0.842,
+    "gate_stasis_pct": 70.0
+  }
+}

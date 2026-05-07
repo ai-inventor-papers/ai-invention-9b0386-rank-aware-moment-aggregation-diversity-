@@ -1,0 +1,9 @@
+[project]
+name = "synthetic-relational-rank-collapse-testbed"
+version = "1.0.0"
+requires-python = ">=3.11,<3.12"
+dependencies = [
+    "loguru==0.7.3",
+    "numpy==2.4.3",
+    "scipy==1.17.1",
+]

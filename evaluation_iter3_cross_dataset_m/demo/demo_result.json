@@ -1,0 +1,13 @@
+{
+  "id": "eval_id1_it3__opus",
+  "type": "code",
+  "title": "Cross-Dataset Meta-Analysis of RAMA Experiments: Effect Sizes, Consistency Audit, and Framing Recommendation",
+  "summary": "Demo notebook performing a 6-phase cross-dataset meta-analysis of 5 RAMA experiments. Recomputes Phase A (per-task Cohen's d with 10K bootstrap CIs for 5 tasks) and Phase B (DerSimonian-Laird random-effects pooling), then displays pre-computed Phases C-E (consistency audit, degeneracy diagnosis, rank conditioning). Ends with a summary table and forest plot visualization. Uses 50 examples across 5 tasks (rel-f1, rel-stack, rel-amazon). Full original N_BOOTSTRAP=10000 runs in ~113s.",
+  "original_path": "/ai-inventor/aii_pipeline/runs/leskovec-predictive-residual-message-passing-v2_sti/3_invention_loop/iter_3/gen_art/eval_id1_it3__opus",
+  "demo_path": "/ai-inventor/aii_pipeline/runs/leskovec-predictive-residual-message-passing-v2_sti/4_gen_paper_repo/eval_id1_it3__opus",
+  "out_expected_files": {
+    "notebook": "code_demo.ipynb",
+    "mini_data_file": "mini_demo_data.json"
+  },
+  "notebook_path": "/ai-inventor/aii_pipeline/runs/leskovec-predictive-residual-message-passing-v2_sti/4_gen_paper_repo/eval_id1_it3__opus/eval_code_demo.ipynb"
+}

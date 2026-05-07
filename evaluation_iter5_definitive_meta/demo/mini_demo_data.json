@@ -1,0 +1,1262 @@
+{
+  "task_results": [
+    {
+      "exp_id": "exp_id1_it2",
+      "iteration": 2,
+      "dataset": "synthetic",
+      "task": "synthetic-regression",
+      "task_type": "regression",
+      "metric_name": "mse",
+      "higher_is_better": false,
+      "baseline_seeds": [
+        0.6850196695592313
+      ],
+      "method_seeds": [
+        0.7211538087487475
+      ],
+      "method_name": "RAMA",
+      "architecture": "Synthetic-MLP",
+      "epochs_planned": 100,
+      "epochs_actual": 100,
+      "eval_split": "test",
+      "val_test_identical": false,
+      "gate_stats": null,
+      "grade_flags": [
+        "synthetic_data",
+        "no_individual_seeds_for_pooled"
+      ]
+    },
+    {
+      "exp_id": "exp_id1_it2",
+      "iteration": 2,
+      "dataset": "synthetic",
+      "task": "synthetic-classification",
+      "task_type": "classification",
+      "metric_name": "auroc",
+      "higher_is_better": true,
+      "baseline_seeds": [
+        0.9241035799794778
+      ],
+      "method_seeds": [
+        0.9813191198267017
+      ],
+      "method_name": "RAMA",
+      "architecture": "Synthetic-MLP",
+      "epochs_planned": 100,
+      "epochs_actual": 100,
+      "eval_split": "test",
+      "val_test_identical": false,
+      "gate_stats": null,
+      "grade_flags": [
+        "synthetic_data",
+        "no_individual_seeds_for_pooled"
+      ]
+    },
+    {
+      "exp_id": "exp_id2_it2",
+      "iteration": 2,
+      "dataset": "rel-f1",
+      "task": "driver-dnf",
+      "task_type": "classification",
+      "metric_name": "average_precision",
+      "higher_is_better": true,
+      "baseline_seeds": [
+        0.7950333907357282,
+        0.8177504123884184,
+        0.8269220781526876,
+        0.8124301761365403,
+        0.8443737845247097
+      ],
+      "method_seeds": [
+        0.8456994749397551,
+        0.8368019324041696,
+        0.8207422041417229,
+        0.8290436159097156,
+        0.8523934251198577
+      ],
+      "method_name": "RAMA",
+      "architecture": "HeteroSAGE",
+      "epochs_planned": 10,
+      "epochs_actual": 10,
+      "eval_split": "test",
+      "val_test_identical": false,
+      "gate_stats": null,
+      "grade_flags": []
+    },
+    {
+      "exp_id": "exp_id2_it2",
+      "iteration": 2,
+      "dataset": "rel-f1",
+      "task": "driver-position",
+      "task_type": "regression",
+      "metric_name": "mae",
+      "higher_is_better": false,
+      "baseline_seeds": [
+        4.841560936810677,
+        4.45357943304798,
+        4.099334180396901,
+        4.180567880847998,
+        4.232090155199955
+      ],
+      "method_seeds": [
+        4.0987113916664795,
+        4.808407909451869,
+        5.12240561493656,
+        4.296737359239344,
+        4.383335586932668
+      ],
+      "method_name": "RAMA",
+      "architecture": "HeteroSAGE",
+      "epochs_planned": 10,
+      "epochs_actual": 10,
+      "eval_split": "test",
+      "val_test_identical": false,
+      "gate_stats": null,
+      "grade_flags": []
+    },
+    {
+      "exp_id": "exp_id3_it2",
+      "iteration": 2,
+      "dataset": "rel-stack",
+      "task": "post-votes",
+      "task_type": "regression",
+      "metric_name": "mae",
+      "higher_is_better": false,
+      "baseline_seeds": [
+        0.06169022247195244,
+        0.06169022247195244,
+        0.06169022247195244,
+        0.06169022247195244,
+        0.06169022247195244
+      ],
+      "method_seeds": [
+        0.06169022247195244,
+        0.06169022247195244,
+        0.06169022247195244,
+        0.06169022247195244,
+        0.06169022247195244
+      ],
+      "method_name": "RAMA",
+      "architecture": "HeteroSAGE",
+      "epochs_planned": 10,
+      "epochs_actual": 5,
+      "eval_split": "test",
+      "val_test_identical": false,
+      "gate_stats": null,
+      "grade_flags": []
+    },
+    {
+      "exp_id": "exp_id3_it2",
+      "iteration": 2,
+      "dataset": "rel-stack",
+      "task": "user-engagement",
+      "task_type": "classification",
+      "metric_name": "roc_auc",
+      "higher_is_better": true,
+      "baseline_seeds": [
+        0.86552020133269,
+        0.8718822755789892,
+        0.8691182574908574,
+        0.8700174483764115,
+        0.8692848980591109
+      ],
+      "method_seeds": [
+        0.8871389918163342,
+        0.8746151590233068,
+        0.8787653013972478,
+        0.8847528675156101,
+        0.883087943369819
+      ],
+      "method_name": "RAMA",
+      "architecture": "HeteroSAGE",
+      "epochs_planned": 10,
+      "epochs_actual": 5,
+      "eval_split": "test",
+      "val_test_identical": false,
+      "gate_stats": null,
+      "grade_flags": []
+    },
+    {
+      "exp_id": "exp_id4_it2",
+      "iteration": 2,
+      "dataset": "rel-amazon",
+      "task": "item-ltv",
+      "task_type": "regression",
+      "metric_name": "mae",
+      "higher_is_better": false,
+      "baseline_seeds": [
+        48.26576188920972,
+        48.71588040713536,
+        49.092439115122424,
+        48.89154843811949,
+        48.91503316912225
+      ],
+      "method_seeds": [
+        45.28614090133399,
+        44.56637704505756,
+        45.2239108090888,
+        45.300350531208075,
+        44.58795545316775
+      ],
+      "method_name": "RAMA",
+      "architecture": "HeteroSAGE",
+      "epochs_planned": 10,
+      "epochs_actual": 10,
+      "eval_split": "val",
+      "val_test_identical": false,
+      "gate_stats": {
+        "seed_42": {},
+        "seed_123": {},
+        "seed_456": {},
+        "seed_789": {},
+        "seed_1024": {}
+      },
+      "grade_flags": []
+    },
+    {
+      "exp_id": "exp_id5_it2",
+      "iteration": 2,
+      "dataset": "rel-f1",
+      "task": "driver-position",
+      "task_type": "regression",
+      "metric_name": "mae",
+      "higher_is_better": false,
+      "baseline_seeds": [
+        3.8072,
+        3.8053,
+        3.8091,
+        3.8223,
+        3.8069
+      ],
+      "method_seeds": [
+        3.6688,
+        3.673,
+        3.6449,
+        3.6323,
+        3.6438
+      ],
+      "method_name": "RAMA",
+      "architecture": "HeteroSAGE",
+      "epochs_planned": 10,
+      "epochs_actual": 10,
+      "eval_split": "test",
+      "val_test_identical": false,
+      "gate_stats": null,
+      "grade_flags": []
+    },
+    {
+      "exp_id": "exp_id2_it3",
+      "iteration": 3,
+      "dataset": "rel-avito",
+      "task": "ad-ctr",
+      "task_type": "regression",
+      "metric_name": "mae",
+      "higher_is_better": false,
+      "baseline_seeds": [
+        0.048246119171381,
+        0.04495038092136383,
+        0.04272809997200966,
+        0.043879639357328415,
+        0.07157958298921585
+      ],
+      "method_seeds": [
+        0.04033658280968666,
+        0.05641433596611023,
+        0.061262596398591995,
+        0.11100445687770844,
+        0.06686963886022568
+      ],
+      "method_name": "RAMA",
+      "architecture": "HeteroSAGE",
+      "epochs_planned": 10,
+      "epochs_actual": 10,
+      "eval_split": "val",
+      "val_test_identical": false,
+      "gate_stats": {
+        "L0_PhoneRequestsStream__f2p_AdID__AdsInfo": {
+          "mean_gate": 0.5,
+          "mean_N": 0.0,
+          "max_N": 0.0,
+          "mean_rho": 0.0002
+        },
+        "L0_VisitStream__f2p_AdID__AdsInfo": {
+          "mean_gate": 0.5,
+          "mean_N": 0.0,
+          "max_N": 0.0,
+          "mean_rho": 0.0002
+        },
+        "L0_SearchStream__f2p_SearchID__SearchInfo": {
+          "mean_gate": 0.5,
+          "mean_N": 0.0,
+          "max_N": 0.0,
+          "mean_rho": 0.0002
+        },
+        "L0_SearchInfo__rev_f2p_SearchID__SearchStream": {
+          "mean_gate": 0.5,
+          "mean_N": 1.0,
+          "max_N": 1.0,
+          "mean_rho": 0.0002
+        },
+        "L0_SearchStream__f2p_AdID__AdsInfo": {
+          "mean_gate": 0.5,
+          "mean_N": 13.02,
+          "max_N": 64.0,
+          "mean_rho": 0.0002
+        },
+        "L0_AdsInfo__rev_f2p_AdID__SearchStream": {
+          "mean_gate": 0.5,
+          "mean_N": 1.0,
+          "max_N": 1.0,
+          "mean_rho": 0.0002
+        },
+        "L0_UserInfo__rev_f2p_UserID__SearchInfo": {
+          "mean_gate": 0.5,
+          "mean_N": 0.0,
+          "max_N": 0.0,
+          "mean_rho": 0.0002
+        },
+        "L0_Location__rev_f2p_LocationID__SearchInfo": {
+          "mean_gate": 0.5,
+          "mean_N": 0.0,
+          "max_N": 0.0,
+          "mean_rho": 0.0002
+        },
+        "L0_SearchInfo__f2p_CategoryID__Category": {
+          "mean_gate": 0.5,
+          "mean_N": 32.0,
+          "max_N": 32.0,
+          "mean_rho": 0.0002
+        },
+        "L0_Category__rev_f2p_CategoryID__SearchInfo": {
+          "mean_gate": 0.5,
+          "mean_N": 0.0,
+          "max_N": 0.0,
+          "mean_rho": 0.0002
+        },
+        "L0_Location__rev_f2p_LocationID__AdsInfo": {
+          "mean_gate": 0.5,
+          "mean_N": 0.0,
+          "max_N": 0.0,
+          "mean_rho": 0.0002
+        },
+        "L0_AdsInfo__f2p_CategoryID__Category": {
+          "mean_gate": 0.5,
+          "mean_N": 32.0,
+          "max_N": 32.0,
+          "mean_rho": 0.0002
+        },
+        "L0_Category__rev_f2p_CategoryID__AdsInfo": {
+          "mean_gate": 0.5,
+          "mean_N": 0.22,
+          "max_N": 1.0,
+          "mean_rho": 0.0002
+        },
+        "L1_PhoneRequestsStream__f2p_AdID__AdsInfo": {
+          "mean_gate": 0.5,
+          "mean_N": 0.0,
+          "max_N": 0.0,
+          "mean_rho": 0.0002
+        },
+        "L1_VisitStream__f2p_AdID__AdsInfo": {
+          "mean_gate": 0.5,
+          "mean_N": 0.0,
+          "max_N": 0.0,
+          "mean_rho": 0.0002
+        },
+        "L1_SearchStream__f2p_SearchID__SearchInfo": {
+          "mean_gate": 0.5,
+          "mean_N": 0.0,
+          "max_N": 0.0,
+          "mean_rho": 0.0002
+        },
+        "L1_SearchInfo__rev_f2p_SearchID__SearchStream": {
+          "mean_gate": 0.5,
+          "mean_N": 1.0,
+          "max_N": 1.0,
+          "mean_rho": 0.0002
+        },
+        "L1_SearchStream__f2p_AdID__AdsInfo": {
+          "mean_gate": 0.5,
+          "mean_N": 13.02,
+          "max_N": 64.0,
+          "mean_rho": 0.0106
+        },
+        "L1_AdsInfo__rev_f2p_AdID__SearchStream": {
+          "mean_gate": 0.5,
+          "mean_N": 1.0,
+          "max_N": 1.0,
+          "mean_rho": 0.0002
+        },
+        "L1_UserInfo__rev_f2p_UserID__SearchInfo": {
+          "mean_gate": 0.5,
+          "mean_N": 0.0,
+          "max_N": 0.0,
+          "mean_rho": 0.0002
+        },
+        "L1_Location__rev_f2p_LocationID__SearchInfo": {
+          "mean_gate": 0.5,
+          "mean_N": 0.0,
+          "max_N": 0.0,
+          "mean_rho": 0.0002
+        },
+        "L1_SearchInfo__f2p_CategoryID__Category": {
+          "mean_gate": 0.5,
+          "mean_N": 32.0,
+          "max_N": 32.0,
+          "mean_rho": 0.0174
+        },
+        "L1_Category__rev_f2p_CategoryID__SearchInfo": {
+          "mean_gate": 0.5,
+          "mean_N": 0.0,
+          "max_N": 0.0,
+          "mean_rho": 0.0002
+        },
+        "L1_Location__rev_f2p_LocationID__AdsInfo": {
+          "mean_gate": 0.5,
+          "mean_N": 0.0,
+          "max_N": 0.0,
+          "mean_rho": 0.0002
+        },
+        "L1_AdsInfo__f2p_CategoryID__Category": {
+          "mean_gate": 0.5,
+          "mean_N": 32.0,
+          "max_N": 32.0,
+          "mean_rho": 0.0711
+        },
+        "L1_Category__rev_f2p_CategoryID__AdsInfo": {
+          "mean_gate": 0.5,
+          "mean_N": 0.22,
+          "max_N": 1.0,
+          "mean_rho": 0.0002
+        }
+      },
+      "grade_flags": []
+    },
+    {
+      "exp_id": "exp_id3_it3",
+      "iteration": 3,
+      "dataset": "rel-f1",
+      "task": "driver-position",
+      "task_type": "regression",
+      "metric_name": "mae",
+      "higher_is_better": false,
+      "baseline_seeds": [
+        4.567229895926358,
+        3.98049121998904,
+        4.190010654298883,
+        4.097977528446599,
+        4.571013244034951
+      ],
+      "method_seeds": [
+        4.499982705199928,
+        4.665570769644621,
+        4.079634210603279,
+        4.10221525301013,
+        4.5313226033511915
+      ],
+      "method_name": "RAMA",
+      "architecture": "RelGNN",
+      "epochs_planned": 10,
+      "epochs_actual": 10,
+      "eval_split": "test",
+      "val_test_identical": false,
+      "gate_stats": {
+        "seed_42": {},
+        "seed_123": {},
+        "seed_456": {},
+        "seed_789": {},
+        "seed_1024": {}
+      },
+      "grade_flags": []
+    },
+    {
+      "exp_id": "exp_id3_it3",
+      "iteration": 3,
+      "dataset": "rel-amazon",
+      "task": "item-ltv",
+      "task_type": "regression",
+      "metric_name": "mae",
+      "higher_is_better": false,
+      "baseline_seeds": [
+        59.08366661659803,
+        55.33343596739759,
+        58.99299352472994,
+        58.21226415141676,
+        56.24685383196195
+      ],
+      "method_seeds": [
+        58.32935410193428,
+        56.8316073553107,
+        59.192890196443344,
+        57.81539337772502,
+        57.78040335729604
+      ],
+      "method_name": "RAMA",
+      "architecture": "RelGNN",
+      "epochs_planned": 10,
+      "epochs_actual": 10,
+      "eval_split": "test",
+      "val_test_identical": false,
+      "gate_stats": {
+        "seed_42": {},
+        "seed_123": {},
+        "seed_456": {},
+        "seed_789": {},
+        "seed_1024": {}
+      },
+      "grade_flags": []
+    },
+    {
+      "exp_id": "exp_id4_it3",
+      "iteration": 3,
+      "dataset": "rel-f1",
+      "task": "driver-dnf",
+      "task_type": "classification",
+      "metric_name": "average_precision",
+      "higher_is_better": true,
+      "baseline_seeds": [
+        0.9099550654323647,
+        0.9159591905976313,
+        0.9104068142923715,
+        0.9118730605665036,
+        0.9068381425469029
+      ],
+      "method_seeds": [
+        0.9312771053039239,
+        0.9256659018419424,
+        0.931772982134024,
+        0.9276900900440148,
+        0.9301852769392689
+      ],
+      "method_name": "RAMA",
+      "architecture": "HeteroSAGE",
+      "epochs_planned": 10,
+      "epochs_actual": 10,
+      "eval_split": "test",
+      "val_test_identical": false,
+      "gate_stats": {
+        "rel-f1/driver-position/rama_full/seed_42": {},
+        "rel-f1/driver-position/rama_no_rank/seed_42": {},
+        "rel-f1/driver-dnf/rama_full/seed_42": {},
+        "rel-f1/driver-dnf/rama_no_rank/seed_42": {}
+      },
+      "grade_flags": []
+    },
+    {
+      "exp_id": "exp_id4_it3",
+      "iteration": 3,
+      "dataset": "rel-f1",
+      "task": "driver-position",
+      "task_type": "regression",
+      "metric_name": "mae",
+      "higher_is_better": false,
+      "baseline_seeds": [
+        3.150008135154077,
+        3.1888955002238775,
+        3.1897892821368647,
+        3.229406296036286,
+        3.1842978781991267
+      ],
+      "method_seeds": [
+        2.861248427514004,
+        2.953404963422634,
+        2.905430403947034,
+        2.958617310342426,
+        3.0349841995723423
+      ],
+      "method_name": "RAMA",
+      "architecture": "HeteroSAGE",
+      "epochs_planned": 10,
+      "epochs_actual": 10,
+      "eval_split": "test",
+      "val_test_identical": false,
+      "gate_stats": {
+        "rel-f1/driver-position/rama_full/seed_42": {},
+        "rel-f1/driver-position/rama_no_rank/seed_42": {},
+        "rel-f1/driver-dnf/rama_full/seed_42": {},
+        "rel-f1/driver-dnf/rama_no_rank/seed_42": {}
+      },
+      "grade_flags": []
+    },
+    {
+      "exp_id": "exp_id5_it3",
+      "iteration": 3,
+      "dataset": "rel-trial",
+      "task": "study-outcome",
+      "task_type": "classification",
+      "metric_name": "average_precision",
+      "higher_is_better": true,
+      "baseline_seeds": [
+        0.604729,
+        0.605179,
+        0.604976,
+        0.602921,
+        0.601953
+      ],
+      "method_seeds": [
+        0.614273,
+        0.612048,
+        0.607142,
+        0.63545,
+        0.60979
+      ],
+      "method_name": "RAMA",
+      "architecture": "HeteroSAGE",
+      "epochs_planned": 20,
+      "epochs_actual": 20,
+      "eval_split": "test",
+      "val_test_identical": false,
+      "gate_stats": null,
+      "grade_flags": []
+    },
+    {
+      "exp_id": "exp_id5_it3",
+      "iteration": 3,
+      "dataset": "rel-trial",
+      "task": "study-adverse",
+      "task_type": "regression",
+      "metric_name": "mae",
+      "higher_is_better": false,
+      "baseline_seeds": [
+        56.530865,
+        56.531143,
+        56.533615,
+        56.532887,
+        56.529076
+      ],
+      "method_seeds": [
+        54.565117,
+        54.512314,
+        54.541225,
+        54.497784,
+        54.507675
+      ],
+      "method_name": "RAMA",
+      "architecture": "HeteroSAGE",
+      "epochs_planned": 20,
+      "epochs_actual": 20,
+      "eval_split": "test",
+      "val_test_identical": false,
+      "gate_stats": null,
+      "grade_flags": []
+    },
+    {
+      "exp_id": "exp_id1_it4",
+      "iteration": 4,
+      "dataset": "rel-f1",
+      "task": "driver-position",
+      "task_type": "regression",
+      "metric_name": "mae",
+      "higher_is_better": false,
+      "baseline_seeds": [
+        3.1753,
+        3.1665,
+        3.237,
+        3.2395,
+        3.2387
+      ],
+      "method_seeds": [
+        3.2747,
+        3.1534,
+        3.1602,
+        3.2691,
+        3.2636
+      ],
+      "method_name": "CAMA",
+      "architecture": "HeteroSAGE",
+      "epochs_planned": 10,
+      "epochs_actual": 10,
+      "eval_split": "val=test",
+      "val_test_identical": true,
+      "gate_stats": null,
+      "grade_flags": []
+    },
+    {
+      "exp_id": "exp_id1_it4",
+      "iteration": 4,
+      "dataset": "rel-f1",
+      "task": "driver-dnf",
+      "task_type": "classification",
+      "metric_name": "average_precision",
+      "higher_is_better": true,
+      "baseline_seeds": [
+        0.9017,
+        0.903,
+        0.9025,
+        0.9014,
+        0.9012
+      ],
+      "method_seeds": [
+        0.9039,
+        0.9006,
+        0.9034,
+        0.9013,
+        0.9035
+      ],
+      "method_name": "CAMA",
+      "architecture": "HeteroSAGE",
+      "epochs_planned": 10,
+      "epochs_actual": 10,
+      "eval_split": "val=test",
+      "val_test_identical": true,
+      "gate_stats": null,
+      "grade_flags": []
+    },
+    {
+      "exp_id": "exp_id2_it4",
+      "iteration": 4,
+      "dataset": "rel-trial",
+      "task": "study-outcome",
+      "task_type": "classification",
+      "metric_name": "average_precision",
+      "higher_is_better": true,
+      "baseline_seeds": [
+        0.755927569376385,
+        0.7101038745582352,
+        0.7350352769388384,
+        0.7390366967886864,
+        0.7446602257520347
+      ],
+      "method_seeds": [
+        0.7507153271354192,
+        0.7360529763960245,
+        0.7479189915307876,
+        0.7240892689375444,
+        0.7360071512015012
+      ],
+      "method_name": "CAMA",
+      "architecture": "HeteroSAGE",
+      "epochs_planned": 20,
+      "epochs_actual": 20,
+      "eval_split": "test",
+      "val_test_identical": false,
+      "gate_stats": null,
+      "grade_flags": []
+    },
+    {
+      "exp_id": "exp_id2_it4",
+      "iteration": 4,
+      "dataset": "rel-trial",
+      "task": "study-adverse",
+      "task_type": "regression",
+      "metric_name": "mae",
+      "higher_is_better": false,
+      "baseline_seeds": [
+        47.37018603590071,
+        47.17592330034546,
+        47.03038297093361,
+        46.973441062938825,
+        47.592728321439914
+      ],
+      "method_seeds": [
+        48.677395704693566,
+        48.832999656851094,
+        47.45089018355461,
+        48.05757355980282,
+        48.37858824680089
+      ],
+      "method_name": "CAMA",
+      "architecture": "HeteroSAGE",
+      "epochs_planned": 20,
+      "epochs_actual": 20,
+      "eval_split": "test",
+      "val_test_identical": false,
+      "gate_stats": {
+        "L0_designs__f2p_nct_id__studies": {
+          "mean_across_seeds": 0.5000000417232513,
+          "std_across_seeds": 4.2964986064291236e-07
+        },
+        "L0_studies__rev_f2p_nct_id__designs": {
+          "mean_across_seeds": 0.4999999403953552,
+          "std_across_seeds": 3.125693941623424e-07
+        },
+        "L0_eligibilities__f2p_nct_id__studies": {
+          "mean_across_seeds": 0.5000001072883606,
+          "std_across_seeds": 3.657802580014767e-07
+        },
+        "L0_studies__rev_f2p_nct_id__eligibilities": {
+          "mean_across_seeds": 0.5000000298023224,
+          "std_across_seeds": 2.0474867865225873e-07
+        },
+        "L0_drop_withdrawals__f2p_nct_id__studies": {
+          "mean_across_seeds": 0.5000000238418579,
+          "std_across_seeds": 5.778884717722331e-08
+        },
+        "L0_conditions_studies__f2p_nct_id__studies": {
+          "mean_across_seeds": 0.5090956330299378,
+          "std_across_seeds": 0.008359157471936081
+        },
+        "L0_studies__rev_f2p_nct_id__conditions_studies": {
+          "mean_across_seeds": 0.5,
+          "std_across_seeds": 1.5993604499100135e-07
+        },
+        "L0_conditions_studies__f2p_condition_id__conditions": {
+          "mean_across_seeds": 0.5,
+          "std_across_seeds": 0.0
+        },
+        "L0_conditions__rev_f2p_condition_id__conditions_studies": {
+          "mean_across_seeds": 0.5,
+          "std_across_seeds": 3.264680847556389e-08
+        },
+        "L0_outcomes__f2p_nct_id__studies": {
+          "mean_across_seeds": 0.4999999821186066,
+          "std_across_seeds": 1.606010625995097e-07
+        },
+        "L0_reported_event_totals__f2p_nct_id__studies": {
+          "mean_across_seeds": 0.5000000298023224,
+          "std_across_seeds": 2.132480599880018e-07
+        },
+        "L0_facilities_studies__f2p_nct_id__studies": {
+          "mean_across_seeds": 0.5756054043769836,
+          "std_across_seeds": 0.00922322990277115
+        },
+        "L0_studies__rev_f2p_nct_id__facilities_studies": {
+          "mean_across_seeds": 0.49999996423721316,
+          "std_across_seeds": 4.7683715820312496e-08
+        },
+        "L0_facilities_studies__f2p_facility_id__facilities": {
+          "mean_across_seeds": 0.5,
+          "std_across_seeds": 0.0
+        },
+        "L0_facilities__rev_f2p_facility_id__facilities_studies": {
+          "mean_across_seeds": 0.49999999403953554,
+          "std_across_seeds": 6.078504936209661e-08
+        },
+        "L0_sponsors_studies__f2p_nct_id__studies": {
+          "mean_across_seeds": 0.4644035637378693,
+          "std_across_seeds": 0.002084322072153032
+        },
+        "L0_studies__rev_f2p_nct_id__sponsors_studies": {
+          "mean_across_seeds": 0.5000000178813935,
+          "std_across_seeds": 1.0595553418774114e-07
+        },
+        "L0_sponsors_studies__f2p_sponsor_id__sponsors": {
+          "mean_across_seeds": 0.5,
+          "std_across_seeds": 0.0
+        },
+        "L0_sponsors__rev_f2p_sponsor_id__sponsors_studies": {
+          "mean_across_seeds": 0.49999997615814207,
+          "std_across_seeds": 2.920019319991086e-08
+        },
+        "L0_outcome_analyses__f2p_nct_id__studies": {
+          "mean_across_seeds": 0.5000000119209289,
+          "std_across_seeds": 1.0761898806850784e-07
+        },
+        "L0_interventions_studies__f2p_nct_id__studies": {
+          "mean_across_seeds": 0.5476519823074341,
+          "std_across_seeds": 0.004227606864609871
+        },
+        "L0_studies__rev_f2p_nct_id__interventions_studies": {
+          "mean_across_seeds": 0.5000000298023224,
+          "std_across_seeds": 2.9321608248350245e-07
+        },
+        "L0_interventions_studies__f2p_intervention_id__interventions": {
+          "mean_across_seeds": 0.5,
+          "std_across_seeds": 0.0
+        },
+        "L0_interventions__rev_f2p_intervention_id__interventions_studies": {
+          "mean_across_seeds": 0.5000000059604645,
+          "std_across_seeds": 2.920019319991086e-08
+        },
+        "L1_designs__f2p_nct_id__studies": {
+          "mean_across_seeds": 0.49999432563781737,
+          "std_across_seeds": 4.333548719714531e-07
+        },
+        "L1_studies__rev_f2p_nct_id__designs": {
+          "mean_across_seeds": 0.5,
+          "std_across_seeds": 0.0
+        },
+        "L1_eligibilities__f2p_nct_id__studies": {
+          "mean_across_seeds": 0.49999481439590454,
+          "std_across_seeds": 7.004496834479612e-07
+        },
+        "L1_studies__rev_f2p_nct_id__eligibilities": {
+          "mean_across_seeds": 0.5,
+          "std_across_seeds": 0.0
+        },
+        "L1_drop_withdrawals__f2p_nct_id__studies": {
+          "mean_across_seeds": 0.5000000476837159,
+          "std_across_seeds": 2.3841857910156248e-08
+        },
+        "L1_conditions_studies__f2p_nct_id__studies": {
+          "mean_across_seeds": 0.5026002347469329,
+          "std_across_seeds": 0.004957078207371095
+        },
+        "L1_studies__rev_f2p_nct_id__conditions_studies": {
+          "mean_across_seeds": 0.5,
+          "std_across_seeds": 0.0
+        },
+        "L1_conditions_studies__f2p_condition_id__conditions": {
+          "mean_across_seeds": 0.5,
+          "std_across_seeds": 0.0
+        },
+        "L1_conditions__rev_f2p_condition_id__conditions_studies": {
+          "mean_across_seeds": 0.5,
+          "std_across_seeds": 0.0
+        },
+        "L1_outcomes__f2p_nct_id__studies": {
+          "mean_across_seeds": 0.5000000596046448,
+          "std_across_seeds": 6.529361695112778e-08
+        },
+        "L1_reported_event_totals__f2p_nct_id__studies": {
+          "mean_across_seeds": 0.49999997615814207,
+          "std_across_seeds": 5.778884717722332e-08
+        },
+        "L1_facilities_studies__f2p_nct_id__studies": {
+          "mean_across_seeds": 0.5538920998573303,
+          "std_across_seeds": 0.012131123704363443
+        },
+        "L1_studies__rev_f2p_nct_id__facilities_studies": {
+          "mean_across_seeds": 0.5,
+          "std_across_seeds": 0.0
+        },
+        "L1_facilities_studies__f2p_facility_id__facilities": {
+          "mean_across_seeds": 0.5,
+          "std_across_seeds": 0.0
+        },
+        "L1_facilities__rev_f2p_facility_id__facilities_studies": {
+          "mean_across_seeds": 0.5,
+          "std_across_seeds": 0.0
+        },
+        "L1_sponsors_studies__f2p_nct_id__studies": {
+          "mean_across_seeds": 0.49090964794158937,
+          "std_across_seeds": 0.011394994954742289
+        },
+        "L1_studies__rev_f2p_nct_id__sponsors_studies": {
+          "mean_across_seeds": 0.5,
+          "std_across_seeds": 0.0
+        },
+        "L1_sponsors_studies__f2p_sponsor_id__sponsors": {
+          "mean_across_seeds": 0.5,
+          "std_across_seeds": 0.0
+        },
+        "L1_sponsors__rev_f2p_sponsor_id__sponsors_studies": {
+          "mean_across_seeds": 0.5,
+          "std_across_seeds": 0.0
+        },
+        "L1_outcome_analyses__f2p_nct_id__studies": {
+          "mean_across_seeds": 0.4999999821186066,
+          "std_across_seeds": 4.842304232499576e-08
+        },
+        "L1_interventions_studies__f2p_nct_id__studies": {
+          "mean_across_seeds": 0.5065369367599487,
+          "std_across_seeds": 0.0032513717853139947
+        },
+        "L1_studies__rev_f2p_nct_id__interventions_studies": {
+          "mean_across_seeds": 0.5,
+          "std_across_seeds": 0.0
+        },
+        "L1_interventions_studies__f2p_intervention_id__interventions": {
+          "mean_across_seeds": 0.5,
+          "std_across_seeds": 0.0
+        },
+        "L1_interventions__rev_f2p_intervention_id__interventions_studies": {
+          "mean_across_seeds": 0.5,
+          "std_across_seeds": 0.0
+        }
+      },
+      "grade_flags": []
+    },
+    {
+      "exp_id": "exp_id2_it4",
+      "iteration": 4,
+      "dataset": "rel-stack",
+      "task": "user-engagement",
+      "task_type": "classification",
+      "metric_name": "roc_auc",
+      "higher_is_better": true,
+      "baseline_seeds": [
+        0.9006495529393646,
+        0.8990129761762643,
+        0.89860945224255,
+        0.9003556110154783,
+        0.899980173247469
+      ],
+      "method_seeds": [
+        0.9055085152464528,
+        0.9061062086895685,
+        0.9051057146343187,
+        0.9048552469984501,
+        0.9059849591881644
+      ],
+      "method_name": "CAMA",
+      "architecture": "HeteroSAGE",
+      "epochs_planned": 20,
+      "epochs_actual": 20,
+      "eval_split": "test",
+      "val_test_identical": false,
+      "gate_stats": {
+        "L0_comments__f2p_UserId__users": {
+          "mean_across_seeds": 0.4022660911083221,
+          "std_across_seeds": 0.010857085468144996
+        },
+        "L0_users__rev_f2p_UserId__comments": {
+          "mean_across_seeds": 0.4999998450279236,
+          "std_across_seeds": 1.8019934246338577e-07
+        },
+        "L0_comments__f2p_PostId__posts": {
+          "mean_across_seeds": 0.4242811858654022,
+          "std_across_seeds": 0.0076784869402777515
+        },
+        "L0_posts__rev_f2p_PostId__comments": {
+          "mean_across_seeds": 0.4999999821186066,
+          "std_across_seeds": 2.3207571904577954e-07
+        },
+        "L0_badges__f2p_UserId__users": {
+          "mean_across_seeds": 0.2470279335975647,
+          "std_across_seeds": 0.024861092628605683
+        },
+        "L0_users__rev_f2p_UserId__badges": {
+          "mean_across_seeds": 0.5000002682209015,
+          "std_across_seeds": 5.182520179577865e-07
+        },
+        "L0_postLinks__f2p_PostId__posts": {
+          "mean_across_seeds": 0.42372812032699586,
+          "std_across_seeds": 0.036793637549095426
+        },
+        "L0_posts__rev_f2p_PostId__postLinks": {
+          "mean_across_seeds": 0.5,
+          "std_across_seeds": 0.0
+        },
+        "L0_postLinks__f2p_RelatedPostId__posts": {
+          "mean_across_seeds": 0.49275785088539126,
+          "std_across_seeds": 0.014731699294501157
+        },
+        "L0_posts__rev_f2p_RelatedPostId__postLinks": {
+          "mean_across_seeds": 0.5,
+          "std_across_seeds": 0.0
+        },
+        "L0_postHistory__f2p_PostId__posts": {
+          "mean_across_seeds": 0.4144072473049164,
+          "std_across_seeds": 0.011960893533297136
+        },
+        "L0_posts__rev_f2p_PostId__postHistory": {
+          "mean_across_seeds": 0.5000000655651092,
+          "std_across_seeds": 1.3113021850585939e-07
+        },
+        "L0_postHistory__f2p_UserId__users": {
+          "mean_across_seeds": 0.3545898973941803,
+          "std_across_seeds": 0.02398577010640249
+        },
+        "L0_users__rev_f2p_UserId__postHistory": {
+          "mean_across_seeds": 0.4999999821186066,
+          "std_across_seeds": 4.1876239944101087e-07
+        },
+        "L0_votes__f2p_PostId__posts": {
+          "mean_across_seeds": 0.4263553321361542,
+          "std_across_seeds": 0.019678175954046077
+        },
+        "L0_posts__rev_f2p_PostId__votes": {
+          "mean_across_seeds": 0.5,
+          "std_across_seeds": 0.0
+        },
+        "L0_votes__f2p_UserId__users": {
+          "mean_across_seeds": 0.3954335927963257,
+          "std_across_seeds": 0.014630506361416626
+        },
+        "L0_users__rev_f2p_UserId__votes": {
+          "mean_across_seeds": 0.5,
+          "std_across_seeds": 0.0
+        },
+        "L0_posts__f2p_OwnerUserId__users": {
+          "mean_across_seeds": 0.3583359241485596,
+          "std_across_seeds": 0.023261282387304016
+        },
+        "L0_users__rev_f2p_OwnerUserId__posts": {
+          "mean_across_seeds": 0.5000000715255737,
+          "std_across_seeds": 1.7438815639409772e-07
+        },
+        "L0_posts__f2p_ParentId__posts": {
+          "mean_across_seeds": 0.4867096126079559,
+          "std_across_seeds": 0.03732711404925609
+        },
+        "L0_posts__rev_f2p_ParentId__posts": {
+          "mean_across_seeds": 0.4999999701976776,
+          "std_across_seeds": 2.7573188558150236e-07
+        },
+        "L1_comments__f2p_UserId__users": {
+          "mean_across_seeds": 0.3716994345188141,
+          "std_across_seeds": 0.01651206932077191
+        },
+        "L1_users__rev_f2p_UserId__comments": {
+          "mean_across_seeds": 0.5,
+          "std_across_seeds": 0.0
+        },
+        "L1_comments__f2p_PostId__posts": {
+          "mean_across_seeds": 0.5,
+          "std_across_seeds": 0.0
+        },
+        "L1_posts__rev_f2p_PostId__comments": {
+          "mean_across_seeds": 0.5,
+          "std_across_seeds": 0.0
+        },
+        "L1_badges__f2p_UserId__users": {
+          "mean_across_seeds": 0.3156442761421204,
+          "std_across_seeds": 0.014821219059359736
+        },
+        "L1_users__rev_f2p_UserId__badges": {
+          "mean_across_seeds": 0.5,
+          "std_across_seeds": 0.0
+        },
+        "L1_postLinks__f2p_PostId__posts": {
+          "mean_across_seeds": 0.5,
+          "std_across_seeds": 0.0
+        },
+        "L1_posts__rev_f2p_PostId__postLinks": {
+          "mean_across_seeds": 0.5,
+          "std_across_seeds": 0.0
+        },
+        "L1_postLinks__f2p_RelatedPostId__posts": {
+          "mean_across_seeds": 0.5,
+          "std_across_seeds": 0.0
+        },
+        "L1_posts__rev_f2p_RelatedPostId__postLinks": {
+          "mean_across_seeds": 0.5,
+          "std_across_seeds": 0.0
+        },
+        "L1_postHistory__f2p_PostId__posts": {
+          "mean_across_seeds": 0.5,
+          "std_across_seeds": 0.0
+        },
+        "L1_posts__rev_f2p_PostId__postHistory": {
+          "mean_across_seeds": 0.5,
+          "std_across_seeds": 0.0
+        },
+        "L1_postHistory__f2p_UserId__users": {
+          "mean_across_seeds": 0.3531219124794006,
+          "std_across_seeds": 0.04190921585241981
+        },
+        "L1_users__rev_f2p_UserId__postHistory": {
+          "mean_across_seeds": 0.5,
+          "std_across_seeds": 0.0
+        },
+        "L1_votes__f2p_PostId__posts": {
+          "mean_across_seeds": 0.5,
+          "std_across_seeds": 0.0
+        },
+        "L1_posts__rev_f2p_PostId__votes": {
+          "mean_across_seeds": 0.5,
+          "std_across_seeds": 0.0
+        },
+        "L1_votes__f2p_UserId__users": {
+          "mean_across_seeds": 0.4261849939823151,
+          "std_across_seeds": 0.01815200235934706
+        },
+        "L1_users__rev_f2p_UserId__votes": {
+          "mean_across_seeds": 0.5,
+          "std_across_seeds": 0.0
+        },
+        "L1_posts__f2p_OwnerUserId__users": {
+          "mean_across_seeds": 0.37168666124343874,
+          "std_across_seeds": 0.016310569112157242
+        },
+        "L1_users__rev_f2p_OwnerUserId__posts": {
+          "mean_across_seeds": 0.5,
+          "std_across_seeds": 0.0
+        },
+        "L1_posts__f2p_ParentId__posts": {
+          "mean_across_seeds": 0.5,
+          "std_across_seeds": 0.0
+        },
+        "L1_posts__rev_f2p_ParentId__posts": {
+          "mean_across_seeds": 0.5,
+          "std_across_seeds": 0.0
+        }
+      },
+      "grade_flags": []
+    },
+    {
+      "exp_id": "exp_id3_it4",
+      "iteration": 4,
+      "dataset": "rel-amazon",
+      "task": "item-ltv",
+      "task_type": "regression",
+      "metric_name": "mae",
+      "higher_is_better": false,
+      "baseline_seeds": [
+        244.62124287377324,
+        59.79714517309985,
+        94.0115981975449,
+        389.1854029350224,
+        71.92995405199359
+      ],
+      "method_seeds": [
+        389.1854029350224,
+        389.1854029350224,
+        389.1854029350224,
+        389.1854029350224,
+        158.73519884188977
+      ],
+      "method_name": "CAMA",
+      "architecture": "HeteroSAGE",
+      "epochs_planned": 10,
+      "epochs_actual": 5,
+      "eval_split": "val",
+      "val_test_identical": false,
+      "gate_stats": null,
+      "grade_flags": []
+    },
+    {
+      "exp_id": "exp_id3_it4",
+      "iteration": 4,
+      "dataset": "rel-avito",
+      "task": "ad-ctr",
+      "task_type": "regression",
+      "metric_name": "mae",
+      "higher_is_better": false,
+      "baseline_seeds": [
+        0.04082965210666368,
+        0.03992330743944193,
+        0.03990635818495174,
+        0.046493200830915515,
+        0.046493200830915515
+      ],
+      "method_seeds": [
+        0.043458021608742785,
+        0.046493200830915515,
+        0.046493200830915515,
+        0.046493200830915515,
+        0.04081733979252915
+      ],
+      "method_name": "CAMA",
+      "architecture": "HeteroSAGE",
+      "epochs_planned": 10,
+      "epochs_actual": 5,
+      "eval_split": "val",
+      "val_test_identical": false,
+      "gate_stats": null,
+      "grade_flags": []
+    },
+    {
+      "exp_id": "exp_id3_it4",
+      "iteration": 4,
+      "dataset": "rel-avito",
+      "task": "ad-ctr-neg-init",
+      "task_type": "regression",
+      "metric_name": "mae",
+      "higher_is_better": false,
+      "baseline_seeds": [
+        0.04082965210666368,
+        0.03992330743944193,
+        0.03990635818495174,
+        0.046493200830915515,
+        0.046493200830915515
+      ],
+      "method_seeds": [
+        0.059053011700099835,
+        0.046493200830915515,
+        0.046493200830915515,
+        0.046493200830915515,
+        0.046493200830915515
+      ],
+      "method_name": "CAMA-neg-init",
+      "architecture": "HeteroSAGE",
+      "epochs_planned": 10,
+      "epochs_actual": 5,
+      "eval_split": "val",
+      "val_test_identical": false,
+      "gate_stats": null,
+      "grade_flags": []
+    }
+  ]
+}

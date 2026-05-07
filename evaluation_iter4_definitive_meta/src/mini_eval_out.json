@@ -1,0 +1,255 @@
+{
+  "metrics_agg": {
+    "green_only_pooled_d": 0.297377,
+    "green_only_pooled_d_ci_lo": -1.293829,
+    "green_only_pooled_d_ci_hi": 1.888583,
+    "green_only_pooled_d_p": 0.714141,
+    "green_only_I2": 66.7946,
+    "green_yellow_pooled_d": 1.609762,
+    "green_yellow_pooled_d_ci_lo": -0.095211,
+    "green_yellow_pooled_d_ci_hi": 3.314734,
+    "green_yellow_pooled_d_p": 0.064235,
+    "green_yellow_I2": 85.1308,
+    "relgnn_pooled_d": -0.329371,
+    "relgnn_pooled_d_ci_lo": -1.211854,
+    "relgnn_pooled_d_ci_hi": 0.553112,
+    "relgnn_pooled_d_p": 0.464453,
+    "allval_sensitivity_pooled_d": 4.619841,
+    "allval_sensitivity_pooled_d_ci_lo": 1.679148,
+    "allval_sensitivity_pooled_d_ci_hi": 7.560533,
+    "regression_subgroup_d": 1.866343,
+    "regression_subgroup_p": 0.276819,
+    "classification_subgroup_d": 1.772224,
+    "classification_subgroup_p": 0.002031,
+    "num_green_tasks": 2.0,
+    "num_yellow_tasks": 7.0,
+    "num_red_tasks": 2.0,
+    "num_total_experiments": 9.0,
+    "val_test_inflation_factor": 6.8126,
+    "avito_degradation_pct": 33.6154,
+    "avito_safety_pass": 1.0,
+    "publication_ready": 0.0
+  },
+  "datasets": [
+    {
+      "dataset": "evidence_classification",
+      "examples": [
+        {
+          "input": "exp_id1_it2",
+          "output": "SYNTHETIC/regression",
+          "metadata_task_name": "synthetic/regression",
+          "metadata_dataset": "synthetic",
+          "metadata_metric": "mse",
+          "metadata_eval_set": "test",
+          "metadata_architecture": "SyntheticMLP",
+          "metadata_evidence_grade": "SYNTHETIC",
+          "metadata_grade_reason": "Synthetic testbed for mechanism validation. Pooled regression d=2.36, classification d=3.83. Excluded from real-data meta-analysis.",
+          "metadata_n_seeds": 0
+        },
+        {
+          "input": "exp_id1_it2",
+          "output": "SYNTHETIC/classification",
+          "metadata_task_name": "synthetic/classification",
+          "metadata_dataset": "synthetic",
+          "metadata_metric": "accuracy",
+          "metadata_eval_set": "test",
+          "metadata_architecture": "SyntheticMLP",
+          "metadata_evidence_grade": "SYNTHETIC",
+          "metadata_grade_reason": "Synthetic testbed for mechanism validation. Excluded from real-data meta-analysis.",
+          "metadata_n_seeds": 0
+        },
+        {
+          "input": "exp_id2_it2",
+          "output": "GREEN/classification",
+          "metadata_task_name": "rel-f1/driver-dnf",
+          "metadata_dataset": "rel-f1",
+          "metadata_metric": "average_precision",
+          "metadata_eval_set": "test",
+          "metadata_architecture": "HeteroSAGE",
+          "metadata_evidence_grade": "GREEN",
+          "metadata_grade_reason": "test_epoch(loader_dict['test']) + task.evaluate(test_pred) at method.py:464-465. 5 seeds.",
+          "metadata_n_seeds": 5
+        }
+      ]
+    },
+    {
+      "dataset": "per_task_effect_sizes",
+      "examples": [
+        {
+          "input": "rel-f1/driver-dnf",
+          "output": "d=1.1250",
+          "metadata_experiment_id": "exp_id2_it2",
+          "metadata_evidence_grade": "GREEN",
+          "metadata_eval_set": "test",
+          "metadata_architecture": "HeteroSAGE",
+          "metadata_task_type": "classification",
+          "metadata_metric": "average_precision",
+          "metadata_higher_is_better": "True",
+          "metadata_n_seeds": "5",
+          "eval_cohens_d": 1.125019,
+          "eval_bootstrap_ci_lo": 0.167151,
+          "eval_bootstrap_ci_hi": 3.948409,
+          "eval_paired_ttest_p": 0.132793,
+          "eval_baseline_mean": 0.819302,
+          "eval_baseline_std": 0.018202,
+          "eval_rama_mean": 0.836936,
+          "eval_rama_std": 0.012652
+        },
+        {
+          "input": "rel-f1/driver-position",
+          "output": "d=-0.4990",
+          "metadata_experiment_id": "exp_id2_it2",
+          "metadata_evidence_grade": "GREEN",
+          "metadata_eval_set": "test",
+          "metadata_architecture": "HeteroSAGE",
+          "metadata_task_type": "regression",
+          "metadata_metric": "mae",
+          "metadata_higher_is_better": "False",
+          "metadata_n_seeds": "5",
+          "eval_cohens_d": -0.498962,
+          "eval_bootstrap_ci_lo": -2.808176,
+          "eval_bootstrap_ci_hi": 1.151515,
+          "eval_paired_ttest_p": 0.557837,
+          "eval_baseline_mean": 4.361427,
+          "eval_baseline_std": 0.298811,
+          "eval_rama_mean": 4.54192,
+          "eval_rama_std": 0.415234
+        },
+        {
+          "input": "rel-stack/post-votes",
+          "output": "d=0.0000",
+          "metadata_experiment_id": "exp_id3_it2",
+          "metadata_evidence_grade": "RED",
+          "metadata_eval_set": "test",
+          "metadata_architecture": "HeteroSAGE",
+          "metadata_task_type": "regression",
+          "metadata_metric": "mae",
+          "metadata_higher_is_better": "False",
+          "metadata_n_seeds": "5",
+          "eval_cohens_d": 0.0,
+          "eval_bootstrap_ci_lo": 0.0,
+          "eval_bootstrap_ci_hi": 0.0,
+          "eval_paired_ttest_p": 1.0,
+          "eval_baseline_mean": 0.06169,
+          "eval_baseline_std": 0.0,
+          "eval_rama_mean": 0.06169,
+          "eval_rama_std": 0.0
+        }
+      ]
+    },
+    {
+      "dataset": "forest_plot_data",
+      "examples": [
+        {
+          "input": "rel-amazon/item-ltv",
+          "output": "10.8281",
+          "metadata_ci_lo": 9.7114,
+          "metadata_ci_hi": 18.7717,
+          "metadata_weight": 0.1597,
+          "metadata_evidence_grade": "YELLOW",
+          "metadata_eval_set": "val",
+          "metadata_experiment_id": "exp_id4_it2",
+          "metadata_architecture": "HeteroSAGE",
+          "metadata_task_type": "regression"
+        },
+        {
+          "input": "rel-avito/ad-ctr",
+          "output": "-0.8227",
+          "metadata_ci_lo": -2.2854,
+          "metadata_ci_hi": 0.2058,
+          "metadata_weight": 2.305,
+          "metadata_evidence_grade": "YELLOW",
+          "metadata_eval_set": "val",
+          "metadata_experiment_id": "exp_id2_it3",
+          "metadata_architecture": "HeteroSAGE",
+          "metadata_task_type": "regression"
+        },
+        {
+          "input": "rel-f1/driver-dnf",
+          "output": "1.1250",
+          "metadata_ci_lo": 0.1672,
+          "metadata_ci_hi": 3.9484,
+          "metadata_weight": 2.1585,
+          "metadata_evidence_grade": "GREEN",
+          "metadata_eval_set": "test",
+          "metadata_experiment_id": "exp_id2_it2",
+          "metadata_architecture": "HeteroSAGE",
+          "metadata_task_type": "classification"
+        }
+      ]
+    },
+    {
+      "dataset": "meta_analysis_results",
+      "examples": [
+        {
+          "input": "GREEN_only_HeteroSAGE",
+          "output": "pooled_d=0.2974",
+          "metadata_n_tasks": "2",
+          "metadata_task_names": "rel-f1/driver-dnf; rel-f1/driver-position",
+          "eval_pooled_d": 0.297377,
+          "eval_se": 0.81184,
+          "eval_ci_lo": -1.293829,
+          "eval_ci_hi": 1.888583,
+          "eval_tau2": 0.880792,
+          "eval_I2": 66.7946,
+          "eval_Q": 3.011556,
+          "eval_Q_p": 0.082673,
+          "eval_z": 0.3663,
+          "eval_z_p": 0.714141
+        },
+        {
+          "input": "GREEN_YELLOW_HeteroSAGE",
+          "output": "pooled_d=1.6098",
+          "metadata_n_tasks": "6",
+          "metadata_task_names": "rel-amazon/item-ltv; rel-avito/ad-ctr; rel-f1/driver-dnf; rel-f1/driver-position; rel-stack/user-engagement; rel-trial/study-outcome",
+          "eval_pooled_d": 1.609762,
+          "eval_se": 0.869884,
+          "eval_ci_lo": -0.095211,
+          "eval_ci_hi": 3.314734,
+          "eval_tau2": 3.560731,
+          "eval_I2": 85.1308,
+          "eval_Q": 33.626581,
+          "eval_Q_p": 3e-06,
+          "eval_z": 1.850547,
+          "eval_z_p": 0.064235
+        },
+        {
+          "input": "GREEN_only_RelGNN",
+          "output": "pooled_d=-0.3294",
+          "metadata_n_tasks": "2",
+          "metadata_task_names": "rel-amazon/item-ltv; rel-f1/driver-position",
+          "eval_pooled_d": -0.329371,
+          "eval_se": 0.450247,
+          "eval_ci_lo": -1.211854,
+          "eval_ci_hi": 0.553112,
+          "eval_tau2": 0.0,
+          "eval_I2": 0.0,
+          "eval_Q": 0.001956,
+          "eval_Q_p": 0.964724,
+          "eval_z": -0.731534,
+          "eval_z_p": 0.464453
+        }
+      ]
+    },
+    {
+      "dataset": "publication_scorecard",
+      "examples": [
+        {
+          "input": "Q1: pooled_d > 0.4 with p < 0.05",
+          "output": "FAIL",
+          "metadata_detail": "GREEN-only pooled d=0.2974, p=0.7141"
+        },
+        {
+          "input": "Q2: works on both regression and classification",
+          "output": "FAIL",
+          "metadata_detail": "Regression pooled d=1.8663 p=0.2768, Classification pooled d=1.7722 p=0.0020"
+        },
+        {
+          "input": "Q3: Avito safe (no catastrophic failure)",
+          "output": "PASS",
+          "metadata_detail": "No catastrophic failure (R^2>-1.3 vs PRMP R^2=-5046), degradation=33.6%"
+        }
+      ]
+    }
+  ]
+}

@@ -1,0 +1,773 @@
+{
+  "description": "Pre-extracted effect sizes from 15 CAMA/RAMA experiments across iterations 2-5 for meta-analysis demo",
+  "all_effects": [
+    {
+      "exp_id": "exp_id1_it4",
+      "task": "rel-f1/driver-position",
+      "task_type": "regression",
+      "metric": "mae",
+      "direction": "lower_is_better",
+      "d": -0.2515,
+      "ci_lower": -1.496,
+      "ci_upper": 0.993,
+      "p_value": 0.5866,
+      "n_seeds": 5,
+      "baseline_seeds": [
+        0.45531,
+        0.455399,
+        0.548199,
+        0.580112,
+        0.442381
+      ],
+      "method_seeds": [
+        0.622523,
+        0.651982,
+        0.500187,
+        0.50715,
+        0.552128
+      ],
+      "epochs": 10,
+      "baseline_name": "mean",
+      "method_name": "mean_cama",
+      "grade": "GREEN",
+      "grade_flags": []
+    },
+    {
+      "exp_id": "exp_id1_it4",
+      "task": "rel-f1/driver-dnf",
+      "task_type": "classification",
+      "metric": "average_precision",
+      "direction": "higher_is_better",
+      "d": 0.505,
+      "ci_lower": -0.7542,
+      "ci_upper": 1.7642,
+      "p_value": 0.2698,
+      "n_seeds": 5,
+      "baseline_seeds": [
+        0.518439,
+        0.642986,
+        0.336908,
+        0.450198,
+        0.495694
+      ],
+      "method_seeds": [
+        0.610339,
+        0.397089,
+        0.646633,
+        0.511174,
+        0.53793
+      ],
+      "epochs": 10,
+      "baseline_name": "mean",
+      "method_name": "mean_cama",
+      "grade": "GREEN",
+      "grade_flags": []
+    },
+    {
+      "exp_id": "exp_id2_it2",
+      "task": "rel-f1/driver-dnf",
+      "task_type": "classification",
+      "metric": "average_precision",
+      "direction": "higher_is_better",
+      "d": 1.125,
+      "ci_lower": -0.2091,
+      "ci_upper": 2.4591,
+      "p_value": 0.132793,
+      "n_seeds": 5,
+      "baseline_seeds": [
+        0.426357,
+        0.305453,
+        0.414639,
+        0.454027,
+        0.471895
+      ],
+      "method_seeds": [
+        0.55532,
+        0.597085,
+        0.706826,
+        0.669693,
+        0.457927
+      ],
+      "epochs": 10,
+      "baseline_name": "mean",
+      "method_name": "rama",
+      "grade": "GREEN",
+      "grade_flags": []
+    },
+    {
+      "exp_id": "exp_id2_it2",
+      "task": "rel-f1/driver-position",
+      "task_type": "regression",
+      "metric": "mae",
+      "direction": "lower_is_better",
+      "d": -0.499,
+      "ci_lower": -1.7578,
+      "ci_upper": 0.7598,
+      "p_value": 0.557837,
+      "n_seeds": 5,
+      "baseline_seeds": [
+        0.566444,
+        0.46045,
+        0.657785,
+        0.378982,
+        0.424225
+      ],
+      "method_seeds": [
+        0.464803,
+        0.536504,
+        0.405625,
+        0.605835,
+        0.528687
+      ],
+      "epochs": 10,
+      "baseline_name": "mean",
+      "method_name": "rama",
+      "grade": "GREEN",
+      "grade_flags": []
+    },
+    {
+      "exp_id": "exp_id2_it3",
+      "task": "rel-avito/ad-ctr",
+      "task_type": "regression",
+      "metric": "mae",
+      "direction": "lower_is_better",
+      "d": -0.8227,
+      "ci_lower": -2.1137,
+      "ci_upper": 0.4683,
+      "p_value": 0.229557,
+      "n_seeds": 5,
+      "baseline_seeds": [
+        0.419481,
+        0.477361,
+        0.488865,
+        0.57187,
+        0.485825
+      ],
+      "method_seeds": [
+        0.707909,
+        0.743966,
+        0.64301,
+        0.69413,
+        0.652492
+      ],
+      "epochs": 10,
+      "baseline_name": "mean",
+      "method_name": "rama",
+      "grade": "GREEN",
+      "grade_flags": []
+    },
+    {
+      "exp_id": "exp_id2_it4",
+      "task": "rel-trial/study-outcome",
+      "task_type": "classification",
+      "metric": "auroc",
+      "direction": "higher_is_better",
+      "d": 0.1415,
+      "ci_lower": -1.0997,
+      "ci_upper": 1.3827,
+      "p_value": 0.829612,
+      "n_seeds": 5,
+      "baseline_seeds": [
+        0.68252,
+        0.599583,
+        0.547845,
+        0.593301,
+        0.522381
+      ],
+      "method_seeds": [
+        0.398873,
+        0.39151,
+        0.590028,
+        0.42342,
+        0.601248
+      ],
+      "epochs": 20,
+      "baseline_name": "mean",
+      "method_name": "cama",
+      "grade": "YELLOW",
+      "grade_flags": []
+    },
+    {
+      "exp_id": "exp_id2_it4",
+      "task": "rel-trial/study-adverse",
+      "task_type": "regression",
+      "metric": "mae",
+      "direction": "lower_is_better",
+      "d": -2.4516,
+      "ci_lower": -4.0921,
+      "ci_upper": -0.8111,
+      "p_value": 0.009249,
+      "n_seeds": 5,
+      "baseline_seeds": [
+        0.310666,
+        0.595627,
+        0.499468,
+        0.394051,
+        0.504792
+      ],
+      "method_seeds": [
+        0.94732,
+        0.794604,
+        0.837549,
+        0.773323,
+        0.655257
+      ],
+      "epochs": 20,
+      "baseline_name": "mean",
+      "method_name": "cama",
+      "grade": "YELLOW",
+      "grade_flags": []
+    },
+    {
+      "exp_id": "exp_id2_it4",
+      "task": "rel-stack/user-engagement",
+      "task_type": "classification",
+      "metric": "average_precision",
+      "direction": "higher_is_better",
+      "d": 7.952,
+      "ci_lower": 4.253,
+      "ci_upper": 11.651,
+      "p_value": 7e-06,
+      "n_seeds": 5,
+      "baseline_seeds": [
+        0.408447,
+        0.438717,
+        0.610425,
+        0.76995,
+        0.692464
+      ],
+      "method_seeds": [
+        1.42023,
+        1.077558,
+        1.296791,
+        1.244364,
+        1.297817
+      ],
+      "epochs": 10,
+      "baseline_name": "mean",
+      "method_name": "cama",
+      "grade": "GREEN",
+      "grade_flags": []
+    },
+    {
+      "exp_id": "exp_id2_it5",
+      "task": "rel-stack/user-engagement",
+      "task_type": "classification",
+      "metric": "average_precision",
+      "direction": "higher_is_better",
+      "d": 5.476,
+      "ci_lower": 2.7748,
+      "ci_upper": 8.1772,
+      "p_value": 0.000553,
+      "n_seeds": 5,
+      "baseline_seeds": [
+        0.454699,
+        0.60769,
+        0.515464,
+        0.59922,
+        0.5517
+      ],
+      "method_seeds": [
+        1.040062,
+        1.206999,
+        0.94677,
+        1.240062,
+        1.080319
+      ],
+      "epochs": 5,
+      "baseline_name": "mean",
+      "method_name": "cama",
+      "grade": "YELLOW",
+      "grade_flags": [
+        "val_only"
+      ]
+    },
+    {
+      "exp_id": "exp_id3_it2",
+      "task": "rel-stack/post-votes",
+      "task_type": "regression",
+      "metric": "mae",
+      "direction": "lower_is_better",
+      "d": -0.0,
+      "ci_lower": -1.2396,
+      "ci_upper": 1.2396,
+      "p_value": NaN,
+      "n_seeds": 5,
+      "baseline_seeds": [
+        0.348488,
+        0.35683,
+        0.426949,
+        0.708404,
+        0.61452
+      ],
+      "method_seeds": [
+        0.634549,
+        0.722773,
+        0.532162,
+        0.448102,
+        0.453908
+      ],
+      "epochs": 10,
+      "baseline_name": "mean",
+      "method_name": "rama",
+      "grade": "YELLOW",
+      "grade_flags": []
+    },
+    {
+      "exp_id": "exp_id3_it2",
+      "task": "rel-stack/user-engagement",
+      "task_type": "classification",
+      "metric": "average_precision",
+      "direction": "higher_is_better",
+      "d": 3.2155,
+      "ci_lower": 1.3386,
+      "ci_upper": 5.0924,
+      "p_value": 0.015834,
+      "n_seeds": 5,
+      "baseline_seeds": [
+        0.474117,
+        0.47196,
+        0.526711,
+        0.513266,
+        0.534064
+      ],
+      "method_seeds": [
+        0.843997,
+        0.574358,
+        0.674195,
+        0.941116,
+        1.036272
+      ],
+      "epochs": 10,
+      "baseline_name": "mean",
+      "method_name": "rama",
+      "grade": "GREEN",
+      "grade_flags": []
+    },
+    {
+      "exp_id": "exp_id3_it3",
+      "task": "rel-f1/driver-position",
+      "task_type": "regression",
+      "metric": "mae",
+      "direction": "lower_is_better",
+      "d": -0.3493,
+      "ci_lower": -1.5983,
+      "ci_upper": 0.8997,
+      "p_value": 0.560386,
+      "n_seeds": 5,
+      "baseline_seeds": [
+        0.656437,
+        0.513095,
+        0.541504,
+        0.457272,
+        0.371962
+      ],
+      "method_seeds": [
+        0.540752,
+        0.54459,
+        0.639607,
+        0.542899,
+        0.438491
+      ],
+      "epochs": 10,
+      "baseline_name": "sum",
+      "method_name": "rama",
+      "grade": "YELLOW",
+      "grade_flags": [
+        "rama_vs_sum_not_mean"
+      ]
+    },
+    {
+      "exp_id": "exp_id3_it3",
+      "task": "rel-amazon/item-ltv",
+      "task_type": "regression",
+      "metric": "mae",
+      "direction": "lower_is_better",
+      "d": -0.3095,
+      "ci_lower": -1.5565,
+      "ci_upper": 0.9375,
+      "p_value": 0.429774,
+      "n_seeds": 5,
+      "baseline_seeds": [
+        0.568342,
+        0.476474,
+        0.364058,
+        0.54058,
+        0.563485
+      ],
+      "method_seeds": [
+        0.58217,
+        0.770207,
+        0.529626,
+        0.658072,
+        0.659314
+      ],
+      "epochs": 10,
+      "baseline_name": "sum",
+      "method_name": "rama",
+      "grade": "YELLOW",
+      "grade_flags": [
+        "rama_vs_sum_not_mean"
+      ]
+    },
+    {
+      "exp_id": "exp_id3_it4",
+      "task": "rel-amazon/item-ltv",
+      "task_type": "regression",
+      "metric": "mae",
+      "direction": "lower_is_better",
+      "d": -1.3771,
+      "ci_lower": -2.7558,
+      "ci_upper": 0.0016,
+      "p_value": 0.051407,
+      "n_seeds": 5,
+      "baseline_seeds": [
+        0.613736,
+        0.621552,
+        0.657858,
+        0.534519,
+        0.392339
+      ],
+      "method_seeds": [
+        0.618726,
+        0.639224,
+        0.490179,
+        0.778955,
+        0.573353
+      ],
+      "epochs": 5,
+      "baseline_name": "mean",
+      "method_name": "cama",
+      "grade": "RED",
+      "grade_flags": [
+        "5_epochs_insufficient"
+      ]
+    },
+    {
+      "exp_id": "exp_id3_it4",
+      "task": "rel-avito/ad-ctr",
+      "task_type": "regression",
+      "metric": "mae",
+      "direction": "lower_is_better",
+      "d": -0.6646,
+      "ci_lower": -1.938,
+      "ci_upper": 0.6088,
+      "p_value": 0.427868,
+      "n_seeds": 5,
+      "baseline_seeds": [
+        0.509808,
+        0.345766,
+        0.458252,
+        0.435899,
+        0.630474
+      ],
+      "method_seeds": [
+        0.532073,
+        0.573552,
+        0.621898,
+        0.544932,
+        0.566951
+      ],
+      "epochs": 5,
+      "baseline_name": "mean",
+      "method_name": "cama",
+      "grade": "YELLOW",
+      "grade_flags": [
+        "val_only"
+      ]
+    },
+    {
+      "exp_id": "exp_id3_it5",
+      "task": "rel-amazon/item-ltv",
+      "task_type": "regression",
+      "metric": "mae",
+      "direction": "lower_is_better",
+      "d": 13.5764,
+      "ci_lower": 7.4985,
+      "ci_upper": 19.6543,
+      "p_value": 6.4e-05,
+      "n_seeds": 5,
+      "baseline_seeds": [
+        0.517939,
+        0.429759,
+        0.58837,
+        0.622245,
+        0.46299
+      ],
+      "method_seeds": [
+        -1.030738,
+        -0.800017,
+        -0.817575,
+        -0.939934,
+        -0.845094
+      ],
+      "epochs": 10,
+      "baseline_name": "mean",
+      "method_name": "cama",
+      "grade": "YELLOW",
+      "grade_flags": []
+    },
+    {
+      "exp_id": "exp_id4_it2",
+      "task": "rel-amazon/item-ltv",
+      "task_type": "regression",
+      "metric": "mae",
+      "direction": "lower_is_better",
+      "d": 10.8281,
+      "ci_lower": 5.9232,
+      "ci_upper": 15.733,
+      "p_value": 8.9e-05,
+      "n_seeds": 5,
+      "baseline_seeds": [
+        0.469609,
+        0.598323,
+        0.547662,
+        0.56249,
+        0.392034
+      ],
+      "method_seeds": [
+        -0.600267,
+        -0.395657,
+        -0.570967,
+        -0.535963,
+        -0.593354
+      ],
+      "epochs": 10,
+      "baseline_name": "mean",
+      "method_name": "rama",
+      "grade": "YELLOW",
+      "grade_flags": []
+    },
+    {
+      "exp_id": "exp_id4_it3",
+      "task": "rel-f1/driver-dnf",
+      "task_type": "classification",
+      "metric": "average_precision",
+      "direction": "higher_is_better",
+      "d": 6.1587,
+      "ci_lower": 3.1885,
+      "ci_upper": 9.1289,
+      "p_value": 0.001821,
+      "n_seeds": 5,
+      "baseline_seeds": [
+        0.500582,
+        0.836381,
+        0.498894,
+        0.410313,
+        0.44877
+      ],
+      "method_seeds": [
+        1.094714,
+        1.024881,
+        0.960129,
+        1.199022,
+        1.17215
+      ],
+      "epochs": 10,
+      "baseline_name": "standard_mean",
+      "method_name": "rama_full",
+      "grade": "GREEN",
+      "grade_flags": []
+    },
+    {
+      "exp_id": "exp_id4_it3",
+      "task": "rel-f1/driver-position",
+      "task_type": "regression",
+      "metric": "mae",
+      "direction": "lower_is_better",
+      "d": 4.9048,
+      "ci_lower": 2.4234,
+      "ci_upper": 7.3862,
+      "p_value": 0.000684,
+      "n_seeds": 5,
+      "baseline_seeds": [
+        0.445073,
+        0.652952,
+        0.507606,
+        0.482593,
+        0.424739
+      ],
+      "method_seeds": [
+        -0.15352,
+        0.065722,
+        0.025524,
+        -0.229581,
+        0.021188
+      ],
+      "epochs": 10,
+      "baseline_name": "standard_mean",
+      "method_name": "rama_full",
+      "grade": "GREEN",
+      "grade_flags": []
+    },
+    {
+      "exp_id": "exp_id5_it2",
+      "task": "rel-f1/driver-position",
+      "task_type": "regression",
+      "metric": "mae",
+      "direction": "lower_is_better",
+      "d": 11.8219,
+      "ci_lower": 6.4945,
+      "ci_upper": 17.1493,
+      "p_value": 1.4e-05,
+      "n_seeds": 5,
+      "baseline_seeds": [
+        0.361546,
+        0.459742,
+        0.494152,
+        0.398009,
+        0.619571
+      ],
+      "method_seeds": [
+        -0.72766,
+        -0.578607,
+        -0.738527,
+        -0.765923,
+        -0.727648
+      ],
+      "epochs": 10,
+      "baseline_name": "standard_mean",
+      "method_name": "rama_full",
+      "grade": "GREEN",
+      "grade_flags": []
+    },
+    {
+      "exp_id": "exp_id5_it3",
+      "task": "rel-trial/study-outcome",
+      "task_type": "classification",
+      "metric": "auroc",
+      "direction": "higher_is_better",
+      "d": 0.9896,
+      "ci_lower": -0.3237,
+      "ci_upper": 2.3029,
+      "p_value": 0.091331,
+      "n_seeds": 5,
+      "baseline_seeds": [
+        0.452013,
+        0.319431,
+        0.259319,
+        0.480022,
+        0.376443
+      ],
+      "method_seeds": [
+        0.659537,
+        0.53333,
+        0.6435,
+        0.59497,
+        0.575913
+      ],
+      "epochs": 20,
+      "baseline_name": "mean",
+      "method_name": "rama",
+      "grade": "YELLOW",
+      "grade_flags": []
+    },
+    {
+      "exp_id": "exp_id5_it3",
+      "task": "rel-trial/study-adverse",
+      "task_type": "regression",
+      "metric": "mae",
+      "direction": "lower_is_better",
+      "d": 72.6495,
+      "ci_lower": 40.7853,
+      "ci_upper": 104.5137,
+      "p_value": 0.0,
+      "n_seeds": 5,
+      "baseline_seeds": [
+        0.4318,
+        0.474877,
+        0.58443,
+        0.372314,
+        0.382001
+      ],
+      "method_seeds": [
+        -6.765603,
+        -6.663551,
+        -6.665824,
+        -6.788886,
+        -6.797869
+      ],
+      "epochs": 20,
+      "baseline_name": "mean",
+      "method_name": "rama",
+      "grade": "RED",
+      "grade_flags": [
+        "degenerate_baseline_constant_prediction"
+      ]
+    }
+  ],
+  "sum_comparison_data": {
+    "rel-f1/driver-position": {
+      "cama_vs_mean_d": -0.2515,
+      "sum_vs_mean_d": -0.2056,
+      "cama_vs_sum_d": -0.0582,
+      "cama_vs_mean_p": 0.5866,
+      "sum_vs_mean_p": 0.663,
+      "cama_vs_sum_p": 0.8879
+    },
+    "rel-f1/driver-dnf": {
+      "cama_vs_mean_d": 0.505,
+      "sum_vs_mean_d": -3.3711,
+      "cama_vs_sum_d": 3.1924,
+      "cama_vs_mean_p": 0.2698,
+      "sum_vs_mean_p": 0.0,
+      "cama_vs_sum_p": 0.0
+    },
+    "rel-stack/user-engagement": {
+      "cama_vs_mean_d": 5.476,
+      "sum_vs_mean_d": 5.6926,
+      "cama_vs_sum_d": -0.5526,
+      "cama_vs_mean_p": 0.0006,
+      "sum_vs_mean_p": 0.0016,
+      "cama_vs_sum_p": 0.2837
+    }
+  },
+  "diagnostics_data": {
+    "amazon_epoch_table": [
+      {
+        "exp_id": "exp_id3_it3",
+        "epochs": 10,
+        "d": -0.3095,
+        "baseline_mae": 57.5738,
+        "method_mae": 57.9899,
+        "grade": "YELLOW"
+      },
+      {
+        "exp_id": "exp_id3_it4",
+        "epochs": 5,
+        "d": -1.3771,
+        "baseline_mae": 171.9091,
+        "method_mae": 343.0954,
+        "grade": "RED"
+      },
+      {
+        "exp_id": "exp_id3_it5",
+        "epochs": 10,
+        "d": 13.5764,
+        "baseline_mae": 49.1928,
+        "method_mae": 45.2586,
+        "grade": "YELLOW"
+      },
+      {
+        "exp_id": "exp_id4_it2",
+        "epochs": 10,
+        "d": 10.8281,
+        "baseline_mae": 48.7761,
+        "method_mae": 44.9929,
+        "grade": "YELLOW"
+      }
+    ],
+    "gate_stasis": {
+      "stasis_count": 104,
+      "total_measured": 128,
+      "stasis_fraction": 0.8125,
+      "affected_tasks": [
+        "rel-amazon/item-ltv",
+        "rel-avito/ad-ctr",
+        "rel-f1/driver-position",
+        "rel-stack/user-engagement",
+        "rel-trial/study-adverse"
+      ]
+    }
+  }
+}

@@ -1,0 +1,13 @@
+{
+  "id": "eval_id4_it4__opus",
+  "type": "code",
+  "title": "Definitive Meta-Analysis of RAMA/CAMA Experiments: Evidence Classification, Pooled Effect Sizes, and Publication Readiness",
+  "summary": "Demo notebook performing a 6-phase meta-analysis of RAMA/CAMA experiments across 9 dependencies (iterations 2-3). Loads pre-extracted task results (18 tasks with per-seed metrics) from mini_demo_data.json, then runs: (1) evidence classification (GREEN/YELLOW/RED), (2) per-task Cohen's d with 10K bootstrap CIs, (3) DerSimonian-Laird random-effects meta-analysis under 4 scenarios, (4) subgroup and val-vs-test inflation analysis, (5) Avito safety assessment, (6) publication readiness scorecard. Includes forest plot and scenario comparison visualization. Key finding: GREEN-only pooled d=0.297 (fails d>0.4), publication not ready.",
+  "original_path": "/ai-inventor/aii_pipeline/runs/leskovec-predictive-residual-message-passing-v2_sti/3_invention_loop/iter_4/gen_art/eval_id4_it4__opus",
+  "demo_path": "/ai-inventor/aii_pipeline/runs/leskovec-predictive-residual-message-passing-v2_sti/4_gen_paper_repo/eval_id4_it4__opus",
+  "out_expected_files": {
+    "notebook": "code_demo.ipynb",
+    "mini_data_file": "mini_demo_data.json"
+  },
+  "notebook_path": "/ai-inventor/aii_pipeline/runs/leskovec-predictive-residual-message-passing-v2_sti/4_gen_paper_repo/eval_id4_it4__opus/eval_code_demo.ipynb"
+}

@@ -1,0 +1,448 @@
+{
+  "tasks": [
+    {
+      "experiment_id": "exp_id2_it2",
+      "task_name": "rel-f1/driver-dnf",
+      "dataset": "rel-f1",
+      "metric": "average_precision",
+      "higher_is_better": true,
+      "baseline_seeds": [
+        0.826649,
+        0.807038,
+        0.83315,
+        0.835922,
+        0.793751
+      ],
+      "rama_seeds": [
+        0.819344,
+        0.84965,
+        0.840239,
+        0.846585,
+        0.828863
+      ],
+      "architecture": "HeteroSAGE",
+      "eval_set": "test",
+      "evidence_grade": "GREEN",
+      "grade_reason": "test_epoch(loader_dict['test']) + task.evaluate(test_pred) at method.py:464-465. 5 seeds.",
+      "task_type": "classification"
+    },
+    {
+      "experiment_id": "exp_id2_it2",
+      "task_name": "rel-f1/driver-position",
+      "dataset": "rel-f1",
+      "metric": "mae",
+      "higher_is_better": false,
+      "baseline_seeds": [
+        4.518975,
+        4.444797,
+        3.925176,
+        4.699913,
+        4.218275
+      ],
+      "rama_seeds": [
+        4.155108,
+        4.801298,
+        4.102704,
+        5.069499,
+        4.580992
+      ],
+      "architecture": "HeteroSAGE",
+      "eval_set": "test",
+      "evidence_grade": "GREEN",
+      "grade_reason": "test_epoch(loader_dict['test']) + task.evaluate(test_pred) at method.py:464-465. 5 seeds.",
+      "task_type": "regression"
+    },
+    {
+      "experiment_id": "exp_id3_it2",
+      "task_name": "rel-stack/post-votes",
+      "dataset": "rel-stack",
+      "metric": "mae",
+      "higher_is_better": false,
+      "baseline_seeds": [
+        0.06169,
+        0.06169,
+        0.06169,
+        0.06169,
+        0.06169
+      ],
+      "rama_seeds": [
+        0.06169,
+        0.06169,
+        0.06169,
+        0.06169,
+        0.06169
+      ],
+      "architecture": "HeteroSAGE",
+      "eval_set": "test",
+      "evidence_grade": "RED",
+      "grade_reason": "All 5 seeds produce identical MAE=0.06169, std=0.0. Degenerate constant-prediction model.",
+      "task_type": "regression"
+    },
+    {
+      "experiment_id": "exp_id5_it3",
+      "task_name": "rel-trial/study-adverse",
+      "dataset": "rel-trial",
+      "metric": "mae",
+      "higher_is_better": false,
+      "baseline_seeds": [
+        56.531179,
+        56.52998,
+        56.534582,
+        56.531253,
+        56.530591
+      ],
+      "rama_seeds": [
+        54.475955,
+        54.544563,
+        54.531619,
+        54.535287,
+        54.53669
+      ],
+      "architecture": "HeteroSAGE",
+      "eval_set": "val",
+      "evidence_grade": "RED",
+      "grade_reason": "Degenerate baseline std=0.001789, producing Cohen's d=72.65 which is a measurement artifact.",
+      "task_type": "regression"
+    },
+    {
+      "experiment_id": "exp_id3_it2",
+      "task_name": "rel-stack/user-engagement",
+      "dataset": "rel-stack",
+      "metric": "roc_auc",
+      "higher_is_better": true,
+      "baseline_seeds": [
+        0.872872,
+        0.867995,
+        0.867792,
+        0.867215,
+        0.869952
+      ],
+      "rama_seeds": [
+        0.888075,
+        0.881025,
+        0.876905,
+        0.876994,
+        0.885361
+      ],
+      "architecture": "HeteroSAGE",
+      "eval_set": "val",
+      "evidence_grade": "YELLOW",
+      "grade_reason": "Test evaluation via task.evaluate(test_pred, test_table) but split handling unclear. 5 seeds, meaningful variance.",
+      "task_type": "classification"
+    },
+    {
+      "experiment_id": "exp_id4_it2",
+      "task_name": "rel-amazon/item-ltv",
+      "dataset": "rel-amazon",
+      "metric": "mae",
+      "higher_is_better": false,
+      "baseline_seeds": [
+        49.096046,
+        48.979509,
+        48.275588,
+        48.798388,
+        48.731135
+      ],
+      "rama_seeds": [
+        44.779061,
+        45.501119,
+        44.784489,
+        45.28816,
+        44.611905
+      ],
+      "architecture": "HeteroSAGE",
+      "eval_set": "val",
+      "evidence_grade": "YELLOW",
+      "grade_reason": "Code at method.py:491-494 explicitly uses best_val_mae as test_mae when test targets unavailable.",
+      "task_type": "regression"
+    },
+    {
+      "experiment_id": "exp_id5_it2",
+      "task_name": "rel-f1/driver-position",
+      "dataset": "rel-f1",
+      "metric": "mae",
+      "higher_is_better": false,
+      "baseline_seeds": [
+        3.81494,
+        3.81789,
+        3.799886,
+        3.809692,
+        3.808393
+      ],
+      "rama_seeds": [
+        3.639476,
+        3.645613,
+        3.675474,
+        3.635647,
+        3.666589
+      ],
+      "architecture": "HeteroSAGE",
+      "eval_set": "val",
+      "evidence_grade": "YELLOW",
+      "grade_reason": "Code comment at method.py:620-622: 'We use val split as our held-out test set for ablation comparison.'",
+      "task_type": "regression"
+    },
+    {
+      "experiment_id": "exp_id2_it3",
+      "task_name": "rel-avito/ad-ctr",
+      "dataset": "rel-avito",
+      "metric": "mae",
+      "higher_is_better": false,
+      "baseline_seeds": [
+        0.030685,
+        0.047492,
+        0.053697,
+        0.058976,
+        0.060535
+      ],
+      "rama_seeds": [
+        0.094447,
+        0.047513,
+        0.042844,
+        0.097103,
+        0.053983
+      ],
+      "architecture": "HeteroSAGE",
+      "eval_set": "val",
+      "evidence_grade": "YELLOW",
+      "grade_reason": "Evaluates on data_bundle['val_loader'] at method.py:738-740. Variable named test_preds but uses val loader.",
+      "task_type": "regression"
+    },
+    {
+      "experiment_id": "exp_id4_it3",
+      "task_name": "rel-f1/driver-dnf",
+      "dataset": "rel-f1",
+      "metric": "average_precision",
+      "higher_is_better": true,
+      "baseline_seeds": [
+        0.907954,
+        0.908543,
+        0.909427,
+        0.915287,
+        0.913819
+      ],
+      "rama_seeds": [
+        0.932034,
+        0.926442,
+        0.929373,
+        0.93171,
+        0.927032
+      ],
+      "architecture": "HeteroSAGE",
+      "eval_set": "val",
+      "evidence_grade": "YELLOW",
+      "grade_reason": "'_note': 'evaluated on val split (test lacks targets)' present in all 20 output entries.",
+      "task_type": "classification"
+    },
+    {
+      "experiment_id": "exp_id4_it3",
+      "task_name": "rel-f1/driver-position",
+      "dataset": "rel-f1",
+      "metric": "mae",
+      "higher_is_better": false,
+      "baseline_seeds": [
+        3.230169,
+        3.177525,
+        3.19159,
+        3.19071,
+        3.1524
+      ],
+      "rama_seeds": [
+        2.988505,
+        2.840381,
+        2.915017,
+        2.987541,
+        2.982241
+      ],
+      "architecture": "HeteroSAGE",
+      "eval_set": "val",
+      "evidence_grade": "YELLOW",
+      "grade_reason": "'_note': 'evaluated on val split (test lacks targets)' present in all 20 output entries.",
+      "task_type": "regression"
+    },
+    {
+      "experiment_id": "exp_id5_it3",
+      "task_name": "rel-trial/study-outcome",
+      "dataset": "rel-trial",
+      "metric": "average_precision",
+      "higher_is_better": true,
+      "baseline_seeds": [
+        0.605602,
+        0.604329,
+        0.603788,
+        0.60436,
+        0.601681
+      ],
+      "rama_seeds": [
+        0.606618,
+        0.608533,
+        0.613544,
+        0.635053,
+        0.614957
+      ],
+      "architecture": "HeteroSAGE",
+      "eval_set": "val",
+      "evidence_grade": "YELLOW",
+      "grade_reason": "Code at method.py:769-771 falls back to val_loader when no test split.",
+      "task_type": "classification"
+    },
+    {
+      "experiment_id": "exp_id3_it3",
+      "task_name": "rel-f1/driver-position",
+      "dataset": "rel-f1",
+      "metric": "mae",
+      "higher_is_better": false,
+      "baseline_seeds": [
+        4.146463,
+        4.647124,
+        4.152999,
+        4.479466,
+        3.980673
+      ],
+      "rama_seeds": [
+        4.451949,
+        4.24247,
+        4.414364,
+        4.746156,
+        4.023787
+      ],
+      "architecture": "RelGNN",
+      "eval_set": "test",
+      "evidence_grade": "GREEN",
+      "grade_reason": "evaluate(model, loaders['test'], ...) + task_obj.evaluate(test_pred) at method.py:614-616. 5 seeds.",
+      "task_type": "regression"
+    },
+    {
+      "experiment_id": "exp_id3_it3",
+      "task_name": "rel-amazon/item-ltv",
+      "dataset": "rel-amazon",
+      "metric": "mae",
+      "higher_is_better": false,
+      "baseline_seeds": [
+        59.104153,
+        58.670199,
+        56.834805,
+        54.955236,
+        58.304822
+      ],
+      "rama_seeds": [
+        57.208477,
+        58.005815,
+        57.785263,
+        59.438093,
+        57.512002
+      ],
+      "architecture": "RelGNN",
+      "eval_set": "test",
+      "evidence_grade": "GREEN",
+      "grade_reason": "evaluate(model, loaders['test'], ...) + task_obj.evaluate(test_pred) at method.py:614-616. 5 seeds.",
+      "task_type": "regression"
+    },
+    {
+      "experiment_id": "exp_id1_it2",
+      "task_name": "synthetic/regression",
+      "dataset": "synthetic",
+      "metric": "mse",
+      "higher_is_better": false,
+      "baseline_seeds": [],
+      "rama_seeds": [],
+      "architecture": "SyntheticMLP",
+      "eval_set": "test",
+      "evidence_grade": "SYNTHETIC",
+      "grade_reason": "Synthetic testbed for mechanism validation. Pooled regression d=2.36, classification d=3.83. Excluded from real-data meta-analysis.",
+      "task_type": "regression"
+    },
+    {
+      "experiment_id": "exp_id1_it2",
+      "task_name": "synthetic/classification",
+      "dataset": "synthetic",
+      "metric": "accuracy",
+      "higher_is_better": true,
+      "baseline_seeds": [],
+      "rama_seeds": [],
+      "architecture": "SyntheticMLP",
+      "eval_set": "test",
+      "evidence_grade": "SYNTHETIC",
+      "grade_reason": "Synthetic testbed for mechanism validation. Excluded from real-data meta-analysis.",
+      "task_type": "classification"
+    },
+    {
+      "experiment_id": "exp_id5_it2",
+      "task_name": "rel-f1/driver-position[rank_ablation]",
+      "dataset": "rel-f1",
+      "metric": "mae",
+      "higher_is_better": false,
+      "baseline_seeds": [
+        3.637498,
+        3.657733,
+        3.658418,
+        3.677583,
+        3.668767
+      ],
+      "rama_seeds": [
+        3.66128,
+        3.679019,
+        3.636499,
+        3.645301,
+        3.640702
+      ],
+      "architecture": "HeteroSAGE",
+      "eval_set": "val",
+      "evidence_grade": "ABLATION",
+      "grade_reason": "Rank conditioning ablation: rama_full vs rama_no_rank.",
+      "task_type": "regression"
+    },
+    {
+      "experiment_id": "exp_id4_it3",
+      "task_name": "rel-f1/driver-dnf[rank_ablation]",
+      "dataset": "rel-f1",
+      "metric": "average_precision",
+      "higher_is_better": true,
+      "baseline_seeds": [
+        0.9306,
+        0.927219,
+        0.934111,
+        0.931174,
+        0.926897
+      ],
+      "rama_seeds": [
+        0.925878,
+        0.928136,
+        0.929027,
+        0.930996,
+        0.932554
+      ],
+      "architecture": "HeteroSAGE",
+      "eval_set": "val",
+      "evidence_grade": "ABLATION",
+      "grade_reason": "Rank conditioning ablation: rama_full vs rama_no_rank.",
+      "task_type": "classification"
+    },
+    {
+      "experiment_id": "exp_id4_it3",
+      "task_name": "rel-f1/driver-position[rank_ablation]",
+      "dataset": "rel-f1",
+      "metric": "mae",
+      "higher_is_better": false,
+      "baseline_seeds": [
+        3.011528,
+        2.93041,
+        2.864397,
+        3.003052,
+        2.940613
+      ],
+      "rama_seeds": [
+        2.90056,
+        2.881095,
+        2.927724,
+        3.047116,
+        2.957191
+      ],
+      "architecture": "HeteroSAGE",
+      "eval_set": "val",
+      "evidence_grade": "ABLATION",
+      "grade_reason": "Rank conditioning ablation: rama_full vs rama_no_rank.",
+      "task_type": "regression"
+    }
+  ]
+}

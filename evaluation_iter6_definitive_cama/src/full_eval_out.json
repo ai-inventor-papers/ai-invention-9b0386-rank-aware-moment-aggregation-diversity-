@@ -1,0 +1,677 @@
+{
+  "metadata": {
+    "evaluation_name": "Definitive CAMA/RAMA Meta-Analysis: 15 Experiments Across Iterations 2-5",
+    "n_experiments": 15,
+    "n_unique_tasks": 8,
+    "evidence_registry": {
+      "exp_id1_it2": "MECHANISM-ONLY",
+      "exp_id1_it4": "GREEN",
+      "exp_id2_it2": "GREEN",
+      "exp_id2_it3": "GREEN",
+      "exp_id2_it4": "YELLOW",
+      "exp_id2_it5": "YELLOW",
+      "exp_id3_it2": "YELLOW",
+      "exp_id3_it3": "YELLOW",
+      "exp_id3_it4": "RED",
+      "exp_id3_it5": "YELLOW",
+      "exp_id4_it2": "YELLOW",
+      "exp_id4_it3": "GREEN",
+      "exp_id4_it5": "MECHANISM-ONLY",
+      "exp_id5_it2": "GREEN",
+      "exp_id5_it3": "RED"
+    },
+    "best_per_task_summary": {
+      "rel-amazon/item-ltv": {
+        "exp": "exp_id3_it5",
+        "d": 13.5764
+      },
+      "rel-avito/ad-ctr": {
+        "exp": "exp_id2_it3",
+        "d": -0.8227
+      },
+      "rel-f1/driver-dnf": {
+        "exp": "exp_id1_it4",
+        "d": 0.505
+      },
+      "rel-f1/driver-position": {
+        "exp": "exp_id1_it4",
+        "d": -0.2515
+      },
+      "rel-stack/post-votes": {
+        "exp": "exp_id3_it2",
+        "d": -0.0
+      },
+      "rel-stack/user-engagement": {
+        "exp": "exp_id2_it4",
+        "d": 7.952
+      },
+      "rel-trial/study-adverse": {
+        "exp": "exp_id2_it4",
+        "d": -2.4516
+      },
+      "rel-trial/study-outcome": {
+        "exp": "exp_id2_it4",
+        "d": 0.1415
+      }
+    },
+    "meta_analysis_summary": {
+      "scenario_1_green_only": {
+        "pooled_d": 1.0547,
+        "p": 0.302425,
+        "I2": 85.0,
+        "n": 4
+      },
+      "scenario_2_green_yellow": {
+        "pooled_d": 0.8439,
+        "p": 0.26526,
+        "I2": 85.4,
+        "n": 8
+      },
+      "scenario_3_classification": {
+        "pooled_d": 2.1316,
+        "p": 0.129391,
+        "I2": 87.2,
+        "n": 3
+      },
+      "scenario_4_regression": {
+        "pooled_d": 0.1656,
+        "p": 0.863403,
+        "I2": 85.2,
+        "n": 5
+      }
+    },
+    "sum_comparison_summary": {
+      "just_use_sum": false,
+      "threat_level": "medium"
+    },
+    "diagnostics_summary": {
+      "gate_stasis_fraction": 0.8125,
+      "degenerate_baselines": 4,
+      "inflated_d_values": 4
+    },
+    "publication_readiness": {
+      "claim_supported": false,
+      "classification_pooled_d": 2.1316,
+      "classification_pooled_p": 0.129391,
+      "classification_all_positive": true,
+      "regression_pooled_d": 0.1656,
+      "sum_threat_level": "medium",
+      "overall_verdict": "revise_and_resubmit",
+      "verdict_rationale": "Overall pooled d=0.84 (p=0.2653), I²=85.4%. Effect present but heterogeneous. Narrowing to classification tasks recommended. Regression results are mixed (d=0.17).",
+      "overall_pooled_d": 0.8439,
+      "overall_I_squared": 85.37
+    }
+  },
+  "metrics_agg": {
+    "eval_scenario_1_green_only_pooled_d": 1.054657,
+    "eval_scenario_1_green_only_pooled_se": 1.022701,
+    "eval_scenario_1_green_only_pooled_ci_lower": -0.949838,
+    "eval_scenario_1_green_only_pooled_ci_upper": 3.059152,
+    "eval_scenario_1_green_only_pooled_p_value": 0.302425,
+    "eval_scenario_1_green_only_I_squared": 84.98,
+    "eval_scenario_1_green_only_Q_statistic": 19.9717,
+    "eval_scenario_1_green_only_Q_p_value": 0.000172,
+    "eval_scenario_1_green_only_tau_squared": 3.286796,
+    "eval_scenario_1_green_only_n_effects": 4,
+    "eval_scenario_1_green_only_sign_consistency": 0.5,
+    "eval_scenario_2_green_yellow_pooled_d": 0.843863,
+    "eval_scenario_2_green_yellow_pooled_se": 0.757476,
+    "eval_scenario_2_green_yellow_pooled_ci_lower": -0.64079,
+    "eval_scenario_2_green_yellow_pooled_ci_upper": 2.328517,
+    "eval_scenario_2_green_yellow_pooled_p_value": 0.26526,
+    "eval_scenario_2_green_yellow_I_squared": 85.37,
+    "eval_scenario_2_green_yellow_Q_statistic": 47.841,
+    "eval_scenario_2_green_yellow_Q_p_value": 0.0,
+    "eval_scenario_2_green_yellow_tau_squared": 3.48007,
+    "eval_scenario_2_green_yellow_n_effects": 8,
+    "eval_scenario_2_green_yellow_sign_consistency": 0.625,
+    "eval_scenario_3_classification_pooled_d": 2.131567,
+    "eval_scenario_3_classification_pooled_se": 1.405577,
+    "eval_scenario_3_classification_pooled_ci_lower": -0.623364,
+    "eval_scenario_3_classification_pooled_ci_upper": 4.886498,
+    "eval_scenario_3_classification_pooled_p_value": 0.129391,
+    "eval_scenario_3_classification_I_squared": 87.2,
+    "eval_scenario_3_classification_Q_statistic": 15.6302,
+    "eval_scenario_3_classification_Q_p_value": 0.000404,
+    "eval_scenario_3_classification_tau_squared": 4.77218,
+    "eval_scenario_3_classification_n_effects": 3,
+    "eval_scenario_3_classification_sign_consistency": 1.0,
+    "eval_scenario_4_regression_pooled_d": 0.165592,
+    "eval_scenario_4_regression_pooled_se": 0.962502,
+    "eval_scenario_4_regression_pooled_ci_lower": -1.720912,
+    "eval_scenario_4_regression_pooled_ci_upper": 2.052096,
+    "eval_scenario_4_regression_pooled_p_value": 0.863403,
+    "eval_scenario_4_regression_I_squared": 85.22,
+    "eval_scenario_4_regression_Q_statistic": 27.0566,
+    "eval_scenario_4_regression_Q_p_value": 1.9e-05,
+    "eval_scenario_4_regression_tau_squared": 3.506554,
+    "eval_scenario_4_regression_n_effects": 5,
+    "eval_scenario_4_regression_sign_consistency": 0.4,
+    "eval_gate_stasis_count": 104,
+    "eval_gate_stasis_fraction": 0.8125,
+    "eval_degenerate_count": 4,
+    "eval_inflated_d_count": 4,
+    "eval_amazon_n_experiments": 4,
+    "eval_claim_supported": 0,
+    "eval_classification_pooled_d": 2.1316,
+    "eval_classification_all_positive": 1,
+    "eval_regression_pooled_d": 0.1656,
+    "eval_sum_threat_level": 2,
+    "eval_overall_verdict": 2,
+    "eval_overall_pooled_d": 0.8439,
+    "eval_overall_I_squared": 85.37,
+    "eval_just_use_sum_verdict": 0,
+    "eval_cama_closes_gap_pct": 67.8466,
+    "eval_n_green": 5,
+    "eval_n_yellow": 6,
+    "eval_n_red": 2,
+    "eval_n_mechanism_only": 2,
+    "eval_n_experiments_total": 15,
+    "eval_n_unique_tasks": 8,
+    "eval_n_discrepant_tasks": 3
+  },
+  "datasets": [
+    {
+      "dataset": "evidence_registry",
+      "examples": [
+        {
+          "input": "{\"exp_id\": \"exp_id1_it2\", \"tasks\": [\"synthetic_testbed\"]}",
+          "output": "{\"grade\": \"MECHANISM-ONLY\", \"flags\": [\"synthetic_testbed\"]}",
+          "predict_baseline": "MECHANISM-ONLY",
+          "predict_our_method": "MECHANISM-ONLY",
+          "eval_grade_numeric": 0
+        },
+        {
+          "input": "{\"exp_id\": \"exp_id1_it4\", \"tasks\": [\"rel-f1/driver-position\", \"rel-f1/driver-dnf\"]}",
+          "output": "{\"grade\": \"GREEN\", \"flags\": []}",
+          "predict_baseline": "GREEN",
+          "predict_our_method": "GREEN",
+          "eval_grade_numeric": 3
+        },
+        {
+          "input": "{\"exp_id\": \"exp_id2_it2\", \"tasks\": [\"rel-f1/driver-dnf\", \"rel-f1/driver-position\"]}",
+          "output": "{\"grade\": \"GREEN\", \"flags\": []}",
+          "predict_baseline": "GREEN",
+          "predict_our_method": "GREEN",
+          "eval_grade_numeric": 3
+        },
+        {
+          "input": "{\"exp_id\": \"exp_id2_it3\", \"tasks\": [\"rel-avito/ad-ctr\"]}",
+          "output": "{\"grade\": \"GREEN\", \"flags\": []}",
+          "predict_baseline": "GREEN",
+          "predict_our_method": "GREEN",
+          "eval_grade_numeric": 3
+        },
+        {
+          "input": "{\"exp_id\": \"exp_id2_it4\", \"tasks\": [\"rel-trial/study-outcome\", \"rel-trial/study-adverse\", \"rel-stack/user-engagement\"]}",
+          "output": "{\"grade\": \"YELLOW\", \"flags\": [\"moderate_effect\"]}",
+          "predict_baseline": "YELLOW",
+          "predict_our_method": "YELLOW",
+          "eval_grade_numeric": 2
+        },
+        {
+          "input": "{\"exp_id\": \"exp_id2_it5\", \"tasks\": [\"rel-stack/user-engagement\"]}",
+          "output": "{\"grade\": \"YELLOW\", \"flags\": [\"reduced_training\", \"val_only\", \"max_steps_100\"]}",
+          "predict_baseline": "YELLOW",
+          "predict_our_method": "YELLOW",
+          "eval_grade_numeric": 2
+        },
+        {
+          "input": "{\"exp_id\": \"exp_id3_it2\", \"tasks\": [\"rel-stack/post-votes\", \"rel-stack/user-engagement\"]}",
+          "output": "{\"grade\": \"YELLOW\", \"flags\": [\"degenerate_baseline_zero_variance\"]}",
+          "predict_baseline": "YELLOW",
+          "predict_our_method": "YELLOW",
+          "eval_grade_numeric": 2
+        },
+        {
+          "input": "{\"exp_id\": \"exp_id3_it3\", \"tasks\": [\"rel-f1/driver-position\", \"rel-amazon/item-ltv\"]}",
+          "output": "{\"grade\": \"YELLOW\", \"flags\": [\"rama_vs_sum_not_mean\"]}",
+          "predict_baseline": "YELLOW",
+          "predict_our_method": "YELLOW",
+          "eval_grade_numeric": 2
+        },
+        {
+          "input": "{\"exp_id\": \"exp_id3_it4\", \"tasks\": [\"rel-amazon/item-ltv\", \"rel-avito/ad-ctr\"]}",
+          "output": "{\"grade\": \"RED\", \"flags\": [\"5_epochs_insufficient\"]}",
+          "predict_baseline": "RED",
+          "predict_our_method": "RED",
+          "eval_grade_numeric": 1
+        },
+        {
+          "input": "{\"exp_id\": \"exp_id3_it5\", \"tasks\": [\"rel-amazon/item-ltv\"]}",
+          "output": "{\"grade\": \"YELLOW\", \"flags\": [\"val_only\"]}",
+          "predict_baseline": "YELLOW",
+          "predict_our_method": "YELLOW",
+          "eval_grade_numeric": 2
+        },
+        {
+          "input": "{\"exp_id\": \"exp_id4_it2\", \"tasks\": [\"rel-amazon/item-ltv\"]}",
+          "output": "{\"grade\": \"YELLOW\", \"flags\": [\"val_only\"]}",
+          "predict_baseline": "YELLOW",
+          "predict_our_method": "YELLOW",
+          "eval_grade_numeric": 2
+        },
+        {
+          "input": "{\"exp_id\": \"exp_id4_it3\", \"tasks\": [\"rel-f1/driver-dnf\", \"rel-f1/driver-position\"]}",
+          "output": "{\"grade\": \"GREEN\", \"flags\": []}",
+          "predict_baseline": "GREEN",
+          "predict_our_method": "GREEN",
+          "eval_grade_numeric": 3
+        },
+        {
+          "input": "{\"exp_id\": \"exp_id4_it5\", \"tasks\": [\"spectral_rank_analysis\"]}",
+          "output": "{\"grade\": \"MECHANISM-ONLY\", \"flags\": [\"spectral_analysis\"]}",
+          "predict_baseline": "MECHANISM-ONLY",
+          "predict_our_method": "MECHANISM-ONLY",
+          "eval_grade_numeric": 0
+        },
+        {
+          "input": "{\"exp_id\": \"exp_id5_it2\", \"tasks\": [\"rel-f1/driver-position\"]}",
+          "output": "{\"grade\": \"GREEN\", \"flags\": []}",
+          "predict_baseline": "GREEN",
+          "predict_our_method": "GREEN",
+          "eval_grade_numeric": 3
+        },
+        {
+          "input": "{\"exp_id\": \"exp_id5_it3\", \"tasks\": [\"rel-trial/study-outcome\", \"rel-trial/study-adverse\"]}",
+          "output": "{\"grade\": \"RED\", \"flags\": [\"degenerate_baseline_constant_prediction\"]}",
+          "predict_baseline": "RED",
+          "predict_our_method": "RED",
+          "eval_grade_numeric": 1
+        }
+      ]
+    },
+    {
+      "dataset": "per_task_best_evidence",
+      "examples": [
+        {
+          "input": "{\"task\": \"rel-amazon/item-ltv\", \"task_type\": \"regression\", \"metric\": \"mae\", \"direction\": \"lower_is_better\"}",
+          "output": "{\"best_exp\": \"exp_id3_it5\", \"d\": 13.5764, \"p\": 6.4e-05, \"discrepancy\": true, \"all_d\": {\"exp_id3_it5\": 13.5764, \"exp_id4_it2\": 10.8281, \"exp_id3_it4\": -1.3771}}",
+          "predict_baseline": "13.5764",
+          "predict_our_method": "13.5764",
+          "eval_cohens_d": 13.576389,
+          "eval_p_value": 6.401e-05,
+          "eval_n_experiments": 3,
+          "eval_discrepancy": 1
+        },
+        {
+          "input": "{\"task\": \"rel-avito/ad-ctr\", \"task_type\": \"regression\", \"metric\": \"mae\", \"direction\": \"lower_is_better\"}",
+          "output": "{\"best_exp\": \"exp_id2_it3\", \"d\": -0.8227, \"p\": 0.229557, \"discrepancy\": false, \"all_d\": {\"exp_id2_it3\": -0.8227, \"exp_id3_it4\": -0.6646}}",
+          "predict_baseline": "-0.8227",
+          "predict_our_method": "-0.8227",
+          "eval_cohens_d": -0.8227,
+          "eval_p_value": 0.229557,
+          "eval_n_experiments": 2,
+          "eval_discrepancy": 0
+        },
+        {
+          "input": "{\"task\": \"rel-f1/driver-dnf\", \"task_type\": \"classification\", \"metric\": \"average_precision\", \"direction\": \"higher_is_better\"}",
+          "output": "{\"best_exp\": \"exp_id1_it4\", \"d\": 0.505, \"p\": 0.2698, \"discrepancy\": false, \"all_d\": {\"exp_id1_it4\": 0.505, \"exp_id2_it2\": 1.125, \"exp_id4_it3\": 6.1587}}",
+          "predict_baseline": "0.505",
+          "predict_our_method": "0.505",
+          "eval_cohens_d": 0.505,
+          "eval_p_value": 0.2698,
+          "eval_n_experiments": 3,
+          "eval_discrepancy": 0
+        },
+        {
+          "input": "{\"task\": \"rel-f1/driver-position\", \"task_type\": \"regression\", \"metric\": \"mae\", \"direction\": \"lower_is_better\"}",
+          "output": "{\"best_exp\": \"exp_id1_it4\", \"d\": -0.2515, \"p\": 0.5866, \"discrepancy\": true, \"all_d\": {\"exp_id1_it4\": -0.2515, \"exp_id2_it2\": -0.499, \"exp_id4_it3\": 4.9048, \"exp_id5_it2\": 11.8219}}",
+          "predict_baseline": "-0.2515",
+          "predict_our_method": "-0.2515",
+          "eval_cohens_d": -0.2515,
+          "eval_p_value": 0.5866,
+          "eval_n_experiments": 4,
+          "eval_discrepancy": 1
+        },
+        {
+          "input": "{\"task\": \"rel-stack/post-votes\", \"task_type\": \"regression\", \"metric\": \"mae\", \"direction\": \"lower_is_better\"}",
+          "output": "{\"best_exp\": \"exp_id3_it2\", \"d\": -0.0, \"p\": null, \"discrepancy\": false, \"all_d\": {\"exp_id3_it2\": -0.0}}",
+          "predict_baseline": "-0.0",
+          "predict_our_method": "-0.0",
+          "eval_cohens_d": -0.0,
+          "eval_p_value": 1,
+          "eval_n_experiments": 1,
+          "eval_discrepancy": 0
+        },
+        {
+          "input": "{\"task\": \"rel-stack/user-engagement\", \"task_type\": \"classification\", \"metric\": \"roc_auc\", \"direction\": \"higher_is_better\"}",
+          "output": "{\"best_exp\": \"exp_id2_it4\", \"d\": 7.952, \"p\": 7e-06, \"discrepancy\": false, \"all_d\": {\"exp_id2_it4\": 7.952, \"exp_id3_it2\": 3.2155, \"exp_id2_it5\": 5.476}}",
+          "predict_baseline": "7.952",
+          "predict_our_method": "7.952",
+          "eval_cohens_d": 7.951974,
+          "eval_p_value": 6.87e-06,
+          "eval_n_experiments": 3,
+          "eval_discrepancy": 0
+        },
+        {
+          "input": "{\"task\": \"rel-trial/study-adverse\", \"task_type\": \"regression\", \"metric\": \"mae\", \"direction\": \"lower_is_better\"}",
+          "output": "{\"best_exp\": \"exp_id2_it4\", \"d\": -2.4516, \"p\": 0.009249, \"discrepancy\": true, \"all_d\": {\"exp_id2_it4\": -2.4516, \"exp_id5_it3\": 72.6495}}",
+          "predict_baseline": "-2.4516",
+          "predict_our_method": "-2.4516",
+          "eval_cohens_d": -2.451594,
+          "eval_p_value": 0.00924896,
+          "eval_n_experiments": 2,
+          "eval_discrepancy": 1
+        },
+        {
+          "input": "{\"task\": \"rel-trial/study-outcome\", \"task_type\": \"classification\", \"metric\": \"average_precision\", \"direction\": \"higher_is_better\"}",
+          "output": "{\"best_exp\": \"exp_id2_it4\", \"d\": 0.1415, \"p\": 0.829612, \"discrepancy\": false, \"all_d\": {\"exp_id2_it4\": 0.1415, \"exp_id5_it3\": 0.9896}}",
+          "predict_baseline": "0.1415",
+          "predict_our_method": "0.1415",
+          "eval_cohens_d": 0.14148,
+          "eval_p_value": 0.82961221,
+          "eval_n_experiments": 2,
+          "eval_discrepancy": 0
+        }
+      ]
+    },
+    {
+      "dataset": "meta_analysis_scenarios",
+      "examples": [
+        {
+          "input": "{\"scenario\": \"scenario_1_green_only\"}",
+          "output": "{\"pooled_d\": 1.054657, \"pooled_se\": 1.022701, \"pooled_ci_lower\": -0.949838, \"pooled_ci_upper\": 3.059152, \"pooled_p_value\": 0.30242534, \"I_squared\": 84.98, \"Q_statistic\": 19.9717, \"Q_p_value\": 0.000172, \"tau_squared\": 3.286796, \"n_effects\": 4, \"sign_consistency\": 0.5}",
+          "predict_baseline": "1.0547",
+          "predict_our_method": "1.0547",
+          "eval_pooled_d": 1.054657,
+          "eval_I_squared": 84.98,
+          "eval_n_effects": 4
+        },
+        {
+          "input": "{\"scenario\": \"scenario_2_green_yellow\"}",
+          "output": "{\"pooled_d\": 0.843863, \"pooled_se\": 0.757476, \"pooled_ci_lower\": -0.64079, \"pooled_ci_upper\": 2.328517, \"pooled_p_value\": 0.26525951, \"I_squared\": 85.37, \"Q_statistic\": 47.841, \"Q_p_value\": 0.0, \"tau_squared\": 3.48007, \"n_effects\": 8, \"sign_consistency\": 0.625}",
+          "predict_baseline": "0.8439",
+          "predict_our_method": "0.8439",
+          "eval_pooled_d": 0.843863,
+          "eval_I_squared": 85.37,
+          "eval_n_effects": 8
+        },
+        {
+          "input": "{\"scenario\": \"scenario_3_classification\"}",
+          "output": "{\"pooled_d\": 2.131567, \"pooled_se\": 1.405577, \"pooled_ci_lower\": -0.623364, \"pooled_ci_upper\": 4.886498, \"pooled_p_value\": 0.12939122, \"I_squared\": 87.2, \"Q_statistic\": 15.6302, \"Q_p_value\": 0.000404, \"tau_squared\": 4.77218, \"n_effects\": 3, \"sign_consistency\": 1.0}",
+          "predict_baseline": "2.1316",
+          "predict_our_method": "2.1316",
+          "eval_pooled_d": 2.131567,
+          "eval_I_squared": 87.2,
+          "eval_n_effects": 3
+        },
+        {
+          "input": "{\"scenario\": \"scenario_4_regression\"}",
+          "output": "{\"pooled_d\": 0.165592, \"pooled_se\": 0.962502, \"pooled_ci_lower\": -1.720912, \"pooled_ci_upper\": 2.052096, \"pooled_p_value\": 0.8634035, \"I_squared\": 85.22, \"Q_statistic\": 27.0566, \"Q_p_value\": 1.9e-05, \"tau_squared\": 3.506554, \"n_effects\": 5, \"sign_consistency\": 0.4}",
+          "predict_baseline": "0.1656",
+          "predict_our_method": "0.1656",
+          "eval_pooled_d": 0.165592,
+          "eval_I_squared": 85.22,
+          "eval_n_effects": 5
+        }
+      ]
+    },
+    {
+      "dataset": "all_individual_effects",
+      "examples": [
+        {
+          "input": "{\"exp_id\": \"exp_id1_it4\", \"task\": \"rel-f1/driver-position\", \"baseline\": \"mean\", \"method\": \"mean_cama\", \"epochs\": 10, \"n_seeds\": 5}",
+          "output": "{\"d\": -0.2515, \"p\": 0.5866, \"grade\": \"GREEN\"}",
+          "predict_baseline": "mean",
+          "predict_our_method": "mean_cama",
+          "eval_cohens_d": -0.2515,
+          "eval_grade": 3
+        },
+        {
+          "input": "{\"exp_id\": \"exp_id1_it4\", \"task\": \"rel-f1/driver-dnf\", \"baseline\": \"mean\", \"method\": \"mean_cama\", \"epochs\": 10, \"n_seeds\": 5}",
+          "output": "{\"d\": 0.505, \"p\": 0.2698, \"grade\": \"GREEN\"}",
+          "predict_baseline": "mean",
+          "predict_our_method": "mean_cama",
+          "eval_cohens_d": 0.505,
+          "eval_grade": 3
+        },
+        {
+          "input": "{\"exp_id\": \"exp_id2_it2\", \"task\": \"rel-f1/driver-dnf\", \"baseline\": \"mean\", \"method\": \"rama\", \"epochs\": 10, \"n_seeds\": 5}",
+          "output": "{\"d\": 1.125, \"p\": 0.132793, \"grade\": \"GREEN\"}",
+          "predict_baseline": "mean",
+          "predict_our_method": "rama",
+          "eval_cohens_d": 1.125019,
+          "eval_grade": 3
+        },
+        {
+          "input": "{\"exp_id\": \"exp_id2_it2\", \"task\": \"rel-f1/driver-position\", \"baseline\": \"mean\", \"method\": \"rama\", \"epochs\": 10, \"n_seeds\": 5}",
+          "output": "{\"d\": -0.499, \"p\": 0.557837, \"grade\": \"GREEN\"}",
+          "predict_baseline": "mean",
+          "predict_our_method": "rama",
+          "eval_cohens_d": -0.498962,
+          "eval_grade": 3
+        },
+        {
+          "input": "{\"exp_id\": \"exp_id2_it3\", \"task\": \"rel-avito/ad-ctr\", \"baseline\": \"mean\", \"method\": \"rama\", \"epochs\": 10, \"n_seeds\": 5}",
+          "output": "{\"d\": -0.8227, \"p\": 0.229557, \"grade\": \"GREEN\"}",
+          "predict_baseline": "mean",
+          "predict_our_method": "rama",
+          "eval_cohens_d": -0.8227,
+          "eval_grade": 3
+        },
+        {
+          "input": "{\"exp_id\": \"exp_id2_it4\", \"task\": \"rel-trial/study-outcome\", \"baseline\": \"mean\", \"method\": \"cama\", \"epochs\": 20, \"n_seeds\": 5}",
+          "output": "{\"d\": 0.1415, \"p\": 0.829612, \"grade\": \"YELLOW\"}",
+          "predict_baseline": "mean",
+          "predict_our_method": "cama",
+          "eval_cohens_d": 0.14148,
+          "eval_grade": 2
+        },
+        {
+          "input": "{\"exp_id\": \"exp_id2_it4\", \"task\": \"rel-trial/study-adverse\", \"baseline\": \"mean\", \"method\": \"cama\", \"epochs\": 20, \"n_seeds\": 5}",
+          "output": "{\"d\": -2.4516, \"p\": 0.009249, \"grade\": \"YELLOW\"}",
+          "predict_baseline": "mean",
+          "predict_our_method": "cama",
+          "eval_cohens_d": -2.451594,
+          "eval_grade": 2
+        },
+        {
+          "input": "{\"exp_id\": \"exp_id2_it4\", \"task\": \"rel-stack/user-engagement\", \"baseline\": \"mean\", \"method\": \"cama\", \"epochs\": 10, \"n_seeds\": 5}",
+          "output": "{\"d\": 7.952, \"p\": 7e-06, \"grade\": \"GREEN\"}",
+          "predict_baseline": "mean",
+          "predict_our_method": "cama",
+          "eval_cohens_d": 7.951974,
+          "eval_grade": 3
+        },
+        {
+          "input": "{\"exp_id\": \"exp_id2_it5\", \"task\": \"rel-stack/user-engagement\", \"baseline\": \"mean\", \"method\": \"cama\", \"epochs\": 5, \"n_seeds\": 5}",
+          "output": "{\"d\": 5.476, \"p\": 0.000553, \"grade\": \"YELLOW\"}",
+          "predict_baseline": "mean",
+          "predict_our_method": "cama",
+          "eval_cohens_d": 5.476,
+          "eval_grade": 2
+        },
+        {
+          "input": "{\"exp_id\": \"exp_id3_it2\", \"task\": \"rel-stack/post-votes\", \"baseline\": \"mean\", \"method\": \"rama\", \"epochs\": 10, \"n_seeds\": 5}",
+          "output": "{\"d\": -0.0, \"p\": null, \"grade\": \"YELLOW\"}",
+          "predict_baseline": "mean",
+          "predict_our_method": "rama",
+          "eval_cohens_d": -0.0,
+          "eval_grade": 2
+        },
+        {
+          "input": "{\"exp_id\": \"exp_id3_it2\", \"task\": \"rel-stack/user-engagement\", \"baseline\": \"mean\", \"method\": \"rama\", \"epochs\": 10, \"n_seeds\": 5}",
+          "output": "{\"d\": 3.2155, \"p\": 0.015834, \"grade\": \"GREEN\"}",
+          "predict_baseline": "mean",
+          "predict_our_method": "rama",
+          "eval_cohens_d": 3.21545,
+          "eval_grade": 3
+        },
+        {
+          "input": "{\"exp_id\": \"exp_id3_it3\", \"task\": \"rel-f1/driver-position\", \"baseline\": \"sum\", \"method\": \"rama\", \"epochs\": 10, \"n_seeds\": 5}",
+          "output": "{\"d\": -0.3493, \"p\": 0.560386, \"grade\": \"YELLOW\"}",
+          "predict_baseline": "sum",
+          "predict_our_method": "rama",
+          "eval_cohens_d": -0.349316,
+          "eval_grade": 2
+        },
+        {
+          "input": "{\"exp_id\": \"exp_id3_it3\", \"task\": \"rel-amazon/item-ltv\", \"baseline\": \"sum\", \"method\": \"rama\", \"epochs\": 10, \"n_seeds\": 5}",
+          "output": "{\"d\": -0.3095, \"p\": 0.429774, \"grade\": \"YELLOW\"}",
+          "predict_baseline": "sum",
+          "predict_our_method": "rama",
+          "eval_cohens_d": -0.30949,
+          "eval_grade": 2
+        },
+        {
+          "input": "{\"exp_id\": \"exp_id3_it4\", \"task\": \"rel-amazon/item-ltv\", \"baseline\": \"mean\", \"method\": \"cama\", \"epochs\": 5, \"n_seeds\": 5}",
+          "output": "{\"d\": -1.3771, \"p\": 0.051407, \"grade\": \"RED\"}",
+          "predict_baseline": "mean",
+          "predict_our_method": "cama",
+          "eval_cohens_d": -1.377142,
+          "eval_grade": 1
+        },
+        {
+          "input": "{\"exp_id\": \"exp_id3_it4\", \"task\": \"rel-avito/ad-ctr\", \"baseline\": \"mean\", \"method\": \"cama\", \"epochs\": 5, \"n_seeds\": 5}",
+          "output": "{\"d\": -0.6646, \"p\": 0.427868, \"grade\": \"YELLOW\"}",
+          "predict_baseline": "mean",
+          "predict_our_method": "cama",
+          "eval_cohens_d": -0.664616,
+          "eval_grade": 2
+        },
+        {
+          "input": "{\"exp_id\": \"exp_id3_it5\", \"task\": \"rel-amazon/item-ltv\", \"baseline\": \"mean\", \"method\": \"cama\", \"epochs\": 10, \"n_seeds\": 5}",
+          "output": "{\"d\": 13.5764, \"p\": 6.4e-05, \"grade\": \"YELLOW\"}",
+          "predict_baseline": "mean",
+          "predict_our_method": "cama",
+          "eval_cohens_d": 13.576389,
+          "eval_grade": 2
+        },
+        {
+          "input": "{\"exp_id\": \"exp_id4_it2\", \"task\": \"rel-amazon/item-ltv\", \"baseline\": \"mean\", \"method\": \"rama\", \"epochs\": 10, \"n_seeds\": 5}",
+          "output": "{\"d\": 10.8281, \"p\": 8.9e-05, \"grade\": \"YELLOW\"}",
+          "predict_baseline": "mean",
+          "predict_our_method": "rama",
+          "eval_cohens_d": 10.828142,
+          "eval_grade": 2
+        },
+        {
+          "input": "{\"exp_id\": \"exp_id4_it3\", \"task\": \"rel-f1/driver-dnf\", \"baseline\": \"standard_mean\", \"method\": \"rama_full\", \"epochs\": 10, \"n_seeds\": 5}",
+          "output": "{\"d\": 6.1587, \"p\": 0.001821, \"grade\": \"GREEN\"}",
+          "predict_baseline": "standard_mean",
+          "predict_our_method": "rama_full",
+          "eval_cohens_d": 6.15869,
+          "eval_grade": 3
+        },
+        {
+          "input": "{\"exp_id\": \"exp_id4_it3\", \"task\": \"rel-f1/driver-position\", \"baseline\": \"standard_mean\", \"method\": \"rama_full\", \"epochs\": 10, \"n_seeds\": 5}",
+          "output": "{\"d\": 4.9048, \"p\": 0.000684, \"grade\": \"GREEN\"}",
+          "predict_baseline": "standard_mean",
+          "predict_our_method": "rama_full",
+          "eval_cohens_d": 4.904787,
+          "eval_grade": 3
+        },
+        {
+          "input": "{\"exp_id\": \"exp_id5_it2\", \"task\": \"rel-f1/driver-position\", \"baseline\": \"standard_mean\", \"method\": \"rama_full\", \"epochs\": 10, \"n_seeds\": 5}",
+          "output": "{\"d\": 11.8219, \"p\": 1.4e-05, \"grade\": \"GREEN\"}",
+          "predict_baseline": "standard_mean",
+          "predict_our_method": "rama_full",
+          "eval_cohens_d": 11.8219,
+          "eval_grade": 3
+        },
+        {
+          "input": "{\"exp_id\": \"exp_id5_it3\", \"task\": \"rel-trial/study-outcome\", \"baseline\": \"mean\", \"method\": \"rama\", \"epochs\": 20, \"n_seeds\": 5}",
+          "output": "{\"d\": 0.9896, \"p\": 0.091331, \"grade\": \"YELLOW\"}",
+          "predict_baseline": "mean",
+          "predict_our_method": "rama",
+          "eval_cohens_d": 0.9896,
+          "eval_grade": 2
+        },
+        {
+          "input": "{\"exp_id\": \"exp_id5_it3\", \"task\": \"rel-trial/study-adverse\", \"baseline\": \"mean\", \"method\": \"rama\", \"epochs\": 20, \"n_seeds\": 5}",
+          "output": "{\"d\": 72.6495, \"p\": 0.0, \"grade\": \"RED\"}",
+          "predict_baseline": "mean",
+          "predict_our_method": "rama",
+          "eval_cohens_d": 72.6495,
+          "eval_grade": 1
+        }
+      ]
+    },
+    {
+      "dataset": "diagnostics",
+      "examples": [
+        {
+          "input": "{\"diagnostic\": \"amazon_epoch_sensitivity\", \"exp_id\": \"exp_id3_it3\"}",
+          "output": "{\"exp_id\": \"exp_id3_it3\", \"epochs\": 10, \"d\": -0.3095, \"baseline_mae\": 57.5738, \"method_mae\": 57.9899, \"grade\": \"YELLOW\"}",
+          "predict_baseline": "57.5738",
+          "predict_our_method": "57.9899",
+          "eval_epochs": 10
+        },
+        {
+          "input": "{\"diagnostic\": \"amazon_epoch_sensitivity\", \"exp_id\": \"exp_id3_it4\"}",
+          "output": "{\"exp_id\": \"exp_id3_it4\", \"epochs\": 5, \"d\": -1.3771, \"baseline_mae\": 171.9091, \"method_mae\": 343.0954, \"grade\": \"RED\"}",
+          "predict_baseline": "171.9091",
+          "predict_our_method": "343.0954",
+          "eval_epochs": 5
+        },
+        {
+          "input": "{\"diagnostic\": \"amazon_epoch_sensitivity\", \"exp_id\": \"exp_id3_it5\"}",
+          "output": "{\"exp_id\": \"exp_id3_it5\", \"epochs\": 10, \"d\": 13.5764, \"baseline_mae\": 49.1928, \"method_mae\": 45.2586, \"grade\": \"YELLOW\"}",
+          "predict_baseline": "49.1928",
+          "predict_our_method": "45.2586",
+          "eval_epochs": 10
+        },
+        {
+          "input": "{\"diagnostic\": \"amazon_epoch_sensitivity\", \"exp_id\": \"exp_id4_it2\"}",
+          "output": "{\"exp_id\": \"exp_id4_it2\", \"epochs\": 10, \"d\": 10.8281, \"baseline_mae\": 48.7761, \"method_mae\": 44.9929, \"grade\": \"YELLOW\"}",
+          "predict_baseline": "48.7761",
+          "predict_our_method": "44.9929",
+          "eval_epochs": 10
+        },
+        {
+          "input": "{\"diagnostic\": \"gate_stasis_summary\"}",
+          "output": "{\"stasis_count\": 104, \"total_measured\": 128, \"stasis_fraction\": 0.8125, \"affected_tasks\": [\"rel-amazon/item-ltv\", \"rel-avito/ad-ctr\", \"rel-f1/driver-position\", \"rel-stack/user-engagement\", \"rel-trial/study-adverse\"]}",
+          "predict_baseline": "104",
+          "predict_our_method": "128",
+          "eval_stasis_fraction": 0.8125
+        },
+        {
+          "input": "{\"diagnostic\": \"degenerate_baselines_summary\"}",
+          "output": "{\"count\": 4, \"inflated_d_count\": 4}",
+          "predict_baseline": "4",
+          "predict_our_method": "4",
+          "eval_degenerate_count": 4
+        }
+      ]
+    },
+    {
+      "dataset": "publication_readiness",
+      "examples": [
+        {
+          "input": "{\"assessment\": \"publication_readiness\"}",
+          "output": "{\"claim_supported\": false, \"classification_pooled_d\": 2.1316, \"classification_pooled_p\": 0.129391, \"classification_all_positive\": true, \"regression_pooled_d\": 0.1656, \"sum_threat_level\": \"medium\", \"overall_verdict\": \"revise_and_resubmit\", \"verdict_rationale\": \"Overall pooled d=0.84 (p=0.2653), I\\u00b2=85.4%. Effect present but heterogeneous. Narrowing to classification tasks recommended. Regression results are mixed (d=0.17).\", \"overall_pooled_d\": 0.8439, \"overall_I_squared\": 85.37}",
+          "predict_baseline": "revise_and_resubmit",
+          "predict_our_method": "revise_and_resubmit",
+          "eval_verdict_numeric": 2
+        }
+      ]
+    },
+    {
+      "dataset": "sum_comparison",
+      "examples": [
+        {
+          "input": "{\"task\": \"rel-f1/driver-position\", \"comparison\": \"cama_vs_sum\"}",
+          "output": "{\"cama_vs_mean_d\": -0.2515, \"sum_vs_mean_d\": -0.2056, \"cama_vs_sum_d\": -0.0582, \"cama_vs_mean_p\": 0.5866, \"sum_vs_mean_p\": 0.663, \"cama_vs_sum_p\": 0.8879}",
+          "predict_baseline": "sum",
+          "predict_our_method": "cama",
+          "eval_cama_vs_sum_d": -0.0582
+        },
+        {
+          "input": "{\"task\": \"rel-f1/driver-dnf\", \"comparison\": \"cama_vs_sum\"}",
+          "output": "{\"cama_vs_mean_d\": 0.505, \"sum_vs_mean_d\": -3.3711, \"cama_vs_sum_d\": 3.1924, \"cama_vs_mean_p\": 0.2698, \"sum_vs_mean_p\": 0.0, \"cama_vs_sum_p\": 0.0}",
+          "predict_baseline": "sum",
+          "predict_our_method": "cama",
+          "eval_cama_vs_sum_d": 3.1924
+        },
+        {
+          "input": "{\"task\": \"rel-stack/user-engagement\", \"comparison\": \"cama_vs_sum\"}",
+          "output": "{\"cama_vs_mean_d\": 5.476, \"sum_vs_mean_d\": 5.6926, \"cama_vs_sum_d\": -0.5526, \"cama_vs_mean_p\": 0.0006, \"sum_vs_mean_p\": 0.0016, \"cama_vs_sum_p\": 0.2837}",
+          "predict_baseline": "sum",
+          "predict_our_method": "cama",
+          "eval_cama_vs_sum_d": -0.5526
+        }
+      ]
+    }
+  ]
+}

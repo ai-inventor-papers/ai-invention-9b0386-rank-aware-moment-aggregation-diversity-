@@ -1,0 +1,13 @@
+{
+  "id": "eval_id3_it7__opus",
+  "type": "code",
+  "title": "CAMA Paper Figure Generation, LaTeX Assembly, and PDF Compilation",
+  "summary": "Demo notebook that loads pre-extracted experiment data from 9 dependency experiments and generates 3 publication-quality figures: (1) forest plot of per-task Cohen's d effect sizes for CAMA vs mean aggregation, (2) information compression bar chart at FK joins, (3) gate value heatmap showing stasis patterns. Also computes evaluation metrics (pooled d=0.84, 8 tasks, 5 databases) and visualizes ablation study results comparing 6 aggregation methods on rel-f1/driver-position. Uses mini_demo_data.json with all Cohen's d, compression, gate analysis, and ablation data.",
+  "original_path": "/ai-inventor/aii_pipeline/runs/leskovec-predictive-residual-message-passing-v2_sti/3_invention_loop/iter_7/gen_art/eval_id3_it7__opus",
+  "demo_path": "/ai-inventor/aii_pipeline/runs/leskovec-predictive-residual-message-passing-v2_sti/4_gen_paper_repo/eval_id3_it7__opus",
+  "out_expected_files": {
+    "notebook": "code_demo.ipynb",
+    "mini_data_file": "mini_demo_data.json"
+  },
+  "notebook_path": "/ai-inventor/aii_pipeline/runs/leskovec-predictive-residual-message-passing-v2_sti/4_gen_paper_repo/eval_id3_it7__opus/eval_code_demo.ipynb"
+}

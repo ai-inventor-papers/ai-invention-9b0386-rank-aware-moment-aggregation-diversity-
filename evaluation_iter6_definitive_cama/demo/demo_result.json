@@ -1,0 +1,13 @@
+{
+  "id": "eval_id4_it6__opus",
+  "type": "code",
+  "title": "Definitive CAMA/RAMA Meta-Analysis: 15 Experiments Across Iterations 2-5",
+  "summary": "Demo notebook for the Definitive CAMA/RAMA Meta-Analysis across 15 experiments (iterations 2-5). Demonstrates the 6-phase analysis pipeline: GRADE-adapted evidence grading, per-task best-evidence selection, DerSimonian-Laird random-effects meta-analysis under 4 scenarios, sum-comparison sub-analysis, critical diagnostics (gate stasis, degenerate baselines), and publication readiness assessment. Uses 22 pre-extracted effect sizes loaded from mini_demo_data.json. Includes forest plot and pooled effect size visualizations. Note: install cell needs scipy version fix for Python 3.10 environments (scipy==1.15.3 instead of 1.16.3).",
+  "original_path": "/ai-inventor/aii_pipeline/runs/leskovec-predictive-residual-message-passing-v2_sti/3_invention_loop/iter_6/gen_art/eval_id4_it6__opus",
+  "demo_path": "/ai-inventor/aii_pipeline/runs/leskovec-predictive-residual-message-passing-v2_sti/4_gen_paper_repo/eval_id4_it6__opus",
+  "out_expected_files": {
+    "notebook": "code_demo.ipynb",
+    "mini_data_file": "mini_demo_data.json"
+  },
+  "notebook_path": "/ai-inventor/aii_pipeline/runs/leskovec-predictive-residual-message-passing-v2_sti/4_gen_paper_repo/eval_id4_it6__opus/eval_code_demo.ipynb"
+}

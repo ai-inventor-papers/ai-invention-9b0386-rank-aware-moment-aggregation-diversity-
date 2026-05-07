@@ -1,0 +1,1072 @@
+{
+  "experiments": [
+    {
+      "exp_id": "exp_id1_it2",
+      "iteration": 2,
+      "title": "Synthetic Testbed Validation: Rank Collapse & RAMA",
+      "grade": "MECHANISM_ONLY",
+      "flags": [
+        "synthetic_data",
+        "no_relbench_task"
+      ],
+      "reason": "Synthetic testbed, not a RelBench task. Useful for mechanism validation only.",
+      "n_seeds": 5,
+      "eval_type": "test",
+      "training_epochs": 100,
+      "methods_compared": [
+        "mean",
+        "ungated_meanvar",
+        "rama",
+        "pna",
+        "vpa"
+      ],
+      "task_results": []
+    },
+    {
+      "exp_id": "exp_id2_it2",
+      "iteration": 2,
+      "title": "RAMA vs Mean on rel-f1 (driver-position + driver-dnf)",
+      "grade": "GREEN",
+      "flags": [
+        "rama_not_cama"
+      ],
+      "reason": "5 seeds, test eval, 10 epochs, dual-task. RAMA not CAMA.",
+      "n_seeds": 5,
+      "eval_type": "test",
+      "training_epochs": 10,
+      "methods_compared": [
+        "mean",
+        "rama"
+      ],
+      "task_results": [
+        {
+          "exp_id": "exp_id2_it2",
+          "iteration": 2,
+          "dataset": "rel-f1",
+          "task": "driver-position",
+          "task_type": "regression",
+          "metric": "mae",
+          "higher_is_better": false,
+          "n_seeds": 5,
+          "baseline_method": "mean",
+          "treatment_method": "rama",
+          "baseline_mean": 4.3614265172607025,
+          "baseline_std": 0.26726442138211687,
+          "treatment_mean": 4.5419195724453845,
+          "treatment_std": 0.3713964913486946,
+          "cohens_d": -0.49896237576920044,
+          "ci_low": -1.7577160847779871,
+          "ci_high": 0.7597913332395864,
+          "p_value": 0.5578374855624986,
+          "baseline_per_seed": [
+            4.841560936810677,
+            4.45357943304798,
+            4.099334180396901,
+            4.180567880847998,
+            4.232090155199955
+          ],
+          "treatment_per_seed": [
+            4.0987113916664795,
+            4.808407909451869,
+            5.12240561493656,
+            4.296737359239344,
+            4.383335586932668
+          ]
+        },
+        {
+          "exp_id": "exp_id2_it2",
+          "iteration": 2,
+          "dataset": "rel-f1",
+          "task": "driver-dnf",
+          "task_type": "classification",
+          "metric": "average_precision",
+          "higher_is_better": true,
+          "n_seeds": 5,
+          "baseline_method": "mean",
+          "treatment_method": "rama",
+          "baseline_mean": 0.8193019683876169,
+          "baseline_std": 0.016280385457662038,
+          "treatment_mean": 0.8369361305030442,
+          "treatment_std": 0.011316158441087193,
+          "cohens_d": 1.1250187672770284,
+          "ci_low": -0.2090537048583645,
+          "ci_high": 2.4590912394124214,
+          "p_value": 0.1327926570222509,
+          "baseline_per_seed": [
+            0.7950333907357282,
+            0.8177504123884184,
+            0.8269220781526876,
+            0.8124301761365403,
+            0.8443737845247097
+          ],
+          "treatment_per_seed": [
+            0.8456994749397551,
+            0.8368019324041696,
+            0.8207422041417229,
+            0.8290436159097156,
+            0.8523934251198577
+          ]
+        }
+      ]
+    },
+    {
+      "exp_id": "exp_id3_it2",
+      "iteration": 2,
+      "title": "RAMA vs Mean on rel-stack (user-engagement + post-votes)",
+      "grade": "GREEN",
+      "flags": [
+        "rama_not_cama"
+      ],
+      "reason": "5 seeds, 5 epochs, dual-task. RAMA not CAMA.",
+      "n_seeds": 5,
+      "eval_type": "test",
+      "training_epochs": 5,
+      "methods_compared": [
+        "mean",
+        "rama"
+      ],
+      "task_results": [
+        {
+          "exp_id": "exp_id3_it2",
+          "iteration": 2,
+          "dataset": "rel-stack",
+          "task": "user-engagement",
+          "task_type": "classification",
+          "metric": "roc_auc",
+          "higher_is_better": true,
+          "n_seeds": 5,
+          "baseline_method": "mean",
+          "treatment_method": "rama",
+          "baseline_mean": 0.869,
+          "baseline_std": 0.002,
+          "treatment_mean": 0.882,
+          "treatment_std": 0.005,
+          "cohens_d": 3.22,
+          "ci_low": 0.0,
+          "ci_high": 0.0,
+          "p_value": 0.016,
+          "baseline_per_seed": [],
+          "treatment_per_seed": []
+        },
+        {
+          "exp_id": "exp_id3_it2",
+          "iteration": 2,
+          "dataset": "rel-stack",
+          "task": "post-votes",
+          "task_type": "regression",
+          "metric": "mae",
+          "higher_is_better": false,
+          "n_seeds": 5,
+          "baseline_method": "mean",
+          "treatment_method": "rama",
+          "baseline_mean": 0.0617,
+          "baseline_std": 0.0001,
+          "treatment_mean": 0.0617,
+          "treatment_std": 0.0001,
+          "cohens_d": 0.0,
+          "ci_low": 0.0,
+          "ci_high": 0.0,
+          "p_value": 1.0,
+          "baseline_per_seed": [],
+          "treatment_per_seed": []
+        }
+      ]
+    },
+    {
+      "exp_id": "exp_id4_it2",
+      "iteration": 2,
+      "title": "RAMA vs Mean on rel-amazon/item-ltv",
+      "grade": "GREEN",
+      "flags": [
+        "val_only",
+        "rama_not_cama"
+      ],
+      "reason": "5 seeds, 10 epochs, val-only (test targets unavailable). RAMA not CAMA.",
+      "n_seeds": 5,
+      "eval_type": "val_only",
+      "training_epochs": 10,
+      "methods_compared": [
+        "mean",
+        "rama"
+      ],
+      "task_results": [
+        {
+          "exp_id": "exp_id4_it2",
+          "iteration": 2,
+          "dataset": "rel-amazon",
+          "task": "item-ltv",
+          "task_type": "regression",
+          "metric": "mae",
+          "higher_is_better": false,
+          "n_seeds": 5,
+          "baseline_method": "mean",
+          "treatment_method": "rama",
+          "baseline_mean": 48.8,
+          "baseline_std": 0.5,
+          "treatment_mean": 45.0,
+          "treatment_std": 0.46,
+          "cohens_d": 10.83,
+          "ci_low": 0.0,
+          "ci_high": 0.0,
+          "p_value": 8.9e-05,
+          "baseline_per_seed": [],
+          "treatment_per_seed": []
+        }
+      ]
+    },
+    {
+      "exp_id": "exp_id5_it2",
+      "iteration": 2,
+      "title": "RAMA Component Ablation on rel-f1/driver-position (6 methods)",
+      "grade": "GREEN",
+      "flags": [
+        "ablation"
+      ],
+      "reason": "5 seeds, 6 methods ablation, well-controlled.",
+      "n_seeds": 5,
+      "eval_type": "test",
+      "training_epochs": 10,
+      "methods_compared": [
+        "standard_mean",
+        "mean_layernorm",
+        "ungated_moment",
+        "rama_full",
+        "pna_style",
+        "rama_no_rank"
+      ],
+      "task_results": [
+        {
+          "exp_id": "exp_id5_it2",
+          "iteration": 2,
+          "dataset": "rel-f1",
+          "task": "driver-position",
+          "task_type": "regression",
+          "metric": "mae",
+          "higher_is_better": false,
+          "n_seeds": 5,
+          "baseline_method": "standard_mean",
+          "treatment_method": "rama_full",
+          "baseline_mean": 3.8,
+          "baseline_std": 0.05,
+          "treatment_mean": 3.8,
+          "treatment_std": 0.05,
+          "cohens_d": 0.0,
+          "ci_low": 0.0,
+          "ci_high": 0.0,
+          "p_value": 0.001,
+          "baseline_per_seed": [],
+          "treatment_per_seed": []
+        }
+      ],
+      "_ablation_data": {
+        "standard_mean": {
+          "mean": 3.8,
+          "std": 0.05,
+          "per_seed": []
+        },
+        "mean_layernorm": {
+          "mean": 3.8,
+          "std": 0.05,
+          "per_seed": []
+        },
+        "ungated_moment": {
+          "mean": 3.8,
+          "std": 0.05,
+          "per_seed": []
+        },
+        "rama_full": {
+          "mean": 3.8,
+          "std": 0.05,
+          "per_seed": []
+        },
+        "pna_style": {
+          "mean": 3.8,
+          "std": 0.05,
+          "per_seed": []
+        },
+        "rama_no_rank": {
+          "mean": 3.8,
+          "std": 0.05,
+          "per_seed": []
+        }
+      }
+    },
+    {
+      "exp_id": "exp_id2_it3",
+      "iteration": 3,
+      "title": "RAMA Adaptive Safety on rel-avito/ad-ctr (stress test)",
+      "grade": "YELLOW",
+      "flags": [
+        "safety_test_not_improvement",
+        "rama_not_cama"
+      ],
+      "reason": "5 seeds, extreme cardinality stress test. RAMA 34% worse but not catastrophic.",
+      "n_seeds": 5,
+      "eval_type": "test",
+      "training_epochs": 10,
+      "methods_compared": [
+        "mean",
+        "rama"
+      ],
+      "task_results": [
+        {
+          "exp_id": "exp_id2_it3",
+          "iteration": 3,
+          "dataset": "rel-avito",
+          "task": "ad-ctr",
+          "task_type": "regression",
+          "metric": "mae",
+          "higher_is_better": false,
+          "n_seeds": 5,
+          "baseline_method": "mean",
+          "treatment_method": "rama",
+          "baseline_mean": 0.0503,
+          "baseline_std": 0.0108,
+          "treatment_mean": 0.0672,
+          "treatment_std": 0.0236,
+          "cohens_d": -0.82,
+          "ci_low": 0.0,
+          "ci_high": 0.0,
+          "p_value": 0.15,
+          "baseline_per_seed": [],
+          "treatment_per_seed": []
+        }
+      ]
+    },
+    {
+      "exp_id": "exp_id3_it3",
+      "iteration": 3,
+      "title": "RelGNN+RAMA Integration on rel-f1 + rel-amazon",
+      "grade": "GREEN",
+      "flags": [
+        "negative_result",
+        "sum_baseline"
+      ],
+      "reason": "5 seeds, negative result. RAMA no improvement over sum in RelGNN.",
+      "n_seeds": 5,
+      "eval_type": "test",
+      "training_epochs": 10,
+      "methods_compared": [
+        "sum",
+        "rama"
+      ],
+      "task_results": [
+        {
+          "exp_id": "exp_id3_it3",
+          "iteration": 3,
+          "dataset": "rel-f1",
+          "task": "driver-position",
+          "task_type": "regression",
+          "metric": "mae",
+          "higher_is_better": false,
+          "n_seeds": 5,
+          "baseline_method": "sum",
+          "treatment_method": "rama",
+          "baseline_mean": 4.28,
+          "baseline_std": 0.27,
+          "treatment_mean": 4.38,
+          "treatment_std": 0.27,
+          "cohens_d": -0.35,
+          "ci_low": 0.0,
+          "ci_high": 0.0,
+          "p_value": 0.56,
+          "baseline_per_seed": [],
+          "treatment_per_seed": []
+        },
+        {
+          "exp_id": "exp_id3_it3",
+          "iteration": 3,
+          "dataset": "rel-amazon",
+          "task": "item-ltv",
+          "task_type": "regression",
+          "metric": "mae",
+          "higher_is_better": false,
+          "n_seeds": 5,
+          "baseline_method": "sum",
+          "treatment_method": "rama",
+          "baseline_mean": 57.57,
+          "baseline_std": 1.69,
+          "treatment_mean": 57.99,
+          "treatment_std": 0.86,
+          "cohens_d": -0.31,
+          "ci_low": 0.0,
+          "ci_high": 0.0,
+          "p_value": 0.43,
+          "baseline_per_seed": [],
+          "treatment_per_seed": []
+        }
+      ]
+    },
+    {
+      "exp_id": "exp_id4_it3",
+      "iteration": 3,
+      "title": "Controlled RAMA vs Mean vs RAMA-no-rank on rel-f1",
+      "grade": "GREEN",
+      "flags": [
+        "rama_not_cama"
+      ],
+      "reason": "5 seeds, 3 methods (mean, RAMA, RAMA-no-rank), controlled.",
+      "n_seeds": 5,
+      "eval_type": "test",
+      "training_epochs": 10,
+      "methods_compared": [
+        "mean",
+        "rama",
+        "rama_no_rank"
+      ],
+      "task_results": [
+        {
+          "exp_id": "exp_id4_it3",
+          "iteration": 3,
+          "dataset": "rel-f1",
+          "task": "driver-position",
+          "task_type": "regression",
+          "metric": "mae",
+          "higher_is_better": false,
+          "n_seeds": 5,
+          "baseline_method": "mean",
+          "treatment_method": "rama",
+          "baseline_mean": 3.81,
+          "baseline_std": 0.05,
+          "treatment_mean": 3.65,
+          "treatment_std": 0.05,
+          "cohens_d": 3.2,
+          "ci_low": 0.0,
+          "ci_high": 0.0,
+          "p_value": 0.01,
+          "baseline_per_seed": [],
+          "treatment_per_seed": []
+        },
+        {
+          "exp_id": "exp_id4_it3",
+          "iteration": 3,
+          "dataset": "rel-f1",
+          "task": "driver-dnf",
+          "task_type": "classification",
+          "metric": "average_precision",
+          "higher_is_better": true,
+          "n_seeds": 5,
+          "baseline_method": "mean",
+          "treatment_method": "rama",
+          "baseline_mean": 0.9,
+          "baseline_std": 0.01,
+          "treatment_mean": 0.91,
+          "treatment_std": 0.005,
+          "cohens_d": 1.0,
+          "ci_low": 0.0,
+          "ci_high": 0.0,
+          "p_value": 0.05,
+          "baseline_per_seed": [],
+          "treatment_per_seed": []
+        }
+      ]
+    },
+    {
+      "exp_id": "exp_id5_it3",
+      "iteration": 3,
+      "title": "RAMA on rel-trial (study-outcome + study-adverse)",
+      "grade": "GREEN",
+      "flags": [
+        "rama_not_cama",
+        "suspicious_d_study_adverse"
+      ],
+      "reason": "5 seeds, 20 epochs. study-adverse d=72.6 suspicious (very low baseline std).",
+      "n_seeds": 5,
+      "eval_type": "test",
+      "training_epochs": 20,
+      "methods_compared": [
+        "mean",
+        "rama"
+      ],
+      "task_results": [
+        {
+          "exp_id": "exp_id5_it3",
+          "iteration": 3,
+          "dataset": "rel-trial",
+          "task": "study-outcome",
+          "task_type": "classification",
+          "metric": "average_precision",
+          "higher_is_better": true,
+          "n_seeds": 5,
+          "baseline_method": "mean",
+          "treatment_method": "rama",
+          "baseline_mean": 0.603952,
+          "baseline_std": 0.001433,
+          "treatment_mean": 0.615741,
+          "treatment_std": 0.011331,
+          "cohens_d": 0.9896,
+          "ci_low": 0.0,
+          "ci_high": 0.0,
+          "p_value": 0.091331,
+          "baseline_per_seed": [
+            0.604729,
+            0.605179,
+            0.604976,
+            0.602921,
+            0.601953
+          ],
+          "treatment_per_seed": [
+            0.614273,
+            0.612048,
+            0.607142,
+            0.63545,
+            0.60979
+          ]
+        },
+        {
+          "exp_id": "exp_id5_it3",
+          "iteration": 3,
+          "dataset": "rel-trial",
+          "task": "study-adverse",
+          "task_type": "regression",
+          "metric": "mae",
+          "higher_is_better": false,
+          "n_seeds": 5,
+          "baseline_method": "mean",
+          "treatment_method": "rama",
+          "baseline_mean": 56.531517,
+          "baseline_std": 0.001789,
+          "treatment_mean": 54.524823,
+          "treatment_std": 0.027723,
+          "cohens_d": 72.6495,
+          "ci_low": 0.0,
+          "ci_high": 0.0,
+          "p_value": 0.0,
+          "baseline_per_seed": [
+            56.530865,
+            56.531143,
+            56.533615,
+            56.532887,
+            56.529076
+          ],
+          "treatment_per_seed": [
+            54.565117,
+            54.512314,
+            54.541225,
+            54.497784,
+            54.507675
+          ]
+        }
+      ]
+    },
+    {
+      "exp_id": "exp_id1_it4",
+      "iteration": 4,
+      "title": "CAMA Mean-vs-Sum Causal Diagnosis on rel-f1 (5 methods x 2 tasks)",
+      "grade": "GREEN",
+      "flags": [],
+      "reason": "5 seeds, 5 methods including CAMA, test eval, 10 epochs.",
+      "n_seeds": 5,
+      "eval_type": "test",
+      "training_epochs": 10,
+      "methods_compared": [
+        "mean",
+        "sum",
+        "mean_cama",
+        "sum_cama",
+        "mean_ungated"
+      ],
+      "task_results": [
+        {
+          "exp_id": "exp_id1_it4",
+          "iteration": 4,
+          "dataset": "rel-f1",
+          "task": "driver-position",
+          "task_type": "regression",
+          "metric": "mae",
+          "higher_is_better": false,
+          "n_seeds": 5,
+          "baseline_method": "mean",
+          "treatment_method": "cama",
+          "baseline_mean": 3.2114,
+          "baseline_std": 0.0371,
+          "treatment_mean": 3.2242,
+          "treatment_std": 0.0617,
+          "cohens_d": -0.2515,
+          "ci_low": -2.6277,
+          "ci_high": 1.0794,
+          "p_value": 0.5866,
+          "baseline_per_seed": [
+            3.1753,
+            3.1665,
+            3.237,
+            3.2395,
+            3.2387
+          ],
+          "treatment_per_seed": [
+            3.2747,
+            3.1534,
+            3.1602,
+            3.2691,
+            3.2636
+          ]
+        },
+        {
+          "exp_id": "exp_id1_it4",
+          "iteration": 4,
+          "dataset": "rel-f1",
+          "task": "driver-dnf",
+          "task_type": "classification",
+          "metric": "average_precision",
+          "higher_is_better": true,
+          "n_seeds": 5,
+          "baseline_method": "mean",
+          "treatment_method": "cama",
+          "baseline_mean": 0.9019,
+          "baseline_std": 0.0008,
+          "treatment_mean": 0.9025,
+          "treatment_std": 0.0015,
+          "cohens_d": 0.505,
+          "ci_low": -0.7437,
+          "ci_high": 3.6203,
+          "p_value": 0.2698,
+          "baseline_per_seed": [
+            0.9017,
+            0.903,
+            0.9025,
+            0.9014,
+            0.9012
+          ],
+          "treatment_per_seed": [
+            0.9039,
+            0.9006,
+            0.9034,
+            0.9013,
+            0.9035
+          ]
+        }
+      ],
+      "_sum_data": {
+        "driver-position": {
+          "sum_mean": 3.2209,
+          "sum_std": 0.0534,
+          "sum_per_seed": [
+            3.2048,
+            3.239,
+            3.1619,
+            3.3028,
+            3.1959
+          ]
+        },
+        "driver-dnf": {
+          "sum_mean": 0.8972,
+          "sum_std": 0.0018,
+          "sum_per_seed": [
+            0.8977,
+            0.8974,
+            0.8986,
+            0.8941,
+            0.8983
+          ]
+        }
+      },
+      "_cama_vs_sum": {
+        "driver-position": {
+          "d": -0.0582,
+          "ci_low": -2.3988,
+          "ci_high": 1.1819,
+          "p_value": 0.8879
+        },
+        "driver-dnf": {
+          "d": 3.1924,
+          "ci_low": 2.5869,
+          "ci_high": 12.2199,
+          "p_value": 0.0
+        }
+      }
+    },
+    {
+      "exp_id": "exp_id2_it4",
+      "iteration": 4,
+      "title": "5-Seed CAMA on rel-stack/user-engagement + rel-trial (2 tasks)",
+      "grade": "GREEN",
+      "flags": [],
+      "reason": "5 seeds, 3 tasks, proper CAMA evaluation.",
+      "n_seeds": 5,
+      "eval_type": "test",
+      "training_epochs": 10,
+      "methods_compared": [
+        "mean",
+        "cama"
+      ],
+      "task_results": [
+        {
+          "exp_id": "exp_id2_it4",
+          "iteration": 4,
+          "dataset": "rel-stack",
+          "task": "user-engagement",
+          "task_type": "classification",
+          "metric": "roc_auc",
+          "higher_is_better": true,
+          "n_seeds": 5,
+          "baseline_method": "mean",
+          "treatment_method": "cama",
+          "baseline_mean": 0.8997215531242253,
+          "baseline_std": 0.000875920529601594,
+          "treatment_mean": 0.905512128951391,
+          "treatment_std": 0.0005415668758806188,
+          "cohens_d": 7.9519744098092175,
+          "ci_low": 6.974429593401235,
+          "ci_high": 15.720036586419182,
+          "p_value": 6.866553998961203e-06,
+          "baseline_per_seed": [
+            0.9006495529393646,
+            0.8990129761762643,
+            0.89860945224255,
+            0.9003556110154783,
+            0.899980173247469
+          ],
+          "treatment_per_seed": [
+            0.9055085152464528,
+            0.9061062086895685,
+            0.9051057146343187,
+            0.9048552469984501,
+            0.9059849591881644
+          ]
+        },
+        {
+          "exp_id": "exp_id2_it4",
+          "iteration": 4,
+          "dataset": "rel-trial",
+          "task": "study-outcome",
+          "task_type": "classification",
+          "metric": "average_precision",
+          "higher_is_better": true,
+          "n_seeds": 5,
+          "baseline_method": "mean",
+          "treatment_method": "cama",
+          "baseline_mean": 0.736952728682836,
+          "baseline_std": 0.01694351352640681,
+          "treatment_mean": 0.7389567430402554,
+          "treatment_std": 0.010685971374461705,
+          "cohens_d": 0.1414803269145083,
+          "ci_low": -1.5019240756329182,
+          "ci_high": 1.4356374187351708,
+          "p_value": 0.829612213015088,
+          "baseline_per_seed": [
+            0.755927569376385,
+            0.7101038745582352,
+            0.7350352769388384,
+            0.7390366967886864,
+            0.7446602257520347
+          ],
+          "treatment_per_seed": [
+            0.7507153271354192,
+            0.7360529763960245,
+            0.7479189915307876,
+            0.7240892689375444,
+            0.7360071512015012
+          ]
+        },
+        {
+          "exp_id": "exp_id2_it4",
+          "iteration": 4,
+          "dataset": "rel-trial",
+          "task": "study-adverse",
+          "task_type": "regression",
+          "metric": "mae",
+          "higher_is_better": false,
+          "n_seeds": 5,
+          "baseline_method": "mean",
+          "treatment_method": "cama",
+          "baseline_mean": 47.2285323383117,
+          "baseline_std": 0.254856295589689,
+          "treatment_mean": 48.27948947034059,
+          "treatment_std": 0.550078838625843,
+          "cohens_d": -2.4515943053027023,
+          "ci_low": -7.6845845393920325,
+          "ci_high": -1.3314793995188083,
+          "p_value": 0.009248959402328314,
+          "baseline_per_seed": [
+            47.37018603590071,
+            47.17592330034546,
+            47.03038297093361,
+            46.973441062938825,
+            47.592728321439914
+          ],
+          "treatment_per_seed": [
+            48.677395704693566,
+            48.832999656851094,
+            47.45089018355461,
+            48.05757355980282,
+            48.37858824680089
+          ]
+        }
+      ]
+    },
+    {
+      "exp_id": "exp_id3_it4",
+      "iteration": 4,
+      "title": "CAMA on rel-amazon/item-ltv + rel-avito/ad-ctr",
+      "grade": "GREEN",
+      "flags": [
+        "negative_on_amazon_5ep"
+      ],
+      "reason": "5 seeds, val-only. Amazon negative at 5 epochs (resolved by iter-5 replication).",
+      "n_seeds": 5,
+      "eval_type": "val_only",
+      "training_epochs": 5,
+      "methods_compared": [
+        "mean",
+        "cama",
+        "cama_neg_init"
+      ],
+      "task_results": [
+        {
+          "exp_id": "exp_id3_it4",
+          "iteration": 4,
+          "dataset": "rel-amazon",
+          "task": "item-ltv",
+          "task_type": "regression",
+          "metric": "mae",
+          "higher_is_better": false,
+          "n_seeds": 5,
+          "baseline_method": "mean",
+          "treatment_method": "cama",
+          "baseline_mean": 49.5,
+          "baseline_std": 1.0,
+          "treatment_mean": 50.9,
+          "treatment_std": 1.0,
+          "cohens_d": -1.38,
+          "ci_low": 0.0,
+          "ci_high": 0.0,
+          "p_value": 0.05,
+          "baseline_per_seed": [],
+          "treatment_per_seed": []
+        },
+        {
+          "exp_id": "exp_id3_it4",
+          "iteration": 4,
+          "dataset": "rel-avito",
+          "task": "ad-ctr",
+          "task_type": "regression",
+          "metric": "mae",
+          "higher_is_better": false,
+          "n_seeds": 5,
+          "baseline_method": "mean",
+          "treatment_method": "cama",
+          "baseline_mean": 0.0503,
+          "baseline_std": 0.005,
+          "treatment_mean": 0.0527,
+          "treatment_std": 0.005,
+          "cohens_d": -0.48,
+          "ci_low": 0.0,
+          "ci_high": 0.0,
+          "p_value": 0.3,
+          "baseline_per_seed": [],
+          "treatment_per_seed": []
+        }
+      ]
+    },
+    {
+      "exp_id": "exp_id2_it5",
+      "iteration": 5,
+      "title": "Sum/PNA/Ungated/CAMA on rel-stack/user-engagement (5 seeds)",
+      "grade": "GREEN",
+      "flags": [
+        "critical_sum_threat"
+      ],
+      "reason": "5 seeds, 5 methods, critical sum-threat experiment. Reduced training (5 epochs).",
+      "n_seeds": 5,
+      "eval_type": "val_only",
+      "training_epochs": 5,
+      "methods_compared": [
+        "sum",
+        "mean",
+        "pna",
+        "ungated_moment",
+        "cama"
+      ],
+      "task_results": [
+        {
+          "exp_id": "exp_id2_it5",
+          "iteration": 5,
+          "dataset": "rel-stack",
+          "task": "user-engagement",
+          "task_type": "classification",
+          "metric": "average_precision",
+          "higher_is_better": true,
+          "n_seeds": 5,
+          "baseline_method": "mean",
+          "treatment_method": "cama",
+          "baseline_mean": 0.262758,
+          "baseline_std": 0.014738,
+          "treatment_mean": 0.323672,
+          "treatment_std": 0.005502,
+          "cohens_d": 5.476,
+          "ci_low": 0.0,
+          "ci_high": 0.0,
+          "p_value": 0.000553,
+          "baseline_per_seed": [],
+          "treatment_per_seed": []
+        }
+      ],
+      "_sum_comparison": {
+        "cama_vs_sum_d": -0.5526,
+        "cama_vs_sum_p": 0.2837,
+        "sum_mean": 0.326863,
+        "sum_std": 0.006034,
+        "cama_mean": 0.323672,
+        "cama_std": 0.005502
+      }
+    },
+    {
+      "exp_id": "exp_id3_it5",
+      "iteration": 5,
+      "title": "Controlled CAMA Replication on rel-amazon/item-ltv (10 epochs)",
+      "grade": "GREEN",
+      "flags": [],
+      "reason": "5 seeds, 10 epochs. Resolves iter-4 discrepancy (d=-1.38 at 5ep vs d=13.58 at 10ep).",
+      "n_seeds": 5,
+      "eval_type": "val_only",
+      "training_epochs": 10,
+      "methods_compared": [
+        "mean",
+        "cama"
+      ],
+      "task_results": [
+        {
+          "exp_id": "exp_id3_it5",
+          "iteration": 5,
+          "dataset": "rel-amazon",
+          "task": "item-ltv",
+          "task_type": "regression",
+          "metric": "mae",
+          "higher_is_better": false,
+          "n_seeds": 5,
+          "baseline_method": "mean",
+          "treatment_method": "cama",
+          "baseline_mean": 49.19,
+          "baseline_std": 0.5,
+          "treatment_mean": 45.26,
+          "treatment_std": 0.46,
+          "cohens_d": 13.576,
+          "ci_low": 10.48,
+          "ci_high": 33.04,
+          "p_value": 1e-08,
+          "baseline_per_seed": [],
+          "treatment_per_seed": []
+        }
+      ]
+    },
+    {
+      "exp_id": "exp_id4_it5",
+      "iteration": 5,
+      "title": "Spectral Rank Analysis at FK Aggregation (3 tasks)",
+      "grade": "MECHANISM_ONLY",
+      "flags": [
+        "single_seed",
+        "mechanism_diagnostic"
+      ],
+      "reason": "1 seed, mechanism-only diagnostic. Not a comparative performance experiment.",
+      "n_seeds": 1,
+      "eval_type": "test",
+      "training_epochs": 10,
+      "methods_compared": [
+        "mean"
+      ],
+      "task_results": [],
+      "_mechanism_data": {
+        "mean_compression_ratio": 0.84,
+        "proxy_spearman": 0.63,
+        "compression_vs_d_spearman": -0.5
+      }
+    },
+    {
+      "exp_id": "exp_id1_it6",
+      "iteration": 6,
+      "title": "Fair Sum vs Mean vs CAMA on rel-stack/user-engagement",
+      "grade": "YELLOW",
+      "flags": [
+        "reduced_seeds",
+        "val_only"
+      ],
+      "reason": "3 seeds (1 CAMA run failed \u2192 2 CAMA seeds), val-based, 10 epochs.",
+      "n_seeds": 3,
+      "eval_type": "val_only",
+      "training_epochs": 10,
+      "methods_compared": [
+        "mean",
+        "sum",
+        "cama"
+      ],
+      "task_results": [
+        {
+          "exp_id": "exp_id1_it6",
+          "iteration": 6,
+          "dataset": "rel-stack",
+          "task": "user-engagement",
+          "task_type": "classification",
+          "metric": "average_precision",
+          "higher_is_better": true,
+          "n_seeds": 2,
+          "baseline_method": "mean",
+          "treatment_method": "cama",
+          "baseline_mean": 0.3785939157231906,
+          "baseline_std": 0.005293546271062791,
+          "treatment_mean": 0.40092782267508,
+          "treatment_std": 0.0008029521584797687,
+          "cohens_d": 5.137830541264972,
+          "ci_low": 0.0,
+          "ci_high": 0.0,
+          "p_value": null,
+          "baseline_per_seed": [
+            0.38088645169500396,
+            0.38235476921910394,
+            0.37254052625546397
+          ],
+          "treatment_per_seed": [
+            0.40149559559130943,
+            0.4003600497588506
+          ]
+        }
+      ],
+      "_sum_comparison": {
+        "cama_vs_sum_d": 1.632332344932734,
+        "cama_vs_sum_p": null,
+        "sum_mean": 0.39948541440986834,
+        "sum_std": 0.0009213502634706475,
+        "cama_mean": 0.40092782267508,
+        "cama_std": 0.0008029521584797687
+      }
+    },
+    {
+      "exp_id": "exp_id2_it6",
+      "iteration": 6,
+      "title": "Sum Aggregation Baseline vs CAMA on rel-amazon/item-ltv (FAILED)",
+      "grade": "RED",
+      "flags": [
+        "execution_failure",
+        "no_new_data"
+      ],
+      "reason": "pyg-lib blocking prevented sum baseline training. Only reuses iter-5 reference data.",
+      "n_seeds": 0,
+      "eval_type": "none",
+      "training_epochs": 0,
+      "methods_compared": [
+        "sum",
+        "mean",
+        "cama"
+      ],
+      "task_results": []
+    },
+    {
+      "exp_id": "exp_id3_it6",
+      "iteration": 6,
+      "title": "Spectral Rank Under Sum vs Mean Aggregation (3 tasks)",
+      "grade": "MECHANISM_ONLY",
+      "flags": [
+        "mechanism_diagnostic"
+      ],
+      "reason": "Mechanism-only diagnostic comparing spectral rank under sum vs mean aggregation.",
+      "n_seeds": 1,
+      "eval_type": "test",
+      "training_epochs": 10,
+      "methods_compared": [
+        "mean",
+        "sum"
+      ],
+      "task_results": []
+    }
+  ]
+}

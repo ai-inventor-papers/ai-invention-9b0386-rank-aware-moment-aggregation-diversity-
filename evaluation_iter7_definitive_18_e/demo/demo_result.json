@@ -1,0 +1,13 @@
+{
+  "id": "eval_id2_it7__opus",
+  "type": "code",
+  "title": "Definitive 18-Experiment Meta-Analysis: CAMA vs Mean/Sum Aggregation Across All Iterations",
+  "summary": "Demo notebook implementing a comprehensive 18-experiment meta-analysis evaluating CAMA vs mean/sum aggregation. Runs 6 phases: evidence grading, best-evidence selection, DerSimonian-Laird random-effects meta-analysis (5 scenarios), sum-threat reassessment, publication readiness scorecard, and paper tables generation. Uses pre-built experiment catalog from mini_demo_data.json (18 experiments across iterations 2-6). Produces forest plot, grade distribution, and readiness scorecard visualizations. Key results: pooled d=0.875 overall, d=2.132 classification-only, I2=85%, readiness 20/24 PASS.",
+  "original_path": "/ai-inventor/aii_pipeline/runs/leskovec-predictive-residual-message-passing-v2_sti/3_invention_loop/iter_7/gen_art/eval_id2_it7__opus",
+  "demo_path": "/ai-inventor/aii_pipeline/runs/leskovec-predictive-residual-message-passing-v2_sti/4_gen_paper_repo/eval_id2_it7__opus",
+  "out_expected_files": {
+    "notebook": "code_demo.ipynb",
+    "mini_data_file": "mini_demo_data.json"
+  },
+  "notebook_path": "/ai-inventor/aii_pipeline/runs/leskovec-predictive-residual-message-passing-v2_sti/4_gen_paper_repo/eval_id2_it7__opus/eval_code_demo.ipynb"
+}

@@ -1,0 +1,10 @@
+[project]
+name = "rama-meta-analysis-eval"
+version = "0.1.0"
+requires-python = ">=3.10,<3.12"
+dependencies = [
+    "numpy==2.4.3",
+    "scipy==1.17.1",
+    "loguru==0.7.3",
+    "psutil==7.2.2",
+]

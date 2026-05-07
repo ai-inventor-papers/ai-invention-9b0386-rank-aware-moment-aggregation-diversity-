@@ -1,0 +1,13 @@
+{
+  "id": "exp_id5_it2__opus",
+  "type": "code",
+  "title": "RAMA Component Ablation on rel-f1/driver-position: 6 Aggregation Methods \u00d7 5 Seeds",
+  "summary": "Demo notebook for the RAMA (Rank-Aware Moment Aggregation) component ablation study on rel-f1/driver-position. Implements 6 GNN aggregation methods (standard_mean, mean_layernorm, ungated_moment, rama_full, pna_style, rama_no_rank) with lightweight PyG-compatible shims. Runs unit tests verifying shape correctness, zero-init behavior, and gradient flow. Loads pre-computed training results (18 runs: 6 methods x 3 seeds) from mini_demo_data.json and reproduces the full statistical analysis including pairwise Cohen's d effect sizes and hypothesis tests. Visualizes results with MAE bar chart and Cohen's d heatmap. Key finding: RAMA variants (MAE~3.65) significantly outperform baselines (MAE~3.81).",
+  "original_path": "/ai-inventor/aii_pipeline/runs/leskovec-predictive-residual-message-passing-v2_sti/3_invention_loop/iter_2/gen_art/exp_id5_it2__opus",
+  "demo_path": "/ai-inventor/aii_pipeline/runs/leskovec-predictive-residual-message-passing-v2_sti/4_gen_paper_repo/exp_id5_it2__opus",
+  "out_expected_files": {
+    "notebook": "code_demo.ipynb",
+    "mini_data_file": "mini_demo_data.json"
+  },
+  "notebook_path": "/ai-inventor/aii_pipeline/runs/leskovec-predictive-residual-message-passing-v2_sti/4_gen_paper_repo/exp_id5_it2__opus/method_code_demo.ipynb"
+}

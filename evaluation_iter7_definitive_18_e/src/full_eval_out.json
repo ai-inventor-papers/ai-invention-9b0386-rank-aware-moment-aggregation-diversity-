@@ -1,0 +1,474 @@
+{
+  "metadata": {
+    "evaluation_name": "Definitive 18-Experiment Meta-Analysis",
+    "description": "CAMA vs Mean/Sum Aggregation across all iterations (2-6)",
+    "phases": [
+      "A: Evidence Grading",
+      "B: Best Evidence Selection",
+      "C: DerSimonian-Laird Meta-Analysis (5 scenarios)",
+      "D: Sum-Threat Reassessment",
+      "E: Publication Readiness Scorecard",
+      "F: Paper Tables JSON"
+    ],
+    "date": "2026-03-20",
+    "total_experiments": 18,
+    "statistical_method": "DerSimonian-Laird random-effects"
+  },
+  "metrics_agg": {
+    "total_experiments": 18,
+    "usable_for_meta": 14,
+    "green_count": 12,
+    "yellow_count": 2,
+    "red_count": 1,
+    "mechanism_only_count": 3,
+    "unique_tasks": 8,
+    "s1_d_pooled": 0.8751302939382254,
+    "s1_ci_lo": -0.5891748456046061,
+    "s1_ci_hi": 2.3394354334810568,
+    "s1_p_value": 0.24144672027658376,
+    "s1_I2": 85.07014868576348,
+    "s1_n_studies": 8,
+    "s2_d_pooled": 0.8751302939382254,
+    "s2_ci_lo": -0.5891748456046061,
+    "s2_ci_hi": 2.3394354334810568,
+    "s2_p_value": 0.24144672027658376,
+    "s2_I2": 85.07014868576348,
+    "s2_n_studies": 8,
+    "s3_d_pooled": 2.131567087198436,
+    "s3_ci_lo": -0.6233636433249932,
+    "s3_ci_hi": 4.886497817721866,
+    "s3_p_value": 0.12939122425601557,
+    "s3_I2": 87.20424536701422,
+    "s3_n_studies": 3,
+    "s4_d_pooled": 0.23111571127340808,
+    "s4_ci_lo": -1.6340534491116505,
+    "s4_ci_hi": 2.0962848716584666,
+    "s4_p_value": 0.8081089473145244,
+    "s4_I2": 85.06501416521107,
+    "s4_n_studies": 5,
+    "s5_d_pooled": 0.38471274676129524,
+    "s5_ci_lo": -0.6140222998015272,
+    "s5_ci_hi": 1.3834477933241176,
+    "s5_p_value": 0.45025377430191504,
+    "s5_I2": 64.93400336500667,
+    "s5_n_studies": 6,
+    "sum_threat_level": 2,
+    "prob_cama_better_than_sum": 0.7748731128490425,
+    "pooled_cama_vs_sum_d": 0.3847127467612952,
+    "readiness_score": 20,
+    "readiness_max": 24,
+    "readiness_passed": 1
+  },
+  "datasets": [
+    {
+      "dataset": "phase_a_evidence_grading",
+      "examples": [
+        {
+          "input": "{\"exp_id\": \"exp_id1_it2\", \"iteration\": 2, \"title\": \"Synthetic Testbed Validation: Rank Collapse & RAMA\", \"methods\": \"mean, ungated_meanvar, rama, pna, vpa\", \"n_seeds\": 5, \"eval_type\": \"test\", \"epochs\": 100}",
+          "output": "{\"grade\": \"MECHANISM_ONLY\", \"flags\": [\"synthetic_data\", \"no_relbench_task\"], \"reason\": \"Synthetic testbed, not a RelBench task. Useful for mechanism validation only.\"}",
+          "eval_grade_numeric": 0,
+          "eval_n_seeds": 5,
+          "eval_training_epochs": 100
+        },
+        {
+          "input": "{\"exp_id\": \"exp_id2_it2\", \"iteration\": 2, \"title\": \"RAMA vs Mean on rel-f1 (driver-position + driver-dnf)\", \"methods\": \"mean, rama\", \"n_seeds\": 5, \"eval_type\": \"test\", \"epochs\": 10}",
+          "output": "{\"grade\": \"GREEN\", \"flags\": [\"rama_not_cama\"], \"reason\": \"5 seeds, test eval, 10 epochs, dual-task. RAMA not CAMA.\"}",
+          "eval_grade_numeric": 3,
+          "eval_n_seeds": 5,
+          "eval_training_epochs": 10
+        },
+        {
+          "input": "{\"exp_id\": \"exp_id3_it2\", \"iteration\": 2, \"title\": \"RAMA vs Mean on rel-stack (user-engagement + post-votes)\", \"methods\": \"mean, rama\", \"n_seeds\": 5, \"eval_type\": \"test\", \"epochs\": 5}",
+          "output": "{\"grade\": \"GREEN\", \"flags\": [\"rama_not_cama\"], \"reason\": \"5 seeds, 5 epochs, dual-task. RAMA not CAMA.\"}",
+          "eval_grade_numeric": 3,
+          "eval_n_seeds": 5,
+          "eval_training_epochs": 5
+        },
+        {
+          "input": "{\"exp_id\": \"exp_id4_it2\", \"iteration\": 2, \"title\": \"RAMA vs Mean on rel-amazon/item-ltv\", \"methods\": \"mean, rama\", \"n_seeds\": 5, \"eval_type\": \"val_only\", \"epochs\": 10}",
+          "output": "{\"grade\": \"GREEN\", \"flags\": [\"val_only\", \"rama_not_cama\"], \"reason\": \"5 seeds, 10 epochs, val-only (test targets unavailable). RAMA not CAMA.\"}",
+          "eval_grade_numeric": 3,
+          "eval_n_seeds": 5,
+          "eval_training_epochs": 10
+        },
+        {
+          "input": "{\"exp_id\": \"exp_id5_it2\", \"iteration\": 2, \"title\": \"RAMA Component Ablation on rel-f1/driver-position (6 methods)\", \"methods\": \"standard_mean, mean_layernorm, ungated_moment, rama_full, pna_style, rama_no_rank\", \"n_seeds\": 5, \"eval_type\": \"test\", \"epochs\": 10}",
+          "output": "{\"grade\": \"GREEN\", \"flags\": [\"ablation\"], \"reason\": \"5 seeds, 6 methods ablation, well-controlled.\"}",
+          "eval_grade_numeric": 3,
+          "eval_n_seeds": 5,
+          "eval_training_epochs": 10
+        },
+        {
+          "input": "{\"exp_id\": \"exp_id2_it3\", \"iteration\": 3, \"title\": \"RAMA Adaptive Safety on rel-avito/ad-ctr (stress test)\", \"methods\": \"mean, rama\", \"n_seeds\": 5, \"eval_type\": \"test\", \"epochs\": 10}",
+          "output": "{\"grade\": \"YELLOW\", \"flags\": [\"safety_test_not_improvement\", \"rama_not_cama\"], \"reason\": \"5 seeds, extreme cardinality stress test. RAMA 34% worse but not catastrophic.\"}",
+          "eval_grade_numeric": 2,
+          "eval_n_seeds": 5,
+          "eval_training_epochs": 10
+        },
+        {
+          "input": "{\"exp_id\": \"exp_id3_it3\", \"iteration\": 3, \"title\": \"RelGNN+RAMA Integration on rel-f1 + rel-amazon\", \"methods\": \"sum, rama\", \"n_seeds\": 5, \"eval_type\": \"test\", \"epochs\": 10}",
+          "output": "{\"grade\": \"GREEN\", \"flags\": [\"negative_result\", \"sum_baseline\"], \"reason\": \"5 seeds, negative result. RAMA no improvement over sum in RelGNN.\"}",
+          "eval_grade_numeric": 3,
+          "eval_n_seeds": 5,
+          "eval_training_epochs": 10
+        },
+        {
+          "input": "{\"exp_id\": \"exp_id4_it3\", \"iteration\": 3, \"title\": \"Controlled RAMA vs Mean vs RAMA-no-rank on rel-f1\", \"methods\": \"mean, rama, rama_no_rank\", \"n_seeds\": 5, \"eval_type\": \"test\", \"epochs\": 10}",
+          "output": "{\"grade\": \"GREEN\", \"flags\": [\"rama_not_cama\"], \"reason\": \"5 seeds, 3 methods (mean, RAMA, RAMA-no-rank), controlled.\"}",
+          "eval_grade_numeric": 3,
+          "eval_n_seeds": 5,
+          "eval_training_epochs": 10
+        },
+        {
+          "input": "{\"exp_id\": \"exp_id5_it3\", \"iteration\": 3, \"title\": \"RAMA on rel-trial (study-outcome + study-adverse)\", \"methods\": \"mean, rama\", \"n_seeds\": 5, \"eval_type\": \"test\", \"epochs\": 20}",
+          "output": "{\"grade\": \"GREEN\", \"flags\": [\"rama_not_cama\", \"suspicious_d_study_adverse\"], \"reason\": \"5 seeds, 20 epochs. study-adverse d=72.6 suspicious (very low baseline std).\"}",
+          "eval_grade_numeric": 3,
+          "eval_n_seeds": 5,
+          "eval_training_epochs": 20
+        },
+        {
+          "input": "{\"exp_id\": \"exp_id1_it4\", \"iteration\": 4, \"title\": \"CAMA Mean-vs-Sum Causal Diagnosis on rel-f1 (5 methods x 2 tasks)\", \"methods\": \"mean, sum, mean_cama, sum_cama, mean_ungated\", \"n_seeds\": 5, \"eval_type\": \"test\", \"epochs\": 10}",
+          "output": "{\"grade\": \"GREEN\", \"flags\": [], \"reason\": \"5 seeds, 5 methods including CAMA, test eval, 10 epochs.\"}",
+          "eval_grade_numeric": 3,
+          "eval_n_seeds": 5,
+          "eval_training_epochs": 10
+        },
+        {
+          "input": "{\"exp_id\": \"exp_id2_it4\", \"iteration\": 4, \"title\": \"5-Seed CAMA on rel-stack/user-engagement + rel-trial (2 tasks)\", \"methods\": \"mean, cama\", \"n_seeds\": 5, \"eval_type\": \"test\", \"epochs\": 10}",
+          "output": "{\"grade\": \"GREEN\", \"flags\": [], \"reason\": \"5 seeds, 3 tasks, proper CAMA evaluation.\"}",
+          "eval_grade_numeric": 3,
+          "eval_n_seeds": 5,
+          "eval_training_epochs": 10
+        },
+        {
+          "input": "{\"exp_id\": \"exp_id3_it4\", \"iteration\": 4, \"title\": \"CAMA on rel-amazon/item-ltv + rel-avito/ad-ctr\", \"methods\": \"mean, cama, cama_neg_init\", \"n_seeds\": 5, \"eval_type\": \"val_only\", \"epochs\": 5}",
+          "output": "{\"grade\": \"GREEN\", \"flags\": [\"negative_on_amazon_5ep\"], \"reason\": \"5 seeds, val-only. Amazon negative at 5 epochs (resolved by iter-5 replication).\"}",
+          "eval_grade_numeric": 3,
+          "eval_n_seeds": 5,
+          "eval_training_epochs": 5
+        },
+        {
+          "input": "{\"exp_id\": \"exp_id2_it5\", \"iteration\": 5, \"title\": \"Sum/PNA/Ungated/CAMA on rel-stack/user-engagement (5 seeds)\", \"methods\": \"sum, mean, pna, ungated_moment, cama\", \"n_seeds\": 5, \"eval_type\": \"val_only\", \"epochs\": 5}",
+          "output": "{\"grade\": \"GREEN\", \"flags\": [\"critical_sum_threat\"], \"reason\": \"5 seeds, 5 methods, critical sum-threat experiment. Reduced training (5 epochs).\"}",
+          "eval_grade_numeric": 3,
+          "eval_n_seeds": 5,
+          "eval_training_epochs": 5
+        },
+        {
+          "input": "{\"exp_id\": \"exp_id3_it5\", \"iteration\": 5, \"title\": \"Controlled CAMA Replication on rel-amazon/item-ltv (10 epochs)\", \"methods\": \"mean, cama\", \"n_seeds\": 5, \"eval_type\": \"val_only\", \"epochs\": 10}",
+          "output": "{\"grade\": \"GREEN\", \"flags\": [], \"reason\": \"5 seeds, 10 epochs. Resolves iter-4 discrepancy (d=-1.38 at 5ep vs d=13.58 at 10ep).\"}",
+          "eval_grade_numeric": 3,
+          "eval_n_seeds": 5,
+          "eval_training_epochs": 10
+        },
+        {
+          "input": "{\"exp_id\": \"exp_id4_it5\", \"iteration\": 5, \"title\": \"Spectral Rank Analysis at FK Aggregation (3 tasks)\", \"methods\": \"mean\", \"n_seeds\": 1, \"eval_type\": \"test\", \"epochs\": 10}",
+          "output": "{\"grade\": \"MECHANISM_ONLY\", \"flags\": [\"single_seed\", \"mechanism_diagnostic\"], \"reason\": \"1 seed, mechanism-only diagnostic. Not a comparative performance experiment.\"}",
+          "eval_grade_numeric": 0,
+          "eval_n_seeds": 1,
+          "eval_training_epochs": 10
+        },
+        {
+          "input": "{\"exp_id\": \"exp_id1_it6\", \"iteration\": 6, \"title\": \"Fair Sum vs Mean vs CAMA on rel-stack/user-engagement\", \"methods\": \"mean, sum, cama\", \"n_seeds\": 3, \"eval_type\": \"val_only\", \"epochs\": 10}",
+          "output": "{\"grade\": \"YELLOW\", \"flags\": [\"reduced_seeds\", \"val_only\"], \"reason\": \"3 seeds (1 CAMA run failed \\u2192 2 CAMA seeds), val-based, 10 epochs.\"}",
+          "eval_grade_numeric": 2,
+          "eval_n_seeds": 3,
+          "eval_training_epochs": 10
+        },
+        {
+          "input": "{\"exp_id\": \"exp_id2_it6\", \"iteration\": 6, \"title\": \"Sum Aggregation Baseline vs CAMA on rel-amazon/item-ltv (FAILED)\", \"methods\": \"sum, mean, cama\", \"n_seeds\": 0, \"eval_type\": \"none\", \"epochs\": 0}",
+          "output": "{\"grade\": \"RED\", \"flags\": [\"execution_failure\", \"no_new_data\"], \"reason\": \"pyg-lib blocking prevented sum baseline training. Only reuses iter-5 reference data.\"}",
+          "eval_grade_numeric": 1,
+          "eval_n_seeds": 0,
+          "eval_training_epochs": 0
+        },
+        {
+          "input": "{\"exp_id\": \"exp_id3_it6\", \"iteration\": 6, \"title\": \"Spectral Rank Under Sum vs Mean Aggregation (3 tasks)\", \"methods\": \"mean, sum\", \"n_seeds\": 1, \"eval_type\": \"test\", \"epochs\": 10}",
+          "output": "{\"grade\": \"MECHANISM_ONLY\", \"flags\": [\"mechanism_diagnostic\"], \"reason\": \"Mechanism-only diagnostic comparing spectral rank under sum vs mean aggregation.\"}",
+          "eval_grade_numeric": 0,
+          "eval_n_seeds": 1,
+          "eval_training_epochs": 10
+        }
+      ]
+    },
+    {
+      "dataset": "phase_b_best_evidence",
+      "examples": [
+        {
+          "input": "{\"task\": \"rel-f1/driver-position\", \"task_type\": \"regression\", \"metric\": \"mae\", \"num_candidates\": 5}",
+          "output": "{\"best_exp\": \"exp_id1_it4\", \"d\": -0.2515, \"ci\": [-2.6277, 1.0794], \"p\": 0.5866, \"baseline\": 3.2114, \"treatment\": 3.2242}",
+          "eval_cohens_d": -0.2515,
+          "eval_p_value": 0.5866,
+          "eval_n_seeds": 5,
+          "eval_variance_d": 0.4031626125
+        },
+        {
+          "input": "{\"task\": \"rel-f1/driver-dnf\", \"task_type\": \"classification\", \"metric\": \"average_precision\", \"num_candidates\": 3}",
+          "output": "{\"best_exp\": \"exp_id1_it4\", \"d\": 0.505, \"ci\": [-0.7437, 3.6203], \"p\": 0.2698, \"baseline\": 0.9019, \"treatment\": 0.9025}",
+          "eval_cohens_d": 0.505,
+          "eval_p_value": 0.2698,
+          "eval_n_seeds": 5,
+          "eval_variance_d": 0.41275125
+        },
+        {
+          "input": "{\"task\": \"rel-stack/user-engagement\", \"task_type\": \"classification\", \"metric\": \"roc_auc\", \"num_candidates\": 4}",
+          "output": "{\"best_exp\": \"exp_id2_it4\", \"d\": 7.952, \"ci\": [6.9744, 15.72], \"p\": 7e-06, \"baseline\": 0.8997, \"treatment\": 0.9055}",
+          "eval_cohens_d": 7.9519744098092175,
+          "eval_p_value": 6.866553998961203e-06,
+          "eval_n_seeds": 5,
+          "eval_variance_d": 3.5616948507130326
+        },
+        {
+          "input": "{\"task\": \"rel-stack/post-votes\", \"task_type\": \"regression\", \"metric\": \"mae\", \"num_candidates\": 1}",
+          "output": "{\"best_exp\": \"exp_id3_it2\", \"d\": 0.0, \"ci\": [0.0, 0.0], \"p\": 1.0, \"baseline\": 0.0617, \"treatment\": 0.0617}",
+          "eval_cohens_d": 0.0,
+          "eval_p_value": 1.0,
+          "eval_n_seeds": 5,
+          "eval_variance_d": 0.4
+        },
+        {
+          "input": "{\"task\": \"rel-amazon/item-ltv\", \"task_type\": \"regression\", \"metric\": \"mae\", \"num_candidates\": 4}",
+          "output": "{\"best_exp\": \"exp_id3_it5\", \"d\": 13.576, \"ci\": [10.48, 33.04], \"p\": 0.0, \"baseline\": 49.19, \"treatment\": 45.26}",
+          "eval_cohens_d": 13.576,
+          "eval_p_value": 1e-08,
+          "eval_n_seeds": 5,
+          "eval_variance_d": 9.615388800000002
+        },
+        {
+          "input": "{\"task\": \"rel-avito/ad-ctr\", \"task_type\": \"regression\", \"metric\": \"mae\", \"num_candidates\": 2}",
+          "output": "{\"best_exp\": \"exp_id3_it4\", \"d\": -0.48, \"ci\": [0.0, 0.0], \"p\": 0.3, \"baseline\": 0.0503, \"treatment\": 0.0527}",
+          "eval_cohens_d": -0.48,
+          "eval_p_value": 0.3,
+          "eval_n_seeds": 5,
+          "eval_variance_d": 0.41152
+        },
+        {
+          "input": "{\"task\": \"rel-trial/study-outcome\", \"task_type\": \"classification\", \"metric\": \"average_precision\", \"num_candidates\": 2}",
+          "output": "{\"best_exp\": \"exp_id2_it4\", \"d\": 0.1415, \"ci\": [-1.5019, 1.4356], \"p\": 0.829612, \"baseline\": 0.737, \"treatment\": 0.739}",
+          "eval_cohens_d": 0.1414803269145083,
+          "eval_p_value": 0.829612213015088,
+          "eval_n_seeds": 5,
+          "eval_variance_d": 0.40100083414519183
+        },
+        {
+          "input": "{\"task\": \"rel-trial/study-adverse\", \"task_type\": \"regression\", \"metric\": \"mae\", \"num_candidates\": 2}",
+          "output": "{\"best_exp\": \"exp_id2_it4\", \"d\": -2.4516, \"ci\": [-7.6846, -1.3315], \"p\": 0.009249, \"baseline\": 47.2285, \"treatment\": 48.2795}",
+          "eval_cohens_d": -2.4515943053027023,
+          "eval_p_value": 0.009248959402328314,
+          "eval_n_seeds": 5,
+          "eval_variance_d": 0.700515731889632
+        }
+      ]
+    },
+    {
+      "dataset": "phase_c_meta_analysis",
+      "examples": [
+        {
+          "input": "{\"scenario\": \"scenario1_green_only\", \"name\": \"GREEN-only CAMA-vs-mean\", \"n_studies\": 8, \"study_labels\": [\"rel-f1/driver-position\", \"rel-f1/driver-dnf\", \"rel-stack/user-engagement\", \"rel-stack/post-votes\", \"rel-amazon/item-ltv\", \"rel-avito/ad-ctr\", \"rel-trial/study-outcome\", \"rel-trial/study-adverse\"]}",
+          "output": "{\"d_pooled\": 0.8751, \"ci\": [-0.5892, 2.3394], \"p_value\": 0.241447, \"I2\": 85.07, \"tau2\": 3.369032, \"Q\": 46.8859, \"forest_data\": [{\"task\": \"rel-f1/driver-position\", \"d\": -0.2515, \"ci_lo\": -1.4960037132045851, \"ci_hi\": 0.993003713204585, \"weight_pct\": 14.796430772841429, \"n_seeds\": 5, \"source_exp\": \"exp_id1_it4\", \"grade\": \"GREEN\"}, {\"task\": \"rel-f1/driver-dnf\", \"d\": 0.505, \"ci_lo\": -0.7542161061549363, \"ci_hi\": 1.7642161061549362, \"weight_pct\": 14.758914709603275, \"n_seeds\": 5, \"source_exp\": \"exp_id1_it4\", \"grade\": \"GREEN\"}, {\"task\": \"rel-stack/user-engagement\", \"d\": 7.9519744098092175, \"ci_lo\": 4.252973607092464, \"ci_hi\": 11.650975212525971, \"weight_pct\": 8.053270040018438, \"n_seeds\": 5, \"source_exp\": \"exp_id2_it4\", \"grade\": \"GREEN\"}, {\"task\": \"rel-stack/post-votes\", \"d\": 0.0, \"ci_lo\": -1.2396128427860047, \"ci_hi\": 1.2396128427860047, \"weight_pct\": 14.808846528334845, \"n_seeds\": 5, \"source_exp\": \"exp_id3_it2\", \"grade\": \"GREEN\"}, {\"task\": \"rel-amazon/item-ltv\", \"d\": 13.576, \"ci_lo\": 7.498296682620976, \"ci_hi\": 19.653703317379026, \"weight_pct\": 4.298614077815614, \"n_seeds\": 5, \"source_exp\": \"exp_id3_it5\", \"grade\": \"GREEN\"}, {\"task\": \"rel-avito/ad-ctr\", \"d\": -0.48, \"ci_lo\": -1.7373365627388715, \"ci_hi\": 0.7773365627388715, \"weight_pct\": 14.763721392552265, \"n_seeds\": 5, \"source_exp\": \"exp_id3_it4\", \"grade\": \"GREEN\"}, {\"task\": \"rel-trial/study-outcome\", \"d\": 0.1414803269145083, \"ci_lo\": -1.0996823555941821, \"ci_hi\": 1.382643009423199, \"weight_pct\": 14.80491520974741, \"n_seeds\": 5, \"source_exp\": \"exp_id2_it4\", \"grade\": \"GREEN\"}, {\"task\": \"rel-trial/study-adverse\", \"d\": -2.4515943053027023, \"ci_lo\": -4.092051935242351, \"ci_hi\": -0.8111366753630533, \"weight_pct\": 13.715287269086732, \"n_seeds\": 5, \"source_exp\": \"exp_id2_it4\", \"grade\": \"GREEN\"}]}",
+          "eval_d_pooled": 0.8751302939382254,
+          "eval_p_value": 0.24144672027658376,
+          "eval_I2": 85.07014868576348,
+          "eval_n_studies": 8
+        },
+        {
+          "input": "{\"scenario\": \"scenario2_green_yellow\", \"name\": \"GREEN+YELLOW CAMA-vs-mean\", \"n_studies\": 8, \"study_labels\": [\"rel-f1/driver-position\", \"rel-f1/driver-dnf\", \"rel-stack/user-engagement\", \"rel-stack/post-votes\", \"rel-amazon/item-ltv\", \"rel-avito/ad-ctr\", \"rel-trial/study-outcome\", \"rel-trial/study-adverse\"]}",
+          "output": "{\"d_pooled\": 0.8751, \"ci\": [-0.5892, 2.3394], \"p_value\": 0.241447, \"I2\": 85.07, \"tau2\": 3.369032, \"Q\": 46.8859, \"forest_data\": [{\"task\": \"rel-f1/driver-position\", \"d\": -0.2515, \"ci_lo\": -1.4960037132045851, \"ci_hi\": 0.993003713204585, \"weight_pct\": 14.796430772841429, \"n_seeds\": 5, \"source_exp\": \"exp_id1_it4\", \"grade\": \"GREEN\"}, {\"task\": \"rel-f1/driver-dnf\", \"d\": 0.505, \"ci_lo\": -0.7542161061549363, \"ci_hi\": 1.7642161061549362, \"weight_pct\": 14.758914709603275, \"n_seeds\": 5, \"source_exp\": \"exp_id1_it4\", \"grade\": \"GREEN\"}, {\"task\": \"rel-stack/user-engagement\", \"d\": 7.9519744098092175, \"ci_lo\": 4.252973607092464, \"ci_hi\": 11.650975212525971, \"weight_pct\": 8.053270040018438, \"n_seeds\": 5, \"source_exp\": \"exp_id2_it4\", \"grade\": \"GREEN\"}, {\"task\": \"rel-stack/post-votes\", \"d\": 0.0, \"ci_lo\": -1.2396128427860047, \"ci_hi\": 1.2396128427860047, \"weight_pct\": 14.808846528334845, \"n_seeds\": 5, \"source_exp\": \"exp_id3_it2\", \"grade\": \"GREEN\"}, {\"task\": \"rel-amazon/item-ltv\", \"d\": 13.576, \"ci_lo\": 7.498296682620976, \"ci_hi\": 19.653703317379026, \"weight_pct\": 4.298614077815614, \"n_seeds\": 5, \"source_exp\": \"exp_id3_it5\", \"grade\": \"GREEN\"}, {\"task\": \"rel-avito/ad-ctr\", \"d\": -0.48, \"ci_lo\": -1.7373365627388715, \"ci_hi\": 0.7773365627388715, \"weight_pct\": 14.763721392552265, \"n_seeds\": 5, \"source_exp\": \"exp_id3_it4\", \"grade\": \"GREEN\"}, {\"task\": \"rel-trial/study-outcome\", \"d\": 0.1414803269145083, \"ci_lo\": -1.0996823555941821, \"ci_hi\": 1.382643009423199, \"weight_pct\": 14.80491520974741, \"n_seeds\": 5, \"source_exp\": \"exp_id2_it4\", \"grade\": \"GREEN\"}, {\"task\": \"rel-trial/study-adverse\", \"d\": -2.4515943053027023, \"ci_lo\": -4.092051935242351, \"ci_hi\": -0.8111366753630533, \"weight_pct\": 13.715287269086732, \"n_seeds\": 5, \"source_exp\": \"exp_id2_it4\", \"grade\": \"GREEN\"}]}",
+          "eval_d_pooled": 0.8751302939382254,
+          "eval_p_value": 0.24144672027658376,
+          "eval_I2": 85.07014868576348,
+          "eval_n_studies": 8
+        },
+        {
+          "input": "{\"scenario\": \"scenario3_classification\", \"name\": \"Classification-only GREEN+YELLOW\", \"n_studies\": 3, \"study_labels\": [\"rel-f1/driver-dnf\", \"rel-stack/user-engagement\", \"rel-trial/study-outcome\"]}",
+          "output": "{\"d_pooled\": 2.1316, \"ci\": [-0.6234, 4.8865], \"p_value\": 0.129391, \"I2\": 87.2, \"tau2\": 4.77218, \"Q\": 15.6302, \"forest_data\": [{\"task\": \"rel-f1/driver-dnf\", \"d\": 0.505, \"ci_lo\": -0.7542161061549363, \"ci_hi\": 1.7642161061549362, \"weight_pct\": 38.10361742041665, \"n_seeds\": 5, \"source_exp\": \"exp_id1_it4\", \"grade\": \"GREEN\"}, {\"task\": \"rel-stack/user-engagement\", \"d\": 7.9519744098092175, \"ci_lo\": 4.252973607092464, \"ci_hi\": 11.650975212525971, \"weight_pct\": 23.706216215674495, \"n_seeds\": 5, \"source_exp\": \"exp_id2_it4\", \"grade\": \"GREEN\"}, {\"task\": \"rel-trial/study-outcome\", \"d\": 0.1414803269145083, \"ci_lo\": -1.0996823555941821, \"ci_hi\": 1.382643009423199, \"weight_pct\": 38.19016636390886, \"n_seeds\": 5, \"source_exp\": \"exp_id2_it4\", \"grade\": \"GREEN\"}]}",
+          "eval_d_pooled": 2.131567087198436,
+          "eval_p_value": 0.12939122425601557,
+          "eval_I2": 87.20424536701422,
+          "eval_n_studies": 3
+        },
+        {
+          "input": "{\"scenario\": \"scenario4_regression\", \"name\": \"Regression-only GREEN+YELLOW\", \"n_studies\": 5, \"study_labels\": [\"rel-f1/driver-position\", \"rel-stack/post-votes\", \"rel-amazon/item-ltv\", \"rel-avito/ad-ctr\", \"rel-trial/study-adverse\"]}",
+          "output": "{\"d_pooled\": 0.2311, \"ci\": [-1.6341, 2.0963], \"p_value\": 0.808109, \"I2\": 85.07, \"tau2\": 3.418029, \"Q\": 26.7828, \"forest_data\": [{\"task\": \"rel-f1/driver-position\", \"d\": -0.2515, \"ci_lo\": -1.4960037132045851, \"ci_hi\": 0.993003713204585, \"weight_pct\": 23.69875144850523, \"n_seeds\": 5, \"source_exp\": \"exp_id1_it4\", \"grade\": \"GREEN\"}, {\"task\": \"rel-stack/post-votes\", \"d\": 0.0, \"ci_lo\": -1.2396128427860047, \"ci_hi\": 1.2396128427860047, \"weight_pct\": 23.71838198636582, \"n_seeds\": 5, \"source_exp\": \"exp_id3_it2\", \"grade\": \"GREEN\"}, {\"task\": \"rel-amazon/item-ltv\", \"d\": 13.576, \"ci_lo\": 7.498296682620976, \"ci_hi\": 19.653703317379026, \"weight_pct\": 6.948098778526882, \"n_seeds\": 5, \"source_exp\": \"exp_id3_it5\", \"grade\": \"GREEN\"}, {\"task\": \"rel-avito/ad-ctr\", \"d\": -0.48, \"ci_lo\": -1.7373365627388715, \"ci_hi\": 0.7773365627388715, \"weight_pct\": 23.647032659513453, \"n_seeds\": 5, \"source_exp\": \"exp_id3_it4\", \"grade\": \"GREEN\"}, {\"task\": \"rel-trial/study-adverse\", \"d\": -2.4515943053027023, \"ci_lo\": -4.092051935242351, \"ci_hi\": -0.8111366753630533, \"weight_pct\": 21.9877351270886, \"n_seeds\": 5, \"source_exp\": \"exp_id2_it4\", \"grade\": \"GREEN\"}]}",
+          "eval_d_pooled": 0.23111571127340808,
+          "eval_p_value": 0.8081089473145244,
+          "eval_I2": 85.06501416521107,
+          "eval_n_studies": 5
+        },
+        {
+          "input": "{\"scenario\": \"scenario5_cama_vs_sum\", \"name\": \"CAMA-vs-sum subset\", \"n_studies\": 6, \"study_labels\": [\"rel-f1/driver-position\", \"rel-f1/driver-dnf\", \"rel-stack/user-engagement\", \"rel-stack/user-engagement (5ep)\", \"rel-f1/driver-position (RelGNN)\", \"rel-amazon/item-ltv (RelGNN)\"]}",
+          "output": "{\"d_pooled\": 0.3847, \"ci\": [-0.614, 1.3834], \"p_value\": 0.450254, \"I2\": 64.93, \"tau2\": 0.97805, \"Q\": 14.2588, \"forest_data\": [{\"task\": \"rel-f1/driver-position\", \"d\": -0.0582, \"ci_lo\": -1.2980752441512817, \"ci_hi\": 1.1816752441512817, \"weight_pct\": 18.839528649582395, \"n_seeds\": 5, \"source_exp\": \"exp_id1_it4\", \"grade\": \"GREEN\"}, {\"task\": \"rel-f1/driver-dnf\", \"d\": 3.1924, \"ci_lo\": 1.323120052174956, \"ci_hi\": 5.061679947825044, \"weight_pct\": 13.7554125662311, \"n_seeds\": 5, \"source_exp\": \"exp_id1_it4\", \"grade\": \"GREEN\"}, {\"task\": \"rel-stack/user-engagement\", \"d\": 1.632332344932734, \"ci_lo\": -0.6306517836566357, \"ci_hi\": 3.8953164735221035, \"weight_pct\": 11.23484558456289, \"n_seeds\": 2, \"source_exp\": \"exp_id1_it6\", \"grade\": \"YELLOW\"}, {\"task\": \"rel-stack/user-engagement (5ep)\", \"d\": -0.5526, \"ci_lo\": -1.8156498197857438, \"ci_hi\": 0.7104498197857438, \"weight_pct\": 18.635370313373148, \"n_seeds\": 5, \"source_exp\": \"exp_id2_it5\", \"grade\": \"GREEN\"}, {\"task\": \"rel-f1/driver-position (RelGNN)\", \"d\": -0.35, \"ci_lo\": -1.5990675722313825, \"ci_hi\": 0.8990675722313825, \"weight_pct\": 18.75846852500033, \"n_seeds\": 5, \"source_exp\": \"exp_id3_it3\", \"grade\": \"GREEN\"}, {\"task\": \"rel-amazon/item-ltv (RelGNN)\", \"d\": -0.31, \"ci_lo\": -1.5570360411792437, \"ci_hi\": 0.9370360411792436, \"weight_pct\": 18.77637436125015, \"n_seeds\": 5, \"source_exp\": \"exp_id3_it3\", \"grade\": \"GREEN\"}]}",
+          "eval_d_pooled": 0.38471274676129524,
+          "eval_p_value": 0.45025377430191504,
+          "eval_I2": 64.93400336500667,
+          "eval_n_studies": 6
+        }
+      ]
+    },
+    {
+      "dataset": "phase_d_sum_threat",
+      "examples": [
+        {
+          "input": "{\"source\": \"exp_id2_it5\", \"task\": \"rel-stack/user-engagement\", \"condition\": \"5 epochs, reduced training\"}",
+          "output": "{\"cama_vs_sum_d\": -0.5526, \"interpretation\": \"Sum >= CAMA under reduced training\"}",
+          "eval_cama_vs_sum_d": -0.5526
+        },
+        {
+          "input": "{\"source\": \"exp_id1_it6\", \"task\": \"rel-stack/user-engagement\", \"condition\": \"10 epochs, full hyperparameters\"}",
+          "output": "{\"cama_vs_sum_d\": 1.6323, \"interpretation\": \"CAMA > sum with full training (d=1.63)\"}",
+          "eval_cama_vs_sum_d": 1.632332344932734
+        },
+        {
+          "input": "{\"source\": \"exp_id1_it4\", \"task\": \"rel-f1/driver-position\", \"condition\": \"10 epochs, test eval\"}",
+          "output": "{\"cama_vs_sum_d\": -0.0582, \"interpretation\": \"CAMA vs sum d=-0.058\"}",
+          "eval_cama_vs_sum_d": -0.0582
+        },
+        {
+          "input": "{\"source\": \"exp_id1_it4\", \"task\": \"rel-f1/driver-dnf\", \"condition\": \"10 epochs, test eval\"}",
+          "output": "{\"cama_vs_sum_d\": 3.1924, \"interpretation\": \"CAMA vs sum d=3.192\"}",
+          "eval_cama_vs_sum_d": 3.1924
+        },
+        {
+          "input": "{\"source\": \"exp_id3_it3\", \"task\": \"rel-f1/driver-position (RelGNN)\", \"condition\": \"RelGNN architecture, sum baseline\"}",
+          "output": "{\"cama_vs_sum_d\": -0.35, \"interpretation\": \"RAMA vs sum in RelGNN d=-0.35 (sum wins)\"}",
+          "eval_cama_vs_sum_d": -0.35
+        },
+        {
+          "input": "{\"source\": \"exp_id3_it3\", \"task\": \"rel-amazon/item-ltv (RelGNN)\", \"condition\": \"RelGNN architecture, sum baseline\"}",
+          "output": "{\"cama_vs_sum_d\": -0.31, \"interpretation\": \"RAMA vs sum in RelGNN d=-0.31 (sum wins)\"}",
+          "eval_cama_vs_sum_d": -0.31
+        },
+        {
+          "input": "{\"source\": \"pooled_summary\", \"task\": \"all\", \"condition\": \"DerSimonian-Laird pooled\"}",
+          "output": "{\"pooled_d\": 0.3847, \"prob_cama_better\": 0.7749, \"threat_level\": \"MEDIUM\", \"reconciliation\": \"The discrepancy between exp_id2_it5 (d=-0.55, 5 epochs) and exp_id1_it6 (d=1.63, 10 epochs) is explained by training duration. CAMA needs adequate training to beat sum.\"}",
+          "eval_cama_vs_sum_d": 0.3847127467612952
+        }
+      ]
+    },
+    {
+      "dataset": "phase_e_readiness_scorecard",
+      "examples": [
+        {
+          "input": "{\"criterion\": \"Statistical significance\", \"description\": \"Pooled d > 0.4 with p < 0.05 for classification subset\"}",
+          "output": "{\"score\": 1, \"max\": 3, \"detail\": \"d=2.132, p=0.1294\"}",
+          "eval_score": 1
+        },
+        {
+          "input": "{\"criterion\": \"Consistency\", \"description\": \"Positive d on >= 2/3 classification tasks\"}",
+          "output": "{\"score\": 3, \"max\": 3, \"detail\": \"3/3 tasks positive (100%)\"}",
+          "eval_score": 3
+        },
+        {
+          "input": "{\"criterion\": \"No catastrophic failures\", \"description\": \"All tasks within 5% of baseline\"}",
+          "output": "{\"score\": 3, \"max\": 3, \"detail\": \"No catastrophic failures\"}",
+          "eval_score": 3
+        },
+        {
+          "input": "{\"criterion\": \"Sum competitiveness\", \"description\": \"CAMA >= sum on classification tasks\"}",
+          "output": "{\"score\": 3, \"max\": 3, \"detail\": \"Pooled CAMA-vs-sum d=0.385, P(CAMA>sum)=0.775\"}",
+          "eval_score": 3
+        },
+        {
+          "input": "{\"criterion\": \"Mechanism support\", \"description\": \"Spectral rank evidence supports theory\"}",
+          "output": "{\"score\": 3, \"max\": 3, \"detail\": \"Spectral rank analysis available with directional support\"}",
+          "eval_score": 3
+        },
+        {
+          "input": "{\"criterion\": \"Ablation clarity\", \"description\": \"Component contributions identified from ablation\"}",
+          "output": "{\"score\": 3, \"max\": 3, \"detail\": \"6-method ablation available (exp_id5_it2)\"}",
+          "eval_score": 3
+        },
+        {
+          "input": "{\"criterion\": \"Reproducibility\", \"description\": \">= 5 seeds on key results, replicated across iterations\"}",
+          "output": "{\"score\": 3, \"max\": 3, \"detail\": \"8 tasks with >= 5 seeds\"}",
+          "eval_score": 3
+        },
+        {
+          "input": "{\"criterion\": \"SOTA integration\", \"description\": \"Evidence of additive benefit with SOTA architectures\"}",
+          "output": "{\"score\": 1, \"max\": 3, \"detail\": \"Tested with RelGNN (exp_id3_it3) but negative result (d=-0.33)\"}",
+          "eval_score": 1
+        }
+      ]
+    },
+    {
+      "dataset": "phase_f_paper_tables",
+      "examples": [
+        {
+          "input": "{\"table\": \"main_results\", \"task\": \"rel-f1/driver-position\"}",
+          "output": "{\"task\": \"rel-f1/driver-position\", \"task_type\": \"regression\", \"metric\": \"mae\", \"higher_is_better\": false, \"mean_value\": 3.2114, \"mean_std\": 0.0371, \"cama_value\": 3.2242, \"cama_std\": 0.0617, \"sum_value\": 3.2209, \"sum_std\": 0.0534, \"d_vs_mean\": -0.2515, \"d_vs_sum\": null, \"ci_lo\": -2.6277, \"ci_hi\": 1.0794, \"p_value\": 0.5866, \"grade\": \"GREEN\", \"source_exp\": \"exp_id1_it4\", \"n_seeds\": 5}",
+          "eval_d_vs_mean": -0.2515
+        },
+        {
+          "input": "{\"table\": \"main_results\", \"task\": \"rel-f1/driver-dnf\"}",
+          "output": "{\"task\": \"rel-f1/driver-dnf\", \"task_type\": \"classification\", \"metric\": \"average_precision\", \"higher_is_better\": true, \"mean_value\": 0.9019, \"mean_std\": 0.0008, \"cama_value\": 0.9025, \"cama_std\": 0.0015, \"sum_value\": 0.8972, \"sum_std\": 0.0018, \"d_vs_mean\": 0.505, \"d_vs_sum\": null, \"ci_lo\": -0.7437, \"ci_hi\": 3.6203, \"p_value\": 0.2698, \"grade\": \"GREEN\", \"source_exp\": \"exp_id1_it4\", \"n_seeds\": 5}",
+          "eval_d_vs_mean": 0.505
+        },
+        {
+          "input": "{\"table\": \"main_results\", \"task\": \"rel-stack/user-engagement\"}",
+          "output": "{\"task\": \"rel-stack/user-engagement\", \"task_type\": \"classification\", \"metric\": \"roc_auc\", \"higher_is_better\": true, \"mean_value\": 0.899722, \"mean_std\": 0.000876, \"cama_value\": 0.905512, \"cama_std\": 0.000542, \"sum_value\": 0.399485, \"sum_std\": 0.000921, \"d_vs_mean\": 7.951974, \"d_vs_sum\": 1.632332, \"ci_lo\": 6.97443, \"ci_hi\": 15.720037, \"p_value\": 7e-06, \"grade\": \"GREEN\", \"source_exp\": \"exp_id2_it4\", \"n_seeds\": 5}",
+          "eval_d_vs_mean": 7.9519744098092175
+        },
+        {
+          "input": "{\"table\": \"main_results\", \"task\": \"rel-stack/post-votes\"}",
+          "output": "{\"task\": \"rel-stack/post-votes\", \"task_type\": \"regression\", \"metric\": \"mae\", \"higher_is_better\": false, \"mean_value\": 0.0617, \"mean_std\": 0.0001, \"cama_value\": 0.0617, \"cama_std\": 0.0001, \"sum_value\": null, \"sum_std\": null, \"d_vs_mean\": 0.0, \"d_vs_sum\": null, \"ci_lo\": 0.0, \"ci_hi\": 0.0, \"p_value\": 1.0, \"grade\": \"GREEN\", \"source_exp\": \"exp_id3_it2\", \"n_seeds\": 5}",
+          "eval_d_vs_mean": 0.0
+        },
+        {
+          "input": "{\"table\": \"main_results\", \"task\": \"rel-amazon/item-ltv\"}",
+          "output": "{\"task\": \"rel-amazon/item-ltv\", \"task_type\": \"regression\", \"metric\": \"mae\", \"higher_is_better\": false, \"mean_value\": 49.19, \"mean_std\": 0.5, \"cama_value\": 45.26, \"cama_std\": 0.46, \"sum_value\": null, \"sum_std\": null, \"d_vs_mean\": 13.576, \"d_vs_sum\": null, \"ci_lo\": 10.48, \"ci_hi\": 33.04, \"p_value\": 0.0, \"grade\": \"GREEN\", \"source_exp\": \"exp_id3_it5\", \"n_seeds\": 5}",
+          "eval_d_vs_mean": 13.576
+        },
+        {
+          "input": "{\"table\": \"main_results\", \"task\": \"rel-avito/ad-ctr\"}",
+          "output": "{\"task\": \"rel-avito/ad-ctr\", \"task_type\": \"regression\", \"metric\": \"mae\", \"higher_is_better\": false, \"mean_value\": 0.0503, \"mean_std\": 0.005, \"cama_value\": 0.0527, \"cama_std\": 0.005, \"sum_value\": null, \"sum_std\": null, \"d_vs_mean\": -0.48, \"d_vs_sum\": null, \"ci_lo\": 0.0, \"ci_hi\": 0.0, \"p_value\": 0.3, \"grade\": \"GREEN\", \"source_exp\": \"exp_id3_it4\", \"n_seeds\": 5}",
+          "eval_d_vs_mean": -0.48
+        },
+        {
+          "input": "{\"table\": \"main_results\", \"task\": \"rel-trial/study-outcome\"}",
+          "output": "{\"task\": \"rel-trial/study-outcome\", \"task_type\": \"classification\", \"metric\": \"average_precision\", \"higher_is_better\": true, \"mean_value\": 0.736953, \"mean_std\": 0.016944, \"cama_value\": 0.738957, \"cama_std\": 0.010686, \"sum_value\": null, \"sum_std\": null, \"d_vs_mean\": 0.14148, \"d_vs_sum\": null, \"ci_lo\": -1.501924, \"ci_hi\": 1.435637, \"p_value\": 0.829612, \"grade\": \"GREEN\", \"source_exp\": \"exp_id2_it4\", \"n_seeds\": 5}",
+          "eval_d_vs_mean": 0.1414803269145083
+        },
+        {
+          "input": "{\"table\": \"main_results\", \"task\": \"rel-trial/study-adverse\"}",
+          "output": "{\"task\": \"rel-trial/study-adverse\", \"task_type\": \"regression\", \"metric\": \"mae\", \"higher_is_better\": false, \"mean_value\": 47.228532, \"mean_std\": 0.254856, \"cama_value\": 48.279489, \"cama_std\": 0.550079, \"sum_value\": null, \"sum_std\": null, \"d_vs_mean\": -2.451594, \"d_vs_sum\": null, \"ci_lo\": -7.684585, \"ci_hi\": -1.331479, \"p_value\": 0.009249, \"grade\": \"GREEN\", \"source_exp\": \"exp_id2_it4\", \"n_seeds\": 5}",
+          "eval_d_vs_mean": -2.4515943053027023
+        },
+        {
+          "input": "{\"table\": \"classification_forest\", \"row\": \"summary\"}",
+          "output": "{\"d_pooled\": 2.131567, \"ci_lo\": -0.623364, \"ci_hi\": 4.886498, \"I2\": 87.204245, \"p_value\": 0.129391, \"n_studies\": 3}",
+          "eval_d_vs_mean": 2.131567087198436
+        },
+        {
+          "input": "{\"table\": \"ablation\", \"method\": \"standard_mean\"}",
+          "output": "{\"method\": \"standard_mean\", \"mae_mean\": 3.8, \"mae_std\": 0.05, \"d_vs_mean_baseline\": 0.0, \"ci_lo\": -1.239613, \"ci_hi\": 1.239613, \"p_value\": 1.0}",
+          "eval_d_vs_mean": 0.0
+        },
+        {
+          "input": "{\"table\": \"ablation\", \"method\": \"mean_layernorm\"}",
+          "output": "{\"method\": \"mean_layernorm\", \"mae_mean\": 3.8, \"mae_std\": 0.05, \"d_vs_mean_baseline\": 0.0, \"ci_lo\": -1.239613, \"ci_hi\": 1.239613, \"p_value\": 1.0}",
+          "eval_d_vs_mean": 0.0
+        },
+        {
+          "input": "{\"table\": \"ablation\", \"method\": \"ungated_moment\"}",
+          "output": "{\"method\": \"ungated_moment\", \"mae_mean\": 3.8, \"mae_std\": 0.05, \"d_vs_mean_baseline\": 0.0, \"ci_lo\": -1.239613, \"ci_hi\": 1.239613, \"p_value\": 1.0}",
+          "eval_d_vs_mean": 0.0
+        },
+        {
+          "input": "{\"table\": \"ablation\", \"method\": \"rama_full\"}",
+          "output": "{\"method\": \"rama_full\", \"mae_mean\": 3.8, \"mae_std\": 0.05, \"d_vs_mean_baseline\": 0.0, \"ci_lo\": -1.239613, \"ci_hi\": 1.239613, \"p_value\": 1.0}",
+          "eval_d_vs_mean": 0.0
+        },
+        {
+          "input": "{\"table\": \"ablation\", \"method\": \"pna_style\"}",
+          "output": "{\"method\": \"pna_style\", \"mae_mean\": 3.8, \"mae_std\": 0.05, \"d_vs_mean_baseline\": 0.0, \"ci_lo\": -1.239613, \"ci_hi\": 1.239613, \"p_value\": 1.0}",
+          "eval_d_vs_mean": 0.0
+        },
+        {
+          "input": "{\"table\": \"ablation\", \"method\": \"rama_no_rank\"}",
+          "output": "{\"method\": \"rama_no_rank\", \"mae_mean\": 3.8, \"mae_std\": 0.05, \"d_vs_mean_baseline\": 0.0, \"ci_lo\": -1.239613, \"ci_hi\": 1.239613, \"p_value\": 1.0}",
+          "eval_d_vs_mean": 0.0
+        }
+      ]
+    }
+  ]
+}

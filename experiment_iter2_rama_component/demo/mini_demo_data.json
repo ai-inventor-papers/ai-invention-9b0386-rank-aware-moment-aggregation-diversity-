@@ -1,0 +1,213 @@
+{
+  "metadata": {
+    "experiment": "RAMA Component Ablation on rel-f1/driver-position",
+    "description": "Controlled ablation study isolating each RAMA component (variance injection, rank-based gating, LayerNorm confounding) on the rel-f1/driver-position regression task.",
+    "methods": [
+      "standard_mean",
+      "mean_layernorm",
+      "ungated_moment",
+      "rama_full",
+      "pna_style",
+      "rama_no_rank"
+    ],
+    "hyperparameters": {
+      "channels": 128,
+      "num_layers": 2,
+      "lr": 0.005,
+      "batch_size": 512,
+      "epochs": 10,
+      "num_neighbors": [128, 128],
+      "seeds": [42, 123, 456]
+    },
+    "dataset_info": {
+      "dataset": "rel-f1",
+      "task": "driver-position",
+      "train_size": 7453,
+      "val_size": 499,
+      "test_size": 760,
+      "num_tables": 9,
+      "num_fk_edges": 13,
+      "key_high_cardinality_edges": [
+        "results.constructorId->constructors (mean=124, max=2371)",
+        "results.driverId->drivers (mean=30, max=370)"
+      ]
+    }
+  },
+  "training_results": [
+    {"method": "standard_mean", "seed": 42, "test_mae": 3.8072, "num_params": 1796097, "training_time_sec": 11.8, "diagnostics": {}},
+    {"method": "standard_mean", "seed": 123, "test_mae": 3.8053, "num_params": 1796097, "training_time_sec": 11.5, "diagnostics": {}},
+    {"method": "standard_mean", "seed": 456, "test_mae": 3.8091, "num_params": 1796097, "training_time_sec": 12.1, "diagnostics": {}},
+    {"method": "mean_layernorm", "seed": 42, "test_mae": 3.8466, "num_params": 1809409, "training_time_sec": 12.2, "diagnostics": {}},
+    {"method": "mean_layernorm", "seed": 123, "test_mae": 3.8728, "num_params": 1809409, "training_time_sec": 12.0, "diagnostics": {}},
+    {"method": "mean_layernorm", "seed": 456, "test_mae": 3.8672, "num_params": 1809409, "training_time_sec": 12.4, "diagnostics": {}},
+    {"method": "ungated_moment", "seed": 42, "test_mae": 3.7951, "num_params": 2648065, "training_time_sec": 13.9, "diagnostics": {}},
+    {"method": "ungated_moment", "seed": 123, "test_mae": 3.7762, "num_params": 2648065, "training_time_sec": 14.1, "diagnostics": {}},
+    {"method": "ungated_moment", "seed": 456, "test_mae": 3.7422, "num_params": 2648065, "training_time_sec": 13.7, "diagnostics": {}},
+    {"method": "rama_full", "seed": 42, "test_mae": 3.6688, "num_params": 2763713, "training_time_sec": 19.6, "diagnostics": {"mean_gate_value": 0.4912, "gate_std": 0.0287, "mean_effective_rank": 0.7845, "mean_cardinality": 52.3}},
+    {"method": "rama_full", "seed": 123, "test_mae": 3.673, "num_params": 2763713, "training_time_sec": 19.8, "diagnostics": {"mean_gate_value": 0.4935, "gate_std": 0.0301, "mean_effective_rank": 0.7821, "mean_cardinality": 52.3}},
+    {"method": "rama_full", "seed": 456, "test_mae": 3.6449, "num_params": 2763713, "training_time_sec": 19.4, "diagnostics": {"mean_gate_value": 0.4889, "gate_std": 0.0265, "mean_effective_rank": 0.7868, "mean_cardinality": 52.3}},
+    {"method": "pna_style", "seed": 42, "test_mae": 3.8155, "num_params": 4358657, "training_time_sec": 16.3, "diagnostics": {}},
+    {"method": "pna_style", "seed": 123, "test_mae": 3.6902, "num_params": 4358657, "training_time_sec": 16.1, "diagnostics": {}},
+    {"method": "pna_style", "seed": 456, "test_mae": 3.7707, "num_params": 4358657, "training_time_sec": 16.5, "diagnostics": {}},
+    {"method": "rama_no_rank", "seed": 42, "test_mae": 3.6341, "num_params": 2763713, "training_time_sec": 17.1, "diagnostics": {"mean_gate_value": 0.4978, "gate_std": 0.0142, "mean_cardinality": 52.3}},
+    {"method": "rama_no_rank", "seed": 123, "test_mae": 3.6846, "num_params": 2763713, "training_time_sec": 17.3, "diagnostics": {"mean_gate_value": 0.4956, "gate_std": 0.0155, "mean_cardinality": 52.3}},
+    {"method": "rama_no_rank", "seed": 456, "test_mae": 3.6408, "num_params": 2763713, "training_time_sec": 16.9, "diagnostics": {"mean_gate_value": 0.4991, "gate_std": 0.0138, "mean_cardinality": 52.3}}
+  ],
+  "datasets": [
+    {
+      "dataset": "rel-f1/driver-position",
+      "examples": [
+        {
+          "input": "{\"date\": \"1992-09-06T00:00:00\", \"driverId\": 78, \"driverRef\": \"katayama\", \"code\": \"\\\\N\", \"forename\": \"Ukyo\", \"surname\": \"Katayama\", \"dob\": \"1963-05-29T00:00:00\", \"nationality\": \"Japanese\"}",
+          "output": "12.666667",
+          "metadata_fold": 0,
+          "metadata_task_type": "regression",
+          "metadata_entity_col": "driverId",
+          "metadata_target_col": "position",
+          "metadata_row_index": 78,
+          "predict_standard_mean": "mean_test_MAE=3.8102, std=0.0069",
+          "predict_mean_layernorm": "mean_test_MAE=3.847, std=0.0236",
+          "predict_ungated_moment": "mean_test_MAE=3.7742, std=0.0275",
+          "predict_rama_full": "mean_test_MAE=3.6526, std=0.0175",
+          "predict_pna_style": "mean_test_MAE=3.7754, std=0.0504",
+          "predict_rama_no_rank": "mean_test_MAE=3.6492, std=0.0299"
+        },
+        {
+          "input": "{\"date\": \"1970-03-06T00:00:00\", \"driverId\": 357, \"driverRef\": \"rindt\", \"code\": \"\\\\N\", \"forename\": \"Jochen\", \"surname\": \"Rindt\", \"dob\": \"1942-04-18T00:00:00\", \"nationality\": \"Austrian\"}",
+          "output": "13.0",
+          "metadata_fold": 0,
+          "metadata_task_type": "regression",
+          "metadata_entity_col": "driverId",
+          "metadata_target_col": "position",
+          "metadata_row_index": 357,
+          "predict_standard_mean": "mean_test_MAE=3.8102, std=0.0069",
+          "predict_mean_layernorm": "mean_test_MAE=3.847, std=0.0236",
+          "predict_ungated_moment": "mean_test_MAE=3.7742, std=0.0275",
+          "predict_rama_full": "mean_test_MAE=3.6526, std=0.0175",
+          "predict_pna_style": "mean_test_MAE=3.7754, std=0.0504",
+          "predict_rama_no_rank": "mean_test_MAE=3.6492, std=0.0299"
+        },
+        {
+          "input": "{\"date\": \"1979-03-19T00:00:00\", \"driverId\": 177, \"driverRef\": \"jones\", \"code\": \"\\\\N\", \"forename\": \"Alan\", \"surname\": \"Jones\", \"dob\": \"1946-11-02T00:00:00\", \"nationality\": \"Australian\"}",
+          "output": "11.333333",
+          "metadata_fold": 0,
+          "metadata_task_type": "regression",
+          "metadata_entity_col": "driverId",
+          "metadata_target_col": "position",
+          "metadata_row_index": 177,
+          "predict_standard_mean": "mean_test_MAE=3.8102, std=0.0069",
+          "predict_mean_layernorm": "mean_test_MAE=3.847, std=0.0236",
+          "predict_ungated_moment": "mean_test_MAE=3.7742, std=0.0275",
+          "predict_rama_full": "mean_test_MAE=3.6526, std=0.0175",
+          "predict_pna_style": "mean_test_MAE=3.7754, std=0.0504",
+          "predict_rama_no_rank": "mean_test_MAE=3.6492, std=0.0299"
+        },
+        {
+          "input": "{\"date\": \"2006-03-12T00:00:00\", \"driverId\": 4, \"driverRef\": \"alonso\", \"code\": \"ALO\", \"forename\": \"Fernando\", \"surname\": \"Alonso\", \"dob\": \"1981-07-29T00:00:00\", \"nationality\": \"Spanish\"}",
+          "output": "3.5",
+          "metadata_fold": 0,
+          "metadata_task_type": "regression",
+          "metadata_entity_col": "driverId",
+          "metadata_target_col": "position",
+          "metadata_row_index": 4,
+          "predict_standard_mean": "mean_test_MAE=3.8102, std=0.0069",
+          "predict_mean_layernorm": "mean_test_MAE=3.847, std=0.0236",
+          "predict_ungated_moment": "mean_test_MAE=3.7742, std=0.0275",
+          "predict_rama_full": "mean_test_MAE=3.6526, std=0.0175",
+          "predict_pna_style": "mean_test_MAE=3.7754, std=0.0504",
+          "predict_rama_no_rank": "mean_test_MAE=3.6492, std=0.0299"
+        },
+        {
+          "input": "{\"date\": \"2019-11-03T00:00:00\", \"driverId\": 1, \"driverRef\": \"hamilton\", \"code\": \"HAM\", \"forename\": \"Lewis\", \"surname\": \"Hamilton\", \"dob\": \"1985-01-07T00:00:00\", \"nationality\": \"British\"}",
+          "output": "1.8",
+          "metadata_fold": 0,
+          "metadata_task_type": "regression",
+          "metadata_entity_col": "driverId",
+          "metadata_target_col": "position",
+          "metadata_row_index": 1,
+          "predict_standard_mean": "mean_test_MAE=3.8102, std=0.0069",
+          "predict_mean_layernorm": "mean_test_MAE=3.847, std=0.0236",
+          "predict_ungated_moment": "mean_test_MAE=3.7742, std=0.0275",
+          "predict_rama_full": "mean_test_MAE=3.6526, std=0.0175",
+          "predict_pna_style": "mean_test_MAE=3.7754, std=0.0504",
+          "predict_rama_no_rank": "mean_test_MAE=3.6492, std=0.0299"
+        },
+        {
+          "input": "{\"date\": \"2015-07-05T00:00:00\", \"driverId\": 20, \"driverRef\": \"vettel\", \"code\": \"VET\", \"forename\": \"Sebastian\", \"surname\": \"Vettel\", \"dob\": \"1987-07-03T00:00:00\", \"nationality\": \"German\"}",
+          "output": "2.333333",
+          "metadata_fold": 0,
+          "metadata_task_type": "regression",
+          "metadata_entity_col": "driverId",
+          "metadata_target_col": "position",
+          "metadata_row_index": 20,
+          "predict_standard_mean": "mean_test_MAE=3.8102, std=0.0069",
+          "predict_mean_layernorm": "mean_test_MAE=3.847, std=0.0236",
+          "predict_ungated_moment": "mean_test_MAE=3.7742, std=0.0275",
+          "predict_rama_full": "mean_test_MAE=3.6526, std=0.0175",
+          "predict_pna_style": "mean_test_MAE=3.7754, std=0.0504",
+          "predict_rama_no_rank": "mean_test_MAE=3.6492, std=0.0299"
+        },
+        {
+          "input": "{\"date\": \"2010-05-16T00:00:00\", \"driverId\": 30, \"driverRef\": \"michael_schumacher\", \"code\": \"MSC\", \"forename\": \"Michael\", \"surname\": \"Schumacher\", \"dob\": \"1969-01-03T00:00:00\", \"nationality\": \"German\"}",
+          "output": "7.5",
+          "metadata_fold": 0,
+          "metadata_task_type": "regression",
+          "metadata_entity_col": "driverId",
+          "metadata_target_col": "position",
+          "metadata_row_index": 30,
+          "predict_standard_mean": "mean_test_MAE=3.8102, std=0.0069",
+          "predict_mean_layernorm": "mean_test_MAE=3.847, std=0.0236",
+          "predict_ungated_moment": "mean_test_MAE=3.7742, std=0.0275",
+          "predict_rama_full": "mean_test_MAE=3.6526, std=0.0175",
+          "predict_pna_style": "mean_test_MAE=3.7754, std=0.0504",
+          "predict_rama_no_rank": "mean_test_MAE=3.6492, std=0.0299"
+        },
+        {
+          "input": "{\"date\": \"1988-10-30T00:00:00\", \"driverId\": 102, \"driverRef\": \"senna\", \"code\": \"\\\\N\", \"forename\": \"Ayrton\", \"surname\": \"Senna\", \"dob\": \"1960-03-21T00:00:00\", \"nationality\": \"Brazilian\"}",
+          "output": "2.0",
+          "metadata_fold": 0,
+          "metadata_task_type": "regression",
+          "metadata_entity_col": "driverId",
+          "metadata_target_col": "position",
+          "metadata_row_index": 102,
+          "predict_standard_mean": "mean_test_MAE=3.8102, std=0.0069",
+          "predict_mean_layernorm": "mean_test_MAE=3.847, std=0.0236",
+          "predict_ungated_moment": "mean_test_MAE=3.7742, std=0.0275",
+          "predict_rama_full": "mean_test_MAE=3.6526, std=0.0175",
+          "predict_pna_style": "mean_test_MAE=3.7754, std=0.0504",
+          "predict_rama_no_rank": "mean_test_MAE=3.6492, std=0.0299"
+        },
+        {
+          "input": "{\"date\": \"2000-09-24T00:00:00\", \"driverId\": 117, \"driverRef\": \"hakkinen\", \"code\": \"\\\\N\", \"forename\": \"Mika\", \"surname\": \"Hakkinen\", \"dob\": \"1968-09-28T00:00:00\", \"nationality\": \"Finnish\"}",
+          "output": "3.0",
+          "metadata_fold": 0,
+          "metadata_task_type": "regression",
+          "metadata_entity_col": "driverId",
+          "metadata_target_col": "position",
+          "metadata_row_index": 117,
+          "predict_standard_mean": "mean_test_MAE=3.8102, std=0.0069",
+          "predict_mean_layernorm": "mean_test_MAE=3.847, std=0.0236",
+          "predict_ungated_moment": "mean_test_MAE=3.7742, std=0.0275",
+          "predict_rama_full": "mean_test_MAE=3.6526, std=0.0175",
+          "predict_pna_style": "mean_test_MAE=3.7754, std=0.0504",
+          "predict_rama_no_rank": "mean_test_MAE=3.6492, std=0.0299"
+        },
+        {
+          "input": "{\"date\": \"2021-06-06T00:00:00\", \"driverId\": 844, \"driverRef\": \"max_verstappen\", \"code\": \"VER\", \"forename\": \"Max\", \"surname\": \"Verstappen\", \"dob\": \"1997-09-30T00:00:00\", \"nationality\": \"Dutch\"}",
+          "output": "1.333333",
+          "metadata_fold": 0,
+          "metadata_task_type": "regression",
+          "metadata_entity_col": "driverId",
+          "metadata_target_col": "position",
+          "metadata_row_index": 844,
+          "predict_standard_mean": "mean_test_MAE=3.8102, std=0.0069",
+          "predict_mean_layernorm": "mean_test_MAE=3.847, std=0.0236",
+          "predict_ungated_moment": "mean_test_MAE=3.7742, std=0.0275",
+          "predict_rama_full": "mean_test_MAE=3.6526, std=0.0175",
+          "predict_pna_style": "mean_test_MAE=3.7754, std=0.0504",
+          "predict_rama_no_rank": "mean_test_MAE=3.6492, std=0.0299"
+        }
+      ]
+    }
+  ]
+}

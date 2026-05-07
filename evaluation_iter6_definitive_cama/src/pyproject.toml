@@ -1,0 +1,10 @@
+[project]
+name = "eval-id4-it6-cama-meta-analysis"
+version = "1.0.0"
+description = "Definitive CAMA/RAMA Meta-Analysis: 15 Experiments Across Iterations 2-5"
+requires-python = ">=3.10"
+dependencies = [
+    "numpy==2.2.6",
+    "scipy==1.15.3",
+    "loguru==0.7.3",
+]
