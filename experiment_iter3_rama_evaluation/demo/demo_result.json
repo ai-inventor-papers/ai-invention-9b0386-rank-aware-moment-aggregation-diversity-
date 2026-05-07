@@ -1,0 +1,13 @@
+{
+  "id": "exp_id5_it3__opus",
+  "type": "code",
+  "title": "RAMA Evaluation on rel-trial (study-outcome + study-adverse) with rel-ratebeer Backup",
+  "summary": "Demo notebook for RAMA (Rank-Aware Moment Aggregation) evaluation on 2 RelBench entity tasks: study-outcome (classification, AP) and study-adverse (regression, MAE). Demonstrates: (1) the RAMA aggregation module with gated variance injection controlled by spectral rank and FK cardinality, implemented in pure PyTorch; (2) unit tests verifying shape correctness, zero-init behavior, gradient flow, edge cases, and gate diagnostics on synthetic data; (3) paired Cohen's d statistical analysis reproduced from pre-computed experiment results (baseline_mean vs RAMA, 5 seeds); (4) visualization comparing per-seed metrics and effect sizes with 95% CI. Data: 9 examples across 3 datasets from the original experiment output, plus full statistical analysis metadata.",
+  "original_path": "/ai-inventor/aii_pipeline/runs/leskovec-predictive-residual-message-passing-v2_sti/3_invention_loop/iter_3/gen_art/exp_id5_it3__opus",
+  "demo_path": "/ai-inventor/aii_pipeline/runs/leskovec-predictive-residual-message-passing-v2_sti/4_gen_paper_repo/exp_id5_it3__opus",
+  "out_expected_files": {
+    "notebook": "code_demo.ipynb",
+    "mini_data_file": "mini_demo_data.json"
+  },
+  "notebook_path": "/ai-inventor/aii_pipeline/runs/leskovec-predictive-residual-message-passing-v2_sti/4_gen_paper_repo/exp_id5_it3__opus/method_code_demo.ipynb"
+}

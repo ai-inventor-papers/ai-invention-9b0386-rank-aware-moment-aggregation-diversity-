@@ -1,0 +1,13 @@
+{
+  "id": "exp_id4_it3__opus",
+  "type": "code",
+  "title": "Controlled RAMA vs Mean vs RAMA-no-rank on rel-f1 (dual-task) and rel-amazon (rank ablation)",
+  "summary": "Demo notebook for the RAMA (Rank-Aware Moment Aggregation) experiment comparing 3 GNN aggregation methods: standard mean baseline, RAMA full (rank + cardinality gating), and RAMA no-rank ablation. Loads pre-computed results from rel-f1 dataset (driver-position regression + driver-dnf classification, 5 seeds x 3 methods = 30 runs). Demonstrates the standalone RAMA PyTorch module with unit tests on synthetic data, reproduces statistical analysis (Cohen's d effect sizes, paired t-tests, DerSimonian-Laird pooled effects), and visualizes per-task metrics, effect size forest plots, training curves, and gate statistics.",
+  "original_path": "/ai-inventor/aii_pipeline/runs/leskovec-predictive-residual-message-passing-v2_sti/3_invention_loop/iter_3/gen_art/exp_id4_it3__opus",
+  "demo_path": "/ai-inventor/aii_pipeline/runs/leskovec-predictive-residual-message-passing-v2_sti/4_gen_paper_repo/exp_id4_it3__opus",
+  "out_expected_files": {
+    "notebook": "code_demo.ipynb",
+    "mini_data_file": "mini_demo_data.json"
+  },
+  "notebook_path": "/ai-inventor/aii_pipeline/runs/leskovec-predictive-residual-message-passing-v2_sti/4_gen_paper_repo/exp_id4_it3__opus/method_code_demo.ipynb"
+}

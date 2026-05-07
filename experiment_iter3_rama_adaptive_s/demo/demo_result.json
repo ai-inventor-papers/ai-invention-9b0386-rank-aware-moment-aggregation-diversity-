@@ -1,0 +1,13 @@
+{
+  "id": "exp_id2_it3__opus",
+  "type": "code",
+  "title": "RAMA Adaptive Safety Validation on rel-avito/ad-ctr (Extreme-Cardinality Stress Test)",
+  "summary": "Demo notebook for RAMA (Rank-Aware Moment Aggregation) stress test on rel-avito/ad-ctr extreme-cardinality regression task. Implements standalone RAMA aggregation with dual PyTorch/NumPy backends, tests on synthetic data verifying zero-init gate behavior, loads pre-computed 5-seed experiment results, re-runs statistical analysis (Cohen's d=0.82, MAE diff=33.6%, R2 not catastrophic), analyzes gate values across 14 edge types, and produces 4-panel visualization of MAE, R2, gate-vs-cardinality, and timing/memory overhead.",
+  "original_path": "/ai-inventor/aii_pipeline/runs/leskovec-predictive-residual-message-passing-v2_sti/3_invention_loop/iter_3/gen_art/exp_id2_it3__opus",
+  "demo_path": "/ai-inventor/aii_pipeline/runs/leskovec-predictive-residual-message-passing-v2_sti/4_gen_paper_repo/exp_id2_it3__opus",
+  "out_expected_files": {
+    "notebook": "code_demo.ipynb",
+    "mini_data_file": "mini_demo_data.json"
+  },
+  "notebook_path": "/ai-inventor/aii_pipeline/runs/leskovec-predictive-residual-message-passing-v2_sti/4_gen_paper_repo/exp_id2_it3__opus/method_code_demo.ipynb"
+}

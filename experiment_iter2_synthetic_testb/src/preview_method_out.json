@@ -1,0 +1,381 @@
+{
+  "metadata": {
+    "experiment": "RAMA Synthetic Testbed Validation",
+    "description": "Three-phase experiment: (A) rank collapse measurement and proxy validation, (B) 5 aggregation methods comparison (Mean, UngatedMeanVar, RAMA, PNA, VPA), (C) RAMA gate behavior analysis",
+    "num_examples": 3750,
+    "num_conditions": 12,
+    "num_seeds": 5,
+    "num_epochs_max": 100,
+    "methods": [
+      "mean",
+      "ungated_meanvar",
+      "rama"
+    ],
+    "phase_a_rank_analysis": {
+      "proxy_vs_svd_correlation": {
+        "spearman": 0.951542712476136,
+        "spearman_pvalue": 0.0,
+        "pearson": 0.8581831973893598,
+        "pearson_pvalue": 0.0
+      },
+      "per_cardinality_correlation": {
+        "low": {
+          "spearman": 0.7301408866028763,
+          "pvalue": 4.9562390167671866e-250
+        },
+        "medium": {
+          "spearman": 0.9380745351752494,
+          "pvalue": 0.0
+        },
+        "high": {
+          "spearman": 0.9401483978878611,
+          "pvalue": 8.880238031522633e-282
+        },
+        "extreme": {
+          "spearman": 0.934094900687999,
+          "pvalue": 4.411900883179351e-68
+        }
+      },
+      "per_condition_rank_stats": [
+        {
+          "condition": "low_rank2",
+          "cardinality": 5,
+          "projection_rank": 2,
+          "num_examples": 500,
+          "max_possible_rank": 5,
+          "mean_erank_svd": 2.143913,
+          "std_erank_svd": 0.5435988826800512,
+          "mean_erank_proxy": 0.655106,
+          "std_erank_proxy": 0.08276426405158208,
+          "erank_of_means": 6.6960530281066895,
+          "mean_collapse_ratio": 0.4287826,
+          "std_collapse_ratio": 0.10871977653601023
+        },
+        {
+          "condition": "low_rank8",
+          "cardinality": 5,
+          "projection_rank": 8,
+          "num_examples": 500,
+          "max_possible_rank": 5,
+          "mean_erank_svd": 3.1301372,
+          "std_erank_svd": 0.2976908098953678,
+          "mean_erank_proxy": 0.7845476,
+          "std_erank_proxy": 0.06952703541961212,
+          "erank_of_means": 7.414740562438965,
+          "mean_collapse_ratio": 0.6260274400000001,
+          "std_collapse_ratio": 0.05953816197907356
+        },
+        {
+          "condition": "low_rank16",
+          "cardinality": 5,
+          "projection_rank": 16,
+          "num_examples": 500,
+          "max_possible_rank": 5,
+          "mean_erank_svd": 3.4877788,
+          "std_erank_svd": 0.20032683073058385,
+          "mean_erank_proxy": 0.8109449999999999,
+          "std_erank_proxy": 0.05773151232212785,
+          "erank_of_means": 8.729243278503418,
+          "mean_collapse_ratio": 0.69755576,
+          "std_collapse_ratio": 0.040065366146116776
+        }
+      ],
+      "svd_recompute_mean_error": 3.20250709851468e-05
+    },
+    "phase_b_model_comparison": {
+      "results_summary": {
+        "regression": {
+          "overall": [
+            {
+              "method": "mean",
+              "mean_mse": 1381.8455023571591,
+              "std_mse": 148.3616922948361,
+              "mean_r2": 0.6850196695592313,
+              "std_r2": 0.033817828971520456
+            },
+            {
+              "method": "ungated_meanvar",
+              "mean_mse": 1235.4912421724925,
+              "std_mse": 203.95295272952515,
+              "mean_r2": 0.7183799208722362,
+              "std_r2": 0.04648940010698258
+            },
+            {
+              "method": "rama",
+              "mean_mse": 1223.32196010705,
+              "std_mse": 318.4926782919821,
+              "mean_r2": 0.7211538087487475,
+              "std_r2": 0.07259778960835306
+            }
+          ],
+          "per_condition": [
+            {
+              "condition": "low_rank2",
+              "method": "mean",
+              "mean_mse": 260.97486718215805,
+              "std_mse": 27.87973438337971,
+              "mean_r2": 0.5732125647705496,
+              "std_r2": 0.04559335717203663
+            },
+            {
+              "condition": "low_rank8",
+              "method": "mean",
+              "mean_mse": 326.00862820267514,
+              "std_mse": 63.21633590205714,
+              "mean_r2": 0.7522437340078452,
+              "std_r2": 0.0480424196719802
+            },
+            {
+              "condition": "low_rank16",
+              "method": "mean",
+              "mean_mse": 5985.866320558207,
+              "std_mse": 1030.0496138660742,
+              "mean_r2": 0.014088818331014807,
+              "std_r2": 0.16965588230672016
+            }
+          ],
+          "cohen_d_rama_vs_mean": {
+            "per_condition": [
+              {
+                "condition": "low_rank2",
+                "cohen_d": 5.056015007727256,
+                "p_value": 0.003916705813534965,
+                "n_seeds": 5
+              },
+              {
+                "condition": "low_rank8",
+                "cohen_d": 1.2486395749231938,
+                "p_value": 0.13256510692172424,
+                "n_seeds": 5
+              },
+              {
+                "condition": "low_rank16",
+                "cohen_d": -0.3465713421164477,
+                "p_value": 0.6755350059919518,
+                "n_seeds": 5
+              }
+            ],
+            "pooled_d": 2.359424832347111,
+            "pooled_p": 1.7442468330575167e-05
+          }
+        },
+        "classification": {
+          "overall": [
+            {
+              "method": "mean",
+              "mean_accuracy": 0.8466666666666667,
+              "std_accuracy": 0.007204936579256683,
+              "mean_auroc": 0.9241035799794778,
+              "std_auroc": 0.002569844162549243
+            },
+            {
+              "method": "ungated_meanvar",
+              "mean_accuracy": 0.9234666666666668,
+              "std_accuracy": 0.003636848452529552,
+              "mean_auroc": 0.9804611788849618,
+              "std_auroc": 0.0010161836784273954
+            },
+            {
+              "method": "rama",
+              "mean_accuracy": 0.9274666666666667,
+              "std_accuracy": 0.0029933259094191244,
+              "mean_auroc": 0.9813191198267017,
+              "std_auroc": 0.0013271561960809936
+            }
+          ],
+          "per_condition": [
+            {
+              "condition": "low_rank2",
+              "method": "mean",
+              "mean_accuracy": 0.788,
+              "std_accuracy": 0.007483314773547889,
+              "mean_auroc": 0.9020933977455716,
+              "std_auroc": 0.01086628446940152
+            },
+            {
+              "condition": "low_rank8",
+              "method": "mean",
+              "mean_accuracy": 0.8220000000000001,
+              "std_accuracy": 0.0305941170815567,
+              "mean_auroc": 0.895463669209153,
+              "std_auroc": 0.02076616704658655
+            },
+            {
+              "condition": "low_rank16",
+              "method": "mean",
+              "mean_accuracy": 0.8779999999999999,
+              "std_accuracy": 0.014696938456699083,
+              "mean_auroc": 0.9502415458937199,
+              "std_auroc": 0.004643436668372392
+            }
+          ],
+          "cohen_d_rama_vs_mean": {
+            "per_condition": [
+              {
+                "condition": "low_rank2",
+                "cohen_d": 6.34860314594965,
+                "p_value": 0.0013573997746186555,
+                "n_seeds": 5
+              },
+              {
+                "condition": "low_rank8",
+                "cohen_d": 3.3600000000000008,
+                "p_value": 0.009644647880418475,
+                "n_seeds": 5
+              },
+              {
+                "condition": "low_rank16",
+                "cohen_d": 4.400000000000003,
+                "p_value": 0.002060005401468286,
+                "n_seeds": 5
+              }
+            ],
+            "pooled_d": 3.8297620954197438,
+            "pooled_p": 0.0
+          }
+        }
+      },
+      "training_time_seconds": 625.0971467494965
+    },
+    "phase_c_gate_analysis": {
+      "gate_heatmap": {
+        "low_rank2": 0.8108991618156434,
+        "low_rank8": 0.8111584860086442,
+        "low_rank16": 0.8113506717681884,
+        "medium_rank2": 0.9184013419151306,
+        "medium_rank8": 0.9187297884225846,
+        "medium_rank16": 0.9188732168674469,
+        "high_rank2": 0.9399592670798301,
+        "high_rank8": 0.9401669707894326,
+        "high_rank16": 0.9402532044053078,
+        "extreme_rank2": 0.9433272886276245,
+        "extreme_rank8": 0.9434588861465454,
+        "extreme_rank16": 0.9435432159900665
+      },
+      "gate_vs_erank_correlation": {
+        "spearman": 0.5185338139275302,
+        "pearson": 0.5930393503942942
+      },
+      "gate_vs_cardinality_correlation": {
+        "spearman": 0.8354861218585391,
+        "pearson": 0.8381493192744791
+      },
+      "per_condition_gate_stats": [
+        {
+          "condition": "low_rank2",
+          "mean_gate": 0.8108991618156434,
+          "std_gate": 0.018339071513552033,
+          "mean_rho": 0.8040752309560776,
+          "std_rho": 0.03715907271750847
+        },
+        {
+          "condition": "low_rank8",
+          "mean_gate": 0.8111584860086442,
+          "std_gate": 0.019033612681626948,
+          "mean_rho": 0.8348789016008377,
+          "std_rho": 0.03786197843521682
+        },
+        {
+          "condition": "low_rank16",
+          "mean_gate": 0.8113506717681884,
+          "std_gate": 0.019469320634029525,
+          "mean_rho": 0.8532170926332474,
+          "std_rho": 0.03231905389266547
+        }
+      ]
+    },
+    "collapse_benefit_correlation": {
+      "spearman_rho": -0.7482517482517484,
+      "p_value": 0.005124081698753054,
+      "interpretation": "Negative correlation: RAMA helps more where collapse ratio is lower (more severe collapse)"
+    }
+  },
+  "datasets": [
+    {
+      "dataset": "synthetic_relational_rank_collapse_testbed",
+      "examples": [
+        {
+          "input": "{\"parent_features\":[0.2442,0.6782,-0.5855,-0.9087,-1.9918,0.9716,0.0167,0.2057],\"child_features\":[[0.4842,-1.2203,0.2717,-1.3708,-1.8407,0.2627,-2.4466,1.5643,1.0347,1.0787,-0.079,1.3613,2.4666,1.7979...",
+          "output": "{\"regression_target\":15.0704,\"classification_target\":0}",
+          "metadata_fold": "test",
+          "metadata_condition": "low_rank8",
+          "metadata_cardinality_regime": "low",
+          "metadata_cardinality": 5,
+          "metadata_projection_rank": 8,
+          "metadata_parent_id": 0,
+          "metadata_erank_svd": 3.6776,
+          "metadata_erank_proxy": 0.8228,
+          "metadata_child_mean": [
+            0.6181,
+            -1.3273,
+            0.121
+          ],
+          "metadata_child_variance": [
+            0.0595,
+            0.0505,
+            0.0316
+          ],
+          "predict_mean": "{\"regression_pred\": 28.8702, \"classification_prob\": 0.0236, \"classification_pred\": 0}",
+          "predict_ungated_meanvar": "{\"regression_pred\": 15.1286, \"classification_prob\": 0.0018, \"classification_pred\": 0}",
+          "predict_rama": "{\"regression_pred\": 17.4239, \"classification_prob\": 0.0016, \"classification_pred\": 0}",
+          "predict_pna": "{\"regression_pred\": 15.0855, \"classification_prob\": 0.0175, \"classification_pred\": 0}",
+          "predict_vpa": "{\"regression_pred\": 24.6454, \"classification_prob\": 0.0525, \"classification_pred\": 0}"
+        },
+        {
+          "input": "{\"parent_features\":[-0.7836,1.2265,0.9432,-0.1218,-0.5559,-0.3567,-0.7986,0.0266],\"child_features\":[[-0.324,-0.8641,-0.2276,-0.8014,-0.958,1.5662,0.1739,2.1404,-0.2107,0.9671,-1.5357,-0.4135,1.43,-0.0...",
+          "output": "{\"regression_target\":13.187,\"classification_target\":0}",
+          "metadata_fold": "val",
+          "metadata_condition": "low_rank8",
+          "metadata_cardinality_regime": "low",
+          "metadata_cardinality": 5,
+          "metadata_projection_rank": 8,
+          "metadata_parent_id": 1,
+          "metadata_erank_svd": 2.6228,
+          "metadata_erank_proxy": 0.756,
+          "metadata_child_mean": [
+            -1.0047,
+            -1.1725,
+            0.0101
+          ],
+          "metadata_child_variance": [
+            0.133,
+            0.1036,
+            0.0416
+          ],
+          "predict_mean": "{\"regression_pred\": 17.2215, \"classification_prob\": 0.0379, \"classification_pred\": 0}",
+          "predict_ungated_meanvar": "{\"regression_pred\": 18.979, \"classification_prob\": 0.0405, \"classification_pred\": 0}",
+          "predict_rama": "{\"regression_pred\": 18.8947, \"classification_prob\": 0.0319, \"classification_pred\": 0}",
+          "predict_pna": "{\"regression_pred\": 15.7132, \"classification_prob\": 0.023, \"classification_pred\": 0}",
+          "predict_vpa": "{\"regression_pred\": 12.6462, \"classification_prob\": 0.0606, \"classification_pred\": 0}"
+        },
+        {
+          "input": "{\"parent_features\":[-0.6162,0.5855,-0.3595,-0.354,1.5373,-0.7257,-1.5679,0.3662],\"child_features\":[[1.7244,2.343,-0.3583,2.948,3.6511,-2.9067,2.3428,0.8257,3.1263,-6.9063,-2.5661,-3.5688,-3.7488,0.153...",
+          "output": "{\"regression_target\":150.3319,\"classification_target\":1}",
+          "metadata_fold": "train",
+          "metadata_condition": "low_rank8",
+          "metadata_cardinality_regime": "low",
+          "metadata_cardinality": 5,
+          "metadata_projection_rank": 8,
+          "metadata_parent_id": 2,
+          "metadata_erank_svd": 3.1502,
+          "metadata_erank_proxy": 0.7214,
+          "metadata_child_mean": [
+            -0.3199,
+            1.5111,
+            0.7349
+          ],
+          "metadata_child_variance": [
+            1.6676,
+            2.9625,
+            0.6265
+          ],
+          "predict_mean": "{\"regression_pred\": 164.7416, \"classification_prob\": 0.9998, \"classification_pred\": 1}",
+          "predict_ungated_meanvar": "{\"regression_pred\": 156.3531, \"classification_prob\": 1.0, \"classification_pred\": 1}",
+          "predict_rama": "{\"regression_pred\": 160.3843, \"classification_prob\": 1.0, \"classification_pred\": 1}",
+          "predict_pna": "{\"regression_pred\": 162.543, \"classification_prob\": 0.9999, \"classification_pred\": 1}",
+          "predict_vpa": "{\"regression_pred\": 136.8521, \"classification_prob\": 0.9817, \"classification_pred\": 1}"
+        }
+      ]
+    }
+  ]
+}

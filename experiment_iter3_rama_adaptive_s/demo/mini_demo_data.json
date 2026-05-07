@@ -1,0 +1,153 @@
+{
+  "metadata": {
+    "method_name": "RAMA (Rank-Aware Moment Aggregation)",
+    "experiment": "rama_avito_stress_test",
+    "dataset": "rel-avito",
+    "task": "ad-ctr",
+    "task_type": "regression",
+    "phase": "full",
+    "config": {
+      "channels": 64,
+      "num_neighbors": 64,
+      "batch_size": 256,
+      "epochs": 10,
+      "max_steps_per_epoch": 2000,
+      "lr": 0.005,
+      "num_layers": 2,
+      "grad_clip": 1.0
+    },
+    "seeds": [42, 123, 456, 789, 1024],
+    "results": {
+      "baseline_mean": {
+        "per_seed": {
+          "42": {"mae": 0.048246119171381, "r2": -0.23655474185943604, "rmse": 0.11031214147806168},
+          "123": {"mae": 0.04495038092136383, "r2": -0.2035377025604248, "rmse": 0.10882946103811264},
+          "456": {"mae": 0.04272809997200966, "r2": -0.17617356777191162, "rmse": 0.10758514702320099},
+          "789": {"mae": 0.043879639357328415, "r2": -0.1912933588027954, "rmse": 0.10827445238828659},
+          "1024": {"mae": 0.07157958298921585, "r2": -0.520727276802063, "rmse": 0.1223326250910759}
+        },
+        "mean": {"mae": 0.050277, "r2": -0.265657, "rmse": 0.111467},
+        "std": {"mae": 0.010809, "r2": 0.129077, "rmse": 0.005507}
+      },
+      "rama": {
+        "per_seed": {
+          "42": {"mae": 0.04033658280968666, "r2": -0.12640595436096191, "rmse": 0.1052844226360321},
+          "123": {"mae": 0.05641433596611023, "r2": -0.012963056564331055, "rmse": 0.09984204173088074},
+          "456": {"mae": 0.061262596398591995, "r2": -0.03629195690155029, "rmse": 0.10098519176244736},
+          "789": {"mae": 0.11100445687770844, "r2": -1.252108097076416, "rmse": 0.14887139201164246},
+          "1024": {"mae": 0.06686963886022568, "r2": -0.45438265800476074, "rmse": 0.11963437497615814}
+        },
+        "mean": {"mae": 0.067178, "r2": -0.37643, "rmse": 0.114923},
+        "std": {"mae": 0.023631, "r2": 0.465447, "rmse": 0.018381}
+      }
+    },
+    "statistical_comparison": {
+      "mae": {
+        "cohen_d": 0.8227, "ci_lower": -0.4683, "ci_upper": 2.1137,
+        "p_value": 0.229557,
+        "baseline_mean": 0.050277, "baseline_std": 0.010809,
+        "rama_mean": 0.067178, "rama_std": 0.023631
+      },
+      "r2": {
+        "cohen_d": -0.2901, "ci_lower": -1.5362, "ci_upper": 0.956,
+        "p_value": 0.658671,
+        "baseline_mean": -0.265657, "baseline_std": 0.129077,
+        "rama_mean": -0.37643, "rama_std": 0.465447
+      }
+    },
+    "safety_check": {
+      "mae_within_5pct": false,
+      "r2_not_catastrophic": true,
+      "mae_pct_diff": 33.6154
+    },
+    "gate_analysis": {
+      "per_edge_type": {
+        "L0_SearchStream__f2p_AdID__AdsInfo": {"mean_gate": 0.5, "mean_N": 13.02, "max_N": 64.0, "mean_rho": 0.0002},
+        "L0_SearchInfo__f2p_CategoryID__Category": {"mean_gate": 0.5, "mean_N": 32.0, "max_N": 32.0, "mean_rho": 0.0002},
+        "L0_AdsInfo__f2p_CategoryID__Category": {"mean_gate": 0.5, "mean_N": 32.0, "max_N": 32.0, "mean_rho": 0.0002},
+        "L0_SearchInfo__rev_f2p_SearchID__SearchStream": {"mean_gate": 0.5, "mean_N": 1.0, "max_N": 1.0, "mean_rho": 0.0002},
+        "L0_AdsInfo__rev_f2p_AdID__SearchStream": {"mean_gate": 0.5, "mean_N": 1.0, "max_N": 1.0, "mean_rho": 0.0002},
+        "L0_Category__rev_f2p_CategoryID__AdsInfo": {"mean_gate": 0.5, "mean_N": 0.22, "max_N": 1.0, "mean_rho": 0.0002},
+        "L0_PhoneRequestsStream__f2p_AdID__AdsInfo": {"mean_gate": 0.5, "mean_N": 0.0, "max_N": 0.0, "mean_rho": 0.0002},
+        "L0_VisitStream__f2p_AdID__AdsInfo": {"mean_gate": 0.5, "mean_N": 0.0, "max_N": 0.0, "mean_rho": 0.0002},
+        "L1_SearchStream__f2p_AdID__AdsInfo": {"mean_gate": 0.5, "mean_N": 13.02, "max_N": 64.0, "mean_rho": 0.0106},
+        "L1_AdsInfo__f2p_CategoryID__Category": {"mean_gate": 0.5, "mean_N": 32.0, "max_N": 32.0, "mean_rho": 0.0711},
+        "L1_SearchInfo__f2p_CategoryID__Category": {"mean_gate": 0.5, "mean_N": 32.0, "max_N": 32.0, "mean_rho": 0.0174},
+        "L1_SearchInfo__rev_f2p_SearchID__SearchStream": {"mean_gate": 0.5, "mean_N": 1.0, "max_N": 1.0, "mean_rho": 0.0002},
+        "L1_AdsInfo__rev_f2p_AdID__SearchStream": {"mean_gate": 0.5, "mean_N": 1.0, "max_N": 1.0, "mean_rho": 0.0002},
+        "L1_Category__rev_f2p_CategoryID__AdsInfo": {"mean_gate": 0.5, "mean_N": 0.22, "max_N": 1.0, "mean_rho": 0.0002}
+      },
+      "gate_closes_on_extreme": false,
+      "extreme_cardinality_edges_gate_mean": 0.5,
+      "normal_cardinality_edges_gate_mean": 0.5,
+      "correlation_logN_vs_gate": null,
+      "correlation_pvalue": null
+    },
+    "timing": {
+      "seconds_per_epoch_baseline": 1.27,
+      "seconds_per_epoch_rama": 1.44,
+      "rama_overhead_pct": 13.25
+    },
+    "memory": {
+      "peak_vram_gb_baseline": 0.15,
+      "peak_vram_gb_rama": 0.51
+    }
+  },
+  "datasets": [
+    {
+      "dataset": "rel-avito__ad-ctr",
+      "examples": [
+        {
+          "input": "=== RAMA Stress Test ===\nDataset: rel-avito\nTask: ad-ctr (regression)\nSeed: 42\nConfig: channels=64, neighbors=64, layers=2, epochs=10, lr=0.005\nMean FK cardinality: 114,625 (extreme)\nHypothesis: RAMA gate closes on extreme-cardinality edges, gracefully degrading to mean aggregation",
+          "output": "{\"baseline_mae\": 0.048246119171381, \"baseline_r2\": -0.23655474185943604, \"rama_mae\": 0.04033658280968666, \"rama_r2\": -0.12640595436096191, \"mae_pct_diff\": 16.3941, \"rama_safe\": true}",
+          "predict_baseline": "{\"mae\": 0.048246119171381, \"r2\": -0.23655474185943604, \"rmse\": 0.11031214147806168}",
+          "predict_rama": "{\"mae\": 0.04033658280968666, \"r2\": -0.12640595436096191, \"rmse\": 0.1052844226360321}",
+          "metadata_seed": 42, "metadata_dataset": "rel-avito", "metadata_task": "ad-ctr",
+          "metadata_task_type": "regression", "metadata_aggr_baseline": "mean",
+          "metadata_aggr_method": "rama", "metadata_channels": 64,
+          "metadata_num_neighbors": 64, "metadata_epochs": 10, "metadata_phase": "full"
+        },
+        {
+          "input": "=== RAMA Stress Test ===\nDataset: rel-avito\nTask: ad-ctr (regression)\nSeed: 123\nConfig: channels=64, neighbors=64, layers=2, epochs=10, lr=0.005\nMean FK cardinality: 114,625 (extreme)\nHypothesis: RAMA gate closes on extreme-cardinality edges, gracefully degrading to mean aggregation",
+          "output": "{\"baseline_mae\": 0.04495038092136383, \"baseline_r2\": -0.2035377025604248, \"rama_mae\": 0.05641433596611023, \"rama_r2\": -0.012963056564331055, \"mae_pct_diff\": 25.5036, \"rama_safe\": true}",
+          "predict_baseline": "{\"mae\": 0.04495038092136383, \"r2\": -0.2035377025604248, \"rmse\": 0.10882946103811264}",
+          "predict_rama": "{\"mae\": 0.05641433596611023, \"r2\": -0.012963056564331055, \"rmse\": 0.09984204173088074}",
+          "metadata_seed": 123, "metadata_dataset": "rel-avito", "metadata_task": "ad-ctr",
+          "metadata_task_type": "regression", "metadata_aggr_baseline": "mean",
+          "metadata_aggr_method": "rama", "metadata_channels": 64,
+          "metadata_num_neighbors": 64, "metadata_epochs": 10, "metadata_phase": "full"
+        },
+        {
+          "input": "=== RAMA Stress Test ===\nDataset: rel-avito\nTask: ad-ctr (regression)\nSeed: 456\nConfig: channels=64, neighbors=64, layers=2, epochs=10, lr=0.005\nMean FK cardinality: 114,625 (extreme)\nHypothesis: RAMA gate closes on extreme-cardinality edges, gracefully degrading to mean aggregation",
+          "output": "{\"baseline_mae\": 0.04272809997200966, \"baseline_r2\": -0.17617356777191162, \"rama_mae\": 0.061262596398591995, \"rama_r2\": -0.03629195690155029, \"mae_pct_diff\": 43.3778, \"rama_safe\": true}",
+          "predict_baseline": "{\"mae\": 0.04272809997200966, \"r2\": -0.17617356777191162, \"rmse\": 0.10758514702320099}",
+          "predict_rama": "{\"mae\": 0.061262596398591995, \"r2\": -0.03629195690155029, \"rmse\": 0.10098519176244736}",
+          "metadata_seed": 456, "metadata_dataset": "rel-avito", "metadata_task": "ad-ctr",
+          "metadata_task_type": "regression", "metadata_aggr_baseline": "mean",
+          "metadata_aggr_method": "rama", "metadata_channels": 64,
+          "metadata_num_neighbors": 64, "metadata_epochs": 10, "metadata_phase": "full"
+        },
+        {
+          "input": "=== RAMA Stress Test ===\nDataset: rel-avito\nTask: ad-ctr (regression)\nSeed: 789\nConfig: channels=64, neighbors=64, layers=2, epochs=10, lr=0.005\nMean FK cardinality: 114,625 (extreme)\nHypothesis: RAMA gate closes on extreme-cardinality edges, gracefully degrading to mean aggregation",
+          "output": "{\"baseline_mae\": 0.043879639357328415, \"baseline_r2\": -0.1912933588027954, \"rama_mae\": 0.11100445687770844, \"rama_r2\": -1.252108097076416, \"mae_pct_diff\": 152.9594, \"rama_safe\": false}",
+          "predict_baseline": "{\"mae\": 0.043879639357328415, \"r2\": -0.1912933588027954, \"rmse\": 0.10827445238828659}",
+          "predict_rama": "{\"mae\": 0.11100445687770844, \"r2\": -1.252108097076416, \"rmse\": 0.14887139201164246}",
+          "metadata_seed": 789, "metadata_dataset": "rel-avito", "metadata_task": "ad-ctr",
+          "metadata_task_type": "regression", "metadata_aggr_baseline": "mean",
+          "metadata_aggr_method": "rama", "metadata_channels": 64,
+          "metadata_num_neighbors": 64, "metadata_epochs": 10, "metadata_phase": "full"
+        },
+        {
+          "input": "=== RAMA Stress Test ===\nDataset: rel-avito\nTask: ad-ctr (regression)\nSeed: 1024\nConfig: channels=64, neighbors=64, layers=2, epochs=10, lr=0.005\nMean FK cardinality: 114,625 (extreme)\nHypothesis: RAMA gate closes on extreme-cardinality edges, gracefully degrading to mean aggregation",
+          "output": "{\"baseline_mae\": 0.07157958298921585, \"baseline_r2\": -0.520727276802063, \"rama_mae\": 0.06686963886022568, \"rama_r2\": -0.45438265800476074, \"mae_pct_diff\": 6.5816, \"rama_safe\": true}",
+          "predict_baseline": "{\"mae\": 0.07157958298921585, \"r2\": -0.520727276802063, \"rmse\": 0.1223326250910759}",
+          "predict_rama": "{\"mae\": 0.06686963886022568, \"r2\": -0.45438265800476074, \"rmse\": 0.11963437497615814}",
+          "metadata_seed": 1024, "metadata_dataset": "rel-avito", "metadata_task": "ad-ctr",
+          "metadata_task_type": "regression", "metadata_aggr_baseline": "mean",
+          "metadata_aggr_method": "rama", "metadata_channels": 64,
+          "metadata_num_neighbors": 64, "metadata_epochs": 10, "metadata_phase": "full"
+        }
+      ]
+    }
+  ]
+}

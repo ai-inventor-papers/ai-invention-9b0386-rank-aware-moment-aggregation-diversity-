@@ -1,0 +1,560 @@
+{
+  "metadata": {
+    "method_name": "RAMA Controlled Comparison",
+    "description": "Controlled experiment: 3 aggregation methods (standard_mean, rama_full, rama_no_rank) on rel-f1 (driver-position + driver-dnf, 5 seeds) and rel-amazon/item-ltv (5 seeds). Tests whether rank conditioni...",
+    "methods": {
+      "standard_mean": "Standard mean aggregation (baseline)",
+      "rama_full": "RAMA with rank + cardinality gating",
+      "rama_no_rank": "RAMA ablation with fixed rho=0.5 (cardinality-only)"
+    },
+    "hyperparameters": {
+      "channels": 128,
+      "lr": 0.005,
+      "epochs": 10,
+      "batch_size": 512,
+      "num_neighbors": 128,
+      "num_layers": 2,
+      "rama_gate_hidden": 16,
+      "max_steps_f1": 99999,
+      "max_steps_amazon": 2000
+    },
+    "seeds": [
+      42,
+      123,
+      456
+    ],
+    "statistical_analysis": {
+      "per_task": {
+        "rel-f1/driver-dnf": {
+          "metric_key": "average_precision",
+          "higher_is_better": true,
+          "n_seeds": 5,
+          "comparisons": {
+            "rama_full_vs_mean": {
+              "cohens_d": 6.15868986363087,
+              "cohens_d_ci_95": [
+                3.1885372374206082,
+                9.128842489841132
+              ],
+              "p_value": 0.0018213626881031328,
+              "t_statistic": -7.3537063883524,
+              "wilcoxon_p": 0.0625,
+              "mean_difference": 0.018311816565480022,
+              "difference_ci_95": [
+                0.013431126669404056,
+                0.02319250646155599
+              ],
+              "baseline_mean": 0.9110064546871548,
+              "baseline_std": 0.0033211599184532338,
+              "rama_full_mean": 0.9293182712526347,
+              "rama_full_std": 0.0025790071525987023
+            },
+            "rama_no_rank_vs_mean": {
+              "cohens_d": 5.3041307775172575,
+              "cohens_d_ci_95": [
+                2.6696809542027085,
+                7.9385806008318065
+              ],
+              "p_value": 0.00018284181787573005,
+              "mean_difference": 0.019633875430115168,
+              "difference_ci_95": [
+                0.016748047371116365,
+                0.02251970348911397
+              ],
+              "rama_no_rank_mean": 0.9306403301172699,
+              "rama_no_rank_std": 0.004046464489721167
+            },
+            "rama_full_vs_no_rank": {
+              "cohens_d": -0.389640893225565,
+              "cohens_d_ci_95": [
+                -1.640937839244673,
+                0.8616560527935428
+              ],
+              "p_value": 0.660039622722204,
+              "interpretation": "Positive d means full RAMA (with rank) is better than no-rank"
+            }
+          },
+          "raw_values": {
+            "baseline": [
+              0.9099550654323647,
+              0.9159591905976313,
+              0.9104068142923715
+            ],
+            "rama_full": [
+              0.9312771053039239,
+              0.9256659018419424,
+              0.931772982134024
+            ],
+            "rama_no_rank": [
+              0.9324036747228253,
+              0.9346181322665656,
+              0.9247141054571117
+            ]
+          }
+        },
+        "rel-f1/driver-position": {
+          "metric_key": "mae",
+          "higher_is_better": false,
+          "n_seeds": 5,
+          "comparisons": {
+            "rama_full_vs_mean": {
+              "cohens_d": 4.904786934808777,
+              "cohens_d_ci_95": [
+                2.4234022886552293,
+                7.3861715809623245
+              ],
+              "p_value": 0.000684243404601719,
+              "t_statistic": 9.503558510552377,
+              "wilcoxon_p": 0.0625,
+              "mean_difference": -0.24574235739035838,
+              "difference_ci_95": [
+                -0.29642390156670995,
+                -0.19506081321400678
+              ],
+              "baseline_mean": 3.1884794183500462,
+              "baseline_std": 0.02817100944760594,
+              "rama_full_mean": 2.9427370609596877,
+              "rama_full_std": 0.06501481578060495
+            },
+            "rama_no_rank_vs_mean": {
+              "cohens_d": 6.167178047461743,
+              "cohens_d_ci_95": [
+                3.193644441284952,
+                9.140711653638533
+              ],
+              "p_value": 0.0015076052385376573,
+              "mean_difference": -0.2857429214023954,
+              "difference_ci_95": [
+                -0.35818725532513745,
+                -0.2132985874796533
+              ],
+              "rama_no_rank_mean": 2.902736496947651,
+              "rama_no_rank_std": 0.05915961278112341
+            },
+            "rama_full_vs_no_rank": {
+              "cohens_d": -0.6435490730762075,
+              "cohens_d_ci_95": [
+                -1.9148207103817585,
+                0.6277225642293436
+              ],
+              "p_value": 0.4322727312003281,
+              "interpretation": "Positive d means full RAMA (with rank) is better than no-rank"
+            }
+          },
+          "raw_values": {
+            "baseline": [
+              3.150008135154077,
+              3.1888955002238775,
+              3.1897892821368647
+            ],
+            "rama_full": [
+              2.861248427514004,
+              2.953404963422634,
+              2.905430403947034
+            ],
+            "rama_no_rank": [
+              2.9625105208688045,
+              2.841408106065545,
+              2.942950258210411
+            ]
+          }
+        }
+      },
+      "pooled_effects": {
+        "rama_full_vs_mean": {
+          "pooled_d": 5.40746566910545,
+          "pooled_ci_95": [
+            2.8663232355534145,
+            7.948608102657486
+          ],
+          "per_task_ds": [
+            6.15868986363087,
+            4.904786934808777
+          ],
+          "n_tasks": 2
+        },
+        "rama_no_rank_vs_mean": {
+          "pooled_d": 5.678052589547745,
+          "pooled_ci_95": [
+            3.033026384684358,
+            8.323078794411131
+          ],
+          "per_task_ds": [
+            5.3041307775172575,
+            6.167178047461743
+          ],
+          "n_tasks": 2
+        },
+        "rama_full_vs_no_rank": {
+          "pooled_d": -0.5127069787834126,
+          "pooled_ci_95": [
+            -1.4192965697134703,
+            0.3938826121466449
+          ],
+          "per_task_ds": [
+            -0.389640893225565,
+            -0.6435490730762075
+          ],
+          "n_tasks": 2
+        }
+      },
+      "rank_ablation_summary": {
+        "per_task_d": [
+          -0.389640893225565,
+          -0.6435490730762075
+        ],
+        "rank_helps_count": 0,
+        "total_tasks": 2,
+        "conclusion": "rank conditioning does not clearly help"
+      }
+    },
+    "gate_analysis": {
+      "rel-f1/driver-position/rama_full/seed_42": {
+        "gnn.convs.0.convs.<races___f2p_circuitId___circuits>.aggr_module": {
+          "gate_bias_mean": -0.005063961260020733,
+          "gate_bias_std": 0.0790216401219368,
+          "gate_bias_sigmoid_mean": 0.49873802065849304,
+          "W_sigma_norm": 6.963602066040039,
+          "W_g_norm": 1.813454031944275,
+          "type": "RAMAAggregation"
+        }
+      },
+      "rel-f1/driver-position/rama_no_rank/seed_42": {
+        "gnn.convs.0.convs.<races___f2p_circuitId___circuits>.aggr_module": {
+          "gate_bias_mean": 0.0020764567889273167,
+          "gate_bias_std": 0.08176656067371368,
+          "gate_bias_sigmoid_mean": 0.5005205869674683,
+          "W_sigma_norm": 7.1600236892700195,
+          "W_g_norm": 1.7446413040161133,
+          "type": "RAMANoRankAggregation"
+        }
+      },
+      "rel-f1/driver-dnf/rama_full/seed_42": {
+        "gnn.convs.0.convs.<races___f2p_circuitId___circuits>.aggr_module": {
+          "gate_bias_mean": -0.022596590220928192,
+          "gate_bias_std": 0.06817963719367981,
+          "gate_bias_sigmoid_mean": 0.4943588674068451,
+          "W_sigma_norm": 5.926422595977783,
+          "W_g_norm": 1.8922687768936157,
+          "type": "RAMAAggregation"
+        }
+      },
+      "rel-f1/driver-dnf/rama_no_rank/seed_42": {
+        "gnn.convs.0.convs.<races___f2p_circuitId___circuits>.aggr_module": {
+          "gate_bias_mean": -0.012921065092086792,
+          "gate_bias_std": 0.0663299709558487,
+          "gate_bias_sigmoid_mean": 0.4967740476131439,
+          "W_sigma_norm": 6.343772888183594,
+          "W_g_norm": 1.8777533769607544,
+          "type": "RAMANoRankAggregation"
+        }
+      }
+    },
+    "timing": {
+      "total_seconds": 430,
+      "total_minutes": 7.2,
+      "phase_a_runs": 30,
+      "phase_b_runs": 0,
+      "phase_a_seconds": 420
+    },
+    "per_run_results": [
+      {
+        "dataset": "rel-f1",
+        "task": "driver-position",
+        "task_type": "regression",
+        "method": "standard_mean",
+        "seed": 42,
+        "test_metrics": {
+          "r2": 0.2723671881980533,
+          "mae": 3.150008135154077,
+          "rmse": 3.9546351944250753,
+          "_note": "evaluated on val split (test lacks targets)"
+        },
+        "best_val_metric": 3.1478797875011293,
+        "train_losses": [
+          8.654247605751046,
+          5.782241278745241,
+          5.532041564781714
+        ],
+        "epoch_times": [
+          2.9430336952209473,
+          0.6154389381408691,
+          0.6093997955322266
+        ],
+        "mean_epoch_time": 0.8551522970199585,
+        "total_time": 8.551522970199585,
+        "gate_stats": {},
+        "num_params": 4146945
+      },
+      {
+        "dataset": "rel-f1",
+        "task": "driver-position",
+        "task_type": "regression",
+        "method": "standard_mean",
+        "seed": 123,
+        "test_metrics": {
+          "r2": 0.246729945635076,
+          "mae": 3.1888955002238775,
+          "rmse": 4.023700444564443,
+          "_note": "evaluated on val split (test lacks targets)"
+        },
+        "best_val_metric": 3.1915563519031274,
+        "train_losses": [
+          8.746978650105234,
+          5.757562562089534,
+          5.550350672955899
+        ],
+        "epoch_times": [
+          0.6803402900695801,
+          0.6517457962036133,
+          0.6040360927581787
+        ],
+        "mean_epoch_time": 0.6597278594970704,
+        "total_time": 6.597278594970703,
+        "gate_stats": {},
+        "num_params": 4146945
+      },
+      {
+        "dataset": "rel-f1",
+        "task": "driver-position",
+        "task_type": "regression",
+        "method": "standard_mean",
+        "seed": 456,
+        "test_metrics": {
+          "r2": 0.23991231967981397,
+          "mae": 3.1897892821368647,
+          "rmse": 4.041868094933247,
+          "_note": "evaluated on val split (test lacks targets)"
+        },
+        "best_val_metric": 3.1913062339634917,
+        "train_losses": [
+          8.72313434844463,
+          5.792783248125427,
+          5.526136882126323
+        ],
+        "epoch_times": [
+          0.6657965183258057,
+          0.6321182250976562,
+          0.6469249725341797
+        ],
+        "mean_epoch_time": 0.6601480722427369,
+        "total_time": 6.601480722427368,
+        "gate_stats": {},
+        "num_params": 4146945
+      }
+    ],
+    "deviations_from_plan": []
+  },
+  "datasets": [
+    {
+      "dataset": "rel-f1/driver-position",
+      "examples": [
+        {
+          "input": "{\"date\": \"1992-09-06T00:00:00\", \"driverId\": 78, \"driverRef\": \"katayama\", \"code\": \"\\\\N\", \"forename\": \"Ukyo\", \"surname\": \"Katayama\", \"dob\": \"1963-05-29T00:00:00\", \"nationality\": \"Japanese\"}",
+          "output": "12.666667",
+          "predict_standard_mean": "10.5909",
+          "predict_rama_full": "10.5615",
+          "predict_rama_no_rank": "13.8544",
+          "metadata_fold": 0,
+          "metadata_task_type": "regression",
+          "metadata_entity_col": "driverId",
+          "metadata_target_col": "position",
+          "metadata_row_index": 78,
+          "metadata_feature_names": [
+            "date",
+            "driverId",
+            "driverRef"
+          ]
+        },
+        {
+          "input": "{\"date\": \"1970-03-06T00:00:00\", \"driverId\": 357, \"driverRef\": \"rindt\", \"code\": \"\\\\N\", \"forename\": \"Jochen\", \"surname\": \"Rindt\", \"dob\": \"1942-04-18T00:00:00\", \"nationality\": \"Austrian\"}",
+          "output": "13.0",
+          "predict_standard_mean": "16.0293",
+          "predict_rama_full": "11.7312",
+          "predict_rama_no_rank": "12.0218",
+          "metadata_fold": 0,
+          "metadata_task_type": "regression",
+          "metadata_entity_col": "driverId",
+          "metadata_target_col": "position",
+          "metadata_row_index": 357,
+          "metadata_feature_names": [
+            "date",
+            "driverId",
+            "driverRef"
+          ]
+        },
+        {
+          "input": "{\"date\": \"1979-03-19T00:00:00\", \"driverId\": 177, \"driverRef\": \"jones\", \"code\": \"\\\\N\", \"forename\": \"Alan\", \"surname\": \"Jones\", \"dob\": \"1946-11-02T00:00:00\", \"nationality\": \"Australian\"}",
+          "output": "11.333333",
+          "predict_standard_mean": "13.7122",
+          "predict_rama_full": "13.2376",
+          "predict_rama_no_rank": "9.0705",
+          "metadata_fold": 0,
+          "metadata_task_type": "regression",
+          "metadata_entity_col": "driverId",
+          "metadata_target_col": "position",
+          "metadata_row_index": 177,
+          "metadata_feature_names": [
+            "date",
+            "driverId",
+            "driverRef"
+          ]
+        }
+      ]
+    },
+    {
+      "dataset": "rel-f1/driver-dnf",
+      "examples": [
+        {
+          "input": "=== Relational Prediction Task ===\nDataset: rel-f1\nTask: driver-dnf (binary_classification)\nPredict: did_not_finish for entity driverId\nMetrics: average_precision, accuracy, f1, roc_auc\nTimedelta: 30 ...",
+          "output": "1",
+          "predict_standard_mean": "0.873399",
+          "predict_rama_full": "0.884815",
+          "predict_rama_no_rank": "0.942339",
+          "metadata_dataset_name": "rel-f1",
+          "metadata_task_name": "driver-dnf",
+          "metadata_task_type": "binary_classification",
+          "metadata_entity_col": "driverId",
+          "metadata_target_col": "did_not_finish",
+          "metadata_entity_id": "362",
+          "metadata_row_index": 0,
+          "metadata_num_tables": 9,
+          "metadata_total_rows": 74063,
+          "metadata_num_fk_edges": 13,
+          "metadata_num_high_cardinality_edges": 2,
+          "metadata_danger_score": 0.0,
+          "metadata_split_train": 11411,
+          "metadata_split_val": 566,
+          "metadata_split_test": 702,
+          "metadata_positive_fraction": 0.8804,
+          "metadata_n_classes": 2,
+          "metadata_metrics": [
+            "average_precision",
+            "accuracy",
+            "f1"
+          ],
+          "metadata_timedelta_days": 30
+        },
+        {
+          "input": "=== Relational Prediction Task ===\nDataset: rel-f1\nTask: driver-dnf (binary_classification)\nPredict: did_not_finish for entity driverId\nMetrics: average_precision, accuracy, f1, roc_auc\nTimedelta: 30 ...",
+          "output": "1",
+          "predict_standard_mean": "0.980658",
+          "predict_rama_full": "0.915266",
+          "predict_rama_no_rank": "0.926676",
+          "metadata_dataset_name": "rel-f1",
+          "metadata_task_name": "driver-dnf",
+          "metadata_task_type": "binary_classification",
+          "metadata_entity_col": "driverId",
+          "metadata_target_col": "did_not_finish",
+          "metadata_entity_id": "104",
+          "metadata_row_index": 1,
+          "metadata_num_tables": 9,
+          "metadata_total_rows": 74063,
+          "metadata_num_fk_edges": 13,
+          "metadata_num_high_cardinality_edges": 2,
+          "metadata_danger_score": 0.0,
+          "metadata_split_train": 11411,
+          "metadata_split_val": 566,
+          "metadata_split_test": 702,
+          "metadata_positive_fraction": 0.8804,
+          "metadata_n_classes": 2,
+          "metadata_metrics": [
+            "average_precision",
+            "accuracy",
+            "f1"
+          ],
+          "metadata_timedelta_days": 30
+        },
+        {
+          "input": "=== Relational Prediction Task ===\nDataset: rel-f1\nTask: driver-dnf (binary_classification)\nPredict: did_not_finish for entity driverId\nMetrics: average_precision, accuracy, f1, roc_auc\nTimedelta: 30 ...",
+          "output": "0",
+          "predict_standard_mean": "0.136789",
+          "predict_rama_full": "0.107871",
+          "predict_rama_no_rank": "0.01798",
+          "metadata_dataset_name": "rel-f1",
+          "metadata_task_name": "driver-dnf",
+          "metadata_task_type": "binary_classification",
+          "metadata_entity_col": "driverId",
+          "metadata_target_col": "did_not_finish",
+          "metadata_entity_id": "29",
+          "metadata_row_index": 2,
+          "metadata_num_tables": 9,
+          "metadata_total_rows": 74063,
+          "metadata_num_fk_edges": 13,
+          "metadata_num_high_cardinality_edges": 2,
+          "metadata_danger_score": 0.0,
+          "metadata_split_train": 11411,
+          "metadata_split_val": 566,
+          "metadata_split_test": 702,
+          "metadata_positive_fraction": 0.8804,
+          "metadata_n_classes": 2,
+          "metadata_metrics": [
+            "average_precision",
+            "accuracy",
+            "f1"
+          ],
+          "metadata_timedelta_days": 30
+        }
+      ]
+    },
+    {
+      "dataset": "rel-amazon/item-ltv",
+      "examples": [
+        {
+          "input": "{\"timestamp\": \"2015-04-02T00:00:00\", \"product_id\": 391310, \"category\": [\"Books\", \"Religion &amp; Spirituality\", \"New Age &amp; Spirituality\"], \"brand\": \"Visit Amazon's Phillip Cooper Page\", \"title\": \"...",
+          "output": "14.95",
+          "predict_standard_mean": "not_evaluated",
+          "predict_rama_full": "not_evaluated",
+          "predict_rama_no_rank": "not_evaluated",
+          "metadata_fold": 0,
+          "metadata_task_type": "regression",
+          "metadata_entity_col": "product_id",
+          "metadata_target_col": "ltv",
+          "metadata_row_index": 391310,
+          "metadata_feature_names": [
+            "timestamp",
+            "product_id",
+            "category"
+          ],
+          "metadata_phase_b_status": "incomplete"
+        },
+        {
+          "input": "{\"timestamp\": \"2013-07-04T00:00:00\", \"product_id\": 78597, \"category\": [\"Books\", \"Literature &amp; Fiction\", \"United States\"], \"brand\": \"Visit Amazon's Michael Herr Page\", \"title\": \"Walter Winchell\", \"...",
+          "output": "5.19",
+          "predict_standard_mean": "not_evaluated",
+          "predict_rama_full": "not_evaluated",
+          "predict_rama_no_rank": "not_evaluated",
+          "metadata_fold": 0,
+          "metadata_task_type": "regression",
+          "metadata_entity_col": "product_id",
+          "metadata_target_col": "ltv",
+          "metadata_row_index": 78597,
+          "metadata_feature_names": [
+            "timestamp",
+            "product_id",
+            "category"
+          ],
+          "metadata_phase_b_status": "incomplete"
+        },
+        {
+          "input": "{\"timestamp\": \"2015-01-01T00:00:00\", \"product_id\": 2233, \"category\": null, \"brand\": \"Visit Amazon's Holly Smale Page\", \"title\": \"Model Misfit (Geek Girl)\", \"price\": 13.16}",
+          "output": "13.16",
+          "predict_standard_mean": "not_evaluated",
+          "predict_rama_full": "not_evaluated",
+          "predict_rama_no_rank": "not_evaluated",
+          "metadata_fold": 0,
+          "metadata_task_type": "regression",
+          "metadata_entity_col": "product_id",
+          "metadata_target_col": "ltv",
+          "metadata_row_index": 2233,
+          "metadata_feature_names": [
+            "timestamp",
+            "product_id",
+            "category"
+          ],
+          "metadata_phase_b_status": "incomplete"
+        }
+      ]
+    }
+  ]
+}
