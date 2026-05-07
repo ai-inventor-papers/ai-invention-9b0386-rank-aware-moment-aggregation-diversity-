@@ -1,0 +1,13 @@
+{
+  "id": "exp_id1_it7__opus",
+  "type": "code",
+  "title": "Amazon Sum-vs-CAMA Fix + Trial Classification: Custom SumAggregation Bypassing pyg-lib Fused Path",
+  "summary": "Demo notebook for the Amazon item-ltv experiment comparing sum vs mean vs CAMA aggregation in HeteroGraphSAGE. Demonstrates SafeSumAggregation (bypasses pyg-lib fused spmm path) and CAMAAggregation (cardinality-aware moment aggregation) with pure PyTorch unit tests verifying correctness, gradient flow, and gate initialization. Loads pre-computed results (10 runs across 3 methods), recomputes statistical analysis (Cohen's d, bootstrap CIs, t-tests), and visualizes MAE comparison, training curves, and effect sizes. CAMA achieves best MAE=46.97, outperforming sum (47.33) and mean (51.80).",
+  "original_path": "/ai-inventor/aii_pipeline/runs/leskovec-predictive-residual-message-passing-v2_sti/3_invention_loop/iter_7/gen_art/exp_id1_it7__opus",
+  "demo_path": "/ai-inventor/aii_pipeline/runs/leskovec-predictive-residual-message-passing-v2_sti/4_gen_paper_repo/exp_id1_it7__opus",
+  "out_expected_files": {
+    "notebook": "code_demo.ipynb",
+    "mini_data_file": "mini_demo_data.json"
+  },
+  "notebook_path": "/ai-inventor/aii_pipeline/runs/leskovec-predictive-residual-message-passing-v2_sti/4_gen_paper_repo/exp_id1_it7__opus/method_code_demo.ipynb"
+}

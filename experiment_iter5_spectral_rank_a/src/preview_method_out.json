@@ -1,0 +1,197 @@
+{
+  "metadata": {
+    "title": "Spectral Rank Analysis at FK Aggregation",
+    "hypothesis_tested": "Rank collapse at FK aggregation is the causal mechanism behind CAMA's performance improvement",
+    "configuration": {
+      "model": "HeteroSAGE",
+      "aggr": "mean",
+      "channels": 128,
+      "num_layers": 2,
+      "epochs": 10,
+      "seed": 42,
+      "max_parents_per_edge_type": 1000,
+      "max_analysis_batches": 100
+    },
+    "cross_task_analysis": {
+      "tasks": [
+        {
+          "task": "rel-f1/driver-dnf",
+          "severity": 0.35980837105233393,
+          "cama_d": 1.13
+        },
+        {
+          "task": "rel-trial/study-adverse",
+          "severity": 0.7601820818883285,
+          "cama_d": -2.45
+        },
+        {
+          "task": "rel-stack/user-engagement",
+          "severity": 0.6063968780529905,
+          "cama_d": 7.95
+        }
+      ],
+      "n_points": 3,
+      "spearman_severity_vs_d": {
+        "rho": -0.5,
+        "p_value": 0.6666666666666666
+      },
+      "pearson_severity_vs_d": {
+        "r": -0.21100233246510441,
+        "p_value": 0.8646544672566033
+      },
+      "interpretation": "Weak negative correlation: directional support for the rank-collapse mechanism but not conclusive with only 3 data points."
+    },
+    "key_findings": {
+      "rank_collapse_observed": true,
+      "mean_compression_ratio": 0.842405239381871,
+      "proxy_validates_svd": true,
+      "mean_proxy_svd_spearman": 0.6294012247726517,
+      "compression_correlates_with_benefit": false,
+      "spearman_severity_vs_d": -0.5,
+      "disconfirmation_triggered": false
+    }
+  },
+  "datasets": [
+    {
+      "dataset": "rel-f1/driver-dnf",
+      "examples": [
+        {
+          "input": "{\"task\": \"rel-f1/driver-dnf\", \"edge_type\": \"layer_0/races__rev_f2p_raceId__standings\", \"layer\": \"layer_0\", \"edge_description\": \"races__rev_f2p_raceId__standings\", \"cama_cohen_d\": 1.13, \"task_type\": \"b...",
+          "output": "{\"num_parents_analyzed\": 1000, \"mean_svd_rank\": 1.0, \"mean_proxy_rank\": 0.0078125, \"mean_compression\": 1.0, \"mean_cardinality\": 1.0, \"spearman_svd_vs_proxy\": {\"rho\": null, \"p_value\": null}, \"cardinali...",
+          "metadata_task": "rel-f1/driver-dnf",
+          "metadata_edge_type": "layer_0/races__rev_f2p_raceId__standings",
+          "metadata_layer": "layer_0",
+          "metadata_cama_cohen_d": 1.13,
+          "metadata_num_parents": 1000,
+          "metadata_mean_cardinality": 1.0,
+          "metadata_task_type": "binary_classification",
+          "predict_compression_ratio": "1.000000",
+          "predict_svd_effective_rank": "1.000000",
+          "predict_proxy_rank": "0.007812"
+        },
+        {
+          "input": "{\"task\": \"rel-f1/driver-dnf\", \"edge_type\": \"layer_0/standings__f2p_driverId__drivers\", \"layer\": \"layer_0\", \"edge_description\": \"standings__f2p_driverId__drivers\", \"cama_cohen_d\": 1.13, \"task_type\": \"b...",
+          "output": "{\"num_parents_analyzed\": 1000, \"mean_svd_rank\": 13.490430932789874, \"mean_proxy_rank\": 0.9067697574695175, \"mean_compression\": 0.3854627045186171, \"mean_cardinality\": 49.22, \"spearman_svd_vs_proxy\": {...",
+          "metadata_task": "rel-f1/driver-dnf",
+          "metadata_edge_type": "layer_0/standings__f2p_driverId__drivers",
+          "metadata_layer": "layer_0",
+          "metadata_cama_cohen_d": 1.13,
+          "metadata_num_parents": 1000,
+          "metadata_mean_cardinality": 49.22,
+          "metadata_task_type": "binary_classification",
+          "predict_compression_ratio": "0.385463",
+          "predict_svd_effective_rank": "13.490431",
+          "predict_proxy_rank": "0.906770"
+        },
+        {
+          "input": "{\"task\": \"rel-f1/driver-dnf\", \"edge_type\": \"layer_0/drivers__rev_f2p_driverId__standings\", \"layer\": \"layer_0\", \"edge_description\": \"drivers__rev_f2p_driverId__standings\", \"cama_cohen_d\": 1.13, \"task_t...",
+          "output": "{\"num_parents_analyzed\": 1000, \"mean_svd_rank\": 1.0, \"mean_proxy_rank\": 0.0078125, \"mean_compression\": 1.0, \"mean_cardinality\": 1.0, \"spearman_svd_vs_proxy\": {\"rho\": null, \"p_value\": null}, \"cardinali...",
+          "metadata_task": "rel-f1/driver-dnf",
+          "metadata_edge_type": "layer_0/drivers__rev_f2p_driverId__standings",
+          "metadata_layer": "layer_0",
+          "metadata_cama_cohen_d": 1.13,
+          "metadata_num_parents": 1000,
+          "metadata_mean_cardinality": 1.0,
+          "metadata_task_type": "binary_classification",
+          "predict_compression_ratio": "1.000000",
+          "predict_svd_effective_rank": "1.000000",
+          "predict_proxy_rank": "0.007812"
+        }
+      ]
+    },
+    {
+      "dataset": "rel-trial/study-adverse",
+      "examples": [
+        {
+          "input": "{\"task\": \"rel-trial/study-adverse\", \"edge_type\": \"layer_0/designs__f2p_nct_id__studies\", \"layer\": \"layer_0\", \"edge_description\": \"designs__f2p_nct_id__studies\", \"cama_cohen_d\": -2.45, \"task_type\": \"re...",
+          "output": "{\"num_parents_analyzed\": 1000, \"mean_svd_rank\": 1.0, \"mean_proxy_rank\": 0.0078125, \"mean_compression\": 1.0, \"mean_cardinality\": 1.0, \"spearman_svd_vs_proxy\": {\"rho\": null, \"p_value\": null}, \"cardinali...",
+          "metadata_task": "rel-trial/study-adverse",
+          "metadata_edge_type": "layer_0/designs__f2p_nct_id__studies",
+          "metadata_layer": "layer_0",
+          "metadata_cama_cohen_d": -2.45,
+          "metadata_num_parents": 1000,
+          "metadata_mean_cardinality": 1.0,
+          "metadata_task_type": "regression",
+          "predict_compression_ratio": "1.000000",
+          "predict_svd_effective_rank": "1.000000",
+          "predict_proxy_rank": "0.007812"
+        },
+        {
+          "input": "{\"task\": \"rel-trial/study-adverse\", \"edge_type\": \"layer_0/studies__rev_f2p_nct_id__designs\", \"layer\": \"layer_0\", \"edge_description\": \"studies__rev_f2p_nct_id__designs\", \"cama_cohen_d\": -2.45, \"task_ty...",
+          "output": "{\"num_parents_analyzed\": 1000, \"mean_svd_rank\": 1.0, \"mean_proxy_rank\": 0.0078125, \"mean_compression\": 1.0, \"mean_cardinality\": 1.0, \"spearman_svd_vs_proxy\": {\"rho\": null, \"p_value\": null}, \"cardinali...",
+          "metadata_task": "rel-trial/study-adverse",
+          "metadata_edge_type": "layer_0/studies__rev_f2p_nct_id__designs",
+          "metadata_layer": "layer_0",
+          "metadata_cama_cohen_d": -2.45,
+          "metadata_num_parents": 1000,
+          "metadata_mean_cardinality": 1.0,
+          "metadata_task_type": "regression",
+          "predict_compression_ratio": "1.000000",
+          "predict_svd_effective_rank": "1.000000",
+          "predict_proxy_rank": "0.007812"
+        },
+        {
+          "input": "{\"task\": \"rel-trial/study-adverse\", \"edge_type\": \"layer_0/eligibilities__f2p_nct_id__studies\", \"layer\": \"layer_0\", \"edge_description\": \"eligibilities__f2p_nct_id__studies\", \"cama_cohen_d\": -2.45, \"tas...",
+          "output": "{\"num_parents_analyzed\": 1000, \"mean_svd_rank\": 1.0, \"mean_proxy_rank\": 0.0078125, \"mean_compression\": 1.0, \"mean_cardinality\": 1.0, \"spearman_svd_vs_proxy\": {\"rho\": null, \"p_value\": null}, \"cardinali...",
+          "metadata_task": "rel-trial/study-adverse",
+          "metadata_edge_type": "layer_0/eligibilities__f2p_nct_id__studies",
+          "metadata_layer": "layer_0",
+          "metadata_cama_cohen_d": -2.45,
+          "metadata_num_parents": 1000,
+          "metadata_mean_cardinality": 1.0,
+          "metadata_task_type": "regression",
+          "predict_compression_ratio": "1.000000",
+          "predict_svd_effective_rank": "1.000000",
+          "predict_proxy_rank": "0.007812"
+        }
+      ]
+    },
+    {
+      "dataset": "rel-stack/user-engagement",
+      "examples": [
+        {
+          "input": "{\"task\": \"rel-stack/user-engagement\", \"edge_type\": \"layer_0/comments__f2p_UserId__users\", \"layer\": \"layer_0\", \"edge_description\": \"comments__f2p_UserId__users\", \"cama_cohen_d\": 7.95, \"task_type\": \"bin...",
+          "output": "{\"num_parents_analyzed\": 1000, \"mean_svd_rank\": 1.834057472059625, \"mean_proxy_rank\": 0.6063510595745359, \"mean_compression\": 0.6019611922959444, \"mean_cardinality\": 7.854, \"spearman_svd_vs_proxy\": {\"...",
+          "metadata_task": "rel-stack/user-engagement",
+          "metadata_edge_type": "layer_0/comments__f2p_UserId__users",
+          "metadata_layer": "layer_0",
+          "metadata_cama_cohen_d": 7.95,
+          "metadata_num_parents": 1000,
+          "metadata_mean_cardinality": 7.854,
+          "metadata_task_type": "binary_classification",
+          "predict_compression_ratio": "0.601961",
+          "predict_svd_effective_rank": "1.834057",
+          "predict_proxy_rank": "0.606351"
+        },
+        {
+          "input": "{\"task\": \"rel-stack/user-engagement\", \"edge_type\": \"layer_0/users__rev_f2p_UserId__comments\", \"layer\": \"layer_0\", \"edge_description\": \"users__rev_f2p_UserId__comments\", \"cama_cohen_d\": 7.95, \"task_typ...",
+          "output": "{\"num_parents_analyzed\": 1000, \"mean_svd_rank\": 1.0, \"mean_proxy_rank\": 0.0078125, \"mean_compression\": 1.0, \"mean_cardinality\": 1.0, \"spearman_svd_vs_proxy\": {\"rho\": null, \"p_value\": null}, \"cardinali...",
+          "metadata_task": "rel-stack/user-engagement",
+          "metadata_edge_type": "layer_0/users__rev_f2p_UserId__comments",
+          "metadata_layer": "layer_0",
+          "metadata_cama_cohen_d": 7.95,
+          "metadata_num_parents": 1000,
+          "metadata_mean_cardinality": 1.0,
+          "metadata_task_type": "binary_classification",
+          "predict_compression_ratio": "1.000000",
+          "predict_svd_effective_rank": "1.000000",
+          "predict_proxy_rank": "0.007812"
+        },
+        {
+          "input": "{\"task\": \"rel-stack/user-engagement\", \"edge_type\": \"layer_0/comments__f2p_PostId__posts\", \"layer\": \"layer_0\", \"edge_description\": \"comments__f2p_PostId__posts\", \"cama_cohen_d\": 7.95, \"task_type\": \"bin...",
+          "output": "{\"num_parents_analyzed\": 1000, \"mean_svd_rank\": 1.259232603232023, \"mean_proxy_rank\": 0.6300185319473651, \"mean_compression\": 0.583025069824708, \"mean_cardinality\": 3.241, \"spearman_svd_vs_proxy\": {\"r...",
+          "metadata_task": "rel-stack/user-engagement",
+          "metadata_edge_type": "layer_0/comments__f2p_PostId__posts",
+          "metadata_layer": "layer_0",
+          "metadata_cama_cohen_d": 7.95,
+          "metadata_num_parents": 1000,
+          "metadata_mean_cardinality": 3.241,
+          "metadata_task_type": "binary_classification",
+          "predict_compression_ratio": "0.583025",
+          "predict_svd_effective_rank": "1.259233",
+          "predict_proxy_rank": "0.630019"
+        }
+      ]
+    }
+  ]
+}

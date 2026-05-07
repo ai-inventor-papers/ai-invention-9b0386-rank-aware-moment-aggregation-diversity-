@@ -1,0 +1,2456 @@
+{
+  "metadata": {
+    "title": "Amazon Sum-vs-CAMA Fix + Trial Classification: Custom SumAggregation Bypassing pyg-lib Fused Path",
+    "description": "Two-part GPU experiment: (A) Amazon item-ltv regression comparing sum vs mean vs CAMA with custom SafeSumAggregation that bypasses the fused spmm path (fixing iter-6 failure), and (B) rel-trial study-outcome classification with sum baseline. SafeSumAggregation is an Aggregation object (not string) so SAGEConv.fuse=False, avoiding pyg-lib spmm dependency.",
+    "methods_tested": [
+      "sum",
+      "mean",
+      "cama"
+    ],
+    "seeds": [
+      42,
+      123,
+      456,
+      789,
+      1024
+    ],
+    "part_a_config": {
+      "dataset": "rel-amazon",
+      "task": "item-ltv",
+      "type": "regression",
+      "metric": "mae",
+      "higher_is_better": false,
+      "out_channels": 1,
+      "channels": 128,
+      "lr": 0.005,
+      "epochs": 10,
+      "batch_size": 512,
+      "num_neighbors": [
+        128,
+        128
+      ],
+      "num_layers": 2,
+      "max_steps_per_epoch": 2000,
+      "grad_clip": 1.0
+    },
+    "part_b_config": {
+      "dataset": "rel-trial",
+      "task": "study-outcome",
+      "type": "binary_classification",
+      "metric": "average_precision",
+      "higher_is_better": true,
+      "out_channels": 1,
+      "channels": 128,
+      "lr": 0.005,
+      "epochs": 10,
+      "batch_size": 512,
+      "num_neighbors": [
+        128,
+        128
+      ],
+      "num_layers": 2,
+      "max_steps_per_epoch": 2000,
+      "grad_clip": 1.0
+    },
+    "deviations": [
+      "Reduced max_steps to 500 for rel-amazon__item-ltv",
+      "Reduced num_neighbors to [64,64] for rel-amazon__item-ltv",
+      "Stopped at mean/rel-amazon__item-ltv/seed789: 6min left",
+      "Skipped Part B (rel-trial): only 6min remaining"
+    ],
+    "statistical_analysis": {
+      "rel-amazon__item-ltv": {
+        "comparisons": {
+          "cama_vs_sum": {
+            "comparison": "sum_vs_cama",
+            "cohens_d": 1.205097930132013,
+            "d_ci_95": [
+              1.0787121712442804,
+              19.88868012233104
+            ],
+            "t_statistic": null,
+            "p_value_ttest": null,
+            "p_value_wilcoxon": null,
+            "sum_mean": 47.32991401976324,
+            "sum_std": 0.3803002473641225,
+            "cama_mean": 46.972960907785186,
+            "cama_std": 0.048964260078492215,
+            "n_seeds": 3,
+            "interpretation": "cama better than sum by |d|=1.205"
+          },
+          "cama_vs_mean": {
+            "comparison": "mean_vs_cama",
+            "cohens_d": 17.280097412618208,
+            "d_ci_95": [
+              14.825733828623507,
+              243.44204800821112
+            ],
+            "t_statistic": 20.270705901504094,
+            "p_value_ttest": 0.0024248249065513074,
+            "p_value_wilcoxon": null,
+            "mean_mean": 51.800933620235206,
+            "mean_std": 0.39207859741284945,
+            "cama_mean": 46.972960907785186,
+            "cama_std": 0.048964260078492215,
+            "n_seeds": 3,
+            "interpretation": "cama better than mean by |d|=17.280"
+          },
+          "sum_vs_mean": {
+            "comparison": "mean_vs_sum",
+            "cohens_d": 11.61138446132833,
+            "d_ci_95": [
+              9.532031278658264,
+              562.6850098102021
+            ],
+            "t_statistic": null,
+            "p_value_ttest": null,
+            "p_value_wilcoxon": null,
+            "mean_mean": 51.800933620235206,
+            "mean_std": 0.39207859741284945,
+            "sum_mean": 47.32991401976324,
+            "sum_std": 0.3803002473641225,
+            "n_seeds": 3,
+            "interpretation": "sum better than mean by |d|=11.611"
+          }
+        },
+        "per_method": {
+          "sum": {
+            "mean": 47.32991401976324,
+            "std": 0.3803002473641225,
+            "median": 47.14607446588203,
+            "n_seeds": 4,
+            "per_seed_values": [
+              47.14963435734932,
+              47.14251457441474,
+              47.127313693135086,
+              47.900193454153786
+            ]
+          },
+          "mean": {
+            "mean": 51.800933620235206,
+            "std": 0.39207859741284945,
+            "median": 51.72888801012592,
+            "n_seeds": 3,
+            "per_seed_values": [
+              51.4498741354635,
+              51.72888801012592,
+              52.22403871511621
+            ]
+          },
+          "cama": {
+            "mean": 46.972960907785186,
+            "std": 0.048964260078492215,
+            "median": 46.97233409693342,
+            "n_seeds": 3,
+            "per_seed_values": [
+              47.02223556417702,
+              46.92431306224511,
+              46.97233409693342
+            ]
+          }
+        },
+        "metric": "mae",
+        "higher_is_better": false
+      }
+    },
+    "cross_iteration_validation": {
+      "mean_vs_iter5": {
+        "fresh_values": [
+          51.4498741354635,
+          51.72888801012592,
+          52.22403871511621
+        ],
+        "iter5_reference": [
+          49.2625,
+          49.5791,
+          49.1939
+        ],
+        "per_seed_deviation": [
+          2.1873741354635,
+          2.149788010125924,
+          3.030138715116209
+        ],
+        "max_deviation": 3.030138715116209,
+        "mean_deviation": 2.4557669535685442,
+        "warning": true
+      },
+      "cama_vs_iter5": {
+        "fresh_values": [
+          47.02223556417702,
+          46.92431306224511,
+          46.97233409693342
+        ],
+        "iter5_reference": [
+          45.0793,
+          45.1592,
+          45.052
+        ],
+        "per_seed_deviation": [
+          1.94293556417702,
+          1.7651130622451134,
+          1.9203340969334235
+        ],
+        "max_deviation": 1.94293556417702,
+        "mean_deviation": 1.8761275744518524,
+        "warning": false
+      }
+    },
+    "gate_analysis": {
+      "rel-amazon__item-ltv/cama/seed42": {
+        "final_gate_stats": {
+          "L0_review__f2p_customer_id__customer": {
+            "mean": 0.5000000596046448,
+            "std": 5.960464477539063e-08,
+            "min": 0.5,
+            "max": 0.5,
+            "median": 0.5
+          },
+          "L0_customer__rev_f2p_customer_id__review": {
+            "mean": 0.5,
+            "std": 1.6786970036264393e-06,
+            "min": 0.4999951124191284,
+            "max": 0.5000046491622925,
+            "median": 0.4999997019767761
+          },
+          "L0_review__f2p_product_id__product": {
+            "mean": 0.21050101518630981,
+            "std": 0.1798309087753296,
+            "min": 0.0021998086012899876,
+            "max": 0.7265137434005737,
+            "median": 0.15288622677326202
+          },
+          "L0_product__rev_f2p_product_id__review": {
+            "mean": 0.4999997019767761,
+            "std": 8.367605914827436e-06,
+            "min": 0.49998337030410767,
+            "max": 0.5000160336494446,
+            "median": 0.4999988079071045
+          },
+          "L1_review__f2p_customer_id__customer": {
+            "mean": 0.5000000596046448,
+            "std": 5.960464477539063e-08,
+            "min": 0.5,
+            "max": 0.5,
+            "median": 0.5
+          },
+          "L1_customer__rev_f2p_customer_id__review": {
+            "mean": 0.4999999403953552,
+            "std": 5.960464477539063e-08,
+            "min": 0.5,
+            "max": 0.5,
+            "median": 0.5
+          },
+          "L1_review__f2p_product_id__product": {
+            "mean": 0.19214323163032532,
+            "std": 0.18550162017345428,
+            "min": 0.006344245746731758,
+            "max": 0.8418788313865662,
+            "median": 0.12215931713581085
+          },
+          "L1_product__rev_f2p_product_id__review": {
+            "mean": 0.4999999403953552,
+            "std": 5.960464477539063e-08,
+            "min": 0.5,
+            "max": 0.5,
+            "median": 0.5
+          }
+        },
+        "gate_evolution": [
+          {
+            "epoch": 1,
+            "gates": {
+              "L0_review__f2p_customer_id__customer": {
+                "mean": 0.5000000596046448,
+                "std": 5.960464477539063e-08,
+                "min": 0.5,
+                "max": 0.5,
+                "median": 0.5
+              },
+              "L0_customer__rev_f2p_customer_id__review": {
+                "mean": 0.5,
+                "std": 1.8711047005126602e-06,
+                "min": 0.49999481439590454,
+                "max": 0.5000051259994507,
+                "median": 0.49999964237213135
+              },
+              "L0_review__f2p_product_id__product": {
+                "mean": 0.4413214325904846,
+                "std": 0.1842140108346939,
+                "min": 0.08333683013916016,
+                "max": 0.7938592433929443,
+                "median": 0.44409236311912537
+              },
+              "L0_product__rev_f2p_product_id__review": {
+                "mean": 0.4999998211860657,
+                "std": 2.047229145318852e-06,
+                "min": 0.499994158744812,
+                "max": 0.5000045895576477,
+                "median": 0.4999995231628418
+              },
+              "L1_review__f2p_customer_id__customer": {
+                "mean": 0.5000000596046448,
+                "std": 5.960464477539063e-08,
+                "min": 0.5,
+                "max": 0.5,
+                "median": 0.5
+              },
+              "L1_customer__rev_f2p_customer_id__review": {
+                "mean": 0.4999999403953552,
+                "std": 5.960464477539063e-08,
+                "min": 0.5,
+                "max": 0.5,
+                "median": 0.5
+              },
+              "L1_review__f2p_product_id__product": {
+                "mean": 0.457905113697052,
+                "std": 0.1308426409959793,
+                "min": 0.14958345890045166,
+                "max": 0.8342269062995911,
+                "median": 0.46181270480155945
+              },
+              "L1_product__rev_f2p_product_id__review": {
+                "mean": 0.4999999403953552,
+                "std": 5.960464477539063e-08,
+                "min": 0.5,
+                "max": 0.5,
+                "median": 0.5
+              }
+            }
+          },
+          {
+            "epoch": 5,
+            "gates": {
+              "L0_review__f2p_customer_id__customer": {
+                "mean": 0.5000000596046448,
+                "std": 5.960464477539063e-08,
+                "min": 0.5,
+                "max": 0.5,
+                "median": 0.5
+              },
+              "L0_customer__rev_f2p_customer_id__review": {
+                "mean": 0.5,
+                "std": 1.6566781368965167e-06,
+                "min": 0.49999529123306274,
+                "max": 0.5000046491622925,
+                "median": 0.4999997615814209
+              },
+              "L0_review__f2p_product_id__product": {
+                "mean": 0.2627081573009491,
+                "std": 0.1887865960597992,
+                "min": 0.01376656349748373,
+                "max": 0.7422178983688354,
+                "median": 0.2130490392446518
+              },
+              "L0_product__rev_f2p_product_id__review": {
+                "mean": 0.49999964237213135,
+                "std": 5.539252470043721e-06,
+                "min": 0.4999895691871643,
+                "max": 0.5000113248825073,
+                "median": 0.4999985098838806
+              },
+              "L1_review__f2p_customer_id__customer": {
+                "mean": 0.5000000596046448,
+                "std": 5.960464477539063e-08,
+                "min": 0.5,
+                "max": 0.5,
+                "median": 0.5
+              },
+              "L1_customer__rev_f2p_customer_id__review": {
+                "mean": 0.4999999403953552,
+                "std": 5.960464477539063e-08,
+                "min": 0.5,
+                "max": 0.5,
+                "median": 0.5
+              },
+              "L1_review__f2p_product_id__product": {
+                "mean": 0.29145339131355286,
+                "std": 0.18305091559886932,
+                "min": 0.026682410389184952,
+                "max": 0.8624517917633057,
+                "median": 0.25400468707084656
+              },
+              "L1_product__rev_f2p_product_id__review": {
+                "mean": 0.4999999403953552,
+                "std": 5.960464477539063e-08,
+                "min": 0.5,
+                "max": 0.5,
+                "median": 0.5
+              }
+            }
+          },
+          {
+            "epoch": 10,
+            "gates": {
+              "L0_review__f2p_customer_id__customer": {
+                "mean": 0.5000000596046448,
+                "std": 5.960464477539063e-08,
+                "min": 0.5,
+                "max": 0.5,
+                "median": 0.5
+              },
+              "L0_customer__rev_f2p_customer_id__review": {
+                "mean": 0.5,
+                "std": 1.6695785234333016e-06,
+                "min": 0.4999951124191284,
+                "max": 0.5000047087669373,
+                "median": 0.4999997615814209
+              },
+              "L0_review__f2p_product_id__product": {
+                "mean": 0.19069086015224457,
+                "std": 0.17597024142742157,
+                "min": 0.0011477874359115958,
+                "max": 0.7271524667739868,
+                "median": 0.12871138751506805
+              },
+              "L0_product__rev_f2p_product_id__review": {
+                "mean": 0.49999964237213135,
+                "std": 9.634972229832783e-06,
+                "min": 0.499981164932251,
+                "max": 0.5000183582305908,
+                "median": 0.4999980926513672
+              },
+              "L1_review__f2p_customer_id__customer": {
+                "mean": 0.5000000596046448,
+                "std": 5.960464477539063e-08,
+                "min": 0.5,
+                "max": 0.5,
+                "median": 0.5
+              },
+              "L1_customer__rev_f2p_customer_id__review": {
+                "mean": 0.4999999403953552,
+                "std": 5.960464477539063e-08,
+                "min": 0.5,
+                "max": 0.5,
+                "median": 0.5
+              },
+              "L1_review__f2p_product_id__product": {
+                "mean": 0.15116508305072784,
+                "std": 0.1725359410047531,
+                "min": 0.0027502011507749557,
+                "max": 0.8103906512260437,
+                "median": 0.08239182084798813
+              },
+              "L1_product__rev_f2p_product_id__review": {
+                "mean": 0.4999999403953552,
+                "std": 5.960464477539063e-08,
+                "min": 0.5,
+                "max": 0.5,
+                "median": 0.5
+              }
+            }
+          }
+        ]
+      },
+      "rel-amazon__item-ltv/cama/seed123": {
+        "final_gate_stats": {
+          "L0_review__f2p_customer_id__customer": {
+            "mean": 0.5,
+            "std": 0.0,
+            "min": 0.5,
+            "max": 0.5,
+            "median": 0.5
+          },
+          "L0_customer__rev_f2p_customer_id__review": {
+            "mean": 0.5,
+            "std": 2.41432144321152e-06,
+            "min": 0.49999380111694336,
+            "max": 0.5000064969062805,
+            "median": 0.5000001788139343
+          },
+          "L0_review__f2p_product_id__product": {
+            "mean": 0.18376664817333221,
+            "std": 0.17028869688510895,
+            "min": 0.0009463991736993194,
+            "max": 0.7122516632080078,
+            "median": 0.12820743024349213
+          },
+          "L0_product__rev_f2p_product_id__review": {
+            "mean": 0.5000005960464478,
+            "std": 6.117353223089594e-06,
+            "min": 0.49998587369918823,
+            "max": 0.5000191330909729,
+            "median": 0.5000010132789612
+          },
+          "L1_review__f2p_customer_id__customer": {
+            "mean": 0.5,
+            "std": 0.0,
+            "min": 0.5,
+            "max": 0.5,
+            "median": 0.5
+          },
+          "L1_customer__rev_f2p_customer_id__review": {
+            "mean": 0.4999999403953552,
+            "std": 5.960464477539063e-08,
+            "min": 0.5,
+            "max": 0.5,
+            "median": 0.5
+          },
+          "L1_review__f2p_product_id__product": {
+            "mean": 0.11721157282590866,
+            "std": 0.14868132770061493,
+            "min": 0.0011276336153969169,
+            "max": 0.883957028388977,
+            "median": 0.05687445402145386
+          },
+          "L1_product__rev_f2p_product_id__review": {
+            "mean": 0.4999999403953552,
+            "std": 5.960464477539063e-08,
+            "min": 0.5,
+            "max": 0.5,
+            "median": 0.5
+          }
+        },
+        "gate_evolution": [
+          {
+            "epoch": 1,
+            "gates": {
+              "L0_review__f2p_customer_id__customer": {
+                "mean": 0.5000000596046448,
+                "std": 5.960464477539063e-08,
+                "min": 0.5,
+                "max": 0.5,
+                "median": 0.5
+              },
+              "L0_customer__rev_f2p_customer_id__review": {
+                "mean": 0.5000000596046448,
+                "std": 2.4459870928694727e-06,
+                "min": 0.4999937415122986,
+                "max": 0.5000067949295044,
+                "median": 0.5000001788139343
+              },
+              "L0_review__f2p_product_id__product": {
+                "mean": 0.4263138771057129,
+                "std": 0.18170350790023804,
+                "min": 0.09113390743732452,
+                "max": 0.7896252870559692,
+                "median": 0.4337913691997528
+              },
+              "L0_product__rev_f2p_product_id__review": {
+                "mean": 0.4999999403953552,
+                "std": 2.768133754216251e-06,
+                "min": 0.4999929666519165,
+                "max": 0.5000067353248596,
+                "median": 0.49999988079071045
+              },
+              "L1_review__f2p_customer_id__customer": {
+                "mean": 0.5000000596046448,
+                "std": 5.960464477539063e-08,
+                "min": 0.5,
+                "max": 0.5,
+                "median": 0.5
+              },
+              "L1_customer__rev_f2p_customer_id__review": {
+                "mean": 0.4999999403953552,
+                "std": 5.960464477539063e-08,
+                "min": 0.5,
+                "max": 0.5,
+                "median": 0.5
+              },
+              "L1_review__f2p_product_id__product": {
+                "mean": 0.38742735981941223,
+                "std": 0.1500927358865738,
+                "min": 0.12329425662755966,
+                "max": 0.8450158834457397,
+                "median": 0.36635860800743103
+              },
+              "L1_product__rev_f2p_product_id__review": {
+                "mean": 0.4999999403953552,
+                "std": 5.960464477539063e-08,
+                "min": 0.5,
+                "max": 0.5,
+                "median": 0.5
+              }
+            }
+          },
+          {
+            "epoch": 5,
+            "gates": {
+              "L0_review__f2p_customer_id__customer": {
+                "mean": 0.5,
+                "std": 0.0,
+                "min": 0.5,
+                "max": 0.5,
+                "median": 0.5
+              },
+              "L0_customer__rev_f2p_customer_id__review": {
+                "mean": 0.5000000596046448,
+                "std": 2.248650162073318e-06,
+                "min": 0.4999939203262329,
+                "max": 0.5000060796737671,
+                "median": 0.5000001788139343
+              },
+              "L0_review__f2p_product_id__product": {
+                "mean": 0.2583206593990326,
+                "std": 0.184939906001091,
+                "min": 0.007892660796642303,
+                "max": 0.7302032709121704,
+                "median": 0.21244369447231293
+              },
+              "L0_product__rev_f2p_product_id__review": {
+                "mean": 0.5000002384185791,
+                "std": 4.338870894571301e-06,
+                "min": 0.49999183416366577,
+                "max": 0.500015914440155,
+                "median": 0.5000006556510925
+              },
+              "L1_review__f2p_customer_id__customer": {
+                "mean": 0.5,
+                "std": 0.0,
+                "min": 0.5,
+                "max": 0.5,
+                "median": 0.5
+              },
+              "L1_customer__rev_f2p_customer_id__review": {
+                "mean": 0.4999999403953552,
+                "std": 5.960464477539063e-08,
+                "min": 0.5,
+                "max": 0.5,
+                "median": 0.5
+              },
+              "L1_review__f2p_product_id__product": {
+                "mean": 0.20982830226421356,
+                "std": 0.1754133254289627,
+                "min": 0.007271153852343559,
+                "max": 0.8769257068634033,
+                "median": 0.15064996480941772
+              },
+              "L1_product__rev_f2p_product_id__review": {
+                "mean": 0.4999999403953552,
+                "std": 5.960464477539063e-08,
+                "min": 0.5,
+                "max": 0.5,
+                "median": 0.5
+              }
+            }
+          },
+          {
+            "epoch": 10,
+            "gates": {
+              "L0_review__f2p_customer_id__customer": {
+                "mean": 0.5,
+                "std": 0.0,
+                "min": 0.5,
+                "max": 0.5,
+                "median": 0.5
+              },
+              "L0_customer__rev_f2p_customer_id__review": {
+                "mean": 0.5,
+                "std": 2.41432144321152e-06,
+                "min": 0.49999380111694336,
+                "max": 0.5000064969062805,
+                "median": 0.5000001788139343
+              },
+              "L0_review__f2p_product_id__product": {
+                "mean": 0.18376664817333221,
+                "std": 0.17028869688510895,
+                "min": 0.0009463991736993194,
+                "max": 0.7122516632080078,
+                "median": 0.12820743024349213
+              },
+              "L0_product__rev_f2p_product_id__review": {
+                "mean": 0.5000005960464478,
+                "std": 6.117353223089594e-06,
+                "min": 0.49998587369918823,
+                "max": 0.5000191330909729,
+                "median": 0.5000010132789612
+              },
+              "L1_review__f2p_customer_id__customer": {
+                "mean": 0.5,
+                "std": 0.0,
+                "min": 0.5,
+                "max": 0.5,
+                "median": 0.5
+              },
+              "L1_customer__rev_f2p_customer_id__review": {
+                "mean": 0.4999999403953552,
+                "std": 5.960464477539063e-08,
+                "min": 0.5,
+                "max": 0.5,
+                "median": 0.5
+              },
+              "L1_review__f2p_product_id__product": {
+                "mean": 0.11721157282590866,
+                "std": 0.14868132770061493,
+                "min": 0.0011276336153969169,
+                "max": 0.883957028388977,
+                "median": 0.05687445402145386
+              },
+              "L1_product__rev_f2p_product_id__review": {
+                "mean": 0.4999999403953552,
+                "std": 5.960464477539063e-08,
+                "min": 0.5,
+                "max": 0.5,
+                "median": 0.5
+              }
+            }
+          }
+        ]
+      },
+      "rel-amazon__item-ltv/cama/seed456": {
+        "final_gate_stats": {
+          "L0_review__f2p_customer_id__customer": {
+            "mean": 0.5,
+            "std": 0.0,
+            "min": 0.5,
+            "max": 0.5,
+            "median": 0.5
+          },
+          "L0_customer__rev_f2p_customer_id__review": {
+            "mean": 0.5000001788139343,
+            "std": 1.9064752905251225e-06,
+            "min": 0.49999547004699707,
+            "max": 0.5000055432319641,
+            "median": 0.5000002980232239
+          },
+          "L0_review__f2p_product_id__product": {
+            "mean": 0.2208910882472992,
+            "std": 0.1750757247209549,
+            "min": 0.0013554177712649107,
+            "max": 0.7227152585983276,
+            "median": 0.1792902946472168
+          },
+          "L0_product__rev_f2p_product_id__review": {
+            "mean": 0.5000001192092896,
+            "std": 5.0750650189002044e-06,
+            "min": 0.4999880790710449,
+            "max": 0.5000097155570984,
+            "median": 0.5000005960464478
+          },
+          "L1_review__f2p_customer_id__customer": {
+            "mean": 0.5,
+            "std": 0.0,
+            "min": 0.5,
+            "max": 0.5,
+            "median": 0.5
+          },
+          "L1_customer__rev_f2p_customer_id__review": {
+            "mean": 0.4999999403953552,
+            "std": 5.960464477539063e-08,
+            "min": 0.5,
+            "max": 0.5,
+            "median": 0.5
+          },
+          "L1_review__f2p_product_id__product": {
+            "mean": 0.14781659841537476,
+            "std": 0.18503184616565704,
+            "min": 0.0011221520835533738,
+            "max": 0.9025583863258362,
+            "median": 0.06829683482646942
+          },
+          "L1_product__rev_f2p_product_id__review": {
+            "mean": 0.4999999403953552,
+            "std": 5.960464477539063e-08,
+            "min": 0.5,
+            "max": 0.5,
+            "median": 0.5
+          }
+        },
+        "gate_evolution": [
+          {
+            "epoch": 1,
+            "gates": {
+              "L0_review__f2p_customer_id__customer": {
+                "mean": 0.5,
+                "std": 0.0,
+                "min": 0.5,
+                "max": 0.5,
+                "median": 0.5
+              },
+              "L0_customer__rev_f2p_customer_id__review": {
+                "mean": 0.5000001788139343,
+                "std": 2.0369675439724233e-06,
+                "min": 0.4999951720237732,
+                "max": 0.5000056624412537,
+                "median": 0.5000001788139343
+              },
+              "L0_review__f2p_product_id__product": {
+                "mean": 0.4578646421432495,
+                "std": 0.1801646202802658,
+                "min": 0.11030814796686172,
+                "max": 0.7877559065818787,
+                "median": 0.45253828167915344
+              },
+              "L0_product__rev_f2p_product_id__review": {
+                "mean": 0.4999997615814209,
+                "std": 2.2502294996229466e-06,
+                "min": 0.4999929666519165,
+                "max": 0.500006377696991,
+                "median": 0.4999997615814209
+              },
+              "L1_review__f2p_customer_id__customer": {
+                "mean": 0.5,
+                "std": 0.0,
+                "min": 0.5,
+                "max": 0.5,
+                "median": 0.5
+              },
+              "L1_customer__rev_f2p_customer_id__review": {
+                "mean": 0.4999999403953552,
+                "std": 5.960464477539063e-08,
+                "min": 0.5,
+                "max": 0.5,
+                "median": 0.5
+              },
+              "L1_review__f2p_product_id__product": {
+                "mean": 0.4179779291152954,
+                "std": 0.147800013422966,
+                "min": 0.14760726690292358,
+                "max": 0.8702122569084167,
+                "median": 0.39523616433143616
+              },
+              "L1_product__rev_f2p_product_id__review": {
+                "mean": 0.4999999403953552,
+                "std": 5.960464477539063e-08,
+                "min": 0.5,
+                "max": 0.5,
+                "median": 0.5
+              }
+            }
+          },
+          {
+            "epoch": 5,
+            "gates": {
+              "L0_review__f2p_customer_id__customer": {
+                "mean": 0.5,
+                "std": 0.0,
+                "min": 0.5,
+                "max": 0.5,
+                "median": 0.5
+              },
+              "L0_customer__rev_f2p_customer_id__review": {
+                "mean": 0.5000001788139343,
+                "std": 1.8726690313997096e-06,
+                "min": 0.4999955892562866,
+                "max": 0.5000051856040955,
+                "median": 0.5000001788139343
+              },
+              "L0_review__f2p_product_id__product": {
+                "mean": 0.27968186140060425,
+                "std": 0.18663206696510315,
+                "min": 0.004127326421439648,
+                "max": 0.7388886213302612,
+                "median": 0.25524547696113586
+              },
+              "L0_product__rev_f2p_product_id__review": {
+                "mean": 0.5,
+                "std": 4.339667611930054e-06,
+                "min": 0.49999046325683594,
+                "max": 0.5000094771385193,
+                "median": 0.5000000596046448
+              },
+              "L1_review__f2p_customer_id__customer": {
+                "mean": 0.5,
+                "std": 0.0,
+                "min": 0.5,
+                "max": 0.5,
+                "median": 0.5
+              },
+              "L1_customer__rev_f2p_customer_id__review": {
+                "mean": 0.4999999403953552,
+                "std": 5.960464477539063e-08,
+                "min": 0.5,
+                "max": 0.5,
+                "median": 0.5
+              },
+              "L1_review__f2p_product_id__product": {
+                "mean": 0.21132349967956543,
+                "std": 0.19190172851085663,
+                "min": 0.005849514622241259,
+                "max": 0.8871722221374512,
+                "median": 0.14705857634544373
+              },
+              "L1_product__rev_f2p_product_id__review": {
+                "mean": 0.4999999403953552,
+                "std": 5.960464477539063e-08,
+                "min": 0.5,
+                "max": 0.5,
+                "median": 0.5
+              }
+            }
+          },
+          {
+            "epoch": 10,
+            "gates": {
+              "L0_review__f2p_customer_id__customer": {
+                "mean": 0.5000000596046448,
+                "std": 5.960464477539063e-08,
+                "min": 0.5,
+                "max": 0.5,
+                "median": 0.5
+              },
+              "L0_customer__rev_f2p_customer_id__review": {
+                "mean": 0.5000001788139343,
+                "std": 1.9726387563423486e-06,
+                "min": 0.4999953508377075,
+                "max": 0.5000056624412537,
+                "median": 0.5000001192092896
+              },
+              "L0_review__f2p_product_id__product": {
+                "mean": 0.20229467749595642,
+                "std": 0.1697341501712799,
+                "min": 0.001226126099936664,
+                "max": 0.7220108509063721,
+                "median": 0.15710380673408508
+              },
+              "L0_product__rev_f2p_product_id__review": {
+                "mean": 0.5000002980232239,
+                "std": 6.2594854171038605e-06,
+                "min": 0.49998533725738525,
+                "max": 0.5000109076499939,
+                "median": 0.5000012516975403
+              },
+              "L1_review__f2p_customer_id__customer": {
+                "mean": 0.5000000596046448,
+                "std": 5.960464477539063e-08,
+                "min": 0.5,
+                "max": 0.5,
+                "median": 0.5
+              },
+              "L1_customer__rev_f2p_customer_id__review": {
+                "mean": 0.4999999403953552,
+                "std": 5.960464477539063e-08,
+                "min": 0.5,
+                "max": 0.5,
+                "median": 0.5
+              },
+              "L1_review__f2p_product_id__product": {
+                "mean": 0.12784600257873535,
+                "std": 0.1825375109910965,
+                "min": 0.00035180430859327316,
+                "max": 0.9045220613479614,
+                "median": 0.044177308678627014
+              },
+              "L1_product__rev_f2p_product_id__review": {
+                "mean": 0.4999999403953552,
+                "std": 5.960464477539063e-08,
+                "min": 0.5,
+                "max": 0.5,
+                "median": 0.5
+              }
+            }
+          }
+        ]
+      }
+    },
+    "key_findings": [
+      "CAMA outperforms sum on rel-amazon__item-ltv (mae): d=1.205",
+      "CAMA vs mean on rel-amazon__item-ltv: d=17.280",
+      "Sum vs mean on rel-amazon__item-ltv: d=11.611"
+    ],
+    "all_run_results": [
+      {
+        "method": "sum",
+        "seed": 42,
+        "best_val_metric": 47.14963435734932,
+        "best_epoch": 10,
+        "test_metric": null,
+        "epoch_records": [
+          {
+            "epoch": 1,
+            "train_loss": 48.003438510894775,
+            "val_metric": 51.15009046671791,
+            "elapsed_s": 28.642351627349854
+          },
+          {
+            "epoch": 2,
+            "train_loss": 43.916502109527585,
+            "val_metric": 50.80327552829867,
+            "elapsed_s": 27.841377019882202
+          },
+          {
+            "epoch": 3,
+            "train_loss": 43.917050128936765,
+            "val_metric": 49.947067254084914,
+            "elapsed_s": 27.943172693252563
+          },
+          {
+            "epoch": 4,
+            "train_loss": 42.56936166381836,
+            "val_metric": 48.14177529094837,
+            "elapsed_s": 27.941508054733276
+          },
+          {
+            "epoch": 5,
+            "train_loss": 44.40144232559204,
+            "val_metric": 47.79249212692322,
+            "elapsed_s": 28.029897451400757
+          },
+          {
+            "epoch": 6,
+            "train_loss": 39.653900169372555,
+            "val_metric": 49.84390783949272,
+            "elapsed_s": 27.229501008987427
+          },
+          {
+            "epoch": 7,
+            "train_loss": 43.17610843276977,
+            "val_metric": 47.81451720816087,
+            "elapsed_s": 25.65749740600586
+          },
+          {
+            "epoch": 8,
+            "train_loss": 43.218229537963865,
+            "val_metric": 48.80133512477581,
+            "elapsed_s": 27.45804786682129
+          },
+          {
+            "epoch": 9,
+            "train_loss": 40.68801679611206,
+            "val_metric": 48.73045427890025,
+            "elapsed_s": 27.542667150497437
+          },
+          {
+            "epoch": 10,
+            "train_loss": 42.89360237503052,
+            "val_metric": 47.14963435734932,
+            "elapsed_s": 25.450944900512695
+          }
+        ],
+        "gate_evolution": [],
+        "final_gate_stats": {},
+        "peak_vram_gb": 0.45664256,
+        "param_count": 1181697,
+        "task_key": "rel-amazon__item-ltv"
+      },
+      {
+        "method": "mean",
+        "seed": 42,
+        "best_val_metric": 51.4498741354635,
+        "best_epoch": 8,
+        "test_metric": null,
+        "epoch_records": [
+          {
+            "epoch": 1,
+            "train_loss": 51.81221654510498,
+            "val_metric": 54.81573751330121,
+            "elapsed_s": 27.06707739830017
+          },
+          {
+            "epoch": 2,
+            "train_loss": 49.01967654037475,
+            "val_metric": 54.189968274800094,
+            "elapsed_s": 28.380834579467773
+          },
+          {
+            "epoch": 3,
+            "train_loss": 49.15924486541748,
+            "val_metric": 52.85638203009359,
+            "elapsed_s": 28.416884660720825
+          },
+          {
+            "epoch": 4,
+            "train_loss": 47.6202560043335,
+            "val_metric": 52.86686955930648,
+            "elapsed_s": 28.164110898971558
+          },
+          {
+            "epoch": 5,
+            "train_loss": 49.74137766647339,
+            "val_metric": 52.18940217779294,
+            "elapsed_s": 28.28374671936035
+          },
+          {
+            "epoch": 6,
+            "train_loss": 44.72409009170532,
+            "val_metric": 52.74762722887687,
+            "elapsed_s": 25.81126070022583
+          },
+          {
+            "epoch": 7,
+            "train_loss": 47.92040528106689,
+            "val_metric": 51.69450968068642,
+            "elapsed_s": 26.198572874069214
+          },
+          {
+            "epoch": 8,
+            "train_loss": 48.05157389831543,
+            "val_metric": 51.4498741354635,
+            "elapsed_s": 24.512824773788452
+          },
+          {
+            "epoch": 9,
+            "train_loss": 45.93407492828369,
+            "val_metric": 52.09648605655908,
+            "elapsed_s": 24.78271770477295
+          },
+          {
+            "epoch": 10,
+            "train_loss": 47.991887744903565,
+            "val_metric": 52.26063590365013,
+            "elapsed_s": 27.033246755599976
+          }
+        ],
+        "gate_evolution": [],
+        "final_gate_stats": {},
+        "peak_vram_gb": 0.456873984,
+        "param_count": 1181697,
+        "task_key": "rel-amazon__item-ltv"
+      },
+      {
+        "method": "cama",
+        "seed": 42,
+        "best_val_metric": 47.02223556417702,
+        "best_epoch": 8,
+        "test_metric": null,
+        "epoch_records": [
+          {
+            "epoch": 1,
+            "train_loss": 47.47773529052734,
+            "val_metric": 50.08607627051023,
+            "elapsed_s": 34.408517360687256
+          },
+          {
+            "epoch": 2,
+            "train_loss": 46.84828734588623,
+            "val_metric": 50.683030966411046,
+            "elapsed_s": 34.308653354644775
+          },
+          {
+            "epoch": 3,
+            "train_loss": 43.1541217918396,
+            "val_metric": 48.9016714272599,
+            "elapsed_s": 34.05136561393738
+          },
+          {
+            "epoch": 4,
+            "train_loss": 41.84543799591064,
+            "val_metric": 47.77078089537875,
+            "elapsed_s": 34.03053283691406
+          },
+          {
+            "epoch": 5,
+            "train_loss": 40.923991245269775,
+            "val_metric": 47.746257549733876,
+            "elapsed_s": 30.89999794960022
+          },
+          {
+            "epoch": 6,
+            "train_loss": 41.41679834747315,
+            "val_metric": 48.00003842876,
+            "elapsed_s": 34.27632784843445
+          },
+          {
+            "epoch": 7,
+            "train_loss": 43.420992027282715,
+            "val_metric": 48.296901607058466,
+            "elapsed_s": 31.811188220977783
+          },
+          {
+            "epoch": 8,
+            "train_loss": 41.147875423431394,
+            "val_metric": 47.02223556417702,
+            "elapsed_s": 31.46668004989624
+          },
+          {
+            "epoch": 9,
+            "train_loss": 41.450532321929934,
+            "val_metric": 49.16730723187801,
+            "elapsed_s": 27.983968019485474
+          },
+          {
+            "epoch": 10,
+            "train_loss": 42.17277554321289,
+            "val_metric": 50.76009082498316,
+            "elapsed_s": 29.046414613723755
+          }
+        ],
+        "gate_evolution": [
+          {
+            "epoch": 1,
+            "gates": {
+              "L0_review__f2p_customer_id__customer": {
+                "mean": 0.5000000596046448,
+                "std": 5.960464477539063e-08,
+                "min": 0.5,
+                "max": 0.5,
+                "median": 0.5
+              },
+              "L0_customer__rev_f2p_customer_id__review": {
+                "mean": 0.5,
+                "std": 1.8711047005126602e-06,
+                "min": 0.49999481439590454,
+                "max": 0.5000051259994507,
+                "median": 0.49999964237213135
+              },
+              "L0_review__f2p_product_id__product": {
+                "mean": 0.4413214325904846,
+                "std": 0.1842140108346939,
+                "min": 0.08333683013916016,
+                "max": 0.7938592433929443,
+                "median": 0.44409236311912537
+              },
+              "L0_product__rev_f2p_product_id__review": {
+                "mean": 0.4999998211860657,
+                "std": 2.047229145318852e-06,
+                "min": 0.499994158744812,
+                "max": 0.5000045895576477,
+                "median": 0.4999995231628418
+              },
+              "L1_review__f2p_customer_id__customer": {
+                "mean": 0.5000000596046448,
+                "std": 5.960464477539063e-08,
+                "min": 0.5,
+                "max": 0.5,
+                "median": 0.5
+              },
+              "L1_customer__rev_f2p_customer_id__review": {
+                "mean": 0.4999999403953552,
+                "std": 5.960464477539063e-08,
+                "min": 0.5,
+                "max": 0.5,
+                "median": 0.5
+              },
+              "L1_review__f2p_product_id__product": {
+                "mean": 0.457905113697052,
+                "std": 0.1308426409959793,
+                "min": 0.14958345890045166,
+                "max": 0.8342269062995911,
+                "median": 0.46181270480155945
+              },
+              "L1_product__rev_f2p_product_id__review": {
+                "mean": 0.4999999403953552,
+                "std": 5.960464477539063e-08,
+                "min": 0.5,
+                "max": 0.5,
+                "median": 0.5
+              }
+            }
+          },
+          {
+            "epoch": 5,
+            "gates": {
+              "L0_review__f2p_customer_id__customer": {
+                "mean": 0.5000000596046448,
+                "std": 5.960464477539063e-08,
+                "min": 0.5,
+                "max": 0.5,
+                "median": 0.5
+              },
+              "L0_customer__rev_f2p_customer_id__review": {
+                "mean": 0.5,
+                "std": 1.6566781368965167e-06,
+                "min": 0.49999529123306274,
+                "max": 0.5000046491622925,
+                "median": 0.4999997615814209
+              },
+              "L0_review__f2p_product_id__product": {
+                "mean": 0.2627081573009491,
+                "std": 0.1887865960597992,
+                "min": 0.01376656349748373,
+                "max": 0.7422178983688354,
+                "median": 0.2130490392446518
+              },
+              "L0_product__rev_f2p_product_id__review": {
+                "mean": 0.49999964237213135,
+                "std": 5.539252470043721e-06,
+                "min": 0.4999895691871643,
+                "max": 0.5000113248825073,
+                "median": 0.4999985098838806
+              },
+              "L1_review__f2p_customer_id__customer": {
+                "mean": 0.5000000596046448,
+                "std": 5.960464477539063e-08,
+                "min": 0.5,
+                "max": 0.5,
+                "median": 0.5
+              },
+              "L1_customer__rev_f2p_customer_id__review": {
+                "mean": 0.4999999403953552,
+                "std": 5.960464477539063e-08,
+                "min": 0.5,
+                "max": 0.5,
+                "median": 0.5
+              },
+              "L1_review__f2p_product_id__product": {
+                "mean": 0.29145339131355286,
+                "std": 0.18305091559886932,
+                "min": 0.026682410389184952,
+                "max": 0.8624517917633057,
+                "median": 0.25400468707084656
+              },
+              "L1_product__rev_f2p_product_id__review": {
+                "mean": 0.4999999403953552,
+                "std": 5.960464477539063e-08,
+                "min": 0.5,
+                "max": 0.5,
+                "median": 0.5
+              }
+            }
+          },
+          {
+            "epoch": 10,
+            "gates": {
+              "L0_review__f2p_customer_id__customer": {
+                "mean": 0.5000000596046448,
+                "std": 5.960464477539063e-08,
+                "min": 0.5,
+                "max": 0.5,
+                "median": 0.5
+              },
+              "L0_customer__rev_f2p_customer_id__review": {
+                "mean": 0.5,
+                "std": 1.6695785234333016e-06,
+                "min": 0.4999951124191284,
+                "max": 0.5000047087669373,
+                "median": 0.4999997615814209
+              },
+              "L0_review__f2p_product_id__product": {
+                "mean": 0.19069086015224457,
+                "std": 0.17597024142742157,
+                "min": 0.0011477874359115958,
+                "max": 0.7271524667739868,
+                "median": 0.12871138751506805
+              },
+              "L0_product__rev_f2p_product_id__review": {
+                "mean": 0.49999964237213135,
+                "std": 9.634972229832783e-06,
+                "min": 0.499981164932251,
+                "max": 0.5000183582305908,
+                "median": 0.4999980926513672
+              },
+              "L1_review__f2p_customer_id__customer": {
+                "mean": 0.5000000596046448,
+                "std": 5.960464477539063e-08,
+                "min": 0.5,
+                "max": 0.5,
+                "median": 0.5
+              },
+              "L1_customer__rev_f2p_customer_id__review": {
+                "mean": 0.4999999403953552,
+                "std": 5.960464477539063e-08,
+                "min": 0.5,
+                "max": 0.5,
+                "median": 0.5
+              },
+              "L1_review__f2p_product_id__product": {
+                "mean": 0.15116508305072784,
+                "std": 0.1725359410047531,
+                "min": 0.0027502011507749557,
+                "max": 0.8103906512260437,
+                "median": 0.08239182084798813
+              },
+              "L1_product__rev_f2p_product_id__review": {
+                "mean": 0.4999999403953552,
+                "std": 5.960464477539063e-08,
+                "min": 0.5,
+                "max": 0.5,
+                "median": 0.5
+              }
+            }
+          }
+        ],
+        "final_gate_stats": {
+          "L0_review__f2p_customer_id__customer": {
+            "mean": 0.5000000596046448,
+            "std": 5.960464477539063e-08,
+            "min": 0.5,
+            "max": 0.5,
+            "median": 0.5
+          },
+          "L0_customer__rev_f2p_customer_id__review": {
+            "mean": 0.5,
+            "std": 1.6786970036264393e-06,
+            "min": 0.4999951124191284,
+            "max": 0.5000046491622925,
+            "median": 0.4999997019767761
+          },
+          "L0_review__f2p_product_id__product": {
+            "mean": 0.21050101518630981,
+            "std": 0.1798309087753296,
+            "min": 0.0021998086012899876,
+            "max": 0.7265137434005737,
+            "median": 0.15288622677326202
+          },
+          "L0_product__rev_f2p_product_id__review": {
+            "mean": 0.4999997019767761,
+            "std": 8.367605914827436e-06,
+            "min": 0.49998337030410767,
+            "max": 0.5000160336494446,
+            "median": 0.4999988079071045
+          },
+          "L1_review__f2p_customer_id__customer": {
+            "mean": 0.5000000596046448,
+            "std": 5.960464477539063e-08,
+            "min": 0.5,
+            "max": 0.5,
+            "median": 0.5
+          },
+          "L1_customer__rev_f2p_customer_id__review": {
+            "mean": 0.4999999403953552,
+            "std": 5.960464477539063e-08,
+            "min": 0.5,
+            "max": 0.5,
+            "median": 0.5
+          },
+          "L1_review__f2p_product_id__product": {
+            "mean": 0.19214323163032532,
+            "std": 0.18550162017345428,
+            "min": 0.006344245746731758,
+            "max": 0.8418788313865662,
+            "median": 0.12215931713581085
+          },
+          "L1_product__rev_f2p_product_id__review": {
+            "mean": 0.4999999403953552,
+            "std": 5.960464477539063e-08,
+            "min": 0.5,
+            "max": 0.5,
+            "median": 0.5
+          }
+        },
+        "peak_vram_gb": 0.633986048,
+        "param_count": 1314817,
+        "task_key": "rel-amazon__item-ltv"
+      },
+      {
+        "method": "sum",
+        "seed": 123,
+        "best_val_metric": 47.14251457441474,
+        "best_epoch": 10,
+        "test_metric": null,
+        "epoch_records": [
+          {
+            "epoch": 1,
+            "train_loss": 49.06869961929321,
+            "val_metric": 50.93823970289102,
+            "elapsed_s": 26.38572597503662
+          },
+          {
+            "epoch": 2,
+            "train_loss": 43.952959163665774,
+            "val_metric": 49.33171004696084,
+            "elapsed_s": 27.709755897521973
+          },
+          {
+            "epoch": 3,
+            "train_loss": 42.73087385559082,
+            "val_metric": 49.27844607282935,
+            "elapsed_s": 27.936920881271362
+          },
+          {
+            "epoch": 4,
+            "train_loss": 43.21039776611328,
+            "val_metric": 48.812600491644176,
+            "elapsed_s": 28.05419158935547
+          },
+          {
+            "epoch": 5,
+            "train_loss": 41.8346015586853,
+            "val_metric": 48.622747882891325,
+            "elapsed_s": 28.067935466766357
+          },
+          {
+            "epoch": 6,
+            "train_loss": 42.16747002029419,
+            "val_metric": 47.69880427590298,
+            "elapsed_s": 28.035168886184692
+          },
+          {
+            "epoch": 7,
+            "train_loss": 41.61927532196045,
+            "val_metric": 49.52981301032964,
+            "elapsed_s": 28.116634130477905
+          },
+          {
+            "epoch": 8,
+            "train_loss": 44.98006435775757,
+            "val_metric": 47.38980052359435,
+            "elapsed_s": 25.857914447784424
+          },
+          {
+            "epoch": 9,
+            "train_loss": 41.0340624961853,
+            "val_metric": 47.91140045614584,
+            "elapsed_s": 25.29853892326355
+          },
+          {
+            "epoch": 10,
+            "train_loss": 40.574984119415284,
+            "val_metric": 47.14251457441474,
+            "elapsed_s": 27.95333218574524
+          }
+        ],
+        "gate_evolution": [],
+        "final_gate_stats": {},
+        "peak_vram_gb": 0.455905792,
+        "param_count": 1181697,
+        "task_key": "rel-amazon__item-ltv"
+      },
+      {
+        "method": "mean",
+        "seed": 123,
+        "best_val_metric": 51.72888801012592,
+        "best_epoch": 8,
+        "test_metric": null,
+        "epoch_records": [
+          {
+            "epoch": 1,
+            "train_loss": 52.91391533279419,
+            "val_metric": 54.99656454933304,
+            "elapsed_s": 28.671836376190186
+          },
+          {
+            "epoch": 2,
+            "train_loss": 49.36028231811523,
+            "val_metric": 53.42775700084754,
+            "elapsed_s": 28.378227949142456
+          },
+          {
+            "epoch": 3,
+            "train_loss": 48.470709491729735,
+            "val_metric": 53.72053518131971,
+            "elapsed_s": 28.38724994659424
+          },
+          {
+            "epoch": 4,
+            "train_loss": 49.2538540763855,
+            "val_metric": 53.22165368243521,
+            "elapsed_s": 27.971240997314453
+          },
+          {
+            "epoch": 5,
+            "train_loss": 47.95651176452637,
+            "val_metric": 52.414409069899534,
+            "elapsed_s": 28.38680148124695
+          },
+          {
+            "epoch": 6,
+            "train_loss": 48.139145065307616,
+            "val_metric": 53.11766235721219,
+            "elapsed_s": 28.78009605407715
+          },
+          {
+            "epoch": 7,
+            "train_loss": 47.99444505691528,
+            "val_metric": 53.432802588697044,
+            "elapsed_s": 25.191312789916992
+          },
+          {
+            "epoch": 8,
+            "train_loss": 51.004146675109865,
+            "val_metric": 51.72888801012592,
+            "elapsed_s": 27.15615677833557
+          },
+          {
+            "epoch": 9,
+            "train_loss": 46.77476413345337,
+            "val_metric": 52.24117920744698,
+            "elapsed_s": 28.640392065048218
+          },
+          {
+            "epoch": 10,
+            "train_loss": 45.83593751907349,
+            "val_metric": 52.40582626739272,
+            "elapsed_s": 28.347012758255005
+          }
+        ],
+        "gate_evolution": [],
+        "final_gate_stats": {},
+        "peak_vram_gb": 0.456134144,
+        "param_count": 1181697,
+        "task_key": "rel-amazon__item-ltv"
+      },
+      {
+        "method": "cama",
+        "seed": 123,
+        "best_val_metric": 46.92431306224511,
+        "best_epoch": 10,
+        "test_metric": null,
+        "epoch_records": [
+          {
+            "epoch": 1,
+            "train_loss": 50.1558755607605,
+            "val_metric": 50.297940710050185,
+            "elapsed_s": 34.07252740859985
+          },
+          {
+            "epoch": 2,
+            "train_loss": 45.76818864440918,
+            "val_metric": 50.231675969312874,
+            "elapsed_s": 34.19104504585266
+          },
+          {
+            "epoch": 3,
+            "train_loss": 44.372582752227785,
+            "val_metric": 48.18746829574637,
+            "elapsed_s": 34.505987882614136
+          },
+          {
+            "epoch": 4,
+            "train_loss": 45.16301884841919,
+            "val_metric": 47.93831924098546,
+            "elapsed_s": 30.747915744781494
+          },
+          {
+            "epoch": 5,
+            "train_loss": 43.26747833251953,
+            "val_metric": 50.98170779293465,
+            "elapsed_s": 34.48235869407654
+          },
+          {
+            "epoch": 6,
+            "train_loss": 42.53508918380737,
+            "val_metric": 49.52957263290742,
+            "elapsed_s": 32.13880801200867
+          },
+          {
+            "epoch": 7,
+            "train_loss": 41.09428308105469,
+            "val_metric": 50.3653354983187,
+            "elapsed_s": 35.42346477508545
+          },
+          {
+            "epoch": 8,
+            "train_loss": 43.10898633956909,
+            "val_metric": 48.1858938948548,
+            "elapsed_s": 34.58377957344055
+          },
+          {
+            "epoch": 9,
+            "train_loss": 41.36742404937744,
+            "val_metric": 47.693921201972465,
+            "elapsed_s": 34.64275860786438
+          },
+          {
+            "epoch": 10,
+            "train_loss": 42.409080478668216,
+            "val_metric": 46.92431306224511,
+            "elapsed_s": 34.51359033584595
+          }
+        ],
+        "gate_evolution": [
+          {
+            "epoch": 1,
+            "gates": {
+              "L0_review__f2p_customer_id__customer": {
+                "mean": 0.5000000596046448,
+                "std": 5.960464477539063e-08,
+                "min": 0.5,
+                "max": 0.5,
+                "median": 0.5
+              },
+              "L0_customer__rev_f2p_customer_id__review": {
+                "mean": 0.5000000596046448,
+                "std": 2.4459870928694727e-06,
+                "min": 0.4999937415122986,
+                "max": 0.5000067949295044,
+                "median": 0.5000001788139343
+              },
+              "L0_review__f2p_product_id__product": {
+                "mean": 0.4263138771057129,
+                "std": 0.18170350790023804,
+                "min": 0.09113390743732452,
+                "max": 0.7896252870559692,
+                "median": 0.4337913691997528
+              },
+              "L0_product__rev_f2p_product_id__review": {
+                "mean": 0.4999999403953552,
+                "std": 2.768133754216251e-06,
+                "min": 0.4999929666519165,
+                "max": 0.5000067353248596,
+                "median": 0.49999988079071045
+              },
+              "L1_review__f2p_customer_id__customer": {
+                "mean": 0.5000000596046448,
+                "std": 5.960464477539063e-08,
+                "min": 0.5,
+                "max": 0.5,
+                "median": 0.5
+              },
+              "L1_customer__rev_f2p_customer_id__review": {
+                "mean": 0.4999999403953552,
+                "std": 5.960464477539063e-08,
+                "min": 0.5,
+                "max": 0.5,
+                "median": 0.5
+              },
+              "L1_review__f2p_product_id__product": {
+                "mean": 0.38742735981941223,
+                "std": 0.1500927358865738,
+                "min": 0.12329425662755966,
+                "max": 0.8450158834457397,
+                "median": 0.36635860800743103
+              },
+              "L1_product__rev_f2p_product_id__review": {
+                "mean": 0.4999999403953552,
+                "std": 5.960464477539063e-08,
+                "min": 0.5,
+                "max": 0.5,
+                "median": 0.5
+              }
+            }
+          },
+          {
+            "epoch": 5,
+            "gates": {
+              "L0_review__f2p_customer_id__customer": {
+                "mean": 0.5,
+                "std": 0.0,
+                "min": 0.5,
+                "max": 0.5,
+                "median": 0.5
+              },
+              "L0_customer__rev_f2p_customer_id__review": {
+                "mean": 0.5000000596046448,
+                "std": 2.248650162073318e-06,
+                "min": 0.4999939203262329,
+                "max": 0.5000060796737671,
+                "median": 0.5000001788139343
+              },
+              "L0_review__f2p_product_id__product": {
+                "mean": 0.2583206593990326,
+                "std": 0.184939906001091,
+                "min": 0.007892660796642303,
+                "max": 0.7302032709121704,
+                "median": 0.21244369447231293
+              },
+              "L0_product__rev_f2p_product_id__review": {
+                "mean": 0.5000002384185791,
+                "std": 4.338870894571301e-06,
+                "min": 0.49999183416366577,
+                "max": 0.500015914440155,
+                "median": 0.5000006556510925
+              },
+              "L1_review__f2p_customer_id__customer": {
+                "mean": 0.5,
+                "std": 0.0,
+                "min": 0.5,
+                "max": 0.5,
+                "median": 0.5
+              },
+              "L1_customer__rev_f2p_customer_id__review": {
+                "mean": 0.4999999403953552,
+                "std": 5.960464477539063e-08,
+                "min": 0.5,
+                "max": 0.5,
+                "median": 0.5
+              },
+              "L1_review__f2p_product_id__product": {
+                "mean": 0.20982830226421356,
+                "std": 0.1754133254289627,
+                "min": 0.007271153852343559,
+                "max": 0.8769257068634033,
+                "median": 0.15064996480941772
+              },
+              "L1_product__rev_f2p_product_id__review": {
+                "mean": 0.4999999403953552,
+                "std": 5.960464477539063e-08,
+                "min": 0.5,
+                "max": 0.5,
+                "median": 0.5
+              }
+            }
+          },
+          {
+            "epoch": 10,
+            "gates": {
+              "L0_review__f2p_customer_id__customer": {
+                "mean": 0.5,
+                "std": 0.0,
+                "min": 0.5,
+                "max": 0.5,
+                "median": 0.5
+              },
+              "L0_customer__rev_f2p_customer_id__review": {
+                "mean": 0.5,
+                "std": 2.41432144321152e-06,
+                "min": 0.49999380111694336,
+                "max": 0.5000064969062805,
+                "median": 0.5000001788139343
+              },
+              "L0_review__f2p_product_id__product": {
+                "mean": 0.18376664817333221,
+                "std": 0.17028869688510895,
+                "min": 0.0009463991736993194,
+                "max": 0.7122516632080078,
+                "median": 0.12820743024349213
+              },
+              "L0_product__rev_f2p_product_id__review": {
+                "mean": 0.5000005960464478,
+                "std": 6.117353223089594e-06,
+                "min": 0.49998587369918823,
+                "max": 0.5000191330909729,
+                "median": 0.5000010132789612
+              },
+              "L1_review__f2p_customer_id__customer": {
+                "mean": 0.5,
+                "std": 0.0,
+                "min": 0.5,
+                "max": 0.5,
+                "median": 0.5
+              },
+              "L1_customer__rev_f2p_customer_id__review": {
+                "mean": 0.4999999403953552,
+                "std": 5.960464477539063e-08,
+                "min": 0.5,
+                "max": 0.5,
+                "median": 0.5
+              },
+              "L1_review__f2p_product_id__product": {
+                "mean": 0.11721157282590866,
+                "std": 0.14868132770061493,
+                "min": 0.0011276336153969169,
+                "max": 0.883957028388977,
+                "median": 0.05687445402145386
+              },
+              "L1_product__rev_f2p_product_id__review": {
+                "mean": 0.4999999403953552,
+                "std": 5.960464477539063e-08,
+                "min": 0.5,
+                "max": 0.5,
+                "median": 0.5
+              }
+            }
+          }
+        ],
+        "final_gate_stats": {
+          "L0_review__f2p_customer_id__customer": {
+            "mean": 0.5,
+            "std": 0.0,
+            "min": 0.5,
+            "max": 0.5,
+            "median": 0.5
+          },
+          "L0_customer__rev_f2p_customer_id__review": {
+            "mean": 0.5,
+            "std": 2.41432144321152e-06,
+            "min": 0.49999380111694336,
+            "max": 0.5000064969062805,
+            "median": 0.5000001788139343
+          },
+          "L0_review__f2p_product_id__product": {
+            "mean": 0.18376664817333221,
+            "std": 0.17028869688510895,
+            "min": 0.0009463991736993194,
+            "max": 0.7122516632080078,
+            "median": 0.12820743024349213
+          },
+          "L0_product__rev_f2p_product_id__review": {
+            "mean": 0.5000005960464478,
+            "std": 6.117353223089594e-06,
+            "min": 0.49998587369918823,
+            "max": 0.5000191330909729,
+            "median": 0.5000010132789612
+          },
+          "L1_review__f2p_customer_id__customer": {
+            "mean": 0.5,
+            "std": 0.0,
+            "min": 0.5,
+            "max": 0.5,
+            "median": 0.5
+          },
+          "L1_customer__rev_f2p_customer_id__review": {
+            "mean": 0.4999999403953552,
+            "std": 5.960464477539063e-08,
+            "min": 0.5,
+            "max": 0.5,
+            "median": 0.5
+          },
+          "L1_review__f2p_product_id__product": {
+            "mean": 0.11721157282590866,
+            "std": 0.14868132770061493,
+            "min": 0.0011276336153969169,
+            "max": 0.883957028388977,
+            "median": 0.05687445402145386
+          },
+          "L1_product__rev_f2p_product_id__review": {
+            "mean": 0.4999999403953552,
+            "std": 5.960464477539063e-08,
+            "min": 0.5,
+            "max": 0.5,
+            "median": 0.5
+          }
+        },
+        "peak_vram_gb": 0.630118912,
+        "param_count": 1314817,
+        "task_key": "rel-amazon__item-ltv"
+      },
+      {
+        "method": "sum",
+        "seed": 456,
+        "best_val_metric": 47.127313693135086,
+        "best_epoch": 10,
+        "test_metric": null,
+        "epoch_records": [
+          {
+            "epoch": 1,
+            "train_loss": 46.762524333953856,
+            "val_metric": 49.95598458590034,
+            "elapsed_s": 28.649664878845215
+          },
+          {
+            "epoch": 2,
+            "train_loss": 43.940395057678224,
+            "val_metric": 48.84198349424796,
+            "elapsed_s": 27.632859706878662
+          },
+          {
+            "epoch": 3,
+            "train_loss": 44.19756670379639,
+            "val_metric": 49.27278820561379,
+            "elapsed_s": 27.541504621505737
+          },
+          {
+            "epoch": 4,
+            "train_loss": 41.02618165206909,
+            "val_metric": 48.116596432034456,
+            "elapsed_s": 28.163009643554688
+          },
+          {
+            "epoch": 5,
+            "train_loss": 41.28898000335693,
+            "val_metric": 48.442695304424234,
+            "elapsed_s": 27.48125910758972
+          },
+          {
+            "epoch": 6,
+            "train_loss": 43.67791115951538,
+            "val_metric": 48.77262125835966,
+            "elapsed_s": 27.83719038963318
+          },
+          {
+            "epoch": 7,
+            "train_loss": 42.63864002990723,
+            "val_metric": 48.05440606847492,
+            "elapsed_s": 27.98837113380432
+          },
+          {
+            "epoch": 8,
+            "train_loss": 40.67533561325073,
+            "val_metric": 48.15247854320877,
+            "elapsed_s": 28.21196150779724
+          },
+          {
+            "epoch": 9,
+            "train_loss": 42.161927536010744,
+            "val_metric": 48.78830750172166,
+            "elapsed_s": 26.928239583969116
+          },
+          {
+            "epoch": 10,
+            "train_loss": 42.03992012023926,
+            "val_metric": 47.127313693135086,
+            "elapsed_s": 27.852765321731567
+          }
+        ],
+        "gate_evolution": [],
+        "final_gate_stats": {},
+        "peak_vram_gb": 0.43474432,
+        "param_count": 1181697,
+        "task_key": "rel-amazon__item-ltv"
+      },
+      {
+        "method": "mean",
+        "seed": 456,
+        "best_val_metric": 52.22403871511621,
+        "best_epoch": 8,
+        "test_metric": null,
+        "epoch_records": [
+          {
+            "epoch": 1,
+            "train_loss": 50.52145914840698,
+            "val_metric": 55.140756259238515,
+            "elapsed_s": 28.957550764083862
+          },
+          {
+            "epoch": 2,
+            "train_loss": 49.4146138343811,
+            "val_metric": 54.03298589651536,
+            "elapsed_s": 25.125953197479248
+          },
+          {
+            "epoch": 3,
+            "train_loss": 49.76337254333496,
+            "val_metric": 53.522009351818184,
+            "elapsed_s": 27.41459083557129
+          },
+          {
+            "epoch": 4,
+            "train_loss": 46.85023956298828,
+            "val_metric": 54.02260437922148,
+            "elapsed_s": 26.62996244430542
+          },
+          {
+            "epoch": 5,
+            "train_loss": 47.53082070541382,
+            "val_metric": 53.11182816693595,
+            "elapsed_s": 26.838191747665405
+          },
+          {
+            "epoch": 6,
+            "train_loss": 50.0142000579834,
+            "val_metric": 53.94414341405183,
+            "elapsed_s": 27.900628328323364
+          },
+          {
+            "epoch": 7,
+            "train_loss": 48.83165423965454,
+            "val_metric": 52.914909520867546,
+            "elapsed_s": 28.40851855278015
+          },
+          {
+            "epoch": 8,
+            "train_loss": 46.57543257522583,
+            "val_metric": 52.22403871511621,
+            "elapsed_s": 28.684170961380005
+          },
+          {
+            "epoch": 9,
+            "train_loss": 47.61121320724487,
+            "val_metric": 52.289308228619184,
+            "elapsed_s": 29.007751941680908
+          },
+          {
+            "epoch": 10,
+            "train_loss": 47.45217091369629,
+            "val_metric": 53.43728935142476,
+            "elapsed_s": 28.25491189956665
+          }
+        ],
+        "gate_evolution": [],
+        "final_gate_stats": {},
+        "peak_vram_gb": 0.434966528,
+        "param_count": 1181697,
+        "task_key": "rel-amazon__item-ltv"
+      },
+      {
+        "method": "cama",
+        "seed": 456,
+        "best_val_metric": 46.97233409693342,
+        "best_epoch": 8,
+        "test_metric": null,
+        "epoch_records": [
+          {
+            "epoch": 1,
+            "train_loss": 47.68747747802735,
+            "val_metric": 51.77879884334216,
+            "elapsed_s": 34.63476085662842
+          },
+          {
+            "epoch": 2,
+            "train_loss": 45.18997674179077,
+            "val_metric": 48.95696279819768,
+            "elapsed_s": 31.16152787208557
+          },
+          {
+            "epoch": 3,
+            "train_loss": 42.72464892578125,
+            "val_metric": 49.017431016376584,
+            "elapsed_s": 32.20896625518799
+          },
+          {
+            "epoch": 4,
+            "train_loss": 43.410179359436036,
+            "val_metric": 48.70567173103731,
+            "elapsed_s": 34.01579666137695
+          },
+          {
+            "epoch": 5,
+            "train_loss": 42.20559555435181,
+            "val_metric": 48.60021022158096,
+            "elapsed_s": 34.072136640548706
+          },
+          {
+            "epoch": 6,
+            "train_loss": 42.01998557281494,
+            "val_metric": 51.31559956591446,
+            "elapsed_s": 34.29104781150818
+          },
+          {
+            "epoch": 7,
+            "train_loss": 42.5788097114563,
+            "val_metric": 47.14746447554602,
+            "elapsed_s": 32.111860036849976
+          },
+          {
+            "epoch": 8,
+            "train_loss": 42.72467292022705,
+            "val_metric": 46.97233409693342,
+            "elapsed_s": 34.316784381866455
+          },
+          {
+            "epoch": 9,
+            "train_loss": 42.97515687561035,
+            "val_metric": 48.95585338125494,
+            "elapsed_s": 33.96424317359924
+          },
+          {
+            "epoch": 10,
+            "train_loss": 40.50630824279785,
+            "val_metric": 48.48209644007108,
+            "elapsed_s": 34.20621037483215
+          }
+        ],
+        "gate_evolution": [
+          {
+            "epoch": 1,
+            "gates": {
+              "L0_review__f2p_customer_id__customer": {
+                "mean": 0.5,
+                "std": 0.0,
+                "min": 0.5,
+                "max": 0.5,
+                "median": 0.5
+              },
+              "L0_customer__rev_f2p_customer_id__review": {
+                "mean": 0.5000001788139343,
+                "std": 2.0369675439724233e-06,
+                "min": 0.4999951720237732,
+                "max": 0.5000056624412537,
+                "median": 0.5000001788139343
+              },
+              "L0_review__f2p_product_id__product": {
+                "mean": 0.4578646421432495,
+                "std": 0.1801646202802658,
+                "min": 0.11030814796686172,
+                "max": 0.7877559065818787,
+                "median": 0.45253828167915344
+              },
+              "L0_product__rev_f2p_product_id__review": {
+                "mean": 0.4999997615814209,
+                "std": 2.2502294996229466e-06,
+                "min": 0.4999929666519165,
+                "max": 0.500006377696991,
+                "median": 0.4999997615814209
+              },
+              "L1_review__f2p_customer_id__customer": {
+                "mean": 0.5,
+                "std": 0.0,
+                "min": 0.5,
+                "max": 0.5,
+                "median": 0.5
+              },
+              "L1_customer__rev_f2p_customer_id__review": {
+                "mean": 0.4999999403953552,
+                "std": 5.960464477539063e-08,
+                "min": 0.5,
+                "max": 0.5,
+                "median": 0.5
+              },
+              "L1_review__f2p_product_id__product": {
+                "mean": 0.4179779291152954,
+                "std": 0.147800013422966,
+                "min": 0.14760726690292358,
+                "max": 0.8702122569084167,
+                "median": 0.39523616433143616
+              },
+              "L1_product__rev_f2p_product_id__review": {
+                "mean": 0.4999999403953552,
+                "std": 5.960464477539063e-08,
+                "min": 0.5,
+                "max": 0.5,
+                "median": 0.5
+              }
+            }
+          },
+          {
+            "epoch": 5,
+            "gates": {
+              "L0_review__f2p_customer_id__customer": {
+                "mean": 0.5,
+                "std": 0.0,
+                "min": 0.5,
+                "max": 0.5,
+                "median": 0.5
+              },
+              "L0_customer__rev_f2p_customer_id__review": {
+                "mean": 0.5000001788139343,
+                "std": 1.8726690313997096e-06,
+                "min": 0.4999955892562866,
+                "max": 0.5000051856040955,
+                "median": 0.5000001788139343
+              },
+              "L0_review__f2p_product_id__product": {
+                "mean": 0.27968186140060425,
+                "std": 0.18663206696510315,
+                "min": 0.004127326421439648,
+                "max": 0.7388886213302612,
+                "median": 0.25524547696113586
+              },
+              "L0_product__rev_f2p_product_id__review": {
+                "mean": 0.5,
+                "std": 4.339667611930054e-06,
+                "min": 0.49999046325683594,
+                "max": 0.5000094771385193,
+                "median": 0.5000000596046448
+              },
+              "L1_review__f2p_customer_id__customer": {
+                "mean": 0.5,
+                "std": 0.0,
+                "min": 0.5,
+                "max": 0.5,
+                "median": 0.5
+              },
+              "L1_customer__rev_f2p_customer_id__review": {
+                "mean": 0.4999999403953552,
+                "std": 5.960464477539063e-08,
+                "min": 0.5,
+                "max": 0.5,
+                "median": 0.5
+              },
+              "L1_review__f2p_product_id__product": {
+                "mean": 0.21132349967956543,
+                "std": 0.19190172851085663,
+                "min": 0.005849514622241259,
+                "max": 0.8871722221374512,
+                "median": 0.14705857634544373
+              },
+              "L1_product__rev_f2p_product_id__review": {
+                "mean": 0.4999999403953552,
+                "std": 5.960464477539063e-08,
+                "min": 0.5,
+                "max": 0.5,
+                "median": 0.5
+              }
+            }
+          },
+          {
+            "epoch": 10,
+            "gates": {
+              "L0_review__f2p_customer_id__customer": {
+                "mean": 0.5000000596046448,
+                "std": 5.960464477539063e-08,
+                "min": 0.5,
+                "max": 0.5,
+                "median": 0.5
+              },
+              "L0_customer__rev_f2p_customer_id__review": {
+                "mean": 0.5000001788139343,
+                "std": 1.9726387563423486e-06,
+                "min": 0.4999953508377075,
+                "max": 0.5000056624412537,
+                "median": 0.5000001192092896
+              },
+              "L0_review__f2p_product_id__product": {
+                "mean": 0.20229467749595642,
+                "std": 0.1697341501712799,
+                "min": 0.001226126099936664,
+                "max": 0.7220108509063721,
+                "median": 0.15710380673408508
+              },
+              "L0_product__rev_f2p_product_id__review": {
+                "mean": 0.5000002980232239,
+                "std": 6.2594854171038605e-06,
+                "min": 0.49998533725738525,
+                "max": 0.5000109076499939,
+                "median": 0.5000012516975403
+              },
+              "L1_review__f2p_customer_id__customer": {
+                "mean": 0.5000000596046448,
+                "std": 5.960464477539063e-08,
+                "min": 0.5,
+                "max": 0.5,
+                "median": 0.5
+              },
+              "L1_customer__rev_f2p_customer_id__review": {
+                "mean": 0.4999999403953552,
+                "std": 5.960464477539063e-08,
+                "min": 0.5,
+                "max": 0.5,
+                "median": 0.5
+              },
+              "L1_review__f2p_product_id__product": {
+                "mean": 0.12784600257873535,
+                "std": 0.1825375109910965,
+                "min": 0.00035180430859327316,
+                "max": 0.9045220613479614,
+                "median": 0.044177308678627014
+              },
+              "L1_product__rev_f2p_product_id__review": {
+                "mean": 0.4999999403953552,
+                "std": 5.960464477539063e-08,
+                "min": 0.5,
+                "max": 0.5,
+                "median": 0.5
+              }
+            }
+          }
+        ],
+        "final_gate_stats": {
+          "L0_review__f2p_customer_id__customer": {
+            "mean": 0.5,
+            "std": 0.0,
+            "min": 0.5,
+            "max": 0.5,
+            "median": 0.5
+          },
+          "L0_customer__rev_f2p_customer_id__review": {
+            "mean": 0.5000001788139343,
+            "std": 1.9064752905251225e-06,
+            "min": 0.49999547004699707,
+            "max": 0.5000055432319641,
+            "median": 0.5000002980232239
+          },
+          "L0_review__f2p_product_id__product": {
+            "mean": 0.2208910882472992,
+            "std": 0.1750757247209549,
+            "min": 0.0013554177712649107,
+            "max": 0.7227152585983276,
+            "median": 0.1792902946472168
+          },
+          "L0_product__rev_f2p_product_id__review": {
+            "mean": 0.5000001192092896,
+            "std": 5.0750650189002044e-06,
+            "min": 0.4999880790710449,
+            "max": 0.5000097155570984,
+            "median": 0.5000005960464478
+          },
+          "L1_review__f2p_customer_id__customer": {
+            "mean": 0.5,
+            "std": 0.0,
+            "min": 0.5,
+            "max": 0.5,
+            "median": 0.5
+          },
+          "L1_customer__rev_f2p_customer_id__review": {
+            "mean": 0.4999999403953552,
+            "std": 5.960464477539063e-08,
+            "min": 0.5,
+            "max": 0.5,
+            "median": 0.5
+          },
+          "L1_review__f2p_product_id__product": {
+            "mean": 0.14781659841537476,
+            "std": 0.18503184616565704,
+            "min": 0.0011221520835533738,
+            "max": 0.9025583863258362,
+            "median": 0.06829683482646942
+          },
+          "L1_product__rev_f2p_product_id__review": {
+            "mean": 0.4999999403953552,
+            "std": 5.960464477539063e-08,
+            "min": 0.5,
+            "max": 0.5,
+            "median": 0.5
+          }
+        },
+        "peak_vram_gb": 0.629697024,
+        "param_count": 1314817,
+        "task_key": "rel-amazon__item-ltv"
+      },
+      {
+        "method": "sum",
+        "seed": 789,
+        "best_val_metric": 47.900193454153786,
+        "best_epoch": 10,
+        "test_metric": null,
+        "epoch_records": [
+          {
+            "epoch": 1,
+            "train_loss": 47.87376356506348,
+            "val_metric": 50.453979816716625,
+            "elapsed_s": 28.649672985076904
+          },
+          {
+            "epoch": 2,
+            "train_loss": 43.15115618133545,
+            "val_metric": 50.88222938556013,
+            "elapsed_s": 27.446202754974365
+          },
+          {
+            "epoch": 3,
+            "train_loss": 44.36931663513184,
+            "val_metric": 50.086623469748766,
+            "elapsed_s": 27.42537498474121
+          },
+          {
+            "epoch": 4,
+            "train_loss": 43.08009476470947,
+            "val_metric": 49.15185955996236,
+            "elapsed_s": 27.582353115081787
+          },
+          {
+            "epoch": 5,
+            "train_loss": 43.63526216506958,
+            "val_metric": 49.7034004070596,
+            "elapsed_s": 27.53991675376892
+          },
+          {
+            "epoch": 6,
+            "train_loss": 43.5729252243042,
+            "val_metric": 48.60039447349717,
+            "elapsed_s": 28.254283905029297
+          },
+          {
+            "epoch": 7,
+            "train_loss": 41.48676631546021,
+            "val_metric": 48.233549319031916,
+            "elapsed_s": 27.89764642715454
+          },
+          {
+            "epoch": 8,
+            "train_loss": 40.5257548789978,
+            "val_metric": 48.90729748045707,
+            "elapsed_s": 23.925351858139038
+          },
+          {
+            "epoch": 9,
+            "train_loss": 43.48345243835449,
+            "val_metric": 48.933731101720554,
+            "elapsed_s": 26.48232889175415
+          },
+          {
+            "epoch": 10,
+            "train_loss": 42.182661922454834,
+            "val_metric": 47.900193454153786,
+            "elapsed_s": 25.237836360931396
+          }
+        ],
+        "gate_evolution": [],
+        "final_gate_stats": {},
+        "peak_vram_gb": 0.444946944,
+        "param_count": 1181697,
+        "task_key": "rel-amazon__item-ltv"
+      }
+    ],
+    "total_elapsed_seconds": 4442.8226907253265
+  },
+  "datasets": [
+    {
+      "dataset": "rel-amazon__item-ltv",
+      "examples": [
+        {
+          "input": "{\"task\": \"rel-amazon__item-ltv\", \"seed\": 42, \"metric\": \"mae\", \"higher_is_better\": false, \"hyperparameters\": {\"channels\": 128, \"lr\": 0.005, \"epochs\": 10, \"batch_size\": 512}}",
+          "output": "47.02223556417702",
+          "metadata_seed": 42,
+          "metadata_task": "rel-amazon__item-ltv",
+          "metadata_metric": "mae",
+          "metadata_best_method": "cama",
+          "predict_sum": "47.14963435734932",
+          "predict_mean": "51.4498741354635",
+          "predict_cama": "47.02223556417702"
+        },
+        {
+          "input": "{\"task\": \"rel-amazon__item-ltv\", \"seed\": 123, \"metric\": \"mae\", \"higher_is_better\": false, \"hyperparameters\": {\"channels\": 128, \"lr\": 0.005, \"epochs\": 10, \"batch_size\": 512}}",
+          "output": "46.92431306224511",
+          "metadata_seed": 123,
+          "metadata_task": "rel-amazon__item-ltv",
+          "metadata_metric": "mae",
+          "metadata_best_method": "cama",
+          "predict_sum": "47.14251457441474",
+          "predict_mean": "51.72888801012592",
+          "predict_cama": "46.92431306224511"
+        },
+        {
+          "input": "{\"task\": \"rel-amazon__item-ltv\", \"seed\": 456, \"metric\": \"mae\", \"higher_is_better\": false, \"hyperparameters\": {\"channels\": 128, \"lr\": 0.005, \"epochs\": 10, \"batch_size\": 512}}",
+          "output": "46.97233409693342",
+          "metadata_seed": 456,
+          "metadata_task": "rel-amazon__item-ltv",
+          "metadata_metric": "mae",
+          "metadata_best_method": "cama",
+          "predict_sum": "47.127313693135086",
+          "predict_mean": "52.22403871511621",
+          "predict_cama": "46.97233409693342"
+        },
+        {
+          "input": "{\"task\": \"rel-amazon__item-ltv\", \"seed\": 789, \"metric\": \"mae\", \"higher_is_better\": false, \"hyperparameters\": {\"channels\": 128, \"lr\": 0.005, \"epochs\": 10, \"batch_size\": 512}}",
+          "output": "47.900193454153786",
+          "metadata_seed": 789,
+          "metadata_task": "rel-amazon__item-ltv",
+          "metadata_metric": "mae",
+          "metadata_best_method": "sum",
+          "predict_sum": "47.900193454153786"
+        }
+      ]
+    }
+  ]
+}

@@ -1,0 +1,13 @@
+{
+  "id": "exp_id4_it5__opus",
+  "type": "code",
+  "title": "Spectral Rank Analysis at FK Aggregation: Measuring Information Compression Across 3 Contrasting Tasks",
+  "summary": "Demo notebook for the Spectral Rank Analysis at FK Aggregation experiment. Loads pre-computed results from 3 RelBench tasks (rel-f1/driver-dnf, rel-trial/study-adverse, rel-stack/user-engagement) and demonstrates core rank computation functions (SVD effective rank, variance-entropy proxy, compression ratio) using NumPy. Includes synthetic embedding demo, parsing of experimental results into DataFrames, cross-task severity correlation analysis, and 4-panel visualization of compression ratios, SVD-proxy correlation, severity vs CAMA benefit, and key findings summary.",
+  "original_path": "/ai-inventor/aii_pipeline/runs/leskovec-predictive-residual-message-passing-v2_sti/3_invention_loop/iter_5/gen_art/exp_id4_it5__opus",
+  "demo_path": "/ai-inventor/aii_pipeline/runs/leskovec-predictive-residual-message-passing-v2_sti/4_gen_paper_repo/exp_id4_it5__opus",
+  "out_expected_files": {
+    "notebook": "code_demo.ipynb",
+    "mini_data_file": "mini_demo_data.json"
+  },
+  "notebook_path": "/ai-inventor/aii_pipeline/runs/leskovec-predictive-residual-message-passing-v2_sti/4_gen_paper_repo/exp_id4_it5__opus/method_code_demo.ipynb"
+}

@@ -1,0 +1,13 @@
+{
+  "id": "exp_id3_it6__opus",
+  "type": "code",
+  "title": "Spectral Rank Under Sum vs Mean Aggregation: Validating the Information-Compression Mechanism at FK Joins",
+  "summary": "Demo notebook showing spectral rank analysis comparing SUM vs MEAN aggregation on 3 RelBench tasks. Loads pre-computed experiment results (mini_demo_data.json with 21 edge-type measurements across 7 dataset splits). Demonstrates SVD effective rank computation, variance-entropy proxy, and compression ratio functions on synthetic data, then parses and visualizes the cross-aggregation comparison results with bar charts showing rank ratios, compression differences, and fraction of edges where sum outperforms mean.",
+  "original_path": "/ai-inventor/aii_pipeline/runs/leskovec-predictive-residual-message-passing-v2_sti/3_invention_loop/iter_6/gen_art/exp_id3_it6__opus",
+  "demo_path": "/ai-inventor/aii_pipeline/runs/leskovec-predictive-residual-message-passing-v2_sti/4_gen_paper_repo/exp_id3_it6__opus",
+  "out_expected_files": {
+    "notebook": "code_demo.ipynb",
+    "mini_data_file": "mini_demo_data.json"
+  },
+  "notebook_path": "/ai-inventor/aii_pipeline/runs/leskovec-predictive-residual-message-passing-v2_sti/4_gen_paper_repo/exp_id3_it6__opus/method_code_demo.ipynb"
+}

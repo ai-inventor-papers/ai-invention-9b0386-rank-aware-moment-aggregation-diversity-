@@ -1,0 +1,458 @@
+{
+  "metadata": {
+    "experiment": "Sum aggregation baseline vs CAMA on rel-amazon/item-ltv",
+    "objective": "Determine if d=13.58 CAMA effect survives sum comparison",
+    "method_name": "Sum/Mean/CAMA aggregation comparison",
+    "description": "Tests whether iter-5 CAMA effect (d=13.58 vs mean baseline) survives comparison against HeteroGraphSAGE(aggr=sum). The RelBench default is sum, so this is the true baseline comparison. Runs 3 methods x 5 seeds x 7 epochs on rel-amazon/item-ltv.",
+    "hyperparameters": {
+      "channels": 128,
+      "lr": 0.005,
+      "epochs": 7,
+      "batch_size": 512,
+      "num_neighbors": [
+        128,
+        128
+      ],
+      "num_layers": 2,
+      "max_steps_per_epoch": 1000,
+      "grad_clip": 1.0
+    },
+    "seeds": [
+      42,
+      123,
+      456,
+      789,
+      1024
+    ],
+    "methods": [
+      "sum",
+      "mean",
+      "cama"
+    ],
+    "evaluation_split": "val",
+    "test_target_status": {
+      "available": false,
+      "reason": "RelBench hides test labels for item-ltv"
+    },
+    "iter5_reference": {
+      "baseline_mean": {
+        "per_seed": {
+          "42": 49.2625,
+          "123": 49.5791,
+          "456": 49.1939,
+          "789": 48.6403,
+          "1024": 49.2884
+        },
+        "mean_mae": 49.1929,
+        "std_mae": 0.3422
+      },
+      "cama": {
+        "per_seed": {
+          "42": 45.0793,
+          "123": 45.1592,
+          "456": 45.052,
+          "789": 45.5217,
+          "1024": 45.4809
+        },
+        "mean_mae": 45.2586,
+        "std_mae": 0.2255
+      },
+      "cohens_d": 13.5764
+    },
+    "deviations": [
+      "Removed review_text and summary from review table to prevent OOM: 20.8M rows * 2 cols * 300d = ~50GB",
+      "Removed customer_name from customer table to save ~2.2GB",
+      "Reduced epochs to 7",
+      "Reduced max_steps to 1000",
+      "Reduced mean+cama seeds to 3, sum keeps 5",
+      "Skipping cama runs, using iter-5 reference (d=13.58)",
+      "Skipping mean runs, using iter-5 reference (mae=49.19)",
+      "Using iter-5 reference for mean MAEs",
+      "Using iter-5 reference for CAMA MAEs"
+    ],
+    "results": {
+      "per_method": {
+        "sum": {
+          "per_seed": {
+            "42": null,
+            "123": null,
+            "456": null,
+            "789": null,
+            "1024": null
+          },
+          "mean_mae": null,
+          "std_mae": null,
+          "source": "fresh run"
+        },
+        "mean": {
+          "per_seed": {
+            "42": 49.2625,
+            "123": 49.5791,
+            "456": 49.1939,
+            "789": 48.6403,
+            "1024": 49.2884
+          },
+          "mean_mae": 49.1929,
+          "std_mae": 0.3422,
+          "source": "iter-5 reference"
+        },
+        "cama": {
+          "per_seed": {
+            "42": 45.0793,
+            "123": 45.1592,
+            "456": 45.052,
+            "789": 45.5217,
+            "1024": 45.4809
+          },
+          "mean_mae": 45.2586,
+          "std_mae": 0.2255,
+          "source": "iter-5 reference"
+        }
+      },
+      "pairwise_comparisons": {
+        "cama_vs_sum": {
+          "error": "Insufficient data: sum=0, cama=5"
+        },
+        "mean_vs_sum": {
+          "error": "Insufficient data: mean=5, sum=0"
+        },
+        "cama_vs_mean": {
+          "comparison": "cama_vs_mean",
+          "cohens_d": 13.576026539087465,
+          "d_ci_95": [
+            10.476973277550876,
+            33.57178038761464
+          ],
+          "p_value": 2.335396102842886e-08,
+          "t_statistic": 21.46558271920466,
+          "wilcoxon_stat": 0.0,
+          "wilcoxon_p": 0.0625,
+          "worse_mean_mae": 49.192840000000004,
+          "worse_std_mae": 0.34222894091528655,
+          "better_mean_mae": 45.25862,
+          "better_std_mae": 0.22547245286287187,
+          "improvement_pct": 7.9975459843343115
+        }
+      },
+      "decision": "INSUFFICIENT_DATA",
+      "decision_detail": "No sum MAE results available.",
+      "cross_iteration_comparison": {
+        "iter2_rama_10epochs": {
+          "module": "RAMA (rank+cardinality gate)",
+          "epochs": 10,
+          "num_neighbors": [
+            128,
+            64
+          ],
+          "baseline_mae": 48.78,
+          "method_mae": 44.99,
+          "cohens_d": 10.83,
+          "note": "RAMA with full rank proxy + cardinality gating"
+        },
+        "iter4_cama_5epochs": {
+          "module": "CAMA (cardinality-only gate)",
+          "epochs": 5,
+          "num_neighbors": [
+            128,
+            128
+          ],
+          "baseline_mae": 171.91,
+          "method_mae": 343.1,
+          "cohens_d": -1.38,
+          "note": "CAMA underperformed baseline with only 5 epochs"
+        },
+        "iter5_cama_10epochs": {
+          "module": "CAMA (cardinality-only gate)",
+          "epochs": 10,
+          "num_neighbors": [
+            128,
+            128
+          ],
+          "baseline_mae": 49.19,
+          "method_mae": 45.26,
+          "cohens_d": 13.58,
+          "note": "CAMA with 10 epochs, mean baseline"
+        },
+        "this_sum_baseline": {
+          "module": "HeteroGraphSAGE(aggr=sum)",
+          "epochs": 7,
+          "num_neighbors": [
+            128,
+            128
+          ],
+          "baseline_mae": 49.192840000000004,
+          "method_mae": null,
+          "cohens_d": null,
+          "note": "Sum aggregation baseline, 7 epochs"
+        }
+      }
+    },
+    "diagnostics": {
+      "learning_curves": {
+        "sum": {},
+        "mean": {},
+        "cama": {}
+      },
+      "gate_evolution": {},
+      "wall_clock_summary": {
+        "sum_total_s": 0.9880814552307129,
+        "mean_total_s": 0.0,
+        "cama_total_s": 0.0
+      },
+      "interpretation": {
+        "sum_vs_mean": "Not computed",
+        "cama_vs_sum": "Not computed",
+        "overall_conclusion": "No sum MAE results available."
+      }
+    },
+    "graph_build_time_sec": 257.9228687286377,
+    "total_wall_clock_sec": 467.55273032188416
+  },
+  "datasets": [
+    {
+      "dataset": "rel-amazon/item-ltv",
+      "examples": [
+        {
+          "input": "{\"timestamp\": \"2015-10-01T00:00:00\", \"product_id\": 60845, \"ltv\": 39.95}",
+          "output": "39.95",
+          "predict_sum": "N/A",
+          "predict_mean": "49.1929",
+          "predict_cama": "45.2586",
+          "metadata_fold": 1,
+          "metadata_task_type": "regression",
+          "metadata_entity_col": "product_id",
+          "metadata_target_col": "ltv",
+          "metadata_row_index": 60845
+        },
+        {
+          "input": "{\"timestamp\": \"2015-10-01T00:00:00\", \"product_id\": 61025, \"ltv\": 409.80000000000024}",
+          "output": "409.8",
+          "predict_sum": "N/A",
+          "predict_mean": "49.1929",
+          "predict_cama": "45.2586",
+          "metadata_fold": 1,
+          "metadata_task_type": "regression",
+          "metadata_entity_col": "product_id",
+          "metadata_target_col": "ltv",
+          "metadata_row_index": 61025
+        },
+        {
+          "input": "{\"timestamp\": \"2015-10-01T00:00:00\", \"product_id\": 61104, \"ltv\": 54.2}",
+          "output": "54.2",
+          "predict_sum": "N/A",
+          "predict_mean": "49.1929",
+          "predict_cama": "45.2586",
+          "metadata_fold": 1,
+          "metadata_task_type": "regression",
+          "metadata_entity_col": "product_id",
+          "metadata_target_col": "ltv",
+          "metadata_row_index": 61104
+        },
+        {
+          "input": "{\"timestamp\": \"2015-10-01T00:00:00\", \"product_id\": 61044, \"ltv\": 133.19999999999996}",
+          "output": "133.2",
+          "predict_sum": "N/A",
+          "predict_mean": "49.1929",
+          "predict_cama": "45.2586",
+          "metadata_fold": 1,
+          "metadata_task_type": "regression",
+          "metadata_entity_col": "product_id",
+          "metadata_target_col": "ltv",
+          "metadata_row_index": 61044
+        },
+        {
+          "input": "{\"timestamp\": \"2015-10-01T00:00:00\", \"product_id\": 61147, \"ltv\": 43.48}",
+          "output": "43.48",
+          "predict_sum": "N/A",
+          "predict_mean": "49.1929",
+          "predict_cama": "45.2586",
+          "metadata_fold": 1,
+          "metadata_task_type": "regression",
+          "metadata_entity_col": "product_id",
+          "metadata_target_col": "ltv",
+          "metadata_row_index": 61147
+        },
+        {
+          "input": "{\"timestamp\": \"2015-10-01T00:00:00\", \"product_id\": 61129, \"ltv\": 817.8799999999997}",
+          "output": "817.88",
+          "predict_sum": "N/A",
+          "predict_mean": "49.1929",
+          "predict_cama": "45.2586",
+          "metadata_fold": 1,
+          "metadata_task_type": "regression",
+          "metadata_entity_col": "product_id",
+          "metadata_target_col": "ltv",
+          "metadata_row_index": 61129
+        },
+        {
+          "input": "{\"timestamp\": \"2015-10-01T00:00:00\", \"product_id\": 60979, \"ltv\": 921.599999999999}",
+          "output": "921.6",
+          "predict_sum": "N/A",
+          "predict_mean": "49.1929",
+          "predict_cama": "45.2586",
+          "metadata_fold": 1,
+          "metadata_task_type": "regression",
+          "metadata_entity_col": "product_id",
+          "metadata_target_col": "ltv",
+          "metadata_row_index": 60979
+        },
+        {
+          "input": "{\"timestamp\": \"2015-10-01T00:00:00\", \"product_id\": 61180, \"ltv\": 59.52}",
+          "output": "59.52",
+          "predict_sum": "N/A",
+          "predict_mean": "49.1929",
+          "predict_cama": "45.2586",
+          "metadata_fold": 1,
+          "metadata_task_type": "regression",
+          "metadata_entity_col": "product_id",
+          "metadata_target_col": "ltv",
+          "metadata_row_index": 61180
+        },
+        {
+          "input": "{\"timestamp\": \"2015-10-01T00:00:00\", \"product_id\": 61144, \"ltv\": 1509.82}",
+          "output": "1509.82",
+          "predict_sum": "N/A",
+          "predict_mean": "49.1929",
+          "predict_cama": "45.2586",
+          "metadata_fold": 1,
+          "metadata_task_type": "regression",
+          "metadata_entity_col": "product_id",
+          "metadata_target_col": "ltv",
+          "metadata_row_index": 61144
+        },
+        {
+          "input": "{\"timestamp\": \"2015-10-01T00:00:00\", \"product_id\": 61346, \"ltv\": 359.37}",
+          "output": "359.37",
+          "predict_sum": "N/A",
+          "predict_mean": "49.1929",
+          "predict_cama": "45.2586",
+          "metadata_fold": 1,
+          "metadata_task_type": "regression",
+          "metadata_entity_col": "product_id",
+          "metadata_target_col": "ltv",
+          "metadata_row_index": 61346
+        },
+        {
+          "input": "{\"timestamp\": \"2015-10-01T00:00:00\", \"product_id\": 61387, \"ltv\": 61.67000000000001}",
+          "output": "61.67",
+          "predict_sum": "N/A",
+          "predict_mean": "49.1929",
+          "predict_cama": "45.2586",
+          "metadata_fold": 1,
+          "metadata_task_type": "regression",
+          "metadata_entity_col": "product_id",
+          "metadata_target_col": "ltv",
+          "metadata_row_index": 61387
+        },
+        {
+          "input": "{\"timestamp\": \"2015-10-01T00:00:00\", \"product_id\": 61376, \"ltv\": 474.6599999999997}",
+          "output": "474.66",
+          "predict_sum": "N/A",
+          "predict_mean": "49.1929",
+          "predict_cama": "45.2586",
+          "metadata_fold": 1,
+          "metadata_task_type": "regression",
+          "metadata_entity_col": "product_id",
+          "metadata_target_col": "ltv",
+          "metadata_row_index": 61376
+        },
+        {
+          "input": "{\"timestamp\": \"2015-10-01T00:00:00\", \"product_id\": 62388, \"ltv\": 8.13}",
+          "output": "8.13",
+          "predict_sum": "N/A",
+          "predict_mean": "49.1929",
+          "predict_cama": "45.2586",
+          "metadata_fold": 1,
+          "metadata_task_type": "regression",
+          "metadata_entity_col": "product_id",
+          "metadata_target_col": "ltv",
+          "metadata_row_index": 62388
+        },
+        {
+          "input": "{\"timestamp\": \"2015-10-01T00:00:00\", \"product_id\": 62508, \"ltv\": 427.2399999999998}",
+          "output": "427.24",
+          "predict_sum": "N/A",
+          "predict_mean": "49.1929",
+          "predict_cama": "45.2586",
+          "metadata_fold": 1,
+          "metadata_task_type": "regression",
+          "metadata_entity_col": "product_id",
+          "metadata_target_col": "ltv",
+          "metadata_row_index": 62508
+        },
+        {
+          "input": "{\"timestamp\": \"2015-10-01T00:00:00\", \"product_id\": 62470, \"ltv\": 57.0}",
+          "output": "57.0",
+          "predict_sum": "N/A",
+          "predict_mean": "49.1929",
+          "predict_cama": "45.2586",
+          "metadata_fold": 1,
+          "metadata_task_type": "regression",
+          "metadata_entity_col": "product_id",
+          "metadata_target_col": "ltv",
+          "metadata_row_index": 62470
+        },
+        {
+          "input": "{\"timestamp\": \"2015-10-01T00:00:00\", \"product_id\": 62522, \"ltv\": 159.84}",
+          "output": "159.84",
+          "predict_sum": "N/A",
+          "predict_mean": "49.1929",
+          "predict_cama": "45.2586",
+          "metadata_fold": 1,
+          "metadata_task_type": "regression",
+          "metadata_entity_col": "product_id",
+          "metadata_target_col": "ltv",
+          "metadata_row_index": 62522
+        },
+        {
+          "input": "{\"timestamp\": \"2015-10-01T00:00:00\", \"product_id\": 62447, \"ltv\": 175.75}",
+          "output": "175.75",
+          "predict_sum": "N/A",
+          "predict_mean": "49.1929",
+          "predict_cama": "45.2586",
+          "metadata_fold": 1,
+          "metadata_task_type": "regression",
+          "metadata_entity_col": "product_id",
+          "metadata_target_col": "ltv",
+          "metadata_row_index": 62447
+        },
+        {
+          "input": "{\"timestamp\": \"2015-10-01T00:00:00\", \"product_id\": 60967, \"ltv\": 149.9}",
+          "output": "149.9",
+          "predict_sum": "N/A",
+          "predict_mean": "49.1929",
+          "predict_cama": "45.2586",
+          "metadata_fold": 1,
+          "metadata_task_type": "regression",
+          "metadata_entity_col": "product_id",
+          "metadata_target_col": "ltv",
+          "metadata_row_index": 60967
+        },
+        {
+          "input": "{\"timestamp\": \"2015-10-01T00:00:00\", \"product_id\": 60953, \"ltv\": 24.91}",
+          "output": "24.91",
+          "predict_sum": "N/A",
+          "predict_mean": "49.1929",
+          "predict_cama": "45.2586",
+          "metadata_fold": 1,
+          "metadata_task_type": "regression",
+          "metadata_entity_col": "product_id",
+          "metadata_target_col": "ltv",
+          "metadata_row_index": 60953
+        },
+        {
+          "input": "{\"timestamp\": \"2015-10-01T00:00:00\", \"product_id\": 60897, \"ltv\": 137.7}",
+          "output": "137.7",
+          "predict_sum": "N/A",
+          "predict_mean": "49.1929",
+          "predict_cama": "45.2586",
+          "metadata_fold": 1,
+          "metadata_task_type": "regression",
+          "metadata_entity_col": "product_id",
+          "metadata_target_col": "ltv",
+          "metadata_row_index": 60897
+        }
+      ]
+    }
+  ]
+}

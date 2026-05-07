@@ -1,0 +1,129 @@
+\relax 
+\providecommand\hyper@newdestlabel[2]{}
+\providecommand\HyperFirstAtBeginDocument{\AtBeginDocument}
+\HyperFirstAtBeginDocument{\ifx\hyper@anchor\@undefined
+\global\let\oldnewlabel\newlabel
+\gdef\newlabel#1#2{\newlabelxx{#1}#2}
+\gdef\newlabelxx#1#2#3#4#5#6{\oldnewlabel{#1}{{#2}{#3}}}
+\AtEndDocument{\ifx\hyper@anchor\@undefined
+\let\newlabel\oldnewlabel
+\fi}
+\fi}
+\global\let\hyper@last\relax 
+\gdef\HyperFirstAtBeginDocument#1{#1}
+\providecommand\HyField@AuxAddToFields[1]{}
+\providecommand\HyField@AuxAddToCoFields[2]{}
+\bibstyle{plainnat}
+\citation{Robinson2024,Fey2024}
+\citation{Hamilton2017}
+\citation{Xu2019}
+\citation{Robinson2024}
+\@writefile{toc}{\contentsline {section}{\numberline {1}Introduction}{1}{section.1}\protected@file@percent }
+\newlabel{sec:intro}{{1}{1}{Introduction}{section.1}{}}
+\citation{Corso2020}
+\citation{Robinson2024}
+\citation{Schneckenreiter2024}
+\citation{Kortvelesy2023}
+\citation{Hamilton2017}
+\citation{Xu2019}
+\citation{Corso2020}
+\citation{Kortvelesy2023}
+\citation{Velickovic2018}
+\citation{Schneckenreiter2024}
+\@writefile{lof}{\contentsline {figure}{\numberline {1}{\ignorespaces Overview of Cardinality-Aware Moment Aggregation (CAMA). Left: standard mean aggregation at a foreign-key join compresses $N$ child embeddings into a single centroid $\mu $, discarding distributional information. Right: CAMA computes both the mean $\mu $ and per-dimension variance $\sigma ^2$ of child embeddings, then injects variance through a learned projection gated by a sigmoid function conditioned on log-cardinality. For small FK groups (low $N$), the gate closes and CAMA reduces to standard mean aggregation. For large groups (high $N$), the gate opens to enrich the parent representation with distributional information.}}{3}{figure.1}\protected@file@percent }
+\newlabel{fig:cama_overview}{{1}{3}{Overview of Cardinality-Aware Moment Aggregation (CAMA). Left: standard mean aggregation at a foreign-key join compresses $N$ child embeddings into a single centroid $\mu $, discarding distributional information. Right: CAMA computes both the mean $\mu $ and per-dimension variance $\sigma ^2$ of child embeddings, then injects variance through a learned projection gated by a sigmoid function conditioned on log-cardinality. For small FK groups (low $N$), the gate closes and CAMA reduces to standard mean aggregation. For large groups (high $N$), the gate opens to enrich the parent representation with distributional information}{figure.1}{}}
+\@writefile{toc}{\contentsline {section}{\numberline {2}Related Work}{3}{section.2}\protected@file@percent }
+\newlabel{sec:related}{{2}{3}{Related Work}{section.2}{}}
+\@writefile{toc}{\contentsline {subsection}{\numberline {2.1}Aggregation in Graph Neural Networks}{3}{subsection.2.1}\protected@file@percent }
+\@writefile{toc}{\contentsline {subsection}{\numberline {2.2}Variance in GNN Aggregation}{3}{subsection.2.2}\protected@file@percent }
+\citation{Roth2024a}
+\citation{Dong2021}
+\citation{Roth2024b}
+\citation{NaitSaada2024}
+\citation{Alon2021}
+\citation{Robinson2024}
+\citation{Fey2024}
+\citation{Chen2025}
+\citation{Wang2025}
+\citation{Robinson2024,Fey2024}
+\@writefile{toc}{\contentsline {subsection}{\numberline {2.3}Representational Collapse in GNNs}{4}{subsection.2.3}\protected@file@percent }
+\@writefile{toc}{\contentsline {subsection}{\numberline {2.4}Relational Deep Learning}{4}{subsection.2.4}\protected@file@percent }
+\@writefile{toc}{\contentsline {section}{\numberline {3}Methods}{4}{section.3}\protected@file@percent }
+\newlabel{sec:methods}{{3}{4}{Methods}{section.3}{}}
+\@writefile{toc}{\contentsline {subsection}{\numberline {3.1}Preliminaries}{4}{subsection.3.1}\protected@file@percent }
+\newlabel{sec:prelim}{{3.1}{4}{Preliminaries}{subsection.3.1}{}}
+\citation{Hamilton2017}
+\citation{Roy2007}
+\citation{Hamilton2017}
+\newlabel{eq:mpnn}{{1}{5}{Preliminaries}{equation.3.1}{}}
+\@writefile{toc}{\contentsline {subsection}{\numberline {3.2}Information Compression at FK Aggregation}{5}{subsection.3.2}\protected@file@percent }
+\newlabel{sec:info_compression}{{3.2}{5}{Information Compression at FK Aggregation}{subsection.3.2}{}}
+\newlabel{eq:erank}{{2}{5}{Information Compression at FK Aggregation}{equation.3.2}{}}
+\@writefile{toc}{\contentsline {subsection}{\numberline {3.3}CAMA Formulation}{5}{subsection.3.3}\protected@file@percent }
+\newlabel{sec:cama}{{3.3}{5}{CAMA Formulation}{subsection.3.3}{}}
+\newlabel{eq:moments}{{3}{5}{CAMA Formulation}{equation.3.3}{}}
+\newlabel{eq:gate}{{4}{5}{CAMA Formulation}{equation.3.4}{}}
+\newlabel{eq:output}{{5}{5}{CAMA Formulation}{equation.3.5}{}}
+\citation{Robinson2024}
+\citation{Corso2020}
+\citation{DerSimonian1986}
+\@writefile{toc}{\contentsline {subsection}{\numberline {3.4}Integration into PyTorch Geometric}{6}{subsection.3.4}\protected@file@percent }
+\newlabel{sec:integration}{{3.4}{6}{Integration into PyTorch Geometric}{subsection.3.4}{}}
+\@writefile{toc}{\contentsline {section}{\numberline {4}Experiments}{6}{section.4}\protected@file@percent }
+\newlabel{sec:experiments}{{4}{6}{Experiments}{section.4}{}}
+\@writefile{toc}{\contentsline {subsection}{\numberline {4.1}Experimental Setup}{6}{subsection.4.1}\protected@file@percent }
+\newlabel{sec:setup}{{4.1}{6}{Experimental Setup}{subsection.4.1}{}}
+\@writefile{toc}{\contentsline {subsection}{\numberline {4.2}Main Results}{7}{subsection.4.2}\protected@file@percent }
+\newlabel{sec:main_results}{{4.2}{7}{Main Results}{subsection.4.2}{}}
+\@writefile{lot}{\contentsline {table}{\numberline {1}{\ignorespaces Main results on 8 RelBench entity-level tasks. Values are mean $\pm $ std across seeds. $d$: Cohen's $d$ for CAMA vs.\ Mean (positive = CAMA better). $^\dagger $Val-only evaluation (test labels unavailable). Bold indicates the better result per task.}}{7}{table.1}\protected@file@percent }
+\newlabel{tab:main}{{1}{7}{Main results on 8 RelBench entity-level tasks. Values are mean $\pm $ std across seeds. $d$: Cohen's $d$ for CAMA vs.\ Mean (positive = CAMA better). $^\dagger $Val-only evaluation (test labels unavailable). Bold indicates the better result per task}{table.1}{}}
+\@writefile{toc}{\contentsline {subsection}{\numberline {4.3}Effect Size Meta-Analysis}{7}{subsection.4.3}\protected@file@percent }
+\newlabel{sec:meta}{{4.3}{7}{Effect Size Meta-Analysis}{subsection.4.3}{}}
+\@writefile{toc}{\contentsline {subsection}{\numberline {4.4}Component Ablation}{7}{subsection.4.4}\protected@file@percent }
+\newlabel{sec:ablation}{{4.4}{7}{Component Ablation}{subsection.4.4}{}}
+\@writefile{lof}{\contentsline {figure}{\numberline {2}{\ignorespaces Forest plot of per-task Cohen's $d$ for CAMA vs.\ mean aggregation with 95\% confidence intervals. Classification tasks (blue) show consistently positive effects; regression tasks (red) are mixed. Diamonds represent pooled DerSimonian--Laird random-effects estimates. The overall pooled effect is $d = 0.88$ ($p = 0.24$, $I^2 = 85\%$), decomposing into a classification-specific benefit ($d = 2.13$) and a null regression effect ($d = 0.23$). The vertical dashed line at $d = 0$ marks no effect.}}{8}{figure.2}\protected@file@percent }
+\newlabel{fig:forest}{{2}{8}{Forest plot of per-task Cohen's $d$ for CAMA vs.\ mean aggregation with 95\% confidence intervals. Classification tasks (blue) show consistently positive effects; regression tasks (red) are mixed. Diamonds represent pooled DerSimonian--Laird random-effects estimates. The overall pooled effect is $d = 0.88$ ($p = 0.24$, $I^2 = 85\%$), decomposing into a classification-specific benefit ($d = 2.13$) and a null regression effect ($d = 0.23$). The vertical dashed line at $d = 0$ marks no effect}{figure.2}{}}
+\@writefile{lot}{\contentsline {table}{\numberline {2}{\ignorespaces Component ablation on rel-f1/driver-position (MAE $\downarrow $). $d$ vs.\ Mean: Cohen's $d$ relative to standard mean (positive = improvement). 5 seeds per method, 10 epochs.}}{8}{table.2}\protected@file@percent }
+\newlabel{tab:ablation}{{2}{8}{Component ablation on rel-f1/driver-position (MAE $\downarrow $). $d$ vs.\ Mean: Cohen's $d$ relative to standard mean (positive = improvement). 5 seeds per method, 10 epochs}{table.2}{}}
+\@writefile{lof}{\contentsline {figure}{\numberline {3}{\ignorespaces Component ablation on rel-f1/driver-position (MAE, lower is better). Each bar represents a different aggregation method evaluated over 5 seeds. Error bars show $\pm 1$ standard deviation. Variance injection improves over standard mean ($d = 1.80$, $p = 0.016$). Cardinality-based gating improves further ($d = 5.28$, $p < 10^{-4}$). Spectral rank conditioning adds no value: CAMA (no rank) matches CAMA (full) ($d = -0.13$, $p = 0.83$). CAMA outperforms PNA ($d = 3.25$, $p < 0.001$). LayerNorm degrades performance.}}{9}{figure.3}\protected@file@percent }
+\newlabel{fig:ablation}{{3}{9}{Component ablation on rel-f1/driver-position (MAE, lower is better). Each bar represents a different aggregation method evaluated over 5 seeds. Error bars show $\pm 1$ standard deviation. Variance injection improves over standard mean ($d = 1.80$, $p = 0.016$). Cardinality-based gating improves further ($d = 5.28$, $p < 10^{-4}$). Spectral rank conditioning adds no value: CAMA (no rank) matches CAMA (full) ($d = -0.13$, $p = 0.83$). CAMA outperforms PNA ($d = 3.25$, $p < 0.001$). LayerNorm degrades performance}{figure.3}{}}
+\citation{Chen2025}
+\@writefile{toc}{\contentsline {subsection}{\numberline {4.5}Sum-Aggregation Comparison}{10}{subsection.4.5}\protected@file@percent }
+\newlabel{sec:sum_comparison}{{4.5}{10}{Sum-Aggregation Comparison}{subsection.4.5}{}}
+\@writefile{toc}{\contentsline {subsection}{\numberline {4.6}Information Compression Measurement}{10}{subsection.4.6}\protected@file@percent }
+\newlabel{sec:compression}{{4.6}{10}{Information Compression Measurement}{subsection.4.6}{}}
+\@writefile{toc}{\contentsline {subsection}{\numberline {4.7}RelGNN Scope Validation}{10}{subsection.4.7}\protected@file@percent }
+\newlabel{sec:relgnn}{{4.7}{10}{RelGNN Scope Validation}{subsection.4.7}{}}
+\@writefile{lot}{\contentsline {table}{\numberline {3}{\ignorespaces Scope validation---RelGNN with and without CAMA.}}{11}{table.3}\protected@file@percent }
+\newlabel{tab:relgnn}{{3}{11}{Scope validation---RelGNN with and without CAMA}{table.3}{}}
+\@writefile{toc}{\contentsline {section}{\numberline {5}Discussion and Limitations}{11}{section.5}\protected@file@percent }
+\newlabel{sec:discussion}{{5}{11}{Discussion and Limitations}{section.5}{}}
+\@writefile{toc}{\contentsline {subsection}{\numberline {5.1}When Does CAMA Help?}{11}{subsection.5.1}\protected@file@percent }
+\newlabel{sec:when}{{5.1}{11}{When Does CAMA Help?}{subsection.5.1}{}}
+\@writefile{toc}{\contentsline {subsection}{\numberline {5.2}Relationship to Predictive Residual Message Passing}{11}{subsection.5.2}\protected@file@percent }
+\newlabel{sec:prmp}{{5.2}{11}{Relationship to Predictive Residual Message Passing}{subsection.5.2}{}}
+\@writefile{toc}{\contentsline {subsection}{\numberline {5.3}Limitations}{11}{subsection.5.3}\protected@file@percent }
+\newlabel{sec:limitations}{{5.3}{11}{Limitations}{subsection.5.3}{}}
+\citation{Chen2025}
+\citation{Roth2024a}
+\bibdata{references}
+\bibcite{Alon2021}{{1}{2021}{{Alon and Yahav}}{{}}}
+\bibcite{Chen2025}{{2}{2025}{{Chen et~al.}}{{Chen, Kanatsoulis, and Leskovec}}}
+\@writefile{toc}{\contentsline {section}{\numberline {6}Conclusion}{12}{section.6}\protected@file@percent }
+\newlabel{sec:conclusion}{{6}{12}{Conclusion}{section.6}{}}
+\bibcite{Corso2020}{{3}{2020}{{Corso et~al.}}{{Corso, Cavalleri, Beaini, Li\`{o}, and Velickovic}}}
+\bibcite{DerSimonian1986}{{4}{1986}{{DerSimonian and Laird}}{{}}}
+\bibcite{Dong2021}{{5}{2021}{{Dong et~al.}}{{Dong, Cordonnier, and Loukas}}}
+\bibcite{Fey2024}{{6}{2024}{{Fey et~al.}}{{Fey, Hu, Huang, Lenssen, Ranjan, Robinson, Ying, You, and Leskovec}}}
+\bibcite{Hamilton2017}{{7}{2017}{{Hamilton et~al.}}{{Hamilton, Ying, and Leskovec}}}
+\bibcite{Kortvelesy2023}{{8}{2023}{{Kortvelesy et~al.}}{{Kortvelesy, Morad, and Prorok}}}
+\bibcite{Robinson2024}{{9}{2024}{{Robinson et~al.}}{{Robinson, Ranjan, Hu, Huang, Han, Dobles, Fey, Lenssen, Yuan, Zhang, He, and Leskovec}}}
+\bibcite{Roth2024a}{{10}{2024}{{Roth and Liebig}}{{}}}
+\bibcite{Roth2024b}{{11}{2024}{{Roth et~al.}}{{Roth, Bause, Kriege, and Liebig}}}
+\bibcite{Roy2007}{{12}{2007}{{Roy and Vetterli}}{{}}}
+\bibcite{NaitSaada2024}{{13}{2024}{{Saada et~al.}}{{Saada, Naderi, and Tanner}}}
+\bibcite{Schneckenreiter2024}{{14}{2024}{{Schneckenreiter et~al.}}{{Schneckenreiter, Freinschlag, Sestak, Brandstetter, Klambauer, and Mayr}}}
+\bibcite{Velickovic2018}{{15}{2018}{{Velickovic et~al.}}{{Velickovic, Cucurull, Casanova, Romero, Li\`{o}, and Bengio}}}
+\bibcite{Wang2025}{{16}{2025}{{Wang et~al.}}{{Wang, Wang, Gan, Wang, Yang, Wipf, and Zhang}}}
+\bibcite{Xu2019}{{17}{2019}{{Xu et~al.}}{{Xu, Hu, Leskovec, and Jegelka}}}
+\gdef \@abspage@last{14}

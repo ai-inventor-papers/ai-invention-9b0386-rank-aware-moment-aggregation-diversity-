@@ -1,0 +1,38 @@
+{
+  "method": "sum",
+  "task": "driver-dnf",
+  "seed": 1024,
+  "dataset": "rel-f1",
+  "hyperparams": {
+    "channels": 128,
+    "lr": 0.005,
+    "epochs": 10,
+    "batch_size": 512,
+    "num_neighbors": 128,
+    "num_layers": 2
+  },
+  "val_metrics": {
+    "average_precision": 0.8982954202716371,
+    "accuracy": 0.7791519434628975,
+    "f1": 0.8758689175769613
+  },
+  "test_metrics": {
+    "average_precision": 0.8982954202716371,
+    "accuracy": 0.7791519434628975,
+    "f1": 0.8758689175769613
+  },
+  "best_epoch": 10,
+  "train_time_seconds": 10.8,
+  "train_losses": [
+    0.388,
+    0.366,
+    0.3426,
+    0.3231,
+    0.3118,
+    0.3112,
+    0.3149,
+    0.3098,
+    0.3131,
+    0.307
+  ]
+}

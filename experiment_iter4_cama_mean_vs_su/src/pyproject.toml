@@ -1,0 +1,38 @@
+[project]
+name = "cama-aggregation-experiment"
+version = "0.1.0"
+requires-python = ">=3.11,<3.12"
+description = "CAMA (Cardinality-Aware Moment Aggregation) experiment on rel-f1 dataset"
+dependencies = [
+    "torch==2.5.1",
+    "torchvision==0.20.1",
+    "torch-geometric==2.7.0",
+    "pytorch-frame==0.3.0",
+    "pyg-lib==0.4.0",
+    "relbench==2.1.1",
+    "numpy==2.2.6",
+    "pandas==2.3.3",
+    "scipy==1.15.3",
+    "scikit-learn==1.7.2",
+    "statsmodels==0.14.6",
+    "tensorboard==2.20.0",
+    "loguru==0.7.3",
+    "tqdm==4.67.3",
+    "matplotlib==3.10.8",
+    "seaborn==0.13.2",
+    "datasets==4.6.1",
+    "huggingface_hub==1.5.0",
+    "pyarrow==23.0.1",
+    "requests==2.32.5",
+    "filelock==3.25.0",
+    "fsspec==2026.2.0",
+    "packaging==26.0",
+    "PyYAML==6.0.3",
+    "typing_extensions==4.15.0",
+    "safetensors==0.7.0",
+    "jsonschema==4.26.0",
+]
+
+[build-system]
+requires = ["setuptools>=61.0"]
+build-backend = "setuptools.backends._legacy:_Backend"

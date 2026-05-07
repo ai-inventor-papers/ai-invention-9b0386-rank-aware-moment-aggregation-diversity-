@@ -1,0 +1,35 @@
+[project]
+name = "spectral-rank-sum-vs-mean"
+version = "0.1.0"
+requires-python = ">=3.11,<3.12"
+description = "Spectral Rank Under Sum vs Mean Aggregation: Validating the Information-Compression Mechanism at FK Joins"
+dependencies = [
+    "torch==2.4.1",
+    "torch-geometric==2.7.0",
+    "torch-scatter==2.1.2",
+    "torch-sparse==0.6.18",
+    "torch-cluster==1.6.3",
+    "pyg-lib==0.4.0",
+    "pytorch-frame==0.3.0",
+    "relbench==2.1.1",
+    "scipy==1.17.1",
+    "loguru==0.7.3",
+    "numpy==2.4.3",
+    "pandas==3.0.1",
+    "scikit-learn==1.6.1",
+    "tensorboard==2.20.0",
+    "datasets==4.8.3",
+    "pyarrow==23.0.1",
+    "tqdm==4.67.3",
+    "tabulate==0.10.0",
+    "duckdb==1.5.0",
+    "pooch==1.9.0",
+    "psutil==7.2.2",
+]
+
+[tool.uv]
+# PyTorch CUDA 12.4 wheels
+extra-index-url = [
+    "https://download.pytorch.org/whl/cu124",
+    "https://data.pyg.org/whl/torch-2.4.0+cu124.html",
+]

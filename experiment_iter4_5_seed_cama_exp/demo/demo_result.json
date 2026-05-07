@@ -1,0 +1,13 @@
+{
+  "id": "exp_id2_it4__opus",
+  "type": "code",
+  "title": "5-Seed CAMA Experiments on rel-stack/user-engagement, rel-trial/study-outcome, rel-trial/study-adverse",
+  "summary": "Demo notebook analyzing pre-computed results from 30 training runs (2 methods x 3 tasks x 5 seeds) comparing HeteroSAGE+mean baseline vs HeteroSAGE+CAMA. Demonstrates the CAMAAggregation PyTorch module, re-computes Cohen's d with 10000-sample bootstrap 95% CI, analyzes learned gate values per edge type, and diagnoses study-adverse degenerate baselines. Includes a 3-panel visualization: per-seed metric comparison, effect size with CI, and gate deviation from 0.5. Data from rel-trial/study-outcome, rel-trial/study-adverse, and rel-stack/user-engagement tasks.",
+  "original_path": "/ai-inventor/aii_pipeline/runs/leskovec-predictive-residual-message-passing-v2_sti/3_invention_loop/iter_4/gen_art/exp_id2_it4__opus",
+  "demo_path": "/ai-inventor/aii_pipeline/runs/leskovec-predictive-residual-message-passing-v2_sti/4_gen_paper_repo/exp_id2_it4__opus",
+  "out_expected_files": {
+    "notebook": "code_demo.ipynb",
+    "mini_data_file": "mini_demo_data.json"
+  },
+  "notebook_path": "/ai-inventor/aii_pipeline/runs/leskovec-predictive-residual-message-passing-v2_sti/4_gen_paper_repo/exp_id2_it4__opus/method_code_demo.ipynb"
+}

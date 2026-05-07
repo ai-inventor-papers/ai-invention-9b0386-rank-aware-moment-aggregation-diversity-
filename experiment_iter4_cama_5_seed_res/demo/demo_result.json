@@ -1,0 +1,13 @@
+{
+  "id": "exp_id3_it4__opus",
+  "type": "code",
+  "title": "CAMA 5-Seed Results on Amazon item-ltv + Avito Negative Gate Init Fix",
+  "summary": "Demo notebook for the CAMA (Cardinality-Aware Moment Aggregation) 5-seed experiment comparing mean aggregation vs CAMA variants on Amazon item-ltv and Avito ad-ctr GNN tasks. The notebook: (1) implements and unit-tests the CAMAAggregation module with gate_bias parameterization on synthetic data, (2) loads pre-computed 5-seed results, (3) performs statistical analysis (Cohen's d, paired t-test, Wilcoxon) comparing methods, and (4) visualizes per-seed MAE comparisons, training loss curves, and effect sizes. Key findings: Amazon CAMA degraded (d=-1.38), Avito CAMA-default was 4.7% worse, and negative gate init (gb=-3) failed the 5% safety check at 14.7% worse.",
+  "original_path": "/ai-inventor/aii_pipeline/runs/leskovec-predictive-residual-message-passing-v2_sti/3_invention_loop/iter_4/gen_art/exp_id3_it4__opus",
+  "demo_path": "/ai-inventor/aii_pipeline/runs/leskovec-predictive-residual-message-passing-v2_sti/4_gen_paper_repo/exp_id3_it4__opus",
+  "out_expected_files": {
+    "notebook": "code_demo.ipynb",
+    "mini_data_file": "mini_demo_data.json"
+  },
+  "notebook_path": "/ai-inventor/aii_pipeline/runs/leskovec-predictive-residual-message-passing-v2_sti/4_gen_paper_repo/exp_id3_it4__opus/method_code_demo.ipynb"
+}

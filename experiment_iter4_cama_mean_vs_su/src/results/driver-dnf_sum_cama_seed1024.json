@@ -1,0 +1,38 @@
+{
+  "method": "sum_cama",
+  "task": "driver-dnf",
+  "seed": 1024,
+  "dataset": "rel-f1",
+  "hyperparams": {
+    "channels": 128,
+    "lr": 0.005,
+    "epochs": 10,
+    "batch_size": 512,
+    "num_neighbors": 128,
+    "num_layers": 2
+  },
+  "val_metrics": {
+    "average_precision": 0.8968011161373648,
+    "accuracy": 0.7791519434628975,
+    "f1": 0.8758689175769613
+  },
+  "test_metrics": {
+    "average_precision": 0.8968011161373648,
+    "accuracy": 0.7791519434628975,
+    "f1": 0.8758689175769613
+  },
+  "best_epoch": 4,
+  "train_time_seconds": 13.2,
+  "train_losses": [
+    0.3862,
+    0.3559,
+    0.3218,
+    0.3168,
+    0.3155,
+    0.3083,
+    0.311,
+    0.3128,
+    0.3095,
+    0.3068
+  ]
+}

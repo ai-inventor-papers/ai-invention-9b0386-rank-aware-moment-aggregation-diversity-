@@ -1,0 +1,180 @@
+{
+  "title": "RAMA Blueprint",
+  "summary": "Complete code-level specification for RAMA (Rank-Aware Moment Aggregation) as a PyG Aggregation subclass, with verified integration points in RelBench HeteroSAGE and RelGNN architectures, hyperparameter grid, evaluation protocol, and risk mitigations. Key finding: PyG's MessagePassing base class checks isinstance(self.aggr, str) before enabling fused message_and_aggregate, so custom Aggregation objects are safely dispatched through the separate message() then aggregate() path without bypass risk.",
+  "answer": "## SECTION A: PyG Aggregation API Surface\n\nRAMA must subclass `torch_geometric.nn.aggr.Aggregation`, which is PyG's abstract base class for all aggregation operations [1]. The required `forward()` method signature is:\n\n```python\ndef forward(\n    self,\n    x: Tensor,           # [num_edges, d] source features\n    index: Optional[Tensor] = None,  # [num_edges] mapping edges to target nodes\n    ptr: Optional[Tensor] = None,    # CSR pointers (alternative to index)\n    dim_size: Optional[int] = None,  # number of target nodes\n    dim: int = -2,\n    max_num_elements: Optional[int] = None,\n) -> Tensor:  # [dim_size, d]\n```\n\nThe base class also provides a `reduce()` helper method that performs scatter or segment reduction operations, accepting a `reduce` string argument ('sum', 'mean', 'min', 'max') [1]. This is used by built-in aggregations like `VarAggregation`.\n\n**Variance computation pattern (from VarAggregation)**: PyG's built-in `VarAggregation` computes variance using the identity `Var(X) = E[X^2] - E[X]^2` via two `reduce()` calls [2]:\n```python\nmean = self.reduce(x, index, ptr, dim_size, dim, reduce='mean')\nmean2 = self.reduce(x * x, index, ptr, dim_size, dim, 'mean')\nvariance = mean2 - mean * mean\n```\nThe `semi_grad` parameter optionally wraps the second computation in `torch.no_grad()` to save memory [2].\n\n**MultiAggregation**: Dispatches to a `ModuleList` of child aggregators and combines outputs via configurable modes: 'cat', 'proj', 'sum', 'mean', 'max', 'min', 'attn' [3]. Fusable aggregations (those in `FusedAggregation.FUSABLE_AGGRS`) are grouped for efficiency. RAMA could potentially be implemented as a MultiAggregation variant, but a dedicated subclass is cleaner.\n\n**DegreeScalerAggregation (PNA)**: Wraps base aggregators with degree-based scaling [4]. It precomputes `avg_deg_lin` and `avg_deg_log` from a training-set degree histogram, then at runtime computes node degrees via `degree(index, num_nodes=dim_size)`. Five scalers are supported: identity, amplification (`log(deg+1)/avg_deg_log`), attenuation (inverse), linear (`deg/avg_deg_lin`), and inverse_linear [4]. This is the closest existing mechanism to RAMA's cardinality-conditioned gating. Key difference: PNA's scalers are handcrafted functions of degree only, while RAMA learns a gating function of both cardinality AND variance entropy.\n\n## SECTION B: HeteroSAGE Integration Points\n\n**HeteroGraphSAGE architecture**: The class creates per-edge-type SAGEConv layers wrapped in HeteroConv [5]:\n```python\nHeteroConv({\n    edge_type: SAGEConv((channels, channels), channels, aggr=aggr)\n    for edge_type in edge_types\n}, aggr=\"sum\")\n```\nThe within-edge-type `aggr` parameter on SAGEConv (default: \"mean\") is where RAMA replaces mean aggregation. The cross-edge-type `aggr=\"sum\"` on HeteroConv is NOT touched by RAMA [5].\n\n**SAGEConv aggr parameter**: Accepts `Union[str, List[str], Aggregation]` with default \"mean\" [6]. This means a custom `Aggregation` subclass instance can be passed directly:\n```python\nSAGEConv((ch, ch), ch, aggr=RAMAAggregation(ch, gate_hidden=16))\n```\n\n**CRITICAL FINDING - message_and_aggregate bypass risk is RESOLVED**: SAGEConv implements `message_and_aggregate()` which calls `spmm(adj_t, x[0], reduce=self.aggr)` [6]. However, the MessagePassing base class sets `self.fuse` based on [7]:\n```python\nself.fuse = self.inspector.implements('message_and_aggregate')\nif self.aggr is not None:\n    self.fuse &= isinstance(self.aggr, str) and self.aggr in FUSE_AGGRS\n```\nSince a custom Aggregation object is NOT a string, `isinstance(self.aggr, str)` returns False, `self.fuse` becomes False, and PyG falls back to the separate `message()` -> `aggregate()` path [7, 8]. The `aggregate()` method then delegates to `self.aggr_module(inputs, index, ptr=ptr, dim_size=dim_size, dim=self.node_dim)`, which calls the custom Aggregation's `forward()` [7]. **No SAGEConv source code changes are needed.**\n\n**Parameter flow**: `args.aggr` -> `Model(aggr=args.aggr)` -> `HeteroGraphSAGE(aggr=aggr)` -> `SAGEConv(aggr=aggr)` [9, 10]. Note: `gnn_entity.py` defaults aggr to \"sum\" [9], while `HeteroGraphSAGE` constructor defaults to \"mean\" [5]. The actual value used depends on which is passed.\n\n**RAMA integration recipe for HeteroSAGE**:\n```python\n# In model.py or gnn_entity.py:\nfrom rama import RAMAAggregation\nrama_aggr = RAMAAggregation(channels=128, gate_hidden=16)\nmodel = Model(data=data, ..., aggr=rama_aggr, ...)\n# This flows through to: SAGEConv((128, 128), 128, aggr=rama_aggr)\n```\n\n## SECTION C: RelGNN Integration Points\n\n**RelGNN composite message passing** has three distinct aggregation points [11, 12, 13]:\n\n1. **Within-route SAGEConv aggregation (PRIMARY RAMA TARGET)**: In `RelGNNConv`, for dim-fact-dim routes: `self.aggr_conv = SAGEConv(in_channels, out_channels, aggr=aggr)` [11]. This handles the FK-join aggregation from source nodes to intermediate nodes. The computation is `src_attn = self.aggr_conv((src_aggr, dst_aggr), edge_aggr)` [11].\n\n2. **Cross-route summation (NOT targeted)**: In `RelGNN_HeteroConv`, the `group()` function sums/means outputs from different atomic routes per destination node type [12]. Equation (7): `h_dst^(l+1) = sum_t m_t^(l+1)` [14].\n\n3. **Attention aggregation**: TransformerConv uses multi-head attention for query-to-destination: `AGGR(h_dst, {h_fuse}) = W_proj * h_dst + sum alpha * W_V * h_fuse` with `alpha = softmax(Q^T K / sqrt(d))` [14].\n\n**RelGNN equations** [14]:\n- FUSE: `FUSE(h_mid, h_src) = W_1 * h_mid + W_2 * h_src` (Eq. 4)\n- AGGR: Multi-head attention aggregation (Eq. 5)\n- Composite MP: `m = AGGR(h_dst, {FUSE(h_mid, h_src)})` (Eq. 3)\n\n**Parameter propagation**: `RelGNN_Model(aggr=aggr)` -> `RelGNN(aggr=aggr)` -> `RelGNNConv(aggr=aggr)` -> `SAGEConv(aggr=aggr)` [13, 15].\n\n**Per-dataset RelGNN configs** [16]: Most tasks use aggr=\"sum\" with channels=128, except:\n- rel-trial study-adverse: aggr=\"mean\", channels=128, num_heads=2, batch_size=128, num_neighbors=64\n- rel-trial site-success: aggr=\"mean\", channels=128, num_heads=8, batch_size=128, num_neighbors=64\n- rel-stack post-votes: channels=64\n- rel-amazon item-churn: channels=256, num_model_layers=4\n- rel-amazon user-ltv: channels=32\n\n**RAMA integration recipe for RelGNN**:\n```python\n# In relgnn_conv.py, replace:\nself.aggr_conv = SAGEConv(in_channels, out_channels, aggr=aggr)\n# With:\nself.aggr_conv = SAGEConv(in_channels, out_channels, aggr=RAMAAggregation(out_channels))\n```\nChanges needed in `relgnn_nn.py` to propagate RAMA config: modify the RelGNN constructor to accept `rama_config` dict and pass it through to RelGNNConv [13].\n\n## SECTION D: RAMA Module Specification\n\n### Class Definition\n```python\nclass RAMAAggregation(Aggregation):\n    def __init__(self, channels: int, gate_hidden: int = 16, eps: float = 1e-8):\n        super().__init__()\n        self.channels = channels\n        self.gate_hidden = gate_hidden\n        self.eps = eps\n        \n        # Variance transform: Linear(d, d)\n        self.W_sigma = nn.Linear(channels, channels, bias=False)\n        # Gate MLP: [log(N+1), rho] -> hidden -> d\n        self.W_g = nn.Linear(2, gate_hidden)\n        self.gate_out = nn.Linear(gate_hidden, channels)\n        \n        self.reset_parameters()\n    \n    def reset_parameters(self):\n        # Zero-initialize so RAMA starts as pure mean aggregation\n        nn.init.zeros_(self.W_sigma.weight)\n        nn.init.zeros_(self.gate_out.weight)\n        nn.init.zeros_(self.gate_out.bias)\n        # Small random init for W_g to break symmetry\n        nn.init.xavier_uniform_(self.W_g.weight)\n        nn.init.zeros_(self.W_g.bias)\n```\n\n### Forward Method\n```python\ndef forward(self, x, index=None, ptr=None, dim_size=None, dim=-2, max_num_elements=None):\n    # x: [num_edges, d], index: [num_edges]\n    \n    # Step 1: Mean per parent group\n    # mu: [dim_size, d]\n    mu = self.reduce(x, index, ptr, dim_size, dim, reduce='mean')\n    \n    # Step 2: Per-dimension variance (two-pass)\n    # var: [dim_size, d]\n    mean_x2 = self.reduce(x * x, index, ptr, dim_size, dim, reduce='mean')\n    var = (mean_x2 - mu * mu).clamp(min=0)  # clamp for numerical stability\n    \n    # Step 3: Cardinality N per parent\n    ones = torch.ones(x.size(0), 1, device=x.device)\n    N = self.reduce(ones, index, ptr, dim_size, dim, reduce='sum')  # [dim_size, 1]\n    \n    # Step 4: Effective rank proxy (variance entropy)\n    var_sum = var.sum(dim=-1, keepdim=True).clamp(min=self.eps)  # [dim_size, 1]\n    p = var / var_sum  # normalized variance distribution [dim_size, d]\n    p = p.clamp(min=self.eps)  # avoid log(0)\n    H = -(p * p.log()).sum(dim=-1, keepdim=True)  # Shannon entropy [dim_size, 1]\n    log_d = math.log(self.channels)  # max entropy = log(d)\n    rho = H / log_d  # normalized to [0, 1], [dim_size, 1]\n    \n    # Step 5: Gate computation\n    gate_input = torch.cat([torch.log1p(N), rho], dim=-1)  # [dim_size, 2]\n    g = torch.sigmoid(self.gate_out(F.relu(self.W_g(gate_input))))  # [dim_size, d]\n    \n    # Step 6: Output\n    out = mu + g * self.W_sigma(var)  # [dim_size, d]\n    return out\n```\n\n### Tensor Shapes at Each Step\n- Input: `x` [E, d], `index` [E] where E = num_edges, d = channels\n- `mu`: [N_parents, d]\n- `mean_x2`: [N_parents, d]\n- `var`: [N_parents, d]\n- `N`: [N_parents, 1]\n- `p`: [N_parents, d]\n- `H`: [N_parents, 1]\n- `rho`: [N_parents, 1]\n- `gate_input`: [N_parents, 2]\n- `g`: [N_parents, d]\n- `out`: [N_parents, d]\n\n### Gradient Flow Considerations\nUnlike PRMP's `.detach()` approach, RAMA has NO detachment -- gradients flow through mean, variance, rank proxy, and gate [17]. The gate sigmoid prevents gradient explosion from variance injection. Zero-initialization of `W_sigma` and `gate_out` means RAMA starts as pure mean aggregation (safe initialization) and gradually learns to inject variance information as training proceeds.\n\n### Effective Rank Proxy Rationale\nThe true effective rank (Roy & Vetterli 2007) uses SVD: `erank = exp(-sum_i p_i log p_i)` where `p_i = s_i / sum_j s_j` are normalized singular values [18, 19]. This is O(Nd^2) per group. RAMA's proxy uses per-dimension variance entropy instead: `rho = H(var) / log(d)` where `H(var) = -sum_j p_j log p_j` with `p_j = var_j / sum_k var_k`. This is O(Nd) -- critical for scalability. The proxy captures how uniformly information is distributed across embedding dimensions: high rho means variance is spread evenly (high effective rank), low rho means variance is concentrated in few dimensions (low effective rank) [18, 19, 20].\n\nThis proxy is validated by recent work showing that entropy of normalized singular values (spectral entropy) serves as a robust measure of representation quality in neural networks, with connections to the RankMe metric for self-supervised learning [20]. The dimension-wise variance approximation avoids the O(d^2) SVD cost while preserving the key signal about distributional spread.\n\n## SECTION E: Hyperparameter Grid and Evaluation Protocol\n\n### RelBench Default Hyperparameters [9, 21]\n| Parameter | Classification | Regression | Link Prediction |\n|-----------|---------------|------------|----------------|\n| Learning Rate | 0.005 | 0.005 | 0.001 |\n| Max Epochs | 10 | 10 | 20 |\n| Batch Size | 512 | 512 | 512 |\n| Hidden Features | 128 | 128 | 128 |\n| Aggregation | sum | sum | sum |\n| GNN Layers | 2 | 2 | 2 |\n| Neighbors | 128 | 128 | 128 |\n\nrel-trial required modified hyperparameters: \"mean\" aggregation and 64 sampled neighbors [21].\n\n### PRMP First Draft Evaluation Protocol [17, 22]\n- **Tasks**: 8-10 tasks across 5 datasets (Amazon, F1, Stack, HM, Avito)\n- **Seeds**: 5 seeds for primary analysis (some subsets used 2-3 seeds)\n- **Statistical tests**: DerSimonian-Laird random-effects meta-analysis, Cochran's Q test, Egger's test for publication bias\n- **Effect size**: Cohen's d = (mean_group2 - mean_group1) / pooled_sd, with directionality convention matching metric direction\n- **Metrics**: MAE/RMSE (regression), AUROC/AP (classification)\n\n### RAMA-Specific Hyperparameter Grid\n- `gate_hidden`: {8, 16, 32} -- controls gate MLP capacity\n- `variance_transform`: {\"none\", \"log1p\"} -- whether to apply log(1+var) before gating\n- `rank_proxy`: {\"variance_entropy\", \"none\"} -- ablation: gate with vs without rank signal\n- `init_strategy`: {\"zero\", \"small_random\"} -- how W_sigma is initialized\n- Base hyperparameters to sweep: lr in {0.001, 0.005}, channels in {64, 128}\n\n### Complete Task List for Evaluation [21]\nRelBench v1 has 30 tasks across 7 datasets:\n- **Entity Classification (12 tasks, ROC-AUC)**: rel-amazon user-churn, rel-amazon item-churn, rel-avito user-clicks, rel-avito user-visits, rel-event user-repeat, rel-event user-ignore, rel-f1 driver-dnf, rel-f1 driver-top3, rel-hm user-churn, rel-stack user-engagement, rel-stack user-badge, rel-trial study-outcome\n- **Entity Regression (9 tasks, MAE)**: rel-amazon user-ltv, rel-amazon item-ltv, rel-avito ad-ctr, rel-event user-attendance, rel-f1 driver-position, rel-hm item-sales, rel-stack post-votes, rel-trial study-adverse, rel-trial site-success\n- **Recommendation (9 tasks, MAP@K)**: rel-amazon user-item-{purchase,rate,review}, rel-avito user-ad-visit, rel-hm user-item-purchase, rel-stack {user-post-comment, post-post-related}, rel-trial {condition-sponsor-run, site-sponsor-run}\n\nMinimum evaluation set: All 12 classification + 9 regression tasks (21 entity-level tasks), as link prediction uses different prediction heads.\n\n### Baselines for Comparison\n- (A) Standard mean aggregation (HeteroGraphSAGE default)\n- (B) Standard sum aggregation (gnn_entity.py default)\n- (C) PRMP from first draft (for direct comparison)\n- (D) Standard + LayerNorm (confounder control)\n- (E) Ungated moment injection: mu + W_sigma(var) without gating (ablation)\n- (F) PNA-style MultiAggregation: [mean, std, max] with DegreeScaler (strongest baseline) [4, 23]\n- (G) VPA (1/sqrt(N) scaling) as alternative variance-aware baseline\n\n### Statistical Analysis Protocol\n- Minimum 5 seeds per configuration\n- Paired t-test or Wilcoxon signed-rank test per task\n- Pooled Cohen's d across tasks with 95% CI\n- DerSimonian-Laird random-effects meta-analysis for cross-task pooling [22]\n- Report both per-task and pooled results\n- Egger's test for funnel plot asymmetry [22]\n\n## SECTION F: Risk Analysis and Mitigations\n\n### Risk 1: SAGEConv message_and_aggregate bypass -- RESOLVED\n**Status**: SAFE. PyG's MessagePassing base class checks `isinstance(self.aggr, str) and self.aggr in FUSE_AGGRS` before enabling fused mode [7, 8]. Custom Aggregation objects fail the `isinstance` check, so `self.fuse = False`, and PyG falls back to separate `message()` -> `aggregate()` path. The `aggregate()` method delegates to `self.aggr_module(inputs, index, ptr=ptr, dim_size=dim_size, dim=self.node_dim)` [7]. **No source code changes needed.**\n\n### Risk 2: Variance computation requires two passes\n**Status**: MANAGEABLE. Variance cannot be computed in a single scatter pass. Two approaches [2, 24]:\n- **Approach A (VarAggregation style)**: `var = E[X^2] - E[X]^2` using two `self.reduce()` calls. Risk: numerical instability for large values (catastrophic cancellation).\n- **Approach B (Two-pass)**: First compute mean via `reduce('mean')`, then compute `reduce((x - mu[index])^2, 'mean')`. More numerically stable but requires indexing mu back to edges.\nRecommendation: Use Approach A (matching PyG convention) with `.clamp(min=0)` to handle numerical noise.\n\n### Risk 3: Numerical stability of entropy computation\n**Status**: MITIGATED with epsilon floors.\n- Zero variance entries: When all children have the same value in a dimension, var_j = 0. Use `eps=1e-8` floor before log [24].\n- N=1 case: Variance is zero for all dimensions, so p becomes uniform (after eps), H approaches log(d), rho approaches 1. The gate will learn to handle this -- with zero variance, `W_sigma(var)` is zero regardless.\n- N=0 case: No children means no aggregation needed. PyG handles this by returning zeros for empty groups [1].\n\n### Risk 4: Memory overhead\n**Status**: ACCEPTABLE. RAMA stores variance (same size as mean, [N_parents, d]) plus gate parameters (negligible: 2*gate_hidden + gate_hidden*d + d weights). Estimated ~2x memory for aggregation step vs mean-only. Compare to PNA which stores 4x (mean, std, min, max * scalers) [4, 23]. RAMA is more memory-efficient than PNA.\n\n### Risk 5: GPU non-determinism from scatter operations\n**Status**: DOCUMENTED. Scatter operations use atomic GPU operations that are inherently non-deterministic for floating-point values [24]. This affects all GNN training, not just RAMA. Mitigation: use multiple seeds (>=5) to capture variance.\n\n### Risk 6: Oversquashing and oversmoothing interaction\n**Status**: MONITORED. Variance injection could theoretically slow oversmoothing by preserving distributional information [25, 26]. However, with only 2 GNN layers (RelBench default), oversmoothing is unlikely to be a significant issue. The gating mechanism provides an implicit regularization against excessive variance injection.\n\n### Risk 7: aggr parameter type mismatch\n**Status**: NEEDS ATTENTION. The `Model` class in RelBench types `aggr` as `str` [10]. Passing an Aggregation object may trigger type warnings. The `aggr_resolver` function handles this correctly by checking if the input is already an Aggregation instance [27], but the Model constructor's type annotation should be updated to `Union[str, Aggregation]`.",
+  "sources": [
+    {
+      "index": 1,
+      "url": "https://raw.githubusercontent.com/pyg-team/pytorch_geometric/master/torch_geometric/nn/aggr/base.py",
+      "title": "PyG Aggregation Base Class Source Code",
+      "summary": "Provided the exact forward() signature RAMA must implement: forward(x, index, ptr, dim_size, dim, max_num_elements). Documented the reduce() helper method and assertion methods."
+    },
+    {
+      "index": 2,
+      "url": "https://raw.githubusercontent.com/pyg-team/pytorch_geometric/master/torch_geometric/nn/aggr/basic.py",
+      "title": "PyG Basic Aggregations (VarAggregation, StdAggregation, MeanAggregation)",
+      "summary": "Revealed VarAggregation computes variance as E[X^2]-E[X]^2 with semi_grad option. Established the pattern RAMA's variance computation should follow."
+    },
+    {
+      "index": 3,
+      "url": "https://raw.githubusercontent.com/pyg-team/pytorch_geometric/master/torch_geometric/nn/aggr/multi.py",
+      "title": "PyG MultiAggregation Source Code",
+      "summary": "Documented how multiple aggregators are dispatched and combined (cat, attention, proj modes). Confirmed RAMA should be a dedicated subclass rather than a MultiAggregation variant."
+    },
+    {
+      "index": 4,
+      "url": "https://raw.githubusercontent.com/pyg-team/pytorch_geometric/master/torch_geometric/nn/aggr/scaler.py",
+      "title": "PyG DegreeScalerAggregation (PNA) Source Code",
+      "summary": "Documented PNA's degree-based scaling mechanism with 5 scaler types. Established PNA as the closest existing mechanism to RAMA's cardinality conditioning, but using handcrafted scalers vs RAMA's learned gating."
+    },
+    {
+      "index": 5,
+      "url": "https://raw.githubusercontent.com/snap-stanford/relbench/main/relbench/modeling/nn.py",
+      "title": "RelBench HeteroGraphSAGE Source Code",
+      "summary": "Confirmed SAGEConv instantiation pattern with aggr parameter and HeteroConv wrapping with aggr='sum'. Default aggr is 'mean' in HeteroGraphSAGE constructor."
+    },
+    {
+      "index": 6,
+      "url": "https://raw.githubusercontent.com/pyg-team/pytorch_geometric/master/torch_geometric/nn/conv/sage_conv.py",
+      "title": "PyG SAGEConv Source Code",
+      "summary": "Confirmed aggr accepts Union[str, List[str], Aggregation]. Revealed message_and_aggregate() calls spmm directly, but this is safely handled by the MessagePassing fuse check."
+    },
+    {
+      "index": 7,
+      "url": "https://raw.githubusercontent.com/pyg-team/pytorch_geometric/master/torch_geometric/nn/conv/message_passing.py",
+      "title": "PyG MessagePassing Base Class Source Code",
+      "summary": "CRITICAL: Found the isinstance(self.aggr, str) check that prevents fused execution for custom Aggregation objects. Documented the separate message()->aggregate() fallback path and how aggregate() delegates to aggr_module."
+    },
+    {
+      "index": 8,
+      "url": "https://github.com/pyg-team/pytorch_geometric/pull/4379",
+      "title": "PyG LSTM Aggregator PR Discussion",
+      "summary": "Confirmed that self.fuse=False is the mechanism for non-standard aggregations. PyG maintainer (rusty1s) explained the design decision."
+    },
+    {
+      "index": 9,
+      "url": "https://raw.githubusercontent.com/snap-stanford/relbench/main/examples/gnn_entity.py",
+      "title": "RelBench gnn_entity.py Training Script",
+      "summary": "Documented default hyperparameters: lr=0.005, epochs=10, batch_size=512, channels=128, num_layers=2, num_neighbors=128, aggr='sum'. Shows complete training and evaluation loops."
+    },
+    {
+      "index": 10,
+      "url": "https://raw.githubusercontent.com/snap-stanford/relbench/main/examples/model.py",
+      "title": "RelBench Model Class Source Code",
+      "summary": "Traced aggr parameter flow: Model(aggr=) -> HeteroGraphSAGE(aggr=). Documented the complete model architecture with HeteroEncoder, HeteroTemporalEncoder, GNN, and MLP head."
+    },
+    {
+      "index": 11,
+      "url": "https://raw.githubusercontent.com/snap-stanford/RelGNN/main/examples/relgnn_conv.py",
+      "title": "RelGNN RelGNNConv Source Code",
+      "summary": "Confirmed self.aggr_conv = SAGEConv(in_channels, out_channels, aggr=aggr) for dim-fact-dim routes. Documented the two-pathway forward: dim-dim (TransformerConv) and dim-fact-dim (SAGEConv+TransformerConv)."
+    },
+    {
+      "index": 12,
+      "url": "https://raw.githubusercontent.com/snap-stanford/RelGNN/main/examples/relgnn_hetero_conv.py",
+      "title": "RelGNN RelGNN_HeteroConv Source Code",
+      "summary": "Documented cross-route aggregation via group() function. Confirmed that RAMA targets only within-route SAGEConv aggregation, not cross-route summation."
+    },
+    {
+      "index": 13,
+      "url": "https://raw.githubusercontent.com/snap-stanford/RelGNN/main/examples/relgnn_nn.py",
+      "title": "RelGNN Neural Network Architecture",
+      "summary": "Traced aggr propagation: RelGNN(aggr=) -> RelGNNConv(aggr=) -> SAGEConv(aggr=). Documented LayerNorm and ReLU between layers."
+    },
+    {
+      "index": 14,
+      "url": "https://arxiv.org/html/2502.06784v2",
+      "title": "RelGNN Paper: Composite Message Passing for Relational Deep Learning",
+      "summary": "Extracted all mathematical equations: FUSE (Eq.4), AGGR (Eq.5), Composite MP (Eq.3), attention coefficients, and node update (Eq.7). Confirmed RelGNN achieves SOTA on 27/30 RelBench tasks."
+    },
+    {
+      "index": 15,
+      "url": "https://raw.githubusercontent.com/snap-stanford/RelGNN/main/examples/relgnn_model.py",
+      "title": "RelGNN Model Class Source Code",
+      "summary": "Documented model architecture pipeline and aggr parameter flow to RelGNN core. Confirmed batch_norm normalization and atomic_routes initialization."
+    },
+    {
+      "index": 16,
+      "url": "https://raw.githubusercontent.com/snap-stanford/RelGNN/main/examples/utils.py",
+      "title": "RelGNN Per-Dataset Hyperparameter Configs",
+      "summary": "Extracted complete get_configs function with 27 dataset-task combinations. Most use aggr='sum', channels=128; exceptions include rel-trial (aggr='mean'), rel-stack post-votes (channels=64), rel-amazon item-churn (channels=256)."
+    },
+    {
+      "index": 17,
+      "url": "https://github.com/ai-inventor-outputs/ai-invention-b2d5b0-predictive-residual-message-passing-filt",
+      "title": "PRMP First Draft Repository",
+      "summary": "Documented PRMP evaluation methodology: 5 variants x 5 seeds x 3 tasks, gradient-detached ablations, cross-table R2 diagnostics, claims-to-evidence audits. 8-10 tasks across 5 datasets."
+    },
+    {
+      "index": 18,
+      "url": "https://www.eurasip.org/Proceedings/Eusipco/Eusipco2007/Papers/a5p-h05.pdf",
+      "title": "Roy & Vetterli 2007: The Effective Rank: A Measure of Effective Dimensionality",
+      "summary": "Original effective rank definition: erank(A) = exp(-sum_i p_i log p_i) where p_i = s_i/sum_j s_j are normalized singular values. Properties: 1 <= erank <= rank, invariant under unitary transformations."
+    },
+    {
+      "index": 19,
+      "url": "https://www.emergentmind.com/topics/effective-rank-erank",
+      "title": "Effective Rank (eRank): Dimensionality Measure",
+      "summary": "Comprehensive overview of effective rank: definition, properties, and applications. Confirmed erank = exp(H(M)) where H is Shannon entropy of normalized singular value distribution."
+    },
+    {
+      "index": 20,
+      "url": "https://arxiv.org/pdf/2305.17326",
+      "title": "Matrix Information Theory for Self-Supervised Learning (RankMe)",
+      "summary": "Modern application of effective rank to embedding quality measurement. Validated spectral entropy as a proxy for representation quality in neural networks."
+    },
+    {
+      "index": 21,
+      "url": "https://arxiv.org/html/2407.20060v1",
+      "title": "RelBench Paper: A Benchmark for Deep Learning on Relational Databases",
+      "summary": "Complete list of 30 tasks across 7 datasets with per-task hyperparameters (Table 9). All tasks use shared defaults with only 2 exceptions (rel-trial requiring lr=0.0001, epochs=20, mean aggregation)."
+    },
+    {
+      "index": 22,
+      "url": "https://raw.githubusercontent.com/ai-inventor-outputs/ai-invention-b2d5b0-predictive-residual-message-passing-filt/main/evaluation_iter7_definitive_prmp/src/eval.py",
+      "title": "PRMP Definitive Evaluation Script",
+      "summary": "Extracted complete evaluation methodology: Cohen's d computation, DerSimonian-Laird random-effects meta-analysis, Cochran's Q test, Egger's test, meta-regression by task type. 5 seeds primary, 8-10 tasks, 5 datasets."
+    },
+    {
+      "index": 23,
+      "url": "https://arxiv.org/abs/2004.05718",
+      "title": "PNA: Principal Neighbourhood Aggregation for Graph Nets",
+      "summary": "PNA combines multiple aggregators (mean, std, min, max) with degree-based scalers (identity, amplification, attenuation, linear, inverse_linear). Provides the strongest multi-aggregator baseline for comparison with RAMA."
+    },
+    {
+      "index": 24,
+      "url": "https://pytorch-scatter.readthedocs.io/en/latest/functions/scatter.html",
+      "title": "torch_scatter Documentation",
+      "summary": "Documented scatter operations: scatter(src, index, dim, dim_size, reduce). Confirmed GPU non-determinism from atomic operations. scatter_std uses two-pass internally."
+    },
+    {
+      "index": 25,
+      "url": "https://arxiv.org/html/2411.17429v1",
+      "title": "Rewiring Techniques to Mitigate Oversquashing and Oversmoothing in GNNs",
+      "summary": "Survey of oversquashing/oversmoothing mitigation. Relevant context for understanding how variance injection may interact with these phenomena."
+    },
+    {
+      "index": 26,
+      "url": "https://arxiv.org/html/2403.04636",
+      "title": "Entropy Aware Message Passing in Graph Neural Networks",
+      "summary": "Demonstrated entropy-aware message passing that preserves embedding entropy during aggregation. Relevant precedent for RAMA's entropy-based gating approach."
+    },
+    {
+      "index": 27,
+      "url": "https://raw.githubusercontent.com/pyg-team/pytorch_geometric/master/torch_geometric/nn/resolver.py",
+      "title": "PyG Aggregation Resolver",
+      "summary": "Documented aggr_resolver: converts strings to Aggregation instances, wraps lists in MultiAggregation, passes Aggregation objects through directly. Confirms custom objects are handled correctly."
+    },
+    {
+      "index": 28,
+      "url": "https://pytorch-geometric.readthedocs.io/en/latest/generated/torch_geometric.nn.aggr.Aggregation.html",
+      "title": "PyG Aggregation Class Documentation",
+      "summary": "Official documentation for forward() method parameters and usage patterns (index-based and ptr-based). Confirmed aggregation dimension default of -2."
+    }
+  ],
+  "follow_up_questions": [
+    "How does RAMA's variance entropy proxy correlate with the true SVD-based effective rank across different RelBench datasets, and is the O(Nd) approximation sufficiently accurate to drive meaningful gating decisions?",
+    "What is the interaction between RAMA's per-dimension gating and RelGNN's TransformerConv attention mechanism -- does gated variance injection before attention help or conflict with the attention-based aggregation?",
+    "How does the RAMA gate behave on rel-trial tasks where the baseline already requires switching from sum to mean aggregation -- does RAMA automatically learn to close the gate (approaching mean) on these tasks?"
+  ]
+}

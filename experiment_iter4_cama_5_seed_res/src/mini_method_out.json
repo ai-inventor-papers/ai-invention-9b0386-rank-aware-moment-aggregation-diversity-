@@ -1,0 +1,4270 @@
+{
+  "metadata": {
+    "method_name": "CAMA 5-Seed Amazon + Avito Negative Init",
+    "description": "Two-part experiment: (A) 5-seed CAMA vs mean on rel-amazon/item-ltv, (B) 5-seed mean vs CAMA-default vs CAMA-negative-init on rel-avito/ad-ctr to fix 34% degradation by initializing gate_bias=-3.",
+    "methods": {
+      "mean_baseline": "Standard mean aggregation",
+      "cama_default": "CAMA with gate_bias=0 (iter-3 default)",
+      "cama_neg_init": "CAMA with gate_bias=-3 (starts nearly closed)"
+    },
+    "hyperparameters": {
+      "part_a": {
+        "channels": 128,
+        "lr": 0.005,
+        "epochs": 5,
+        "batch_size": 512,
+        "num_neighbors": [
+          128,
+          128
+        ],
+        "max_steps_per_epoch": 2000,
+        "grad_clip": 1.0,
+        "methods": [
+          "mean_baseline",
+          "cama_default"
+        ]
+      },
+      "part_b": {
+        "channels": 64,
+        "lr": 0.005,
+        "epochs": 5,
+        "batch_size": 256,
+        "num_neighbors": [
+          64,
+          64
+        ],
+        "max_steps_per_epoch": 2000,
+        "grad_clip": 1.0,
+        "methods": [
+          "mean_baseline",
+          "cama_default",
+          "cama_neg_init"
+        ]
+      },
+      "seeds": [
+        42,
+        123,
+        456,
+        789,
+        1024
+      ]
+    },
+    "seeds": [
+      42,
+      123,
+      456,
+      789,
+      1024
+    ],
+    "test_target_status": {
+      "rel-amazon/item-ltv": {
+        "target_col": "ltv",
+        "test_columns": [
+          "timestamp",
+          "product_id"
+        ],
+        "target_present": false,
+        "available": false
+      },
+      "rel-avito/ad-ctr": {
+        "target_col": "num_click",
+        "test_columns": [
+          "timestamp",
+          "AdID"
+        ],
+        "target_present": false,
+        "available": false
+      }
+    },
+    "deviations": [
+      "Reduced epochs from 10 to 5 (plan fallback mode 7: time constraints)",
+      "Removed review_text and summary from review table to prevent OOM",
+      "Removed customer_name from customer table"
+    ],
+    "results": {
+      "part_a_amazon": {
+        "task": "rel-amazon/item-ltv",
+        "evaluation_split": "val",
+        "per_method": {
+          "mean_baseline": {
+            "per_seed": {
+              "42": {
+                "val_mae": 244.62124287377324,
+                "val_r2": -0.18368348483781127,
+                "val_rmse": 491.78114862153626,
+                "test_mae": null,
+                "test_r2": null,
+                "test_rmse": null,
+                "best_epoch": 2,
+                "wall_clock_s": 339.5,
+                "peak_vram_gb": 0.23,
+                "gate_stats": null,
+                "epoch_times": [
+                  60.2,
+                  58.6,
+                  59.1,
+                  58.1,
+                  58.6
+                ],
+                "train_losses": [
+                  55.570342,
+                  54.980394,
+                  55.243754,
+                  55.777729,
+                  55.773203
+                ]
+              },
+              "123": {
+                "val_mae": 59.79714517309985,
+                "val_r2": -0.014424114187590487,
+                "val_rmse": 455.26458204088334,
+                "test_mae": null,
+                "test_r2": null,
+                "test_rmse": null,
+                "best_epoch": 4,
+                "wall_clock_s": 340.5,
+                "peak_vram_gb": 0.23,
+                "gate_stats": null,
+                "epoch_times": [
+                  58.5,
+                  59.2,
+                  58.9,
+                  59.4,
+                  59.6
+                ],
+                "train_losses": [
+                  56.408535,
+                  55.901761,
+                  55.308502,
+                  55.480985,
+                  54.842179
+                ]
+              },
+              "456": {
+                "val_mae": 94.0115981975449,
+                "val_r2": -0.0016778511262791618,
+                "val_rmse": 452.3953353741348,
+                "test_mae": null,
+                "test_r2": null,
+                "test_rmse": null,
+                "best_epoch": 1,
+                "wall_clock_s": 340.5,
+                "peak_vram_gb": 0.22,
+                "gate_stats": null,
+                "epoch_times": [
+                  59.1,
+                  59.5,
+                  59.1,
+                  58.9,
+                  58.8
+                ],
+                "train_losses": [
+                  55.669683,
+                  55.265245,
+                  55.576582,
+                  55.263092,
+                  54.744514
+                ]
+              },
+              "789": {
+                "val_mae": 389.1854029350224,
+                "val_r2": -0.5909633266233987,
+                "val_rmse": 570.1434866283686,
+                "test_mae": null,
+                "test_r2": null,
+                "test_rmse": null,
+                "best_epoch": 1,
+                "wall_clock_s": 339.5,
+                "peak_vram_gb": 0.22,
+                "gate_stats": null,
+                "epoch_times": [
+                  58.5,
+                  58.9,
+                  59.3,
+                  58.5,
+                  59.1
+                ],
+                "train_losses": [
+                  55.402153,
+                  54.494412,
+                  55.345635,
+                  55.383982,
+                  55.696576
+                ]
+              },
+              "1024": {
+                "val_mae": 71.92995405199359,
+                "val_r2": -0.0010541026819455013,
+                "val_rmse": 452.2544593286103,
+                "test_mae": null,
+                "test_r2": null,
+                "test_rmse": null,
+                "best_epoch": 5,
+                "wall_clock_s": 343.9,
+                "peak_vram_gb": 0.23,
+                "gate_stats": null,
+                "epoch_times": [
+                  58.5,
+                  60.1,
+                  60.4,
+                  60.5,
+                  59.4
+                ],
+                "train_losses": [
+                  55.470805,
+                  55.287343,
+                  55.180504,
+                  55.031462,
+                  55.128283
+                ]
+              }
+            },
+            "mean_mae": 171.909069,
+            "std_mae": 142.415754,
+            "mean_r2": -0.158361,
+            "mean_val_mae": 171.909069
+          },
+          "cama_default": {
+            "per_seed": {
+              "42": {
+                "val_mae": 389.1854029350224,
+                "val_r2": -0.5909633266233987,
+                "val_rmse": 570.1434866283686,
+                "test_mae": null,
+                "test_r2": null,
+                "test_rmse": null,
+                "best_epoch": 1,
+                "wall_clock_s": 455.7,
+                "peak_vram_gb": 0.68,
+                "gate_stats": {
+                  "L0_review__f2p_customer_id__customer": {
+                    "mean_gate": 0.5,
+                    "std_gate": 0.0,
+                    "min_gate": 0.5,
+                    "max_gate": 0.5,
+                    "mean_N": 0.0,
+                    "max_N": 0.0,
+                    "mean_rho": 0.000364,
+                    "num_batches": 20
+                  },
+                  "L0_customer__rev_f2p_customer_id__review": {
+                    "mean_gate": 0.5,
+                    "std_gate": 0.0,
+                    "min_gate": 0.5,
+                    "max_gate": 0.5,
+                    "mean_N": 1.0,
+                    "max_N": 1.0,
+                    "mean_rho": 0.000364,
+                    "num_batches": 20
+                  },
+                  "L0_review__f2p_product_id__product": {
+                    "mean_gate": 0.5,
+                    "std_gate": 0.0,
+                    "min_gate": 0.5,
+                    "max_gate": 0.5,
+                    "mean_N": 44.87,
+                    "max_N": 128.0,
+                    "mean_rho": 0.000364,
+                    "num_batches": 20
+                  },
+                  "L0_product__rev_f2p_product_id__review": {
+                    "mean_gate": 0.5,
+                    "std_gate": 0.0,
+                    "min_gate": 0.5,
+                    "max_gate": 0.5,
+                    "mean_N": 1.0,
+                    "max_N": 1.0,
+                    "mean_rho": 0.000364,
+                    "num_batches": 20
+                  },
+                  "L1_review__f2p_customer_id__customer": {
+                    "mean_gate": 0.5,
+                    "std_gate": 0.0,
+                    "min_gate": 0.5,
+                    "max_gate": 0.5,
+                    "mean_N": 0.0,
+                    "max_N": 0.0,
+                    "mean_rho": 0.000364,
+                    "num_batches": 20
+                  },
+                  "L1_customer__rev_f2p_customer_id__review": {
+                    "mean_gate": 0.5,
+                    "std_gate": 0.0,
+                    "min_gate": 0.5,
+                    "max_gate": 0.5,
+                    "mean_N": 1.0,
+                    "max_N": 1.0,
+                    "mean_rho": 0.000364,
+                    "num_batches": 20
+                  },
+                  "L1_review__f2p_product_id__product": {
+                    "mean_gate": 0.358631,
+                    "std_gate": 0.213902,
+                    "min_gate": 0.164743,
+                    "max_gate": 0.889518,
+                    "mean_N": 44.87,
+                    "max_N": 128.0,
+                    "mean_rho": 0.169047,
+                    "num_batches": 20
+                  },
+                  "L1_product__rev_f2p_product_id__review": {
+                    "mean_gate": 0.5,
+                    "std_gate": 0.0,
+                    "min_gate": 0.5,
+                    "max_gate": 0.5,
+                    "mean_N": 1.0,
+                    "max_N": 1.0,
+                    "mean_rho": 0.000364,
+                    "num_batches": 20
+                  }
+                },
+                "epoch_times": [
+                  80.5,
+                  79.2,
+                  80.5,
+                  81.7,
+                  79.9
+                ],
+                "train_losses": [
+                  53.751055,
+                  51.644452,
+                  52.6354,
+                  53.273408,
+                  52.111335
+                ]
+              },
+              "123": {
+                "val_mae": 389.1854029350224,
+                "val_r2": -0.5909633266233987,
+                "val_rmse": 570.1434866283686,
+                "test_mae": null,
+                "test_r2": null,
+                "test_rmse": null,
+                "best_epoch": 1,
+                "wall_clock_s": 451.5,
+                "peak_vram_gb": 0.68,
+                "gate_stats": {
+                  "L0_review__f2p_customer_id__customer": {
+                    "mean_gate": 0.5,
+                    "std_gate": 0.0,
+                    "min_gate": 0.5,
+                    "max_gate": 0.5,
+                    "mean_N": 0.0,
+                    "max_N": 0.0,
+                    "mean_rho": 0.000364,
+                    "num_batches": 20
+                  },
+                  "L0_customer__rev_f2p_customer_id__review": {
+                    "mean_gate": 0.5,
+                    "std_gate": 0.0,
+                    "min_gate": 0.5,
+                    "max_gate": 0.5,
+                    "mean_N": 1.0,
+                    "max_N": 1.0,
+                    "mean_rho": 0.000364,
+                    "num_batches": 20
+                  },
+                  "L0_review__f2p_product_id__product": {
+                    "mean_gate": 0.5,
+                    "std_gate": 0.0,
+                    "min_gate": 0.5,
+                    "max_gate": 0.5,
+                    "mean_N": 44.87,
+                    "max_N": 128.0,
+                    "mean_rho": 0.000364,
+                    "num_batches": 20
+                  },
+                  "L0_product__rev_f2p_product_id__review": {
+                    "mean_gate": 0.5,
+                    "std_gate": 0.0,
+                    "min_gate": 0.5,
+                    "max_gate": 0.5,
+                    "mean_N": 1.0,
+                    "max_N": 1.0,
+                    "mean_rho": 0.000364,
+                    "num_batches": 20
+                  },
+                  "L1_review__f2p_customer_id__customer": {
+                    "mean_gate": 0.5,
+                    "std_gate": 0.0,
+                    "min_gate": 0.5,
+                    "max_gate": 0.5,
+                    "mean_N": 0.0,
+                    "max_N": 0.0,
+                    "mean_rho": 0.000364,
+                    "num_batches": 20
+                  },
+                  "L1_customer__rev_f2p_customer_id__review": {
+                    "mean_gate": 0.5,
+                    "std_gate": 0.0,
+                    "min_gate": 0.5,
+                    "max_gate": 0.5,
+                    "mean_N": 1.0,
+                    "max_N": 1.0,
+                    "mean_rho": 0.000364,
+                    "num_batches": 20
+                  },
+                  "L1_review__f2p_product_id__product": {
+                    "mean_gate": 0.365504,
+                    "std_gate": 0.180927,
+                    "min_gate": 0.200939,
+                    "max_gate": 0.811059,
+                    "mean_N": 44.87,
+                    "max_N": 128.0,
+                    "mean_rho": 0.232695,
+                    "num_batches": 20
+                  },
+                  "L1_product__rev_f2p_product_id__review": {
+                    "mean_gate": 0.5,
+                    "std_gate": 0.0,
+                    "min_gate": 0.5,
+                    "max_gate": 0.5,
+                    "mean_N": 1.0,
+                    "max_N": 1.0,
+                    "mean_rho": 0.000364,
+                    "num_batches": 20
+                  }
+                },
+                "epoch_times": [
+                  78.6,
+                  79.9,
+                  81.4,
+                  79.1,
+                  78.9
+                ],
+                "train_losses": [
+                  52.939972,
+                  52.39541,
+                  52.977239,
+                  51.464735,
+                  51.489541
+                ]
+              },
+              "456": {
+                "val_mae": 389.1854029350224,
+                "val_r2": -0.5909633266233987,
+                "val_rmse": 570.1434866283686,
+                "test_mae": null,
+                "test_r2": null,
+                "test_rmse": null,
+                "best_epoch": 1,
+                "wall_clock_s": 457.7,
+                "peak_vram_gb": 0.67,
+                "gate_stats": {
+                  "L0_review__f2p_customer_id__customer": {
+                    "mean_gate": 0.5,
+                    "std_gate": 0.0,
+                    "min_gate": 0.5,
+                    "max_gate": 0.5,
+                    "mean_N": 0.0,
+                    "max_N": 0.0,
+                    "mean_rho": 0.000364,
+                    "num_batches": 20
+                  },
+                  "L0_customer__rev_f2p_customer_id__review": {
+                    "mean_gate": 0.5,
+                    "std_gate": 0.0,
+                    "min_gate": 0.5,
+                    "max_gate": 0.5,
+                    "mean_N": 1.0,
+                    "max_N": 1.0,
+                    "mean_rho": 0.000364,
+                    "num_batches": 20
+                  },
+                  "L0_review__f2p_product_id__product": {
+                    "mean_gate": 0.5,
+                    "std_gate": 0.0,
+                    "min_gate": 0.5,
+                    "max_gate": 0.5,
+                    "mean_N": 44.87,
+                    "max_N": 128.0,
+                    "mean_rho": 0.000364,
+                    "num_batches": 20
+                  },
+                  "L0_product__rev_f2p_product_id__review": {
+                    "mean_gate": 0.5,
+                    "std_gate": 0.0,
+                    "min_gate": 0.5,
+                    "max_gate": 0.5,
+                    "mean_N": 1.0,
+                    "max_N": 1.0,
+                    "mean_rho": 0.000364,
+                    "num_batches": 20
+                  },
+                  "L1_review__f2p_customer_id__customer": {
+                    "mean_gate": 0.5,
+                    "std_gate": 0.0,
+                    "min_gate": 0.5,
+                    "max_gate": 0.5,
+                    "mean_N": 0.0,
+                    "max_N": 0.0,
+                    "mean_rho": 0.000364,
+                    "num_batches": 20
+                  },
+                  "L1_customer__rev_f2p_customer_id__review": {
+                    "mean_gate": 0.5,
+                    "std_gate": 0.0,
+                    "min_gate": 0.5,
+                    "max_gate": 0.5,
+                    "mean_N": 1.0,
+                    "max_N": 1.0,
+                    "mean_rho": 0.000364,
+                    "num_batches": 20
+                  },
+                  "L1_review__f2p_product_id__product": {
+                    "mean_gate": 0.357731,
+                    "std_gate": 0.234541,
+                    "min_gate": 0.173674,
+                    "max_gate": 0.940432,
+                    "mean_N": 44.87,
+                    "max_N": 128.0,
+                    "mean_rho": 0.095737,
+                    "num_batches": 20
+                  },
+                  "L1_product__rev_f2p_product_id__review": {
+                    "mean_gate": 0.5,
+                    "std_gate": 0.0,
+                    "min_gate": 0.5,
+                    "max_gate": 0.5,
+                    "mean_N": 1.0,
+                    "max_N": 1.0,
+                    "mean_rho": 0.000364,
+                    "num_batches": 20
+                  }
+                },
+                "epoch_times": [
+                  80.6,
+                  81.0,
+                  82.0,
+                  78.4,
+                  81.2
+                ],
+                "train_losses": [
+                  52.548628,
+                  52.411199,
+                  52.675521,
+                  52.654429,
+                  52.08829
+                ]
+              },
+              "789": {
+                "val_mae": 389.1854029350224,
+                "val_r2": -0.5909633266233987,
+                "val_rmse": 570.1434866283686,
+                "test_mae": null,
+                "test_r2": null,
+                "test_rmse": null,
+                "best_epoch": 1,
+                "wall_clock_s": 460.3,
+                "peak_vram_gb": 0.7,
+                "gate_stats": {
+                  "L0_review__f2p_customer_id__customer": {
+                    "mean_gate": 0.5,
+                    "std_gate": 0.0,
+                    "min_gate": 0.5,
+                    "max_gate": 0.5,
+                    "mean_N": 0.0,
+                    "max_N": 0.0,
+                    "mean_rho": 0.000364,
+                    "num_batches": 20
+                  },
+                  "L0_customer__rev_f2p_customer_id__review": {
+                    "mean_gate": 0.5,
+                    "std_gate": 0.0,
+                    "min_gate": 0.5,
+                    "max_gate": 0.5,
+                    "mean_N": 1.0,
+                    "max_N": 1.0,
+                    "mean_rho": 0.000364,
+                    "num_batches": 20
+                  },
+                  "L0_review__f2p_product_id__product": {
+                    "mean_gate": 0.5,
+                    "std_gate": 0.0,
+                    "min_gate": 0.5,
+                    "max_gate": 0.5,
+                    "mean_N": 44.87,
+                    "max_N": 128.0,
+                    "mean_rho": 0.000364,
+                    "num_batches": 20
+                  },
+                  "L0_product__rev_f2p_product_id__review": {
+                    "mean_gate": 0.5,
+                    "std_gate": 0.0,
+                    "min_gate": 0.5,
+                    "max_gate": 0.5,
+                    "mean_N": 1.0,
+                    "max_N": 1.0,
+                    "mean_rho": 0.000364,
+                    "num_batches": 20
+                  },
+                  "L1_review__f2p_customer_id__customer": {
+                    "mean_gate": 0.5,
+                    "std_gate": 0.0,
+                    "min_gate": 0.5,
+                    "max_gate": 0.5,
+                    "mean_N": 0.0,
+                    "max_N": 0.0,
+                    "mean_rho": 0.000364,
+                    "num_batches": 20
+                  },
+                  "L1_customer__rev_f2p_customer_id__review": {
+                    "mean_gate": 0.5,
+                    "std_gate": 0.0,
+                    "min_gate": 0.5,
+                    "max_gate": 0.5,
+                    "mean_N": 1.0,
+                    "max_N": 1.0,
+                    "mean_rho": 0.000364,
+                    "num_batches": 20
+                  },
+                  "L1_review__f2p_product_id__product": {
+                    "mean_gate": 0.399169,
+                    "std_gate": 0.222833,
+                    "min_gate": 0.226597,
+                    "max_gate": 0.876838,
+                    "mean_N": 44.87,
+                    "max_N": 128.0,
+                    "mean_rho": 0.207729,
+                    "num_batches": 20
+                  },
+                  "L1_product__rev_f2p_product_id__review": {
+                    "mean_gate": 0.5,
+                    "std_gate": 0.0,
+                    "min_gate": 0.5,
+                    "max_gate": 0.5,
+                    "mean_N": 1.0,
+                    "max_N": 1.0,
+                    "mean_rho": 0.000364,
+                    "num_batches": 20
+                  }
+                },
+                "epoch_times": [
+                  82.6,
+                  80.7,
+                  81.2,
+                  81.2,
+                  80.2
+                ],
+                "train_losses": [
+                  53.394688,
+                  51.841566,
+                  51.696052,
+                  52.665471,
+                  51.945455
+                ]
+              },
+              "1024": {
+                "val_mae": 158.73519884188977,
+                "val_r2": -0.04704677345350672,
+                "val_rmse": 462.5270367720962,
+                "test_mae": null,
+                "test_r2": null,
+                "test_rmse": null,
+                "best_epoch": 1,
+                "wall_clock_s": 454.7,
+                "peak_vram_gb": 0.66,
+                "gate_stats": {
+                  "L0_review__f2p_customer_id__customer": {
+                    "mean_gate": 0.5,
+                    "std_gate": 0.0,
+                    "min_gate": 0.5,
+                    "max_gate": 0.5,
+                    "mean_N": 0.0,
+                    "max_N": 0.0,
+                    "mean_rho": 0.000364,
+                    "num_batches": 20
+                  },
+                  "L0_customer__rev_f2p_customer_id__review": {
+                    "mean_gate": 0.5,
+                    "std_gate": 0.0,
+                    "min_gate": 0.5,
+                    "max_gate": 0.5,
+                    "mean_N": 1.0,
+                    "max_N": 1.0,
+                    "mean_rho": 0.000364,
+                    "num_batches": 20
+                  },
+                  "L0_review__f2p_product_id__product": {
+                    "mean_gate": 0.5,
+                    "std_gate": 0.0,
+                    "min_gate": 0.5,
+                    "max_gate": 0.5,
+                    "mean_N": 44.87,
+                    "max_N": 128.0,
+                    "mean_rho": 0.000364,
+                    "num_batches": 20
+                  },
+                  "L0_product__rev_f2p_product_id__review": {
+                    "mean_gate": 0.5,
+                    "std_gate": 0.0,
+                    "min_gate": 0.5,
+                    "max_gate": 0.5,
+                    "mean_N": 1.0,
+                    "max_N": 1.0,
+                    "mean_rho": 0.000364,
+                    "num_batches": 20
+                  },
+                  "L1_review__f2p_customer_id__customer": {
+                    "mean_gate": 0.5,
+                    "std_gate": 0.0,
+                    "min_gate": 0.5,
+                    "max_gate": 0.5,
+                    "mean_N": 0.0,
+                    "max_N": 0.0,
+                    "mean_rho": 0.000364,
+                    "num_batches": 20
+                  },
+                  "L1_customer__rev_f2p_customer_id__review": {
+                    "mean_gate": 0.5,
+                    "std_gate": 0.0,
+                    "min_gate": 0.5,
+                    "max_gate": 0.5,
+                    "mean_N": 1.0,
+                    "max_N": 1.0,
+                    "mean_rho": 0.000364,
+                    "num_batches": 20
+                  },
+                  "L1_review__f2p_product_id__product": {
+                    "mean_gate": 0.526552,
+                    "std_gate": 0.231946,
+                    "min_gate": 0.015659,
+                    "max_gate": 0.950334,
+                    "mean_N": 44.87,
+                    "max_N": 128.0,
+                    "mean_rho": 0.016205,
+                    "num_batches": 20
+                  },
+                  "L1_product__rev_f2p_product_id__review": {
+                    "mean_gate": 0.5,
+                    "std_gate": 0.0,
+                    "min_gate": 0.5,
+                    "max_gate": 0.5,
+                    "mean_N": 1.0,
+                    "max_N": 1.0,
+                    "mean_rho": 0.000364,
+                    "num_batches": 20
+                  }
+                },
+                "epoch_times": [
+                  79.9,
+                  80.6,
+                  80.2,
+                  80.6,
+                  78.8
+                ],
+                "train_losses": [
+                  52.736596,
+                  52.408248,
+                  52.56894,
+                  52.509001,
+                  52.547765
+                ]
+              }
+            },
+            "mean_mae": 343.095362,
+            "std_mae": 103.060464,
+            "mean_r2": -0.48218,
+            "mean_val_mae": 343.095362
+          }
+        },
+        "statistical_comparison": {
+          "cama_default_vs_mean": {
+            "cohens_d": -1.377142,
+            "d_ci_95": [
+              -2.674198,
+              -0.080086
+            ],
+            "p_value_ttest": 0.05140652,
+            "t_statistic": -2.749392,
+            "wilcoxon_stat": 0.0,
+            "wilcoxon_p": 0.125,
+            "mean_a": 171.909069,
+            "std_a": 142.415754,
+            "mean_b": 343.095362,
+            "std_b": 103.060464,
+            "n": 5
+          }
+        }
+      },
+      "part_b_avito": {
+        "task": "rel-avito/ad-ctr",
+        "evaluation_split": "val",
+        "per_method": {
+          "mean_baseline": {
+            "per_seed": {
+              "42": {
+                "val_mae": 0.04082965210666368,
+                "val_r2": -0.14114534626210684,
+                "val_rmse": 0.10597101682439168,
+                "test_mae": null,
+                "test_r2": null,
+                "test_rmse": null,
+                "best_epoch": 1,
+                "wall_clock_s": 10.0,
+                "peak_vram_gb": 0.16,
+                "gate_stats": null,
+                "epoch_times": [
+                  1.6,
+                  1.5,
+                  1.5,
+                  1.5,
+                  1.5
+                ],
+                "train_losses": [
+                  0.079498,
+                  0.040222,
+                  0.03715,
+                  0.036018,
+                  0.036375
+                ]
+              },
+              "123": {
+                "val_mae": 0.03992330743944193,
+                "val_r2": -0.08358583232211436,
+                "val_rmse": 0.10326384190797883,
+                "test_mae": null,
+                "test_r2": null,
+                "test_rmse": null,
+                "best_epoch": 1,
+                "wall_clock_s": 9.9,
+                "peak_vram_gb": 0.16,
+                "gate_stats": null,
+                "epoch_times": [
+                  1.5,
+                  1.5,
+                  1.5,
+                  1.5,
+                  1.5
+                ],
+                "train_losses": [
+                  0.076434,
+                  0.051835,
+                  0.038259,
+                  0.038276,
+                  0.038246
+                ]
+              },
+              "456": {
+                "val_mae": 0.03990635818495174,
+                "val_r2": -0.08524375376254212,
+                "val_rmse": 0.10334281022585552,
+                "test_mae": null,
+                "test_r2": null,
+                "test_rmse": null,
+                "best_epoch": 3,
+                "wall_clock_s": 9.9,
+                "peak_vram_gb": 0.16,
+                "gate_stats": null,
+                "epoch_times": [
+                  1.6,
+                  1.5,
+                  1.5,
+                  1.5,
+                  1.5
+                ],
+                "train_losses": [
+                  0.086735,
+                  0.058519,
+                  0.038322,
+                  0.03989,
+                  0.036187
+                ]
+              },
+              "789": {
+                "val_mae": 0.046493200830915515,
+                "val_r2": -0.2194665881573017,
+                "val_rmse": 0.10954727341999664,
+                "test_mae": null,
+                "test_r2": null,
+                "test_rmse": null,
+                "best_epoch": 1,
+                "wall_clock_s": 10.0,
+                "peak_vram_gb": 0.16,
+                "gate_stats": null,
+                "epoch_times": [
+                  1.5,
+                  1.5,
+                  1.5,
+                  1.5,
+                  1.5
+                ],
+                "train_losses": [
+                  0.073348,
+                  0.039622,
+                  0.0372,
+                  0.036435,
+                  0.036076
+                ]
+              },
+              "1024": {
+                "val_mae": 0.046493200830915515,
+                "val_r2": -0.2194665881573017,
+                "val_rmse": 0.10954727341999664,
+                "test_mae": null,
+                "test_r2": null,
+                "test_rmse": null,
+                "best_epoch": 1,
+                "wall_clock_s": 10.0,
+                "peak_vram_gb": 0.16,
+                "gate_stats": null,
+                "epoch_times": [
+                  1.5,
+                  1.5,
+                  1.5,
+                  1.5,
+                  1.5
+                ],
+                "train_losses": [
+                  0.084235,
+                  0.047749,
+                  0.057229,
+                  0.045919,
+                  0.044251
+                ]
+              }
+            },
+            "mean_mae": 0.042729,
+            "std_mae": 0.003456,
+            "mean_r2": -0.149782,
+            "mean_val_mae": 0.042729
+          },
+          "cama_default": {
+            "per_seed": {
+              "42": {
+                "val_mae": 0.043458021608742785,
+                "val_r2": -0.019812564264645394,
+                "val_rmse": 0.10017902462010586,
+                "test_mae": null,
+                "test_r2": null,
+                "test_rmse": null,
+                "best_epoch": 1,
+                "wall_clock_s": 15.2,
+                "peak_vram_gb": 0.55,
+                "gate_stats": {
+                  "L0_PhoneRequestsStream__f2p_AdID__AdsInfo": {
+                    "mean_gate": 0.5,
+                    "std_gate": 0.0,
+                    "min_gate": 0.5,
+                    "max_gate": 0.5,
+                    "mean_N": 0.0,
+                    "max_N": 0.0,
+                    "mean_rho": 0.000213,
+                    "num_batches": 7
+                  },
+                  "L0_VisitStream__f2p_AdID__AdsInfo": {
+                    "mean_gate": 0.5,
+                    "std_gate": 0.0,
+                    "min_gate": 0.5,
+                    "max_gate": 0.5,
+                    "mean_N": 0.0,
+                    "max_N": 0.0,
+                    "mean_rho": 0.000213,
+                    "num_batches": 7
+                  },
+                  "L0_SearchStream__f2p_SearchID__SearchInfo": {
+                    "mean_gate": 0.5,
+                    "std_gate": 0.0,
+                    "min_gate": 0.5,
+                    "max_gate": 0.5,
+                    "mean_N": 0.0,
+                    "max_N": 0.0,
+                    "mean_rho": 0.000213,
+                    "num_batches": 7
+                  },
+                  "L0_SearchInfo__rev_f2p_SearchID__SearchStream": {
+                    "mean_gate": 0.5,
+                    "std_gate": 0.0,
+                    "min_gate": 0.5,
+                    "max_gate": 0.5,
+                    "mean_N": 1.0,
+                    "max_N": 1.0,
+                    "mean_rho": 0.000213,
+                    "num_batches": 7
+                  },
+                  "L0_SearchStream__f2p_AdID__AdsInfo": {
+                    "mean_gate": 0.5,
+                    "std_gate": 0.0,
+                    "min_gate": 0.5,
+                    "max_gate": 0.5,
+                    "mean_N": 7.32,
+                    "max_N": 64.0,
+                    "mean_rho": 0.000213,
+                    "num_batches": 7
+                  },
+                  "L0_AdsInfo__rev_f2p_AdID__SearchStream": {
+                    "mean_gate": 0.5,
+                    "std_gate": 0.0,
+                    "min_gate": 0.5,
+                    "max_gate": 0.5,
+                    "mean_N": 1.0,
+                    "max_N": 1.0,
+                    "mean_rho": 0.000213,
+                    "num_batches": 7
+                  },
+                  "L0_UserInfo__rev_f2p_UserID__SearchInfo": {
+                    "mean_gate": 0.5,
+                    "std_gate": 0.0,
+                    "min_gate": 0.5,
+                    "max_gate": 0.5,
+                    "mean_N": 0.0,
+                    "max_N": 0.0,
+                    "mean_rho": 0.000213,
+                    "num_batches": 7
+                  },
+                  "L0_Location__rev_f2p_LocationID__SearchInfo": {
+                    "mean_gate": 0.5,
+                    "std_gate": 0.0,
+                    "min_gate": 0.5,
+                    "max_gate": 0.5,
+                    "mean_N": 0.0,
+                    "max_N": 0.0,
+                    "mean_rho": 0.000213,
+                    "num_batches": 7
+                  },
+                  "L0_SearchInfo__f2p_CategoryID__Category": {
+                    "mean_gate": 0.5,
+                    "std_gate": 0.0,
+                    "min_gate": 0.5,
+                    "max_gate": 0.5,
+                    "mean_N": 64.0,
+                    "max_N": 64.0,
+                    "mean_rho": 0.000213,
+                    "num_batches": 7
+                  },
+                  "L0_Category__rev_f2p_CategoryID__SearchInfo": {
+                    "mean_gate": 0.5,
+                    "std_gate": 0.0,
+                    "min_gate": 0.5,
+                    "max_gate": 0.5,
+                    "mean_N": 0.0,
+                    "max_N": 0.0,
+                    "mean_rho": 0.000213,
+                    "num_batches": 7
+                  },
+                  "L0_Location__rev_f2p_LocationID__AdsInfo": {
+                    "mean_gate": 0.5,
+                    "std_gate": 0.0,
+                    "min_gate": 0.5,
+                    "max_gate": 0.5,
+                    "mean_N": 0.0,
+                    "max_N": 0.0,
+                    "mean_rho": 0.000213,
+                    "num_batches": 7
+                  },
+                  "L0_AdsInfo__f2p_CategoryID__Category": {
+                    "mean_gate": 0.5,
+                    "std_gate": 0.0,
+                    "min_gate": 0.5,
+                    "max_gate": 0.5,
+                    "mean_N": 64.0,
+                    "max_N": 64.0,
+                    "mean_rho": 0.000213,
+                    "num_batches": 7
+                  },
+                  "L0_Category__rev_f2p_CategoryID__AdsInfo": {
+                    "mean_gate": 0.5,
+                    "std_gate": 0.0,
+                    "min_gate": 0.5,
+                    "max_gate": 0.5,
+                    "mean_N": 0.12,
+                    "max_N": 1.0,
+                    "mean_rho": 0.000213,
+                    "num_batches": 7
+                  },
+                  "L1_PhoneRequestsStream__f2p_AdID__AdsInfo": {
+                    "mean_gate": 0.5,
+                    "std_gate": 0.0,
+                    "min_gate": 0.5,
+                    "max_gate": 0.5,
+                    "mean_N": 0.0,
+                    "max_N": 0.0,
+                    "mean_rho": 0.000213,
+                    "num_batches": 7
+                  },
+                  "L1_VisitStream__f2p_AdID__AdsInfo": {
+                    "mean_gate": 0.5,
+                    "std_gate": 0.0,
+                    "min_gate": 0.5,
+                    "max_gate": 0.5,
+                    "mean_N": 0.0,
+                    "max_N": 0.0,
+                    "mean_rho": 0.000213,
+                    "num_batches": 7
+                  },
+                  "L1_SearchStream__f2p_SearchID__SearchInfo": {
+                    "mean_gate": 0.5,
+                    "std_gate": 0.0,
+                    "min_gate": 0.5,
+                    "max_gate": 0.5,
+                    "mean_N": 0.0,
+                    "max_N": 0.0,
+                    "mean_rho": 0.000213,
+                    "num_batches": 7
+                  },
+                  "L1_SearchInfo__rev_f2p_SearchID__SearchStream": {
+                    "mean_gate": 0.5,
+                    "std_gate": 0.0,
+                    "min_gate": 0.5,
+                    "max_gate": 0.5,
+                    "mean_N": 1.0,
+                    "max_N": 1.0,
+                    "mean_rho": 0.000213,
+                    "num_batches": 7
+                  },
+                  "L1_SearchStream__f2p_AdID__AdsInfo": {
+                    "mean_gate": 0.5,
+                    "std_gate": 0.0,
+                    "min_gate": 0.5,
+                    "max_gate": 0.5,
+                    "mean_N": 7.32,
+                    "max_N": 64.0,
+                    "mean_rho": 0.006254,
+                    "num_batches": 7
+                  },
+                  "L1_AdsInfo__rev_f2p_AdID__SearchStream": {
+                    "mean_gate": 0.5,
+                    "std_gate": 0.0,
+                    "min_gate": 0.5,
+                    "max_gate": 0.5,
+                    "mean_N": 1.0,
+                    "max_N": 1.0,
+                    "mean_rho": 0.000213,
+                    "num_batches": 7
+                  },
+                  "L1_UserInfo__rev_f2p_UserID__SearchInfo": {
+                    "mean_gate": 0.5,
+                    "std_gate": 0.0,
+                    "min_gate": 0.5,
+                    "max_gate": 0.5,
+                    "mean_N": 0.0,
+                    "max_N": 0.0,
+                    "mean_rho": 0.000213,
+                    "num_batches": 7
+                  },
+                  "L1_Location__rev_f2p_LocationID__SearchInfo": {
+                    "mean_gate": 0.5,
+                    "std_gate": 0.0,
+                    "min_gate": 0.5,
+                    "max_gate": 0.5,
+                    "mean_N": 0.0,
+                    "max_N": 0.0,
+                    "mean_rho": 0.000213,
+                    "num_batches": 7
+                  },
+                  "L1_SearchInfo__f2p_CategoryID__Category": {
+                    "mean_gate": 0.5,
+                    "std_gate": 0.0,
+                    "min_gate": 0.5,
+                    "max_gate": 0.5,
+                    "mean_N": 64.0,
+                    "max_N": 64.0,
+                    "mean_rho": 0.028076,
+                    "num_batches": 7
+                  },
+                  "L1_Category__rev_f2p_CategoryID__SearchInfo": {
+                    "mean_gate": 0.5,
+                    "std_gate": 0.0,
+                    "min_gate": 0.5,
+                    "max_gate": 0.5,
+                    "mean_N": 0.0,
+                    "max_N": 0.0,
+                    "mean_rho": 0.000213,
+                    "num_batches": 7
+                  },
+                  "L1_Location__rev_f2p_LocationID__AdsInfo": {
+                    "mean_gate": 0.5,
+                    "std_gate": 0.0,
+                    "min_gate": 0.5,
+                    "max_gate": 0.5,
+                    "mean_N": 0.0,
+                    "max_N": 0.0,
+                    "mean_rho": 0.000213,
+                    "num_batches": 7
+                  },
+                  "L1_AdsInfo__f2p_CategoryID__Category": {
+                    "mean_gate": 0.5,
+                    "std_gate": 0.0,
+                    "min_gate": 0.5,
+                    "max_gate": 0.5,
+                    "mean_N": 64.0,
+                    "max_N": 64.0,
+                    "mean_rho": 0.136443,
+                    "num_batches": 7
+                  },
+                  "L1_Category__rev_f2p_CategoryID__AdsInfo": {
+                    "mean_gate": 0.5,
+                    "std_gate": 0.0,
+                    "min_gate": 0.5,
+                    "max_gate": 0.5,
+                    "mean_N": 0.12,
+                    "max_N": 1.0,
+                    "mean_rho": 0.000213,
+                    "num_batches": 7
+                  }
+                },
+                "epoch_times": [
+                  2.3,
+                  2.1,
+                  2.4,
+                  2.3,
+                  2.3
+                ],
+                "train_losses": [
+                  0.073868,
+                  0.0573,
+                  0.037047,
+                  0.036371,
+                  0.036605
+                ]
+              },
+              "123": {
+                "val_mae": 0.046493200830915515,
+                "val_r2": -0.2194665881573017,
+                "val_rmse": 0.10954727341999664,
+                "test_mae": null,
+                "test_r2": null,
+                "test_rmse": null,
+                "best_epoch": 3,
+                "wall_clock_s": 15.1,
+                "peak_vram_gb": 0.55,
+                "gate_stats": {
+                  "L0_PhoneRequestsStream__f2p_AdID__AdsInfo": {
+                    "mean_gate": 0.5,
+                    "std_gate": 0.0,
+                    "min_gate": 0.5,
+                    "max_gate": 0.5,
+                    "mean_N": 0.0,
+                    "max_N": 0.0,
+                    "mean_rho": 0.000213,
+                    "num_batches": 7
+                  },
+                  "L0_VisitStream__f2p_AdID__AdsInfo": {
+                    "mean_gate": 0.5,
+                    "std_gate": 0.0,
+                    "min_gate": 0.5,
+                    "max_gate": 0.5,
+                    "mean_N": 0.0,
+                    "max_N": 0.0,
+                    "mean_rho": 0.000213,
+                    "num_batches": 7
+                  },
+                  "L0_SearchStream__f2p_SearchID__SearchInfo": {
+                    "mean_gate": 0.5,
+                    "std_gate": 0.0,
+                    "min_gate": 0.5,
+                    "max_gate": 0.5,
+                    "mean_N": 0.0,
+                    "max_N": 0.0,
+                    "mean_rho": 0.000213,
+                    "num_batches": 7
+                  },
+                  "L0_SearchInfo__rev_f2p_SearchID__SearchStream": {
+                    "mean_gate": 0.5,
+                    "std_gate": 0.0,
+                    "min_gate": 0.5,
+                    "max_gate": 0.5,
+                    "mean_N": 1.0,
+                    "max_N": 1.0,
+                    "mean_rho": 0.000213,
+                    "num_batches": 7
+                  },
+                  "L0_SearchStream__f2p_AdID__AdsInfo": {
+                    "mean_gate": 0.5,
+                    "std_gate": 0.0,
+                    "min_gate": 0.5,
+                    "max_gate": 0.5,
+                    "mean_N": 7.32,
+                    "max_N": 64.0,
+                    "mean_rho": 0.000213,
+                    "num_batches": 7
+                  },
+                  "L0_AdsInfo__rev_f2p_AdID__SearchStream": {
+                    "mean_gate": 0.5,
+                    "std_gate": 0.0,
+                    "min_gate": 0.5,
+                    "max_gate": 0.5,
+                    "mean_N": 1.0,
+                    "max_N": 1.0,
+                    "mean_rho": 0.000213,
+                    "num_batches": 7
+                  },
+                  "L0_UserInfo__rev_f2p_UserID__SearchInfo": {
+                    "mean_gate": 0.5,
+                    "std_gate": 0.0,
+                    "min_gate": 0.5,
+                    "max_gate": 0.5,
+                    "mean_N": 0.0,
+                    "max_N": 0.0,
+                    "mean_rho": 0.000213,
+                    "num_batches": 7
+                  },
+                  "L0_Location__rev_f2p_LocationID__SearchInfo": {
+                    "mean_gate": 0.5,
+                    "std_gate": 0.0,
+                    "min_gate": 0.5,
+                    "max_gate": 0.5,
+                    "mean_N": 0.0,
+                    "max_N": 0.0,
+                    "mean_rho": 0.000213,
+                    "num_batches": 7
+                  },
+                  "L0_SearchInfo__f2p_CategoryID__Category": {
+                    "mean_gate": 0.5,
+                    "std_gate": 0.0,
+                    "min_gate": 0.5,
+                    "max_gate": 0.5,
+                    "mean_N": 64.0,
+                    "max_N": 64.0,
+                    "mean_rho": 0.000213,
+                    "num_batches": 7
+                  },
+                  "L0_Category__rev_f2p_CategoryID__SearchInfo": {
+                    "mean_gate": 0.5,
+                    "std_gate": 0.0,
+                    "min_gate": 0.5,
+                    "max_gate": 0.5,
+                    "mean_N": 0.0,
+                    "max_N": 0.0,
+                    "mean_rho": 0.000213,
+                    "num_batches": 7
+                  },
+                  "L0_Location__rev_f2p_LocationID__AdsInfo": {
+                    "mean_gate": 0.5,
+                    "std_gate": 0.0,
+                    "min_gate": 0.5,
+                    "max_gate": 0.5,
+                    "mean_N": 0.0,
+                    "max_N": 0.0,
+                    "mean_rho": 0.000213,
+                    "num_batches": 7
+                  },
+                  "L0_AdsInfo__f2p_CategoryID__Category": {
+                    "mean_gate": 0.5,
+                    "std_gate": 0.0,
+                    "min_gate": 0.5,
+                    "max_gate": 0.5,
+                    "mean_N": 64.0,
+                    "max_N": 64.0,
+                    "mean_rho": 0.000213,
+                    "num_batches": 7
+                  },
+                  "L0_Category__rev_f2p_CategoryID__AdsInfo": {
+                    "mean_gate": 0.5,
+                    "std_gate": 0.0,
+                    "min_gate": 0.5,
+                    "max_gate": 0.5,
+                    "mean_N": 0.12,
+                    "max_N": 1.0,
+                    "mean_rho": 0.000213,
+                    "num_batches": 7
+                  },
+                  "L1_PhoneRequestsStream__f2p_AdID__AdsInfo": {
+                    "mean_gate": 0.5,
+                    "std_gate": 0.0,
+                    "min_gate": 0.5,
+                    "max_gate": 0.5,
+                    "mean_N": 0.0,
+                    "max_N": 0.0,
+                    "mean_rho": 0.000213,
+                    "num_batches": 7
+                  },
+                  "L1_VisitStream__f2p_AdID__AdsInfo": {
+                    "mean_gate": 0.5,
+                    "std_gate": 0.0,
+                    "min_gate": 0.5,
+                    "max_gate": 0.5,
+                    "mean_N": 0.0,
+                    "max_N": 0.0,
+                    "mean_rho": 0.000213,
+                    "num_batches": 7
+                  },
+                  "L1_SearchStream__f2p_SearchID__SearchInfo": {
+                    "mean_gate": 0.5,
+                    "std_gate": 0.0,
+                    "min_gate": 0.5,
+                    "max_gate": 0.5,
+                    "mean_N": 0.0,
+                    "max_N": 0.0,
+                    "mean_rho": 0.000213,
+                    "num_batches": 7
+                  },
+                  "L1_SearchInfo__rev_f2p_SearchID__SearchStream": {
+                    "mean_gate": 0.5,
+                    "std_gate": 0.0,
+                    "min_gate": 0.5,
+                    "max_gate": 0.5,
+                    "mean_N": 1.0,
+                    "max_N": 1.0,
+                    "mean_rho": 0.000213,
+                    "num_batches": 7
+                  },
+                  "L1_SearchStream__f2p_AdID__AdsInfo": {
+                    "mean_gate": 0.5,
+                    "std_gate": 0.0,
+                    "min_gate": 0.5,
+                    "max_gate": 0.5,
+                    "mean_N": 7.32,
+                    "max_N": 64.0,
+                    "mean_rho": 0.016033,
+                    "num_batches": 7
+                  },
+                  "L1_AdsInfo__rev_f2p_AdID__SearchStream": {
+                    "mean_gate": 0.5,
+                    "std_gate": 0.0,
+                    "min_gate": 0.5,
+                    "max_gate": 0.5,
+                    "mean_N": 1.0,
+                    "max_N": 1.0,
+                    "mean_rho": 0.000213,
+                    "num_batches": 7
+                  },
+                  "L1_UserInfo__rev_f2p_UserID__SearchInfo": {
+                    "mean_gate": 0.5,
+                    "std_gate": 0.0,
+                    "min_gate": 0.5,
+                    "max_gate": 0.5,
+                    "mean_N": 0.0,
+                    "max_N": 0.0,
+                    "mean_rho": 0.000213,
+                    "num_batches": 7
+                  },
+                  "L1_Location__rev_f2p_LocationID__SearchInfo": {
+                    "mean_gate": 0.5,
+                    "std_gate": 0.0,
+                    "min_gate": 0.5,
+                    "max_gate": 0.5,
+                    "mean_N": 0.0,
+                    "max_N": 0.0,
+                    "mean_rho": 0.000213,
+                    "num_batches": 7
+                  },
+                  "L1_SearchInfo__f2p_CategoryID__Category": {
+                    "mean_gate": 0.5,
+                    "std_gate": 0.0,
+                    "min_gate": 0.5,
+                    "max_gate": 0.5,
+                    "mean_N": 64.0,
+                    "max_N": 64.0,
+                    "mean_rho": 0.001115,
+                    "num_batches": 7
+                  },
+                  "L1_Category__rev_f2p_CategoryID__SearchInfo": {
+                    "mean_gate": 0.5,
+                    "std_gate": 0.0,
+                    "min_gate": 0.5,
+                    "max_gate": 0.5,
+                    "mean_N": 0.0,
+                    "max_N": 0.0,
+                    "mean_rho": 0.000213,
+                    "num_batches": 7
+                  },
+                  "L1_Location__rev_f2p_LocationID__AdsInfo": {
+                    "mean_gate": 0.5,
+                    "std_gate": 0.0,
+                    "min_gate": 0.5,
+                    "max_gate": 0.5,
+                    "mean_N": 0.0,
+                    "max_N": 0.0,
+                    "mean_rho": 0.000213,
+                    "num_batches": 7
+                  },
+                  "L1_AdsInfo__f2p_CategoryID__Category": {
+                    "mean_gate": 0.5,
+                    "std_gate": 0.0,
+                    "min_gate": 0.5,
+                    "max_gate": 0.5,
+                    "mean_N": 64.0,
+                    "max_N": 64.0,
+                    "mean_rho": 0.188733,
+                    "num_batches": 7
+                  },
+                  "L1_Category__rev_f2p_CategoryID__AdsInfo": {
+                    "mean_gate": 0.5,
+                    "std_gate": 0.0,
+                    "min_gate": 0.5,
+                    "max_gate": 0.5,
+                    "mean_N": 0.12,
+                    "max_N": 1.0,
+                    "mean_rho": 0.000213,
+                    "num_batches": 7
+                  }
+                },
+                "epoch_times": [
+                  2.3,
+                  2.2,
+                  2.4,
+                  2.2,
+                  2.2
+                ],
+                "train_losses": [
+                  0.072835,
+                  0.042239,
+                  0.038945,
+                  0.036877,
+                  0.03637
+                ]
+              },
+              "456": {
+                "val_mae": 0.046493200830915515,
+                "val_r2": -0.2194665881573017,
+                "val_rmse": 0.10954727341999664,
+                "test_mae": null,
+                "test_r2": null,
+                "test_rmse": null,
+                "best_epoch": 1,
+                "wall_clock_s": 14.7,
+                "peak_vram_gb": 0.55,
+                "gate_stats": {
+                  "L0_PhoneRequestsStream__f2p_AdID__AdsInfo": {
+                    "mean_gate": 0.5,
+                    "std_gate": 0.0,
+                    "min_gate": 0.5,
+                    "max_gate": 0.5,
+                    "mean_N": 0.0,
+                    "max_N": 0.0,
+                    "mean_rho": 0.000213,
+                    "num_batches": 7
+                  },
+                  "L0_VisitStream__f2p_AdID__AdsInfo": {
+                    "mean_gate": 0.5,
+                    "std_gate": 0.0,
+                    "min_gate": 0.5,
+                    "max_gate": 0.5,
+                    "mean_N": 0.0,
+                    "max_N": 0.0,
+                    "mean_rho": 0.000213,
+                    "num_batches": 7
+                  },
+                  "L0_SearchStream__f2p_SearchID__SearchInfo": {
+                    "mean_gate": 0.5,
+                    "std_gate": 0.0,
+                    "min_gate": 0.5,
+                    "max_gate": 0.5,
+                    "mean_N": 0.0,
+                    "max_N": 0.0,
+                    "mean_rho": 0.000213,
+                    "num_batches": 7
+                  },
+                  "L0_SearchInfo__rev_f2p_SearchID__SearchStream": {
+                    "mean_gate": 0.5,
+                    "std_gate": 0.0,
+                    "min_gate": 0.5,
+                    "max_gate": 0.5,
+                    "mean_N": 1.0,
+                    "max_N": 1.0,
+                    "mean_rho": 0.000213,
+                    "num_batches": 7
+                  },
+                  "L0_SearchStream__f2p_AdID__AdsInfo": {
+                    "mean_gate": 0.5,
+                    "std_gate": 0.0,
+                    "min_gate": 0.5,
+                    "max_gate": 0.5,
+                    "mean_N": 7.32,
+                    "max_N": 64.0,
+                    "mean_rho": 0.000213,
+                    "num_batches": 7
+                  },
+                  "L0_AdsInfo__rev_f2p_AdID__SearchStream": {
+                    "mean_gate": 0.5,
+                    "std_gate": 0.0,
+                    "min_gate": 0.5,
+                    "max_gate": 0.5,
+                    "mean_N": 1.0,
+                    "max_N": 1.0,
+                    "mean_rho": 0.000213,
+                    "num_batches": 7
+                  },
+                  "L0_UserInfo__rev_f2p_UserID__SearchInfo": {
+                    "mean_gate": 0.5,
+                    "std_gate": 0.0,
+                    "min_gate": 0.5,
+                    "max_gate": 0.5,
+                    "mean_N": 0.0,
+                    "max_N": 0.0,
+                    "mean_rho": 0.000213,
+                    "num_batches": 7
+                  },
+                  "L0_Location__rev_f2p_LocationID__SearchInfo": {
+                    "mean_gate": 0.5,
+                    "std_gate": 0.0,
+                    "min_gate": 0.5,
+                    "max_gate": 0.5,
+                    "mean_N": 0.0,
+                    "max_N": 0.0,
+                    "mean_rho": 0.000213,
+                    "num_batches": 7
+                  },
+                  "L0_SearchInfo__f2p_CategoryID__Category": {
+                    "mean_gate": 0.5,
+                    "std_gate": 0.0,
+                    "min_gate": 0.5,
+                    "max_gate": 0.5,
+                    "mean_N": 64.0,
+                    "max_N": 64.0,
+                    "mean_rho": 0.000213,
+                    "num_batches": 7
+                  },
+                  "L0_Category__rev_f2p_CategoryID__SearchInfo": {
+                    "mean_gate": 0.5,
+                    "std_gate": 0.0,
+                    "min_gate": 0.5,
+                    "max_gate": 0.5,
+                    "mean_N": 0.0,
+                    "max_N": 0.0,
+                    "mean_rho": 0.000213,
+                    "num_batches": 7
+                  },
+                  "L0_Location__rev_f2p_LocationID__AdsInfo": {
+                    "mean_gate": 0.5,
+                    "std_gate": 0.0,
+                    "min_gate": 0.5,
+                    "max_gate": 0.5,
+                    "mean_N": 0.0,
+                    "max_N": 0.0,
+                    "mean_rho": 0.000213,
+                    "num_batches": 7
+                  },
+                  "L0_AdsInfo__f2p_CategoryID__Category": {
+                    "mean_gate": 0.5,
+                    "std_gate": 0.0,
+                    "min_gate": 0.5,
+                    "max_gate": 0.5,
+                    "mean_N": 64.0,
+                    "max_N": 64.0,
+                    "mean_rho": 0.000213,
+                    "num_batches": 7
+                  },
+                  "L0_Category__rev_f2p_CategoryID__AdsInfo": {
+                    "mean_gate": 0.5,
+                    "std_gate": 0.0,
+                    "min_gate": 0.5,
+                    "max_gate": 0.5,
+                    "mean_N": 0.12,
+                    "max_N": 1.0,
+                    "mean_rho": 0.000213,
+                    "num_batches": 7
+                  },
+                  "L1_PhoneRequestsStream__f2p_AdID__AdsInfo": {
+                    "mean_gate": 0.5,
+                    "std_gate": 0.0,
+                    "min_gate": 0.5,
+                    "max_gate": 0.5,
+                    "mean_N": 0.0,
+                    "max_N": 0.0,
+                    "mean_rho": 0.000213,
+                    "num_batches": 7
+                  },
+                  "L1_VisitStream__f2p_AdID__AdsInfo": {
+                    "mean_gate": 0.5,
+                    "std_gate": 0.0,
+                    "min_gate": 0.5,
+                    "max_gate": 0.5,
+                    "mean_N": 0.0,
+                    "max_N": 0.0,
+                    "mean_rho": 0.000213,
+                    "num_batches": 7
+                  },
+                  "L1_SearchStream__f2p_SearchID__SearchInfo": {
+                    "mean_gate": 0.5,
+                    "std_gate": 0.0,
+                    "min_gate": 0.5,
+                    "max_gate": 0.5,
+                    "mean_N": 0.0,
+                    "max_N": 0.0,
+                    "mean_rho": 0.000213,
+                    "num_batches": 7
+                  },
+                  "L1_SearchInfo__rev_f2p_SearchID__SearchStream": {
+                    "mean_gate": 0.5,
+                    "std_gate": 0.0,
+                    "min_gate": 0.5,
+                    "max_gate": 0.5,
+                    "mean_N": 1.0,
+                    "max_N": 1.0,
+                    "mean_rho": 0.000213,
+                    "num_batches": 7
+                  },
+                  "L1_SearchStream__f2p_AdID__AdsInfo": {
+                    "mean_gate": 0.5,
+                    "std_gate": 0.0,
+                    "min_gate": 0.5,
+                    "max_gate": 0.5,
+                    "mean_N": 7.32,
+                    "max_N": 64.0,
+                    "mean_rho": 0.007805,
+                    "num_batches": 7
+                  },
+                  "L1_AdsInfo__rev_f2p_AdID__SearchStream": {
+                    "mean_gate": 0.5,
+                    "std_gate": 0.0,
+                    "min_gate": 0.5,
+                    "max_gate": 0.5,
+                    "mean_N": 1.0,
+                    "max_N": 1.0,
+                    "mean_rho": 0.000213,
+                    "num_batches": 7
+                  },
+                  "L1_UserInfo__rev_f2p_UserID__SearchInfo": {
+                    "mean_gate": 0.5,
+                    "std_gate": 0.0,
+                    "min_gate": 0.5,
+                    "max_gate": 0.5,
+                    "mean_N": 0.0,
+                    "max_N": 0.0,
+                    "mean_rho": 0.000213,
+                    "num_batches": 7
+                  },
+                  "L1_Location__rev_f2p_LocationID__SearchInfo": {
+                    "mean_gate": 0.5,
+                    "std_gate": 0.0,
+                    "min_gate": 0.5,
+                    "max_gate": 0.5,
+                    "mean_N": 0.0,
+                    "max_N": 0.0,
+                    "mean_rho": 0.000213,
+                    "num_batches": 7
+                  },
+                  "L1_SearchInfo__f2p_CategoryID__Category": {
+                    "mean_gate": 0.5,
+                    "std_gate": 0.0,
+                    "min_gate": 0.5,
+                    "max_gate": 0.5,
+                    "mean_N": 64.0,
+                    "max_N": 64.0,
+                    "mean_rho": 0.068819,
+                    "num_batches": 7
+                  },
+                  "L1_Category__rev_f2p_CategoryID__SearchInfo": {
+                    "mean_gate": 0.5,
+                    "std_gate": 0.0,
+                    "min_gate": 0.5,
+                    "max_gate": 0.5,
+                    "mean_N": 0.0,
+                    "max_N": 0.0,
+                    "mean_rho": 0.000213,
+                    "num_batches": 7
+                  },
+                  "L1_Location__rev_f2p_LocationID__AdsInfo": {
+                    "mean_gate": 0.5,
+                    "std_gate": 0.0,
+                    "min_gate": 0.5,
+                    "max_gate": 0.5,
+                    "mean_N": 0.0,
+                    "max_N": 0.0,
+                    "mean_rho": 0.000213,
+                    "num_batches": 7
+                  },
+                  "L1_AdsInfo__f2p_CategoryID__Category": {
+                    "mean_gate": 0.5,
+                    "std_gate": 0.0,
+                    "min_gate": 0.5,
+                    "max_gate": 0.5,
+                    "mean_N": 64.0,
+                    "max_N": 64.0,
+                    "mean_rho": 0.189803,
+                    "num_batches": 7
+                  },
+                  "L1_Category__rev_f2p_CategoryID__AdsInfo": {
+                    "mean_gate": 0.5,
+                    "std_gate": 0.0,
+                    "min_gate": 0.5,
+                    "max_gate": 0.5,
+                    "mean_N": 0.12,
+                    "max_N": 1.0,
+                    "mean_rho": 0.000213,
+                    "num_batches": 7
+                  }
+                },
+                "epoch_times": [
+                  2.3,
+                  2.2,
+                  2.2,
+                  2.2,
+                  2.1
+                ],
+                "train_losses": [
+                  0.103866,
+                  0.052981,
+                  0.051054,
+                  0.044945,
+                  0.038188
+                ]
+              },
+              "789": {
+                "val_mae": 0.046493200830915515,
+                "val_r2": -0.2194665881573017,
+                "val_rmse": 0.10954727341999664,
+                "test_mae": null,
+                "test_r2": null,
+                "test_rmse": null,
+                "best_epoch": 1,
+                "wall_clock_s": 14.8,
+                "peak_vram_gb": 0.54,
+                "gate_stats": {
+                  "L0_PhoneRequestsStream__f2p_AdID__AdsInfo": {
+                    "mean_gate": 0.5,
+                    "std_gate": 0.0,
+                    "min_gate": 0.5,
+                    "max_gate": 0.5,
+                    "mean_N": 0.0,
+                    "max_N": 0.0,
+                    "mean_rho": 0.000213,
+                    "num_batches": 7
+                  },
+                  "L0_VisitStream__f2p_AdID__AdsInfo": {
+                    "mean_gate": 0.5,
+                    "std_gate": 0.0,
+                    "min_gate": 0.5,
+                    "max_gate": 0.5,
+                    "mean_N": 0.0,
+                    "max_N": 0.0,
+                    "mean_rho": 0.000213,
+                    "num_batches": 7
+                  },
+                  "L0_SearchStream__f2p_SearchID__SearchInfo": {
+                    "mean_gate": 0.5,
+                    "std_gate": 0.0,
+                    "min_gate": 0.5,
+                    "max_gate": 0.5,
+                    "mean_N": 0.0,
+                    "max_N": 0.0,
+                    "mean_rho": 0.000213,
+                    "num_batches": 7
+                  },
+                  "L0_SearchInfo__rev_f2p_SearchID__SearchStream": {
+                    "mean_gate": 0.5,
+                    "std_gate": 0.0,
+                    "min_gate": 0.5,
+                    "max_gate": 0.5,
+                    "mean_N": 1.0,
+                    "max_N": 1.0,
+                    "mean_rho": 0.000213,
+                    "num_batches": 7
+                  },
+                  "L0_SearchStream__f2p_AdID__AdsInfo": {
+                    "mean_gate": 0.5,
+                    "std_gate": 0.0,
+                    "min_gate": 0.5,
+                    "max_gate": 0.5,
+                    "mean_N": 7.32,
+                    "max_N": 64.0,
+                    "mean_rho": 0.000213,
+                    "num_batches": 7
+                  },
+                  "L0_AdsInfo__rev_f2p_AdID__SearchStream": {
+                    "mean_gate": 0.5,
+                    "std_gate": 0.0,
+                    "min_gate": 0.5,
+                    "max_gate": 0.5,
+                    "mean_N": 1.0,
+                    "max_N": 1.0,
+                    "mean_rho": 0.000213,
+                    "num_batches": 7
+                  },
+                  "L0_UserInfo__rev_f2p_UserID__SearchInfo": {
+                    "mean_gate": 0.5,
+                    "std_gate": 0.0,
+                    "min_gate": 0.5,
+                    "max_gate": 0.5,
+                    "mean_N": 0.0,
+                    "max_N": 0.0,
+                    "mean_rho": 0.000213,
+                    "num_batches": 7
+                  },
+                  "L0_Location__rev_f2p_LocationID__SearchInfo": {
+                    "mean_gate": 0.5,
+                    "std_gate": 0.0,
+                    "min_gate": 0.5,
+                    "max_gate": 0.5,
+                    "mean_N": 0.0,
+                    "max_N": 0.0,
+                    "mean_rho": 0.000213,
+                    "num_batches": 7
+                  },
+                  "L0_SearchInfo__f2p_CategoryID__Category": {
+                    "mean_gate": 0.5,
+                    "std_gate": 0.0,
+                    "min_gate": 0.5,
+                    "max_gate": 0.5,
+                    "mean_N": 64.0,
+                    "max_N": 64.0,
+                    "mean_rho": 0.000213,
+                    "num_batches": 7
+                  },
+                  "L0_Category__rev_f2p_CategoryID__SearchInfo": {
+                    "mean_gate": 0.5,
+                    "std_gate": 0.0,
+                    "min_gate": 0.5,
+                    "max_gate": 0.5,
+                    "mean_N": 0.0,
+                    "max_N": 0.0,
+                    "mean_rho": 0.000213,
+                    "num_batches": 7
+                  },
+                  "L0_Location__rev_f2p_LocationID__AdsInfo": {
+                    "mean_gate": 0.5,
+                    "std_gate": 0.0,
+                    "min_gate": 0.5,
+                    "max_gate": 0.5,
+                    "mean_N": 0.0,
+                    "max_N": 0.0,
+                    "mean_rho": 0.000213,
+                    "num_batches": 7
+                  },
+                  "L0_AdsInfo__f2p_CategoryID__Category": {
+                    "mean_gate": 0.5,
+                    "std_gate": 0.0,
+                    "min_gate": 0.5,
+                    "max_gate": 0.5,
+                    "mean_N": 64.0,
+                    "max_N": 64.0,
+                    "mean_rho": 0.000213,
+                    "num_batches": 7
+                  },
+                  "L0_Category__rev_f2p_CategoryID__AdsInfo": {
+                    "mean_gate": 0.5,
+                    "std_gate": 0.0,
+                    "min_gate": 0.5,
+                    "max_gate": 0.5,
+                    "mean_N": 0.12,
+                    "max_N": 1.0,
+                    "mean_rho": 0.000213,
+                    "num_batches": 7
+                  },
+                  "L1_PhoneRequestsStream__f2p_AdID__AdsInfo": {
+                    "mean_gate": 0.5,
+                    "std_gate": 0.0,
+                    "min_gate": 0.5,
+                    "max_gate": 0.5,
+                    "mean_N": 0.0,
+                    "max_N": 0.0,
+                    "mean_rho": 0.000213,
+                    "num_batches": 7
+                  },
+                  "L1_VisitStream__f2p_AdID__AdsInfo": {
+                    "mean_gate": 0.5,
+                    "std_gate": 0.0,
+                    "min_gate": 0.5,
+                    "max_gate": 0.5,
+                    "mean_N": 0.0,
+                    "max_N": 0.0,
+                    "mean_rho": 0.000213,
+                    "num_batches": 7
+                  },
+                  "L1_SearchStream__f2p_SearchID__SearchInfo": {
+                    "mean_gate": 0.5,
+                    "std_gate": 0.0,
+                    "min_gate": 0.5,
+                    "max_gate": 0.5,
+                    "mean_N": 0.0,
+                    "max_N": 0.0,
+                    "mean_rho": 0.000213,
+                    "num_batches": 7
+                  },
+                  "L1_SearchInfo__rev_f2p_SearchID__SearchStream": {
+                    "mean_gate": 0.5,
+                    "std_gate": 0.0,
+                    "min_gate": 0.5,
+                    "max_gate": 0.5,
+                    "mean_N": 1.0,
+                    "max_N": 1.0,
+                    "mean_rho": 0.000213,
+                    "num_batches": 7
+                  },
+                  "L1_SearchStream__f2p_AdID__AdsInfo": {
+                    "mean_gate": 0.5,
+                    "std_gate": 0.0,
+                    "min_gate": 0.5,
+                    "max_gate": 0.5,
+                    "mean_N": 7.32,
+                    "max_N": 64.0,
+                    "mean_rho": 0.003853,
+                    "num_batches": 7
+                  },
+                  "L1_AdsInfo__rev_f2p_AdID__SearchStream": {
+                    "mean_gate": 0.5,
+                    "std_gate": 0.0,
+                    "min_gate": 0.5,
+                    "max_gate": 0.5,
+                    "mean_N": 1.0,
+                    "max_N": 1.0,
+                    "mean_rho": 0.000213,
+                    "num_batches": 7
+                  },
+                  "L1_UserInfo__rev_f2p_UserID__SearchInfo": {
+                    "mean_gate": 0.5,
+                    "std_gate": 0.0,
+                    "min_gate": 0.5,
+                    "max_gate": 0.5,
+                    "mean_N": 0.0,
+                    "max_N": 0.0,
+                    "mean_rho": 0.000213,
+                    "num_batches": 7
+                  },
+                  "L1_Location__rev_f2p_LocationID__SearchInfo": {
+                    "mean_gate": 0.5,
+                    "std_gate": 0.0,
+                    "min_gate": 0.5,
+                    "max_gate": 0.5,
+                    "mean_N": 0.0,
+                    "max_N": 0.0,
+                    "mean_rho": 0.000213,
+                    "num_batches": 7
+                  },
+                  "L1_SearchInfo__f2p_CategoryID__Category": {
+                    "mean_gate": 0.5,
+                    "std_gate": 0.0,
+                    "min_gate": 0.5,
+                    "max_gate": 0.5,
+                    "mean_N": 64.0,
+                    "max_N": 64.0,
+                    "mean_rho": 0.022599,
+                    "num_batches": 7
+                  },
+                  "L1_Category__rev_f2p_CategoryID__SearchInfo": {
+                    "mean_gate": 0.5,
+                    "std_gate": 0.0,
+                    "min_gate": 0.5,
+                    "max_gate": 0.5,
+                    "mean_N": 0.0,
+                    "max_N": 0.0,
+                    "mean_rho": 0.000213,
+                    "num_batches": 7
+                  },
+                  "L1_Location__rev_f2p_LocationID__AdsInfo": {
+                    "mean_gate": 0.5,
+                    "std_gate": 0.0,
+                    "min_gate": 0.5,
+                    "max_gate": 0.5,
+                    "mean_N": 0.0,
+                    "max_N": 0.0,
+                    "mean_rho": 0.000213,
+                    "num_batches": 7
+                  },
+                  "L1_AdsInfo__f2p_CategoryID__Category": {
+                    "mean_gate": 0.5,
+                    "std_gate": 0.0,
+                    "min_gate": 0.5,
+                    "max_gate": 0.5,
+                    "mean_N": 64.0,
+                    "max_N": 64.0,
+                    "mean_rho": 0.114937,
+                    "num_batches": 7
+                  },
+                  "L1_Category__rev_f2p_CategoryID__AdsInfo": {
+                    "mean_gate": 0.5,
+                    "std_gate": 0.0,
+                    "min_gate": 0.5,
+                    "max_gate": 0.5,
+                    "mean_N": 0.12,
+                    "max_N": 1.0,
+                    "mean_rho": 0.000213,
+                    "num_batches": 7
+                  }
+                },
+                "epoch_times": [
+                  2.3,
+                  2.2,
+                  2.2,
+                  2.2,
+                  2.2
+                ],
+                "train_losses": [
+                  0.063567,
+                  0.043638,
+                  0.039287,
+                  0.038181,
+                  0.036404
+                ]
+              },
+              "1024": {
+                "val_mae": 0.04081733979252915,
+                "val_r2": -0.1408430573536119,
+                "val_rmse": 0.1059569800564931,
+                "test_mae": null,
+                "test_r2": null,
+                "test_rmse": null,
+                "best_epoch": 2,
+                "wall_clock_s": 14.2,
+                "peak_vram_gb": 0.55,
+                "gate_stats": {
+                  "L0_PhoneRequestsStream__f2p_AdID__AdsInfo": {
+                    "mean_gate": 0.5,
+                    "std_gate": 0.0,
+                    "min_gate": 0.5,
+                    "max_gate": 0.5,
+                    "mean_N": 0.0,
+                    "max_N": 0.0,
+                    "mean_rho": 0.000213,
+                    "num_batches": 7
+                  },
+                  "L0_VisitStream__f2p_AdID__AdsInfo": {
+                    "mean_gate": 0.5,
+                    "std_gate": 0.0,
+                    "min_gate": 0.5,
+                    "max_gate": 0.5,
+                    "mean_N": 0.0,
+                    "max_N": 0.0,
+                    "mean_rho": 0.000213,
+                    "num_batches": 7
+                  },
+                  "L0_SearchStream__f2p_SearchID__SearchInfo": {
+                    "mean_gate": 0.5,
+                    "std_gate": 0.0,
+                    "min_gate": 0.5,
+                    "max_gate": 0.5,
+                    "mean_N": 0.0,
+                    "max_N": 0.0,
+                    "mean_rho": 0.000213,
+                    "num_batches": 7
+                  },
+                  "L0_SearchInfo__rev_f2p_SearchID__SearchStream": {
+                    "mean_gate": 0.5,
+                    "std_gate": 0.0,
+                    "min_gate": 0.5,
+                    "max_gate": 0.5,
+                    "mean_N": 1.0,
+                    "max_N": 1.0,
+                    "mean_rho": 0.000213,
+                    "num_batches": 7
+                  },
+                  "L0_SearchStream__f2p_AdID__AdsInfo": {
+                    "mean_gate": 0.5,
+                    "std_gate": 0.0,
+                    "min_gate": 0.5,
+                    "max_gate": 0.5,
+                    "mean_N": 7.32,
+                    "max_N": 64.0,
+                    "mean_rho": 0.000213,
+                    "num_batches": 7
+                  },
+                  "L0_AdsInfo__rev_f2p_AdID__SearchStream": {
+                    "mean_gate": 0.5,
+                    "std_gate": 0.0,
+                    "min_gate": 0.5,
+                    "max_gate": 0.5,
+                    "mean_N": 1.0,
+                    "max_N": 1.0,
+                    "mean_rho": 0.000213,
+                    "num_batches": 7
+                  },
+                  "L0_UserInfo__rev_f2p_UserID__SearchInfo": {
+                    "mean_gate": 0.5,
+                    "std_gate": 0.0,
+                    "min_gate": 0.5,
+                    "max_gate": 0.5,
+                    "mean_N": 0.0,
+                    "max_N": 0.0,
+                    "mean_rho": 0.000213,
+                    "num_batches": 7
+                  },
+                  "L0_Location__rev_f2p_LocationID__SearchInfo": {
+                    "mean_gate": 0.5,
+                    "std_gate": 0.0,
+                    "min_gate": 0.5,
+                    "max_gate": 0.5,
+                    "mean_N": 0.0,
+                    "max_N": 0.0,
+                    "mean_rho": 0.000213,
+                    "num_batches": 7
+                  },
+                  "L0_SearchInfo__f2p_CategoryID__Category": {
+                    "mean_gate": 0.5,
+                    "std_gate": 0.0,
+                    "min_gate": 0.5,
+                    "max_gate": 0.5,
+                    "mean_N": 64.0,
+                    "max_N": 64.0,
+                    "mean_rho": 0.000213,
+                    "num_batches": 7
+                  },
+                  "L0_Category__rev_f2p_CategoryID__SearchInfo": {
+                    "mean_gate": 0.5,
+                    "std_gate": 0.0,
+                    "min_gate": 0.5,
+                    "max_gate": 0.5,
+                    "mean_N": 0.0,
+                    "max_N": 0.0,
+                    "mean_rho": 0.000213,
+                    "num_batches": 7
+                  },
+                  "L0_Location__rev_f2p_LocationID__AdsInfo": {
+                    "mean_gate": 0.5,
+                    "std_gate": 0.0,
+                    "min_gate": 0.5,
+                    "max_gate": 0.5,
+                    "mean_N": 0.0,
+                    "max_N": 0.0,
+                    "mean_rho": 0.000213,
+                    "num_batches": 7
+                  },
+                  "L0_AdsInfo__f2p_CategoryID__Category": {
+                    "mean_gate": 0.5,
+                    "std_gate": 0.0,
+                    "min_gate": 0.5,
+                    "max_gate": 0.5,
+                    "mean_N": 64.0,
+                    "max_N": 64.0,
+                    "mean_rho": 0.000213,
+                    "num_batches": 7
+                  },
+                  "L0_Category__rev_f2p_CategoryID__AdsInfo": {
+                    "mean_gate": 0.5,
+                    "std_gate": 0.0,
+                    "min_gate": 0.5,
+                    "max_gate": 0.5,
+                    "mean_N": 0.12,
+                    "max_N": 1.0,
+                    "mean_rho": 0.000213,
+                    "num_batches": 7
+                  },
+                  "L1_PhoneRequestsStream__f2p_AdID__AdsInfo": {
+                    "mean_gate": 0.5,
+                    "std_gate": 0.0,
+                    "min_gate": 0.5,
+                    "max_gate": 0.5,
+                    "mean_N": 0.0,
+                    "max_N": 0.0,
+                    "mean_rho": 0.000213,
+                    "num_batches": 7
+                  },
+                  "L1_VisitStream__f2p_AdID__AdsInfo": {
+                    "mean_gate": 0.5,
+                    "std_gate": 0.0,
+                    "min_gate": 0.5,
+                    "max_gate": 0.5,
+                    "mean_N": 0.0,
+                    "max_N": 0.0,
+                    "mean_rho": 0.000213,
+                    "num_batches": 7
+                  },
+                  "L1_SearchStream__f2p_SearchID__SearchInfo": {
+                    "mean_gate": 0.5,
+                    "std_gate": 0.0,
+                    "min_gate": 0.5,
+                    "max_gate": 0.5,
+                    "mean_N": 0.0,
+                    "max_N": 0.0,
+                    "mean_rho": 0.000213,
+                    "num_batches": 7
+                  },
+                  "L1_SearchInfo__rev_f2p_SearchID__SearchStream": {
+                    "mean_gate": 0.5,
+                    "std_gate": 0.0,
+                    "min_gate": 0.5,
+                    "max_gate": 0.5,
+                    "mean_N": 1.0,
+                    "max_N": 1.0,
+                    "mean_rho": 0.000213,
+                    "num_batches": 7
+                  },
+                  "L1_SearchStream__f2p_AdID__AdsInfo": {
+                    "mean_gate": 0.5,
+                    "std_gate": 0.0,
+                    "min_gate": 0.5,
+                    "max_gate": 0.5,
+                    "mean_N": 7.32,
+                    "max_N": 64.0,
+                    "mean_rho": 0.020843,
+                    "num_batches": 7
+                  },
+                  "L1_AdsInfo__rev_f2p_AdID__SearchStream": {
+                    "mean_gate": 0.5,
+                    "std_gate": 0.0,
+                    "min_gate": 0.5,
+                    "max_gate": 0.5,
+                    "mean_N": 1.0,
+                    "max_N": 1.0,
+                    "mean_rho": 0.000213,
+                    "num_batches": 7
+                  },
+                  "L1_UserInfo__rev_f2p_UserID__SearchInfo": {
+                    "mean_gate": 0.5,
+                    "std_gate": 0.0,
+                    "min_gate": 0.5,
+                    "max_gate": 0.5,
+                    "mean_N": 0.0,
+                    "max_N": 0.0,
+                    "mean_rho": 0.000213,
+                    "num_batches": 7
+                  },
+                  "L1_Location__rev_f2p_LocationID__SearchInfo": {
+                    "mean_gate": 0.5,
+                    "std_gate": 0.0,
+                    "min_gate": 0.5,
+                    "max_gate": 0.5,
+                    "mean_N": 0.0,
+                    "max_N": 0.0,
+                    "mean_rho": 0.000213,
+                    "num_batches": 7
+                  },
+                  "L1_SearchInfo__f2p_CategoryID__Category": {
+                    "mean_gate": 0.5,
+                    "std_gate": 0.0,
+                    "min_gate": 0.5,
+                    "max_gate": 0.5,
+                    "mean_N": 64.0,
+                    "max_N": 64.0,
+                    "mean_rho": 0.003781,
+                    "num_batches": 7
+                  },
+                  "L1_Category__rev_f2p_CategoryID__SearchInfo": {
+                    "mean_gate": 0.5,
+                    "std_gate": 0.0,
+                    "min_gate": 0.5,
+                    "max_gate": 0.5,
+                    "mean_N": 0.0,
+                    "max_N": 0.0,
+                    "mean_rho": 0.000213,
+                    "num_batches": 7
+                  },
+                  "L1_Location__rev_f2p_LocationID__AdsInfo": {
+                    "mean_gate": 0.5,
+                    "std_gate": 0.0,
+                    "min_gate": 0.5,
+                    "max_gate": 0.5,
+                    "mean_N": 0.0,
+                    "max_N": 0.0,
+                    "mean_rho": 0.000213,
+                    "num_batches": 7
+                  },
+                  "L1_AdsInfo__f2p_CategoryID__Category": {
+                    "mean_gate": 0.5,
+                    "std_gate": 0.0,
+                    "min_gate": 0.5,
+                    "max_gate": 0.5,
+                    "mean_N": 64.0,
+                    "max_N": 64.0,
+                    "mean_rho": 0.234881,
+                    "num_batches": 7
+                  },
+                  "L1_Category__rev_f2p_CategoryID__AdsInfo": {
+                    "mean_gate": 0.5,
+                    "std_gate": 0.0,
+                    "min_gate": 0.5,
+                    "max_gate": 0.5,
+                    "mean_N": 0.12,
+                    "max_N": 1.0,
+                    "mean_rho": 0.000213,
+                    "num_batches": 7
+                  }
+                },
+                "epoch_times": [
+                  2.2,
+                  2.2,
+                  2.1,
+                  2.1,
+                  2.0
+                ],
+                "train_losses": [
+                  0.061265,
+                  0.043565,
+                  0.03855,
+                  0.03765,
+                  0.036674
+                ]
+              }
+            },
+            "mean_mae": 0.044751,
+            "std_mae": 0.002562,
+            "mean_r2": -0.163811,
+            "mean_val_mae": 0.044751
+          },
+          "cama_neg_init": {
+            "per_seed": {
+              "42": {
+                "val_mae": 0.059053011700099835,
+                "val_r2": -0.024386601640475458,
+                "val_rmse": 0.10040343348005733,
+                "test_mae": null,
+                "test_r2": null,
+                "test_rmse": null,
+                "best_epoch": 1,
+                "wall_clock_s": 13.8,
+                "peak_vram_gb": 0.55,
+                "gate_stats": {
+                  "L0_PhoneRequestsStream__f2p_AdID__AdsInfo": {
+                    "mean_gate": 0.047426,
+                    "std_gate": 0.0,
+                    "min_gate": 0.047426,
+                    "max_gate": 0.047426,
+                    "mean_N": 0.0,
+                    "max_N": 0.0,
+                    "mean_rho": 0.000213,
+                    "num_batches": 7
+                  },
+                  "L0_VisitStream__f2p_AdID__AdsInfo": {
+                    "mean_gate": 0.047426,
+                    "std_gate": 0.0,
+                    "min_gate": 0.047426,
+                    "max_gate": 0.047426,
+                    "mean_N": 0.0,
+                    "max_N": 0.0,
+                    "mean_rho": 0.000213,
+                    "num_batches": 7
+                  },
+                  "L0_SearchStream__f2p_SearchID__SearchInfo": {
+                    "mean_gate": 0.047426,
+                    "std_gate": 0.0,
+                    "min_gate": 0.047426,
+                    "max_gate": 0.047426,
+                    "mean_N": 0.0,
+                    "max_N": 0.0,
+                    "mean_rho": 0.000213,
+                    "num_batches": 7
+                  },
+                  "L0_SearchInfo__rev_f2p_SearchID__SearchStream": {
+                    "mean_gate": 0.047426,
+                    "std_gate": 0.0,
+                    "min_gate": 0.047426,
+                    "max_gate": 0.047426,
+                    "mean_N": 1.0,
+                    "max_N": 1.0,
+                    "mean_rho": 0.000213,
+                    "num_batches": 7
+                  },
+                  "L0_SearchStream__f2p_AdID__AdsInfo": {
+                    "mean_gate": 0.047426,
+                    "std_gate": 0.0,
+                    "min_gate": 0.047426,
+                    "max_gate": 0.047426,
+                    "mean_N": 7.32,
+                    "max_N": 64.0,
+                    "mean_rho": 0.000213,
+                    "num_batches": 7
+                  },
+                  "L0_AdsInfo__rev_f2p_AdID__SearchStream": {
+                    "mean_gate": 0.047426,
+                    "std_gate": 0.0,
+                    "min_gate": 0.047426,
+                    "max_gate": 0.047426,
+                    "mean_N": 1.0,
+                    "max_N": 1.0,
+                    "mean_rho": 0.000213,
+                    "num_batches": 7
+                  },
+                  "L0_UserInfo__rev_f2p_UserID__SearchInfo": {
+                    "mean_gate": 0.047426,
+                    "std_gate": 0.0,
+                    "min_gate": 0.047426,
+                    "max_gate": 0.047426,
+                    "mean_N": 0.0,
+                    "max_N": 0.0,
+                    "mean_rho": 0.000213,
+                    "num_batches": 7
+                  },
+                  "L0_Location__rev_f2p_LocationID__SearchInfo": {
+                    "mean_gate": 0.047426,
+                    "std_gate": 0.0,
+                    "min_gate": 0.047426,
+                    "max_gate": 0.047426,
+                    "mean_N": 0.0,
+                    "max_N": 0.0,
+                    "mean_rho": 0.000213,
+                    "num_batches": 7
+                  },
+                  "L0_SearchInfo__f2p_CategoryID__Category": {
+                    "mean_gate": 0.047426,
+                    "std_gate": 0.0,
+                    "min_gate": 0.047426,
+                    "max_gate": 0.047426,
+                    "mean_N": 64.0,
+                    "max_N": 64.0,
+                    "mean_rho": 0.000213,
+                    "num_batches": 7
+                  },
+                  "L0_Category__rev_f2p_CategoryID__SearchInfo": {
+                    "mean_gate": 0.047426,
+                    "std_gate": 0.0,
+                    "min_gate": 0.047426,
+                    "max_gate": 0.047426,
+                    "mean_N": 0.0,
+                    "max_N": 0.0,
+                    "mean_rho": 0.000213,
+                    "num_batches": 7
+                  },
+                  "L0_Location__rev_f2p_LocationID__AdsInfo": {
+                    "mean_gate": 0.047426,
+                    "std_gate": 0.0,
+                    "min_gate": 0.047426,
+                    "max_gate": 0.047426,
+                    "mean_N": 0.0,
+                    "max_N": 0.0,
+                    "mean_rho": 0.000213,
+                    "num_batches": 7
+                  },
+                  "L0_AdsInfo__f2p_CategoryID__Category": {
+                    "mean_gate": 0.047426,
+                    "std_gate": 0.0,
+                    "min_gate": 0.047426,
+                    "max_gate": 0.047426,
+                    "mean_N": 64.0,
+                    "max_N": 64.0,
+                    "mean_rho": 0.000213,
+                    "num_batches": 7
+                  },
+                  "L0_Category__rev_f2p_CategoryID__AdsInfo": {
+                    "mean_gate": 0.047426,
+                    "std_gate": 0.0,
+                    "min_gate": 0.047426,
+                    "max_gate": 0.047426,
+                    "mean_N": 0.12,
+                    "max_N": 1.0,
+                    "mean_rho": 0.000213,
+                    "num_batches": 7
+                  },
+                  "L1_PhoneRequestsStream__f2p_AdID__AdsInfo": {
+                    "mean_gate": 0.047426,
+                    "std_gate": 0.0,
+                    "min_gate": 0.047426,
+                    "max_gate": 0.047426,
+                    "mean_N": 0.0,
+                    "max_N": 0.0,
+                    "mean_rho": 0.000213,
+                    "num_batches": 7
+                  },
+                  "L1_VisitStream__f2p_AdID__AdsInfo": {
+                    "mean_gate": 0.047426,
+                    "std_gate": 0.0,
+                    "min_gate": 0.047426,
+                    "max_gate": 0.047426,
+                    "mean_N": 0.0,
+                    "max_N": 0.0,
+                    "mean_rho": 0.000213,
+                    "num_batches": 7
+                  },
+                  "L1_SearchStream__f2p_SearchID__SearchInfo": {
+                    "mean_gate": 0.047426,
+                    "std_gate": 0.0,
+                    "min_gate": 0.047426,
+                    "max_gate": 0.047426,
+                    "mean_N": 0.0,
+                    "max_N": 0.0,
+                    "mean_rho": 0.000213,
+                    "num_batches": 7
+                  },
+                  "L1_SearchInfo__rev_f2p_SearchID__SearchStream": {
+                    "mean_gate": 0.047426,
+                    "std_gate": 0.0,
+                    "min_gate": 0.047426,
+                    "max_gate": 0.047426,
+                    "mean_N": 1.0,
+                    "max_N": 1.0,
+                    "mean_rho": 0.000213,
+                    "num_batches": 7
+                  },
+                  "L1_SearchStream__f2p_AdID__AdsInfo": {
+                    "mean_gate": 0.047426,
+                    "std_gate": 0.0,
+                    "min_gate": 0.047426,
+                    "max_gate": 0.047426,
+                    "mean_N": 7.32,
+                    "max_N": 64.0,
+                    "mean_rho": 0.004806,
+                    "num_batches": 7
+                  },
+                  "L1_AdsInfo__rev_f2p_AdID__SearchStream": {
+                    "mean_gate": 0.047426,
+                    "std_gate": 0.0,
+                    "min_gate": 0.047426,
+                    "max_gate": 0.047426,
+                    "mean_N": 1.0,
+                    "max_N": 1.0,
+                    "mean_rho": 0.000213,
+                    "num_batches": 7
+                  },
+                  "L1_UserInfo__rev_f2p_UserID__SearchInfo": {
+                    "mean_gate": 0.047426,
+                    "std_gate": 0.0,
+                    "min_gate": 0.047426,
+                    "max_gate": 0.047426,
+                    "mean_N": 0.0,
+                    "max_N": 0.0,
+                    "mean_rho": 0.000213,
+                    "num_batches": 7
+                  },
+                  "L1_Location__rev_f2p_LocationID__SearchInfo": {
+                    "mean_gate": 0.047426,
+                    "std_gate": 0.0,
+                    "min_gate": 0.047426,
+                    "max_gate": 0.047426,
+                    "mean_N": 0.0,
+                    "max_N": 0.0,
+                    "mean_rho": 0.000213,
+                    "num_batches": 7
+                  },
+                  "L1_SearchInfo__f2p_CategoryID__Category": {
+                    "mean_gate": 0.047426,
+                    "std_gate": 0.0,
+                    "min_gate": 0.047426,
+                    "max_gate": 0.047426,
+                    "mean_N": 64.0,
+                    "max_N": 64.0,
+                    "mean_rho": 0.028076,
+                    "num_batches": 7
+                  },
+                  "L1_Category__rev_f2p_CategoryID__SearchInfo": {
+                    "mean_gate": 0.047426,
+                    "std_gate": 0.0,
+                    "min_gate": 0.047426,
+                    "max_gate": 0.047426,
+                    "mean_N": 0.0,
+                    "max_N": 0.0,
+                    "mean_rho": 0.000213,
+                    "num_batches": 7
+                  },
+                  "L1_Location__rev_f2p_LocationID__AdsInfo": {
+                    "mean_gate": 0.047426,
+                    "std_gate": 0.0,
+                    "min_gate": 0.047426,
+                    "max_gate": 0.047426,
+                    "mean_N": 0.0,
+                    "max_N": 0.0,
+                    "mean_rho": 0.000213,
+                    "num_batches": 7
+                  },
+                  "L1_AdsInfo__f2p_CategoryID__Category": {
+                    "mean_gate": 0.047426,
+                    "std_gate": 0.0,
+                    "min_gate": 0.047426,
+                    "max_gate": 0.047426,
+                    "mean_N": 64.0,
+                    "max_N": 64.0,
+                    "mean_rho": 0.116705,
+                    "num_batches": 7
+                  },
+                  "L1_Category__rev_f2p_CategoryID__AdsInfo": {
+                    "mean_gate": 0.047426,
+                    "std_gate": 0.0,
+                    "min_gate": 0.047426,
+                    "max_gate": 0.047426,
+                    "mean_N": 0.12,
+                    "max_N": 1.0,
+                    "mean_rho": 0.000213,
+                    "num_batches": 7
+                  }
+                },
+                "epoch_times": [
+                  1.9,
+                  1.9,
+                  2.0,
+                  2.1,
+                  2.2
+                ],
+                "train_losses": [
+                  0.071966,
+                  0.037525,
+                  0.038321,
+                  0.037556,
+                  0.036581
+                ]
+              },
+              "123": {
+                "val_mae": 0.046493200830915515,
+                "val_r2": -0.2194665881573017,
+                "val_rmse": 0.10954727341999664,
+                "test_mae": null,
+                "test_r2": null,
+                "test_rmse": null,
+                "best_epoch": 3,
+                "wall_clock_s": 14.5,
+                "peak_vram_gb": 0.55,
+                "gate_stats": {
+                  "L0_PhoneRequestsStream__f2p_AdID__AdsInfo": {
+                    "mean_gate": 0.047426,
+                    "std_gate": 0.0,
+                    "min_gate": 0.047426,
+                    "max_gate": 0.047426,
+                    "mean_N": 0.0,
+                    "max_N": 0.0,
+                    "mean_rho": 0.000213,
+                    "num_batches": 7
+                  },
+                  "L0_VisitStream__f2p_AdID__AdsInfo": {
+                    "mean_gate": 0.047426,
+                    "std_gate": 0.0,
+                    "min_gate": 0.047426,
+                    "max_gate": 0.047426,
+                    "mean_N": 0.0,
+                    "max_N": 0.0,
+                    "mean_rho": 0.000213,
+                    "num_batches": 7
+                  },
+                  "L0_SearchStream__f2p_SearchID__SearchInfo": {
+                    "mean_gate": 0.047426,
+                    "std_gate": 0.0,
+                    "min_gate": 0.047426,
+                    "max_gate": 0.047426,
+                    "mean_N": 0.0,
+                    "max_N": 0.0,
+                    "mean_rho": 0.000213,
+                    "num_batches": 7
+                  },
+                  "L0_SearchInfo__rev_f2p_SearchID__SearchStream": {
+                    "mean_gate": 0.047426,
+                    "std_gate": 0.0,
+                    "min_gate": 0.047426,
+                    "max_gate": 0.047426,
+                    "mean_N": 1.0,
+                    "max_N": 1.0,
+                    "mean_rho": 0.000213,
+                    "num_batches": 7
+                  },
+                  "L0_SearchStream__f2p_AdID__AdsInfo": {
+                    "mean_gate": 0.047426,
+                    "std_gate": 0.0,
+                    "min_gate": 0.047426,
+                    "max_gate": 0.047426,
+                    "mean_N": 7.32,
+                    "max_N": 64.0,
+                    "mean_rho": 0.000213,
+                    "num_batches": 7
+                  },
+                  "L0_AdsInfo__rev_f2p_AdID__SearchStream": {
+                    "mean_gate": 0.047426,
+                    "std_gate": 0.0,
+                    "min_gate": 0.047426,
+                    "max_gate": 0.047426,
+                    "mean_N": 1.0,
+                    "max_N": 1.0,
+                    "mean_rho": 0.000213,
+                    "num_batches": 7
+                  },
+                  "L0_UserInfo__rev_f2p_UserID__SearchInfo": {
+                    "mean_gate": 0.047426,
+                    "std_gate": 0.0,
+                    "min_gate": 0.047426,
+                    "max_gate": 0.047426,
+                    "mean_N": 0.0,
+                    "max_N": 0.0,
+                    "mean_rho": 0.000213,
+                    "num_batches": 7
+                  },
+                  "L0_Location__rev_f2p_LocationID__SearchInfo": {
+                    "mean_gate": 0.047426,
+                    "std_gate": 0.0,
+                    "min_gate": 0.047426,
+                    "max_gate": 0.047426,
+                    "mean_N": 0.0,
+                    "max_N": 0.0,
+                    "mean_rho": 0.000213,
+                    "num_batches": 7
+                  },
+                  "L0_SearchInfo__f2p_CategoryID__Category": {
+                    "mean_gate": 0.047426,
+                    "std_gate": 0.0,
+                    "min_gate": 0.047426,
+                    "max_gate": 0.047426,
+                    "mean_N": 64.0,
+                    "max_N": 64.0,
+                    "mean_rho": 0.000213,
+                    "num_batches": 7
+                  },
+                  "L0_Category__rev_f2p_CategoryID__SearchInfo": {
+                    "mean_gate": 0.047426,
+                    "std_gate": 0.0,
+                    "min_gate": 0.047426,
+                    "max_gate": 0.047426,
+                    "mean_N": 0.0,
+                    "max_N": 0.0,
+                    "mean_rho": 0.000213,
+                    "num_batches": 7
+                  },
+                  "L0_Location__rev_f2p_LocationID__AdsInfo": {
+                    "mean_gate": 0.047426,
+                    "std_gate": 0.0,
+                    "min_gate": 0.047426,
+                    "max_gate": 0.047426,
+                    "mean_N": 0.0,
+                    "max_N": 0.0,
+                    "mean_rho": 0.000213,
+                    "num_batches": 7
+                  },
+                  "L0_AdsInfo__f2p_CategoryID__Category": {
+                    "mean_gate": 0.047426,
+                    "std_gate": 0.0,
+                    "min_gate": 0.047426,
+                    "max_gate": 0.047426,
+                    "mean_N": 64.0,
+                    "max_N": 64.0,
+                    "mean_rho": 0.000213,
+                    "num_batches": 7
+                  },
+                  "L0_Category__rev_f2p_CategoryID__AdsInfo": {
+                    "mean_gate": 0.047426,
+                    "std_gate": 0.0,
+                    "min_gate": 0.047426,
+                    "max_gate": 0.047426,
+                    "mean_N": 0.12,
+                    "max_N": 1.0,
+                    "mean_rho": 0.000213,
+                    "num_batches": 7
+                  },
+                  "L1_PhoneRequestsStream__f2p_AdID__AdsInfo": {
+                    "mean_gate": 0.047426,
+                    "std_gate": 0.0,
+                    "min_gate": 0.047426,
+                    "max_gate": 0.047426,
+                    "mean_N": 0.0,
+                    "max_N": 0.0,
+                    "mean_rho": 0.000213,
+                    "num_batches": 7
+                  },
+                  "L1_VisitStream__f2p_AdID__AdsInfo": {
+                    "mean_gate": 0.047426,
+                    "std_gate": 0.0,
+                    "min_gate": 0.047426,
+                    "max_gate": 0.047426,
+                    "mean_N": 0.0,
+                    "max_N": 0.0,
+                    "mean_rho": 0.000213,
+                    "num_batches": 7
+                  },
+                  "L1_SearchStream__f2p_SearchID__SearchInfo": {
+                    "mean_gate": 0.047426,
+                    "std_gate": 0.0,
+                    "min_gate": 0.047426,
+                    "max_gate": 0.047426,
+                    "mean_N": 0.0,
+                    "max_N": 0.0,
+                    "mean_rho": 0.000213,
+                    "num_batches": 7
+                  },
+                  "L1_SearchInfo__rev_f2p_SearchID__SearchStream": {
+                    "mean_gate": 0.047426,
+                    "std_gate": 0.0,
+                    "min_gate": 0.047426,
+                    "max_gate": 0.047426,
+                    "mean_N": 1.0,
+                    "max_N": 1.0,
+                    "mean_rho": 0.000213,
+                    "num_batches": 7
+                  },
+                  "L1_SearchStream__f2p_AdID__AdsInfo": {
+                    "mean_gate": 0.047426,
+                    "std_gate": 0.0,
+                    "min_gate": 0.047426,
+                    "max_gate": 0.047426,
+                    "mean_N": 7.32,
+                    "max_N": 64.0,
+                    "mean_rho": 0.022554,
+                    "num_batches": 7
+                  },
+                  "L1_AdsInfo__rev_f2p_AdID__SearchStream": {
+                    "mean_gate": 0.047426,
+                    "std_gate": 0.0,
+                    "min_gate": 0.047426,
+                    "max_gate": 0.047426,
+                    "mean_N": 1.0,
+                    "max_N": 1.0,
+                    "mean_rho": 0.000213,
+                    "num_batches": 7
+                  },
+                  "L1_UserInfo__rev_f2p_UserID__SearchInfo": {
+                    "mean_gate": 0.047426,
+                    "std_gate": 0.0,
+                    "min_gate": 0.047426,
+                    "max_gate": 0.047426,
+                    "mean_N": 0.0,
+                    "max_N": 0.0,
+                    "mean_rho": 0.000213,
+                    "num_batches": 7
+                  },
+                  "L1_Location__rev_f2p_LocationID__SearchInfo": {
+                    "mean_gate": 0.047426,
+                    "std_gate": 0.0,
+                    "min_gate": 0.047426,
+                    "max_gate": 0.047426,
+                    "mean_N": 0.0,
+                    "max_N": 0.0,
+                    "mean_rho": 0.000213,
+                    "num_batches": 7
+                  },
+                  "L1_SearchInfo__f2p_CategoryID__Category": {
+                    "mean_gate": 0.047426,
+                    "std_gate": 0.0,
+                    "min_gate": 0.047426,
+                    "max_gate": 0.047426,
+                    "mean_N": 64.0,
+                    "max_N": 64.0,
+                    "mean_rho": 0.001115,
+                    "num_batches": 7
+                  },
+                  "L1_Category__rev_f2p_CategoryID__SearchInfo": {
+                    "mean_gate": 0.047426,
+                    "std_gate": 0.0,
+                    "min_gate": 0.047426,
+                    "max_gate": 0.047426,
+                    "mean_N": 0.0,
+                    "max_N": 0.0,
+                    "mean_rho": 0.000213,
+                    "num_batches": 7
+                  },
+                  "L1_Location__rev_f2p_LocationID__AdsInfo": {
+                    "mean_gate": 0.047426,
+                    "std_gate": 0.0,
+                    "min_gate": 0.047426,
+                    "max_gate": 0.047426,
+                    "mean_N": 0.0,
+                    "max_N": 0.0,
+                    "mean_rho": 0.000213,
+                    "num_batches": 7
+                  },
+                  "L1_AdsInfo__f2p_CategoryID__Category": {
+                    "mean_gate": 0.047426,
+                    "std_gate": 0.0,
+                    "min_gate": 0.047426,
+                    "max_gate": 0.047426,
+                    "mean_N": 64.0,
+                    "max_N": 64.0,
+                    "mean_rho": 0.259124,
+                    "num_batches": 7
+                  },
+                  "L1_Category__rev_f2p_CategoryID__AdsInfo": {
+                    "mean_gate": 0.047426,
+                    "std_gate": 0.0,
+                    "min_gate": 0.047426,
+                    "max_gate": 0.047426,
+                    "mean_N": 0.12,
+                    "max_N": 1.0,
+                    "mean_rho": 0.000213,
+                    "num_batches": 7
+                  }
+                },
+                "epoch_times": [
+                  2.2,
+                  2.1,
+                  2.1,
+                  2.2,
+                  2.2
+                ],
+                "train_losses": [
+                  0.072818,
+                  0.045578,
+                  0.042029,
+                  0.036873,
+                  0.036007
+                ]
+              },
+              "456": {
+                "val_mae": 0.046493200830915515,
+                "val_r2": -0.2194665881573017,
+                "val_rmse": 0.10954727341999664,
+                "test_mae": null,
+                "test_r2": null,
+                "test_rmse": null,
+                "best_epoch": 1,
+                "wall_clock_s": 14.6,
+                "peak_vram_gb": 0.55,
+                "gate_stats": {
+                  "L0_PhoneRequestsStream__f2p_AdID__AdsInfo": {
+                    "mean_gate": 0.047426,
+                    "std_gate": 0.0,
+                    "min_gate": 0.047426,
+                    "max_gate": 0.047426,
+                    "mean_N": 0.0,
+                    "max_N": 0.0,
+                    "mean_rho": 0.000213,
+                    "num_batches": 7
+                  },
+                  "L0_VisitStream__f2p_AdID__AdsInfo": {
+                    "mean_gate": 0.047426,
+                    "std_gate": 0.0,
+                    "min_gate": 0.047426,
+                    "max_gate": 0.047426,
+                    "mean_N": 0.0,
+                    "max_N": 0.0,
+                    "mean_rho": 0.000213,
+                    "num_batches": 7
+                  },
+                  "L0_SearchStream__f2p_SearchID__SearchInfo": {
+                    "mean_gate": 0.047426,
+                    "std_gate": 0.0,
+                    "min_gate": 0.047426,
+                    "max_gate": 0.047426,
+                    "mean_N": 0.0,
+                    "max_N": 0.0,
+                    "mean_rho": 0.000213,
+                    "num_batches": 7
+                  },
+                  "L0_SearchInfo__rev_f2p_SearchID__SearchStream": {
+                    "mean_gate": 0.047426,
+                    "std_gate": 0.0,
+                    "min_gate": 0.047426,
+                    "max_gate": 0.047426,
+                    "mean_N": 1.0,
+                    "max_N": 1.0,
+                    "mean_rho": 0.000213,
+                    "num_batches": 7
+                  },
+                  "L0_SearchStream__f2p_AdID__AdsInfo": {
+                    "mean_gate": 0.047426,
+                    "std_gate": 0.0,
+                    "min_gate": 0.047426,
+                    "max_gate": 0.047426,
+                    "mean_N": 7.32,
+                    "max_N": 64.0,
+                    "mean_rho": 0.000213,
+                    "num_batches": 7
+                  },
+                  "L0_AdsInfo__rev_f2p_AdID__SearchStream": {
+                    "mean_gate": 0.047426,
+                    "std_gate": 0.0,
+                    "min_gate": 0.047426,
+                    "max_gate": 0.047426,
+                    "mean_N": 1.0,
+                    "max_N": 1.0,
+                    "mean_rho": 0.000213,
+                    "num_batches": 7
+                  },
+                  "L0_UserInfo__rev_f2p_UserID__SearchInfo": {
+                    "mean_gate": 0.047426,
+                    "std_gate": 0.0,
+                    "min_gate": 0.047426,
+                    "max_gate": 0.047426,
+                    "mean_N": 0.0,
+                    "max_N": 0.0,
+                    "mean_rho": 0.000213,
+                    "num_batches": 7
+                  },
+                  "L0_Location__rev_f2p_LocationID__SearchInfo": {
+                    "mean_gate": 0.047426,
+                    "std_gate": 0.0,
+                    "min_gate": 0.047426,
+                    "max_gate": 0.047426,
+                    "mean_N": 0.0,
+                    "max_N": 0.0,
+                    "mean_rho": 0.000213,
+                    "num_batches": 7
+                  },
+                  "L0_SearchInfo__f2p_CategoryID__Category": {
+                    "mean_gate": 0.047426,
+                    "std_gate": 0.0,
+                    "min_gate": 0.047426,
+                    "max_gate": 0.047426,
+                    "mean_N": 64.0,
+                    "max_N": 64.0,
+                    "mean_rho": 0.000213,
+                    "num_batches": 7
+                  },
+                  "L0_Category__rev_f2p_CategoryID__SearchInfo": {
+                    "mean_gate": 0.047426,
+                    "std_gate": 0.0,
+                    "min_gate": 0.047426,
+                    "max_gate": 0.047426,
+                    "mean_N": 0.0,
+                    "max_N": 0.0,
+                    "mean_rho": 0.000213,
+                    "num_batches": 7
+                  },
+                  "L0_Location__rev_f2p_LocationID__AdsInfo": {
+                    "mean_gate": 0.047426,
+                    "std_gate": 0.0,
+                    "min_gate": 0.047426,
+                    "max_gate": 0.047426,
+                    "mean_N": 0.0,
+                    "max_N": 0.0,
+                    "mean_rho": 0.000213,
+                    "num_batches": 7
+                  },
+                  "L0_AdsInfo__f2p_CategoryID__Category": {
+                    "mean_gate": 0.047426,
+                    "std_gate": 0.0,
+                    "min_gate": 0.047426,
+                    "max_gate": 0.047426,
+                    "mean_N": 64.0,
+                    "max_N": 64.0,
+                    "mean_rho": 0.000213,
+                    "num_batches": 7
+                  },
+                  "L0_Category__rev_f2p_CategoryID__AdsInfo": {
+                    "mean_gate": 0.047426,
+                    "std_gate": 0.0,
+                    "min_gate": 0.047426,
+                    "max_gate": 0.047426,
+                    "mean_N": 0.12,
+                    "max_N": 1.0,
+                    "mean_rho": 0.000213,
+                    "num_batches": 7
+                  },
+                  "L1_PhoneRequestsStream__f2p_AdID__AdsInfo": {
+                    "mean_gate": 0.047426,
+                    "std_gate": 0.0,
+                    "min_gate": 0.047426,
+                    "max_gate": 0.047426,
+                    "mean_N": 0.0,
+                    "max_N": 0.0,
+                    "mean_rho": 0.000213,
+                    "num_batches": 7
+                  },
+                  "L1_VisitStream__f2p_AdID__AdsInfo": {
+                    "mean_gate": 0.047426,
+                    "std_gate": 0.0,
+                    "min_gate": 0.047426,
+                    "max_gate": 0.047426,
+                    "mean_N": 0.0,
+                    "max_N": 0.0,
+                    "mean_rho": 0.000213,
+                    "num_batches": 7
+                  },
+                  "L1_SearchStream__f2p_SearchID__SearchInfo": {
+                    "mean_gate": 0.047426,
+                    "std_gate": 0.0,
+                    "min_gate": 0.047426,
+                    "max_gate": 0.047426,
+                    "mean_N": 0.0,
+                    "max_N": 0.0,
+                    "mean_rho": 0.000213,
+                    "num_batches": 7
+                  },
+                  "L1_SearchInfo__rev_f2p_SearchID__SearchStream": {
+                    "mean_gate": 0.047426,
+                    "std_gate": 0.0,
+                    "min_gate": 0.047426,
+                    "max_gate": 0.047426,
+                    "mean_N": 1.0,
+                    "max_N": 1.0,
+                    "mean_rho": 0.000213,
+                    "num_batches": 7
+                  },
+                  "L1_SearchStream__f2p_AdID__AdsInfo": {
+                    "mean_gate": 0.047426,
+                    "std_gate": 0.0,
+                    "min_gate": 0.047426,
+                    "max_gate": 0.047426,
+                    "mean_N": 7.32,
+                    "max_N": 64.0,
+                    "mean_rho": 0.004382,
+                    "num_batches": 7
+                  },
+                  "L1_AdsInfo__rev_f2p_AdID__SearchStream": {
+                    "mean_gate": 0.047426,
+                    "std_gate": 0.0,
+                    "min_gate": 0.047426,
+                    "max_gate": 0.047426,
+                    "mean_N": 1.0,
+                    "max_N": 1.0,
+                    "mean_rho": 0.000213,
+                    "num_batches": 7
+                  },
+                  "L1_UserInfo__rev_f2p_UserID__SearchInfo": {
+                    "mean_gate": 0.047426,
+                    "std_gate": 0.0,
+                    "min_gate": 0.047426,
+                    "max_gate": 0.047426,
+                    "mean_N": 0.0,
+                    "max_N": 0.0,
+                    "mean_rho": 0.000213,
+                    "num_batches": 7
+                  },
+                  "L1_Location__rev_f2p_LocationID__SearchInfo": {
+                    "mean_gate": 0.047426,
+                    "std_gate": 0.0,
+                    "min_gate": 0.047426,
+                    "max_gate": 0.047426,
+                    "mean_N": 0.0,
+                    "max_N": 0.0,
+                    "mean_rho": 0.000213,
+                    "num_batches": 7
+                  },
+                  "L1_SearchInfo__f2p_CategoryID__Category": {
+                    "mean_gate": 0.047426,
+                    "std_gate": 0.0,
+                    "min_gate": 0.047426,
+                    "max_gate": 0.047426,
+                    "mean_N": 64.0,
+                    "max_N": 64.0,
+                    "mean_rho": 0.068819,
+                    "num_batches": 7
+                  },
+                  "L1_Category__rev_f2p_CategoryID__SearchInfo": {
+                    "mean_gate": 0.047426,
+                    "std_gate": 0.0,
+                    "min_gate": 0.047426,
+                    "max_gate": 0.047426,
+                    "mean_N": 0.0,
+                    "max_N": 0.0,
+                    "mean_rho": 0.000213,
+                    "num_batches": 7
+                  },
+                  "L1_Location__rev_f2p_LocationID__AdsInfo": {
+                    "mean_gate": 0.047426,
+                    "std_gate": 0.0,
+                    "min_gate": 0.047426,
+                    "max_gate": 0.047426,
+                    "mean_N": 0.0,
+                    "max_N": 0.0,
+                    "mean_rho": 0.000213,
+                    "num_batches": 7
+                  },
+                  "L1_AdsInfo__f2p_CategoryID__Category": {
+                    "mean_gate": 0.047426,
+                    "std_gate": 0.0,
+                    "min_gate": 0.047426,
+                    "max_gate": 0.047426,
+                    "mean_N": 64.0,
+                    "max_N": 64.0,
+                    "mean_rho": 0.120298,
+                    "num_batches": 7
+                  },
+                  "L1_Category__rev_f2p_CategoryID__AdsInfo": {
+                    "mean_gate": 0.047426,
+                    "std_gate": 0.0,
+                    "min_gate": 0.047426,
+                    "max_gate": 0.047426,
+                    "mean_N": 0.12,
+                    "max_N": 1.0,
+                    "mean_rho": 0.000213,
+                    "num_batches": 7
+                  }
+                },
+                "epoch_times": [
+                  2.2,
+                  2.1,
+                  2.2,
+                  2.2,
+                  2.3
+                ],
+                "train_losses": [
+                  0.103862,
+                  0.05271,
+                  0.040187,
+                  0.037225,
+                  0.038173
+                ]
+              },
+              "789": {
+                "val_mae": 0.046493200830915515,
+                "val_r2": -0.2194665881573017,
+                "val_rmse": 0.10954727341999664,
+                "test_mae": null,
+                "test_r2": null,
+                "test_rmse": null,
+                "best_epoch": 1,
+                "wall_clock_s": 14.6,
+                "peak_vram_gb": 0.54,
+                "gate_stats": {
+                  "L0_PhoneRequestsStream__f2p_AdID__AdsInfo": {
+                    "mean_gate": 0.047426,
+                    "std_gate": 0.0,
+                    "min_gate": 0.047426,
+                    "max_gate": 0.047426,
+                    "mean_N": 0.0,
+                    "max_N": 0.0,
+                    "mean_rho": 0.000213,
+                    "num_batches": 7
+                  },
+                  "L0_VisitStream__f2p_AdID__AdsInfo": {
+                    "mean_gate": 0.047426,
+                    "std_gate": 0.0,
+                    "min_gate": 0.047426,
+                    "max_gate": 0.047426,
+                    "mean_N": 0.0,
+                    "max_N": 0.0,
+                    "mean_rho": 0.000213,
+                    "num_batches": 7
+                  },
+                  "L0_SearchStream__f2p_SearchID__SearchInfo": {
+                    "mean_gate": 0.047426,
+                    "std_gate": 0.0,
+                    "min_gate": 0.047426,
+                    "max_gate": 0.047426,
+                    "mean_N": 0.0,
+                    "max_N": 0.0,
+                    "mean_rho": 0.000213,
+                    "num_batches": 7
+                  },
+                  "L0_SearchInfo__rev_f2p_SearchID__SearchStream": {
+                    "mean_gate": 0.047426,
+                    "std_gate": 0.0,
+                    "min_gate": 0.047426,
+                    "max_gate": 0.047426,
+                    "mean_N": 1.0,
+                    "max_N": 1.0,
+                    "mean_rho": 0.000213,
+                    "num_batches": 7
+                  },
+                  "L0_SearchStream__f2p_AdID__AdsInfo": {
+                    "mean_gate": 0.047426,
+                    "std_gate": 0.0,
+                    "min_gate": 0.047426,
+                    "max_gate": 0.047426,
+                    "mean_N": 7.32,
+                    "max_N": 64.0,
+                    "mean_rho": 0.000213,
+                    "num_batches": 7
+                  },
+                  "L0_AdsInfo__rev_f2p_AdID__SearchStream": {
+                    "mean_gate": 0.047426,
+                    "std_gate": 0.0,
+                    "min_gate": 0.047426,
+                    "max_gate": 0.047426,
+                    "mean_N": 1.0,
+                    "max_N": 1.0,
+                    "mean_rho": 0.000213,
+                    "num_batches": 7
+                  },
+                  "L0_UserInfo__rev_f2p_UserID__SearchInfo": {
+                    "mean_gate": 0.047426,
+                    "std_gate": 0.0,
+                    "min_gate": 0.047426,
+                    "max_gate": 0.047426,
+                    "mean_N": 0.0,
+                    "max_N": 0.0,
+                    "mean_rho": 0.000213,
+                    "num_batches": 7
+                  },
+                  "L0_Location__rev_f2p_LocationID__SearchInfo": {
+                    "mean_gate": 0.047426,
+                    "std_gate": 0.0,
+                    "min_gate": 0.047426,
+                    "max_gate": 0.047426,
+                    "mean_N": 0.0,
+                    "max_N": 0.0,
+                    "mean_rho": 0.000213,
+                    "num_batches": 7
+                  },
+                  "L0_SearchInfo__f2p_CategoryID__Category": {
+                    "mean_gate": 0.047426,
+                    "std_gate": 0.0,
+                    "min_gate": 0.047426,
+                    "max_gate": 0.047426,
+                    "mean_N": 64.0,
+                    "max_N": 64.0,
+                    "mean_rho": 0.000213,
+                    "num_batches": 7
+                  },
+                  "L0_Category__rev_f2p_CategoryID__SearchInfo": {
+                    "mean_gate": 0.047426,
+                    "std_gate": 0.0,
+                    "min_gate": 0.047426,
+                    "max_gate": 0.047426,
+                    "mean_N": 0.0,
+                    "max_N": 0.0,
+                    "mean_rho": 0.000213,
+                    "num_batches": 7
+                  },
+                  "L0_Location__rev_f2p_LocationID__AdsInfo": {
+                    "mean_gate": 0.047426,
+                    "std_gate": 0.0,
+                    "min_gate": 0.047426,
+                    "max_gate": 0.047426,
+                    "mean_N": 0.0,
+                    "max_N": 0.0,
+                    "mean_rho": 0.000213,
+                    "num_batches": 7
+                  },
+                  "L0_AdsInfo__f2p_CategoryID__Category": {
+                    "mean_gate": 0.047426,
+                    "std_gate": 0.0,
+                    "min_gate": 0.047426,
+                    "max_gate": 0.047426,
+                    "mean_N": 64.0,
+                    "max_N": 64.0,
+                    "mean_rho": 0.000213,
+                    "num_batches": 7
+                  },
+                  "L0_Category__rev_f2p_CategoryID__AdsInfo": {
+                    "mean_gate": 0.047426,
+                    "std_gate": 0.0,
+                    "min_gate": 0.047426,
+                    "max_gate": 0.047426,
+                    "mean_N": 0.12,
+                    "max_N": 1.0,
+                    "mean_rho": 0.000213,
+                    "num_batches": 7
+                  },
+                  "L1_PhoneRequestsStream__f2p_AdID__AdsInfo": {
+                    "mean_gate": 0.047426,
+                    "std_gate": 0.0,
+                    "min_gate": 0.047426,
+                    "max_gate": 0.047426,
+                    "mean_N": 0.0,
+                    "max_N": 0.0,
+                    "mean_rho": 0.000213,
+                    "num_batches": 7
+                  },
+                  "L1_VisitStream__f2p_AdID__AdsInfo": {
+                    "mean_gate": 0.047426,
+                    "std_gate": 0.0,
+                    "min_gate": 0.047426,
+                    "max_gate": 0.047426,
+                    "mean_N": 0.0,
+                    "max_N": 0.0,
+                    "mean_rho": 0.000213,
+                    "num_batches": 7
+                  },
+                  "L1_SearchStream__f2p_SearchID__SearchInfo": {
+                    "mean_gate": 0.047426,
+                    "std_gate": 0.0,
+                    "min_gate": 0.047426,
+                    "max_gate": 0.047426,
+                    "mean_N": 0.0,
+                    "max_N": 0.0,
+                    "mean_rho": 0.000213,
+                    "num_batches": 7
+                  },
+                  "L1_SearchInfo__rev_f2p_SearchID__SearchStream": {
+                    "mean_gate": 0.047426,
+                    "std_gate": 0.0,
+                    "min_gate": 0.047426,
+                    "max_gate": 0.047426,
+                    "mean_N": 1.0,
+                    "max_N": 1.0,
+                    "mean_rho": 0.000213,
+                    "num_batches": 7
+                  },
+                  "L1_SearchStream__f2p_AdID__AdsInfo": {
+                    "mean_gate": 0.047426,
+                    "std_gate": 0.0,
+                    "min_gate": 0.047426,
+                    "max_gate": 0.047426,
+                    "mean_N": 7.32,
+                    "max_N": 64.0,
+                    "mean_rho": 0.009431,
+                    "num_batches": 7
+                  },
+                  "L1_AdsInfo__rev_f2p_AdID__SearchStream": {
+                    "mean_gate": 0.047426,
+                    "std_gate": 0.0,
+                    "min_gate": 0.047426,
+                    "max_gate": 0.047426,
+                    "mean_N": 1.0,
+                    "max_N": 1.0,
+                    "mean_rho": 0.000213,
+                    "num_batches": 7
+                  },
+                  "L1_UserInfo__rev_f2p_UserID__SearchInfo": {
+                    "mean_gate": 0.047426,
+                    "std_gate": 0.0,
+                    "min_gate": 0.047426,
+                    "max_gate": 0.047426,
+                    "mean_N": 0.0,
+                    "max_N": 0.0,
+                    "mean_rho": 0.000213,
+                    "num_batches": 7
+                  },
+                  "L1_Location__rev_f2p_LocationID__SearchInfo": {
+                    "mean_gate": 0.047426,
+                    "std_gate": 0.0,
+                    "min_gate": 0.047426,
+                    "max_gate": 0.047426,
+                    "mean_N": 0.0,
+                    "max_N": 0.0,
+                    "mean_rho": 0.000213,
+                    "num_batches": 7
+                  },
+                  "L1_SearchInfo__f2p_CategoryID__Category": {
+                    "mean_gate": 0.047426,
+                    "std_gate": 0.0,
+                    "min_gate": 0.047426,
+                    "max_gate": 0.047426,
+                    "mean_N": 64.0,
+                    "max_N": 64.0,
+                    "mean_rho": 0.022599,
+                    "num_batches": 7
+                  },
+                  "L1_Category__rev_f2p_CategoryID__SearchInfo": {
+                    "mean_gate": 0.047426,
+                    "std_gate": 0.0,
+                    "min_gate": 0.047426,
+                    "max_gate": 0.047426,
+                    "mean_N": 0.0,
+                    "max_N": 0.0,
+                    "mean_rho": 0.000213,
+                    "num_batches": 7
+                  },
+                  "L1_Location__rev_f2p_LocationID__AdsInfo": {
+                    "mean_gate": 0.047426,
+                    "std_gate": 0.0,
+                    "min_gate": 0.047426,
+                    "max_gate": 0.047426,
+                    "mean_N": 0.0,
+                    "max_N": 0.0,
+                    "mean_rho": 0.000213,
+                    "num_batches": 7
+                  },
+                  "L1_AdsInfo__f2p_CategoryID__Category": {
+                    "mean_gate": 0.047426,
+                    "std_gate": 0.0,
+                    "min_gate": 0.047426,
+                    "max_gate": 0.047426,
+                    "mean_N": 64.0,
+                    "max_N": 64.0,
+                    "mean_rho": 0.104032,
+                    "num_batches": 7
+                  },
+                  "L1_Category__rev_f2p_CategoryID__AdsInfo": {
+                    "mean_gate": 0.047426,
+                    "std_gate": 0.0,
+                    "min_gate": 0.047426,
+                    "max_gate": 0.047426,
+                    "mean_N": 0.12,
+                    "max_N": 1.0,
+                    "mean_rho": 0.000213,
+                    "num_batches": 7
+                  }
+                },
+                "epoch_times": [
+                  2.2,
+                  2.2,
+                  2.2,
+                  2.2,
+                  2.2
+                ],
+                "train_losses": [
+                  0.063572,
+                  0.041485,
+                  0.039479,
+                  0.043159,
+                  0.037062
+                ]
+              },
+              "1024": {
+                "val_mae": 0.046493200830915515,
+                "val_r2": -0.2194665881573017,
+                "val_rmse": 0.10954727341999664,
+                "test_mae": null,
+                "test_r2": null,
+                "test_rmse": null,
+                "best_epoch": 1,
+                "wall_clock_s": 14.6,
+                "peak_vram_gb": 0.55,
+                "gate_stats": {
+                  "L0_PhoneRequestsStream__f2p_AdID__AdsInfo": {
+                    "mean_gate": 0.047426,
+                    "std_gate": 0.0,
+                    "min_gate": 0.047426,
+                    "max_gate": 0.047426,
+                    "mean_N": 0.0,
+                    "max_N": 0.0,
+                    "mean_rho": 0.000213,
+                    "num_batches": 7
+                  },
+                  "L0_VisitStream__f2p_AdID__AdsInfo": {
+                    "mean_gate": 0.047426,
+                    "std_gate": 0.0,
+                    "min_gate": 0.047426,
+                    "max_gate": 0.047426,
+                    "mean_N": 0.0,
+                    "max_N": 0.0,
+                    "mean_rho": 0.000213,
+                    "num_batches": 7
+                  },
+                  "L0_SearchStream__f2p_SearchID__SearchInfo": {
+                    "mean_gate": 0.047426,
+                    "std_gate": 0.0,
+                    "min_gate": 0.047426,
+                    "max_gate": 0.047426,
+                    "mean_N": 0.0,
+                    "max_N": 0.0,
+                    "mean_rho": 0.000213,
+                    "num_batches": 7
+                  },
+                  "L0_SearchInfo__rev_f2p_SearchID__SearchStream": {
+                    "mean_gate": 0.047426,
+                    "std_gate": 0.0,
+                    "min_gate": 0.047426,
+                    "max_gate": 0.047426,
+                    "mean_N": 1.0,
+                    "max_N": 1.0,
+                    "mean_rho": 0.000213,
+                    "num_batches": 7
+                  },
+                  "L0_SearchStream__f2p_AdID__AdsInfo": {
+                    "mean_gate": 0.047426,
+                    "std_gate": 0.0,
+                    "min_gate": 0.047426,
+                    "max_gate": 0.047426,
+                    "mean_N": 7.32,
+                    "max_N": 64.0,
+                    "mean_rho": 0.000213,
+                    "num_batches": 7
+                  },
+                  "L0_AdsInfo__rev_f2p_AdID__SearchStream": {
+                    "mean_gate": 0.047426,
+                    "std_gate": 0.0,
+                    "min_gate": 0.047426,
+                    "max_gate": 0.047426,
+                    "mean_N": 1.0,
+                    "max_N": 1.0,
+                    "mean_rho": 0.000213,
+                    "num_batches": 7
+                  },
+                  "L0_UserInfo__rev_f2p_UserID__SearchInfo": {
+                    "mean_gate": 0.047426,
+                    "std_gate": 0.0,
+                    "min_gate": 0.047426,
+                    "max_gate": 0.047426,
+                    "mean_N": 0.0,
+                    "max_N": 0.0,
+                    "mean_rho": 0.000213,
+                    "num_batches": 7
+                  },
+                  "L0_Location__rev_f2p_LocationID__SearchInfo": {
+                    "mean_gate": 0.047426,
+                    "std_gate": 0.0,
+                    "min_gate": 0.047426,
+                    "max_gate": 0.047426,
+                    "mean_N": 0.0,
+                    "max_N": 0.0,
+                    "mean_rho": 0.000213,
+                    "num_batches": 7
+                  },
+                  "L0_SearchInfo__f2p_CategoryID__Category": {
+                    "mean_gate": 0.047426,
+                    "std_gate": 0.0,
+                    "min_gate": 0.047426,
+                    "max_gate": 0.047426,
+                    "mean_N": 64.0,
+                    "max_N": 64.0,
+                    "mean_rho": 0.000213,
+                    "num_batches": 7
+                  },
+                  "L0_Category__rev_f2p_CategoryID__SearchInfo": {
+                    "mean_gate": 0.047426,
+                    "std_gate": 0.0,
+                    "min_gate": 0.047426,
+                    "max_gate": 0.047426,
+                    "mean_N": 0.0,
+                    "max_N": 0.0,
+                    "mean_rho": 0.000213,
+                    "num_batches": 7
+                  },
+                  "L0_Location__rev_f2p_LocationID__AdsInfo": {
+                    "mean_gate": 0.047426,
+                    "std_gate": 0.0,
+                    "min_gate": 0.047426,
+                    "max_gate": 0.047426,
+                    "mean_N": 0.0,
+                    "max_N": 0.0,
+                    "mean_rho": 0.000213,
+                    "num_batches": 7
+                  },
+                  "L0_AdsInfo__f2p_CategoryID__Category": {
+                    "mean_gate": 0.047426,
+                    "std_gate": 0.0,
+                    "min_gate": 0.047426,
+                    "max_gate": 0.047426,
+                    "mean_N": 64.0,
+                    "max_N": 64.0,
+                    "mean_rho": 0.000213,
+                    "num_batches": 7
+                  },
+                  "L0_Category__rev_f2p_CategoryID__AdsInfo": {
+                    "mean_gate": 0.047426,
+                    "std_gate": 0.0,
+                    "min_gate": 0.047426,
+                    "max_gate": 0.047426,
+                    "mean_N": 0.12,
+                    "max_N": 1.0,
+                    "mean_rho": 0.000213,
+                    "num_batches": 7
+                  },
+                  "L1_PhoneRequestsStream__f2p_AdID__AdsInfo": {
+                    "mean_gate": 0.047426,
+                    "std_gate": 0.0,
+                    "min_gate": 0.047426,
+                    "max_gate": 0.047426,
+                    "mean_N": 0.0,
+                    "max_N": 0.0,
+                    "mean_rho": 0.000213,
+                    "num_batches": 7
+                  },
+                  "L1_VisitStream__f2p_AdID__AdsInfo": {
+                    "mean_gate": 0.047426,
+                    "std_gate": 0.0,
+                    "min_gate": 0.047426,
+                    "max_gate": 0.047426,
+                    "mean_N": 0.0,
+                    "max_N": 0.0,
+                    "mean_rho": 0.000213,
+                    "num_batches": 7
+                  },
+                  "L1_SearchStream__f2p_SearchID__SearchInfo": {
+                    "mean_gate": 0.047426,
+                    "std_gate": 0.0,
+                    "min_gate": 0.047426,
+                    "max_gate": 0.047426,
+                    "mean_N": 0.0,
+                    "max_N": 0.0,
+                    "mean_rho": 0.000213,
+                    "num_batches": 7
+                  },
+                  "L1_SearchInfo__rev_f2p_SearchID__SearchStream": {
+                    "mean_gate": 0.047426,
+                    "std_gate": 0.0,
+                    "min_gate": 0.047426,
+                    "max_gate": 0.047426,
+                    "mean_N": 1.0,
+                    "max_N": 1.0,
+                    "mean_rho": 0.000213,
+                    "num_batches": 7
+                  },
+                  "L1_SearchStream__f2p_AdID__AdsInfo": {
+                    "mean_gate": 0.047426,
+                    "std_gate": 0.0,
+                    "min_gate": 0.047426,
+                    "max_gate": 0.047426,
+                    "mean_N": 7.32,
+                    "max_N": 64.0,
+                    "mean_rho": 0.00752,
+                    "num_batches": 7
+                  },
+                  "L1_AdsInfo__rev_f2p_AdID__SearchStream": {
+                    "mean_gate": 0.047426,
+                    "std_gate": 0.0,
+                    "min_gate": 0.047426,
+                    "max_gate": 0.047426,
+                    "mean_N": 1.0,
+                    "max_N": 1.0,
+                    "mean_rho": 0.000213,
+                    "num_batches": 7
+                  },
+                  "L1_UserInfo__rev_f2p_UserID__SearchInfo": {
+                    "mean_gate": 0.047426,
+                    "std_gate": 0.0,
+                    "min_gate": 0.047426,
+                    "max_gate": 0.047426,
+                    "mean_N": 0.0,
+                    "max_N": 0.0,
+                    "mean_rho": 0.000213,
+                    "num_batches": 7
+                  },
+                  "L1_Location__rev_f2p_LocationID__SearchInfo": {
+                    "mean_gate": 0.047426,
+                    "std_gate": 0.0,
+                    "min_gate": 0.047426,
+                    "max_gate": 0.047426,
+                    "mean_N": 0.0,
+                    "max_N": 0.0,
+                    "mean_rho": 0.000213,
+                    "num_batches": 7
+                  },
+                  "L1_SearchInfo__f2p_CategoryID__Category": {
+                    "mean_gate": 0.047426,
+                    "std_gate": 0.0,
+                    "min_gate": 0.047426,
+                    "max_gate": 0.047426,
+                    "mean_N": 64.0,
+                    "max_N": 64.0,
+                    "mean_rho": 0.026973,
+                    "num_batches": 7
+                  },
+                  "L1_Category__rev_f2p_CategoryID__SearchInfo": {
+                    "mean_gate": 0.047426,
+                    "std_gate": 0.0,
+                    "min_gate": 0.047426,
+                    "max_gate": 0.047426,
+                    "mean_N": 0.0,
+                    "max_N": 0.0,
+                    "mean_rho": 0.000213,
+                    "num_batches": 7
+                  },
+                  "L1_Location__rev_f2p_LocationID__AdsInfo": {
+                    "mean_gate": 0.047426,
+                    "std_gate": 0.0,
+                    "min_gate": 0.047426,
+                    "max_gate": 0.047426,
+                    "mean_N": 0.0,
+                    "max_N": 0.0,
+                    "mean_rho": 0.000213,
+                    "num_batches": 7
+                  },
+                  "L1_AdsInfo__f2p_CategoryID__Category": {
+                    "mean_gate": 0.047426,
+                    "std_gate": 0.0,
+                    "min_gate": 0.047426,
+                    "max_gate": 0.047426,
+                    "mean_N": 64.0,
+                    "max_N": 64.0,
+                    "mean_rho": 0.142137,
+                    "num_batches": 7
+                  },
+                  "L1_Category__rev_f2p_CategoryID__AdsInfo": {
+                    "mean_gate": 0.047426,
+                    "std_gate": 0.0,
+                    "min_gate": 0.047426,
+                    "max_gate": 0.047426,
+                    "mean_N": 0.12,
+                    "max_N": 1.0,
+                    "mean_rho": 0.000213,
+                    "num_batches": 7
+                  }
+                },
+                "epoch_times": [
+                  2.2,
+                  2.2,
+                  2.2,
+                  2.2,
+                  2.2
+                ],
+                "train_losses": [
+                  0.069699,
+                  0.040414,
+                  0.045171,
+                  0.038689,
+                  0.037697
+                ]
+              }
+            },
+            "mean_mae": 0.049005,
+            "std_mae": 0.005617,
+            "mean_r2": -0.180451,
+            "mean_val_mae": 0.049005
+          }
+        },
+        "statistical_comparison": {
+          "cama_default_vs_mean": {
+            "cohens_d": -0.664616,
+            "d_ci_95": [
+              -1.917843,
+              0.588611
+            ],
+            "p_value_ttest": 0.4278681,
+            "t_statistic": -0.881424,
+            "wilcoxon_stat": 2.0,
+            "wilcoxon_p": 0.375,
+            "mean_a": 0.042729,
+            "std_a": 0.003456,
+            "mean_b": 0.044751,
+            "std_b": 0.002562,
+            "n": 5
+          },
+          "cama_neg_init_vs_mean": {
+            "cohens_d": -1.345781,
+            "d_ci_95": [
+              -2.640305,
+              -0.051257
+            ],
+            "p_value_ttest": 0.13250932,
+            "t_statistic": -1.885027,
+            "wilcoxon_stat": 0.0,
+            "wilcoxon_p": 0.25,
+            "mean_a": 0.042729,
+            "std_a": 0.003456,
+            "mean_b": 0.049005,
+            "std_b": 0.005617,
+            "n": 5
+          },
+          "cama_neg_init_vs_cama_default": {
+            "cohens_d": -0.974531,
+            "d_ci_95": [
+              -2.243234,
+              0.294172
+            ],
+            "p_value_ttest": 0.23436925,
+            "t_statistic": -1.39903,
+            "wilcoxon_stat": 0.0,
+            "wilcoxon_p": 0.5,
+            "mean_a": 0.044751,
+            "std_a": 0.002562,
+            "mean_b": 0.049005,
+            "std_b": 0.005617,
+            "n": 5
+          }
+        },
+        "safety_check": {
+          "cama_default_mae_pct_diff": 4.7318,
+          "cama_neg_init_mae_pct_diff": 14.6879,
+          "neg_init_passes_safety": false
+        },
+        "gate_analysis": {
+          "cama_default": {
+            "L0_PhoneRequestsStream__f2p_AdID__AdsInfo": {
+              "mean_gate": 0.5,
+              "mean_N": 0.0,
+              "max_N": 0.0,
+              "mean_rho": 0.000213
+            },
+            "L0_VisitStream__f2p_AdID__AdsInfo": {
+              "mean_gate": 0.5,
+              "mean_N": 0.0,
+              "max_N": 0.0,
+              "mean_rho": 0.000213
+            },
+            "L0_SearchStream__f2p_SearchID__SearchInfo": {
+              "mean_gate": 0.5,
+              "mean_N": 0.0,
+              "max_N": 0.0,
+              "mean_rho": 0.000213
+            },
+            "L0_SearchInfo__rev_f2p_SearchID__SearchStream": {
+              "mean_gate": 0.5,
+              "mean_N": 1.0,
+              "max_N": 1.0,
+              "mean_rho": 0.000213
+            },
+            "L0_SearchStream__f2p_AdID__AdsInfo": {
+              "mean_gate": 0.5,
+              "mean_N": 7.32,
+              "max_N": 64.0,
+              "mean_rho": 0.000213
+            },
+            "L0_AdsInfo__rev_f2p_AdID__SearchStream": {
+              "mean_gate": 0.5,
+              "mean_N": 1.0,
+              "max_N": 1.0,
+              "mean_rho": 0.000213
+            },
+            "L0_UserInfo__rev_f2p_UserID__SearchInfo": {
+              "mean_gate": 0.5,
+              "mean_N": 0.0,
+              "max_N": 0.0,
+              "mean_rho": 0.000213
+            },
+            "L0_Location__rev_f2p_LocationID__SearchInfo": {
+              "mean_gate": 0.5,
+              "mean_N": 0.0,
+              "max_N": 0.0,
+              "mean_rho": 0.000213
+            },
+            "L0_SearchInfo__f2p_CategoryID__Category": {
+              "mean_gate": 0.5,
+              "mean_N": 64.0,
+              "max_N": 64.0,
+              "mean_rho": 0.000213
+            },
+            "L0_Category__rev_f2p_CategoryID__SearchInfo": {
+              "mean_gate": 0.5,
+              "mean_N": 0.0,
+              "max_N": 0.0,
+              "mean_rho": 0.000213
+            },
+            "L0_Location__rev_f2p_LocationID__AdsInfo": {
+              "mean_gate": 0.5,
+              "mean_N": 0.0,
+              "max_N": 0.0,
+              "mean_rho": 0.000213
+            },
+            "L0_AdsInfo__f2p_CategoryID__Category": {
+              "mean_gate": 0.5,
+              "mean_N": 64.0,
+              "max_N": 64.0,
+              "mean_rho": 0.000213
+            },
+            "L0_Category__rev_f2p_CategoryID__AdsInfo": {
+              "mean_gate": 0.5,
+              "mean_N": 0.12,
+              "max_N": 1.0,
+              "mean_rho": 0.000213
+            },
+            "L1_PhoneRequestsStream__f2p_AdID__AdsInfo": {
+              "mean_gate": 0.5,
+              "mean_N": 0.0,
+              "max_N": 0.0,
+              "mean_rho": 0.000213
+            },
+            "L1_VisitStream__f2p_AdID__AdsInfo": {
+              "mean_gate": 0.5,
+              "mean_N": 0.0,
+              "max_N": 0.0,
+              "mean_rho": 0.000213
+            },
+            "L1_SearchStream__f2p_SearchID__SearchInfo": {
+              "mean_gate": 0.5,
+              "mean_N": 0.0,
+              "max_N": 0.0,
+              "mean_rho": 0.000213
+            },
+            "L1_SearchInfo__rev_f2p_SearchID__SearchStream": {
+              "mean_gate": 0.5,
+              "mean_N": 1.0,
+              "max_N": 1.0,
+              "mean_rho": 0.000213
+            },
+            "L1_SearchStream__f2p_AdID__AdsInfo": {
+              "mean_gate": 0.5,
+              "mean_N": 7.32,
+              "max_N": 64.0,
+              "mean_rho": 0.010958
+            },
+            "L1_AdsInfo__rev_f2p_AdID__SearchStream": {
+              "mean_gate": 0.5,
+              "mean_N": 1.0,
+              "max_N": 1.0,
+              "mean_rho": 0.000213
+            },
+            "L1_UserInfo__rev_f2p_UserID__SearchInfo": {
+              "mean_gate": 0.5,
+              "mean_N": 0.0,
+              "max_N": 0.0,
+              "mean_rho": 0.000213
+            },
+            "L1_Location__rev_f2p_LocationID__SearchInfo": {
+              "mean_gate": 0.5,
+              "mean_N": 0.0,
+              "max_N": 0.0,
+              "mean_rho": 0.000213
+            },
+            "L1_SearchInfo__f2p_CategoryID__Category": {
+              "mean_gate": 0.5,
+              "mean_N": 64.0,
+              "max_N": 64.0,
+              "mean_rho": 0.024878
+            },
+            "L1_Category__rev_f2p_CategoryID__SearchInfo": {
+              "mean_gate": 0.5,
+              "mean_N": 0.0,
+              "max_N": 0.0,
+              "mean_rho": 0.000213
+            },
+            "L1_Location__rev_f2p_LocationID__AdsInfo": {
+              "mean_gate": 0.5,
+              "mean_N": 0.0,
+              "max_N": 0.0,
+              "mean_rho": 0.000213
+            },
+            "L1_AdsInfo__f2p_CategoryID__Category": {
+              "mean_gate": 0.5,
+              "mean_N": 64.0,
+              "max_N": 64.0,
+              "mean_rho": 0.172959
+            },
+            "L1_Category__rev_f2p_CategoryID__AdsInfo": {
+              "mean_gate": 0.5,
+              "mean_N": 0.12,
+              "max_N": 1.0,
+              "mean_rho": 0.000213
+            }
+          },
+          "cama_neg_init": {
+            "L0_PhoneRequestsStream__f2p_AdID__AdsInfo": {
+              "mean_gate": 0.047426,
+              "mean_N": 0.0,
+              "max_N": 0.0,
+              "mean_rho": 0.000213
+            },
+            "L0_VisitStream__f2p_AdID__AdsInfo": {
+              "mean_gate": 0.047426,
+              "mean_N": 0.0,
+              "max_N": 0.0,
+              "mean_rho": 0.000213
+            },
+            "L0_SearchStream__f2p_SearchID__SearchInfo": {
+              "mean_gate": 0.047426,
+              "mean_N": 0.0,
+              "max_N": 0.0,
+              "mean_rho": 0.000213
+            },
+            "L0_SearchInfo__rev_f2p_SearchID__SearchStream": {
+              "mean_gate": 0.047426,
+              "mean_N": 1.0,
+              "max_N": 1.0,
+              "mean_rho": 0.000213
+            },
+            "L0_SearchStream__f2p_AdID__AdsInfo": {
+              "mean_gate": 0.047426,
+              "mean_N": 7.32,
+              "max_N": 64.0,
+              "mean_rho": 0.000213
+            },
+            "L0_AdsInfo__rev_f2p_AdID__SearchStream": {
+              "mean_gate": 0.047426,
+              "mean_N": 1.0,
+              "max_N": 1.0,
+              "mean_rho": 0.000213
+            },
+            "L0_UserInfo__rev_f2p_UserID__SearchInfo": {
+              "mean_gate": 0.047426,
+              "mean_N": 0.0,
+              "max_N": 0.0,
+              "mean_rho": 0.000213
+            },
+            "L0_Location__rev_f2p_LocationID__SearchInfo": {
+              "mean_gate": 0.047426,
+              "mean_N": 0.0,
+              "max_N": 0.0,
+              "mean_rho": 0.000213
+            },
+            "L0_SearchInfo__f2p_CategoryID__Category": {
+              "mean_gate": 0.047426,
+              "mean_N": 64.0,
+              "max_N": 64.0,
+              "mean_rho": 0.000213
+            },
+            "L0_Category__rev_f2p_CategoryID__SearchInfo": {
+              "mean_gate": 0.047426,
+              "mean_N": 0.0,
+              "max_N": 0.0,
+              "mean_rho": 0.000213
+            },
+            "L0_Location__rev_f2p_LocationID__AdsInfo": {
+              "mean_gate": 0.047426,
+              "mean_N": 0.0,
+              "max_N": 0.0,
+              "mean_rho": 0.000213
+            },
+            "L0_AdsInfo__f2p_CategoryID__Category": {
+              "mean_gate": 0.047426,
+              "mean_N": 64.0,
+              "max_N": 64.0,
+              "mean_rho": 0.000213
+            },
+            "L0_Category__rev_f2p_CategoryID__AdsInfo": {
+              "mean_gate": 0.047426,
+              "mean_N": 0.12,
+              "max_N": 1.0,
+              "mean_rho": 0.000213
+            },
+            "L1_PhoneRequestsStream__f2p_AdID__AdsInfo": {
+              "mean_gate": 0.047426,
+              "mean_N": 0.0,
+              "max_N": 0.0,
+              "mean_rho": 0.000213
+            },
+            "L1_VisitStream__f2p_AdID__AdsInfo": {
+              "mean_gate": 0.047426,
+              "mean_N": 0.0,
+              "max_N": 0.0,
+              "mean_rho": 0.000213
+            },
+            "L1_SearchStream__f2p_SearchID__SearchInfo": {
+              "mean_gate": 0.047426,
+              "mean_N": 0.0,
+              "max_N": 0.0,
+              "mean_rho": 0.000213
+            },
+            "L1_SearchInfo__rev_f2p_SearchID__SearchStream": {
+              "mean_gate": 0.047426,
+              "mean_N": 1.0,
+              "max_N": 1.0,
+              "mean_rho": 0.000213
+            },
+            "L1_SearchStream__f2p_AdID__AdsInfo": {
+              "mean_gate": 0.047426,
+              "mean_N": 7.32,
+              "max_N": 64.0,
+              "mean_rho": 0.009739
+            },
+            "L1_AdsInfo__rev_f2p_AdID__SearchStream": {
+              "mean_gate": 0.047426,
+              "mean_N": 1.0,
+              "max_N": 1.0,
+              "mean_rho": 0.000213
+            },
+            "L1_UserInfo__rev_f2p_UserID__SearchInfo": {
+              "mean_gate": 0.047426,
+              "mean_N": 0.0,
+              "max_N": 0.0,
+              "mean_rho": 0.000213
+            },
+            "L1_Location__rev_f2p_LocationID__SearchInfo": {
+              "mean_gate": 0.047426,
+              "mean_N": 0.0,
+              "max_N": 0.0,
+              "mean_rho": 0.000213
+            },
+            "L1_SearchInfo__f2p_CategoryID__Category": {
+              "mean_gate": 0.047426,
+              "mean_N": 64.0,
+              "max_N": 64.0,
+              "mean_rho": 0.029516
+            },
+            "L1_Category__rev_f2p_CategoryID__SearchInfo": {
+              "mean_gate": 0.047426,
+              "mean_N": 0.0,
+              "max_N": 0.0,
+              "mean_rho": 0.000213
+            },
+            "L1_Location__rev_f2p_LocationID__AdsInfo": {
+              "mean_gate": 0.047426,
+              "mean_N": 0.0,
+              "max_N": 0.0,
+              "mean_rho": 0.000213
+            },
+            "L1_AdsInfo__f2p_CategoryID__Category": {
+              "mean_gate": 0.047426,
+              "mean_N": 64.0,
+              "max_N": 64.0,
+              "mean_rho": 0.148459
+            },
+            "L1_Category__rev_f2p_CategoryID__AdsInfo": {
+              "mean_gate": 0.047426,
+              "mean_N": 0.12,
+              "max_N": 1.0,
+              "mean_rho": 0.000213
+            }
+          }
+        }
+      }
+    }
+  },
+  "datasets": [
+    {
+      "dataset": "rel-amazon__item-ltv",
+      "examples": [
+        {
+          "input": "=== CAMA Amazon Experiment ===\nDataset: rel-amazon\nTask: item-ltv (regression)\nSeed: 42\nConfig: channels=128, epochs=5\nMethods: mean_baseline vs cama_default (gate_bias=0)\nEvaluation: val_mae",
+          "output": "{\"baseline_mae\": 244.62124287377324, \"cama_mae\": 389.1854029350224, \"baseline_val_mae\": 244.62124287377324, \"cama_val_mae\": 389.1854029350224}",
+          "predict_baseline": "{\"mae\": 244.62124287377324, \"r2\": -0.18368348483781127}",
+          "predict_cama_default": "{\"mae\": 389.1854029350224, \"r2\": -0.5909633266233987}",
+          "metadata_seed": 42,
+          "metadata_dataset": "rel-amazon",
+          "metadata_task": "item-ltv",
+          "metadata_task_type": "regression"
+        },
+        {
+          "input": "=== CAMA Amazon Experiment ===\nDataset: rel-amazon\nTask: item-ltv (regression)\nSeed: 123\nConfig: channels=128, epochs=5\nMethods: mean_baseline vs cama_default (gate_bias=0)\nEvaluation: val_mae",
+          "output": "{\"baseline_mae\": 59.79714517309985, \"cama_mae\": 389.1854029350224, \"baseline_val_mae\": 59.79714517309985, \"cama_val_mae\": 389.1854029350224}",
+          "predict_baseline": "{\"mae\": 59.79714517309985, \"r2\": -0.014424114187590487}",
+          "predict_cama_default": "{\"mae\": 389.1854029350224, \"r2\": -0.5909633266233987}",
+          "metadata_seed": 123,
+          "metadata_dataset": "rel-amazon",
+          "metadata_task": "item-ltv",
+          "metadata_task_type": "regression"
+        },
+        {
+          "input": "=== CAMA Amazon Experiment ===\nDataset: rel-amazon\nTask: item-ltv (regression)\nSeed: 456\nConfig: channels=128, epochs=5\nMethods: mean_baseline vs cama_default (gate_bias=0)\nEvaluation: val_mae",
+          "output": "{\"baseline_mae\": 94.0115981975449, \"cama_mae\": 389.1854029350224, \"baseline_val_mae\": 94.0115981975449, \"cama_val_mae\": 389.1854029350224}",
+          "predict_baseline": "{\"mae\": 94.0115981975449, \"r2\": -0.0016778511262791618}",
+          "predict_cama_default": "{\"mae\": 389.1854029350224, \"r2\": -0.5909633266233987}",
+          "metadata_seed": 456,
+          "metadata_dataset": "rel-amazon",
+          "metadata_task": "item-ltv",
+          "metadata_task_type": "regression"
+        }
+      ]
+    },
+    {
+      "dataset": "rel-avito__ad-ctr",
+      "examples": [
+        {
+          "input": "=== CAMA Avito Experiment ===\nDataset: rel-avito\nTask: ad-ctr (regression)\nSeed: 42\nConfig: channels=64, epochs=5\nMethods: mean_baseline vs cama_default (gb=0) vs cama_neg_init (gb=-3)\nEvaluation: val_mae",
+          "output": "{\"baseline_mae\": 0.04082965210666368, \"cama_default_mae\": 0.043458021608742785, \"cama_neg_init_mae\": 0.059053011700099835}",
+          "predict_baseline": "{\"mae\": 0.04082965210666368, \"r2\": -0.14114534626210684}",
+          "predict_cama_default": "{\"mae\": 0.043458021608742785, \"r2\": -0.019812564264645394}",
+          "predict_cama_neg_init": "{\"mae\": 0.059053011700099835, \"r2\": -0.024386601640475458}",
+          "metadata_seed": 42,
+          "metadata_dataset": "rel-avito",
+          "metadata_task": "ad-ctr",
+          "metadata_task_type": "regression"
+        },
+        {
+          "input": "=== CAMA Avito Experiment ===\nDataset: rel-avito\nTask: ad-ctr (regression)\nSeed: 123\nConfig: channels=64, epochs=5\nMethods: mean_baseline vs cama_default (gb=0) vs cama_neg_init (gb=-3)\nEvaluation: val_mae",
+          "output": "{\"baseline_mae\": 0.03992330743944193, \"cama_default_mae\": 0.046493200830915515, \"cama_neg_init_mae\": 0.046493200830915515}",
+          "predict_baseline": "{\"mae\": 0.03992330743944193, \"r2\": -0.08358583232211436}",
+          "predict_cama_default": "{\"mae\": 0.046493200830915515, \"r2\": -0.2194665881573017}",
+          "predict_cama_neg_init": "{\"mae\": 0.046493200830915515, \"r2\": -0.2194665881573017}",
+          "metadata_seed": 123,
+          "metadata_dataset": "rel-avito",
+          "metadata_task": "ad-ctr",
+          "metadata_task_type": "regression"
+        },
+        {
+          "input": "=== CAMA Avito Experiment ===\nDataset: rel-avito\nTask: ad-ctr (regression)\nSeed: 456\nConfig: channels=64, epochs=5\nMethods: mean_baseline vs cama_default (gb=0) vs cama_neg_init (gb=-3)\nEvaluation: val_mae",
+          "output": "{\"baseline_mae\": 0.03990635818495174, \"cama_default_mae\": 0.046493200830915515, \"cama_neg_init_mae\": 0.046493200830915515}",
+          "predict_baseline": "{\"mae\": 0.03990635818495174, \"r2\": -0.08524375376254212}",
+          "predict_cama_default": "{\"mae\": 0.046493200830915515, \"r2\": -0.2194665881573017}",
+          "predict_cama_neg_init": "{\"mae\": 0.046493200830915515, \"r2\": -0.2194665881573017}",
+          "metadata_seed": 456,
+          "metadata_dataset": "rel-avito",
+          "metadata_task": "ad-ctr",
+          "metadata_task_type": "regression"
+        }
+      ]
+    }
+  ]
+}

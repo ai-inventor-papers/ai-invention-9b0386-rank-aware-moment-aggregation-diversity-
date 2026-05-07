@@ -1,0 +1,128 @@
+\begin{thebibliography}{17}
+\providecommand{\natexlab}[1]{#1}
+\providecommand{\url}[1]{\texttt{#1}}
+\expandafter\ifx\csname urlstyle\endcsname\relax
+  \providecommand{\doi}[1]{doi: #1}\else
+  \providecommand{\doi}{doi: \begingroup \urlstyle{rm}\Url}\fi
+
+\bibitem[Alon and Yahav(2021)]{Alon2021}
+Uri Alon and Eran Yahav.
+\newblock On the bottleneck of graph neural networks and its practical
+  implications.
+\newblock In \emph{International Conference on Learning Representations
+  (ICLR)}, 2021.
+
+\bibitem[Chen et~al.(2025)Chen, Kanatsoulis, and Leskovec]{Chen2025}
+Tianlang Chen, Charilaos~I. Kanatsoulis, and J.~Leskovec.
+\newblock {RelGNN}: Composite message passing for relational deep learning.
+\newblock In \emph{International Conference on Machine Learning (ICML)}, PMLR
+  267, pages 8296--8312, 2025.
+
+\bibitem[Corso et~al.(2020)Corso, Cavalleri, Beaini, Li\`{o}, and
+  Velickovic]{Corso2020}
+Gabriele Corso, Luca Cavalleri, D.~Beaini, Pietro Li\`{o}, and Petar
+  Velickovic.
+\newblock Principal neighbourhood aggregation for graph nets.
+\newblock In \emph{Advances in Neural Information Processing Systems
+  (NeurIPS)}, 2020.
+
+\bibitem[DerSimonian and Laird(1986)]{DerSimonian1986}
+Rebecca DerSimonian and Nan Laird.
+\newblock Meta-analysis in clinical trials.
+\newblock \emph{Controlled Clinical Trials}, 7\penalty0 (3):\penalty0 177--188,
+  1986.
+\newblock \doi{10.1016/0197-2456(86)90046-2}.
+
+\bibitem[Dong et~al.(2021)Dong, Cordonnier, and Loukas]{Dong2021}
+Yihe Dong, Jean-Baptiste Cordonnier, and Andreas Loukas.
+\newblock Attention is not all you need: Pure attention loses rank doubly
+  exponentially with depth.
+\newblock In \emph{International Conference on Machine Learning (ICML)}, pages
+  2793--2803, 2021.
+
+\bibitem[Fey et~al.(2024)Fey, Hu, Huang, Lenssen, Ranjan, Robinson, Ying, You,
+  and Leskovec]{Fey2024}
+Matthias Fey, Weihua Hu, Kexin Huang, J.~E. Lenssen, Rishabh Ranjan, Joshua
+  Robinson, Rex Ying, Jiaxuan You, and J.~Leskovec.
+\newblock Position: Relational deep learning -- graph representation learning
+  on relational databases.
+\newblock In \emph{International Conference on Machine Learning (ICML)}, pages
+  13592--13607, 2024.
+
+\bibitem[Hamilton et~al.(2017)Hamilton, Ying, and Leskovec]{Hamilton2017}
+William~L. Hamilton, Z.~Ying, and J.~Leskovec.
+\newblock Inductive representation learning on large graphs.
+\newblock In \emph{Advances in Neural Information Processing Systems
+  (NeurIPS)}, 2017.
+
+\bibitem[Kortvelesy et~al.(2023)Kortvelesy, Morad, and Prorok]{Kortvelesy2023}
+Ryan Kortvelesy, Steven~D. Morad, and Amanda Prorok.
+\newblock Generalised f-mean aggregation for graph neural networks.
+\newblock In \emph{Advances in Neural Information Processing Systems
+  (NeurIPS)}, 2023.
+
+\bibitem[Robinson et~al.(2024)Robinson, Ranjan, Hu, Huang, Han, Dobles, Fey,
+  Lenssen, Yuan, Zhang, He, and Leskovec]{Robinson2024}
+Joshua Robinson, Rishabh Ranjan, Weihua Hu, Kexin Huang, Jiaqi Han, Alejandro
+  Dobles, Matthias Fey, J.~E. Lenssen, Yiwen Yuan, Zecheng Zhang, Xinwei He,
+  and J.~Leskovec.
+\newblock Relbench: A benchmark for deep learning on relational databases.
+\newblock In \emph{NeurIPS Datasets and Benchmarks Track}, 2024.
+
+\bibitem[Roth and Liebig(2024)]{Roth2024a}
+Andreas Roth and T.~Liebig.
+\newblock Rank collapse causes over-smoothing and over-correlation in graph
+  neural networks.
+\newblock In \emph{Learning on Graphs Conference (LoG)}, PMLR 231, pages
+  35:1--35:23, 2024.
+
+\bibitem[Roth et~al.(2024)Roth, Bause, Kriege, and Liebig]{Roth2024b}
+Andreas Roth, Franka Bause, Nils~M. Kriege, and Thomas Liebig.
+\newblock Preventing representational rank collapse in {MPNNs} by splitting the
+  computational graph.
+\newblock In \emph{Learning on Graphs Conference (LoG)}, 2024.
+
+\bibitem[Roy and Vetterli(2007)]{Roy2007}
+Olivier Roy and Martin Vetterli.
+\newblock The effective rank: A measure of effective dimensionality.
+\newblock In \emph{15th European Signal Processing Conference (EUSIPCO)}, pages
+  606--610, 2007.
+
+\bibitem[Saada et~al.(2024)Saada, Naderi, and Tanner]{NaitSaada2024}
+Taha~Nait Saada, Alireza Naderi, and Jared Tanner.
+\newblock Mind the gap: A spectral analysis of rank collapse and signal
+  propagation in attention layers.
+\newblock \emph{arXiv preprint arXiv:2410.07799}, 2024.
+
+\bibitem[Schneckenreiter et~al.(2024)Schneckenreiter, Freinschlag, Sestak,
+  Brandstetter, Klambauer, and Mayr]{Schneckenreiter2024}
+Lisa Schneckenreiter, Richard Freinschlag, Florian Sestak, Johannes
+  Brandstetter, G.~Klambauer, and Andreas Mayr.
+\newblock {GNN-VPA}: A variance-preserving aggregation strategy for graph
+  neural networks.
+\newblock In \emph{Tiny Papers @ ICLR}, 2024.
+
+\bibitem[Velickovic et~al.(2018)Velickovic, Cucurull, Casanova, Romero,
+  Li\`{o}, and Bengio]{Velickovic2018}
+Petar Velickovic, Guillem Cucurull, Arantxa Casanova, Adriana Romero, Pietro
+  Li\`{o}, and Yoshua Bengio.
+\newblock Graph attention networks.
+\newblock In \emph{International Conference on Learning Representations
+  (ICLR)}, 2018.
+
+\bibitem[Wang et~al.(2025)Wang, Wang, Gan, Wang, Yang, Wipf, and
+  Zhang]{Wang2025}
+Yanbo Wang, Xiyuan Wang, Quan Gan, Minjie Wang, Qibin Yang, David Wipf, and
+  Muhan Zhang.
+\newblock Griffin: Towards a graph-centric relational database foundation
+  model.
+\newblock In \emph{International Conference on Machine Learning (ICML)}, PMLR
+  267, pages 64604--64627, 2025.
+
+\bibitem[Xu et~al.(2019)Xu, Hu, Leskovec, and Jegelka]{Xu2019}
+Keyulu Xu, Weihua Hu, J.~Leskovec, and S.~Jegelka.
+\newblock How powerful are graph neural networks?
+\newblock In \emph{International Conference on Learning Representations
+  (ICLR)}, 2019.
+
+\end{thebibliography}

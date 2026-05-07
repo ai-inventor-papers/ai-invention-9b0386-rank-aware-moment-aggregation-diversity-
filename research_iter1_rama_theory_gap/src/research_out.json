@@ -1,0 +1,121 @@
+{
+  "title": "RAMA Theoretical Gap Survey",
+  "summary": "Comprehensive literature survey across five research threads establishing the precise theoretical gap RAMA fills. Covers depth-wise vs. width-wise rank collapse at aggregation, Roy-Vetterli effective rank and RAMA's novel variance-entropy proxy, PNA's uniform multi-aggregation limitations, GNN-VPA's variance-as-normalization vs. RAMA's variance-as-information distinction, and SOTA RelGNN/Griffin routing improvements that leave aggregation quality unaddressed. Produces a 9-method positioning table confirming no existing method combines rank-aware gating, adaptive moment injection, and FK-join specificity.",
+  "answer": "RAMA (Rank-Aware Moment Aggregation) fills a precise theoretical gap at the intersection of five research threads. This survey examines each thread and demonstrates that no existing method addresses width-wise rank collapse at FK aggregation with an adaptive, rank-aware mechanism.\n\n## Thread 1: Depth-Wise vs. Width-Wise Rank Collapse\n\nExisting rank collapse theory focuses overwhelmingly on depth-wise collapse across GNN layers. Roth & Liebig proved that standard graph convolutions force all feature columns to be amplified by the same aggregation spectrum --- their Theorem 5.2 shows the single-step spectral ratio is independent of the learnable weight matrix W, and Proposition 5.6 establishes that relative subspace amplification depends only on the aggregation matrix, not on learned parameters [1]. The simplified follow-up theory frames over-smoothing as power iteration under Kronecker products, demonstrating empirically that not only GCN and GAT but also SAGE, ResGCN, UniMP, GIN, GGCN, and GCNII all suffer from depth-wise rank collapse [2]. The MRS-MPNN approach addresses this structurally by splitting edges into multiple relation types so different feature columns are amplified by different aggregation matrices, with Theorem 4.4 giving sufficient conditions for linearly independent node representations [3]. In the transformer domain, Dong et al. proved that pure self-attention networks converge doubly exponentially (with depth) to a rank-1 matrix, with skip connections and MLPs identified as key mitigations [5].\n\nCritically distinct from all this depth-wise work, Naderi et al. in 'Mind the Gap' identified width-wise rank collapse --- a phenomenon unique to softmax attention layers where token representations converge within a single layer as context length T increases [4]. Their Theorem 2 proves stable rank collapses to 1 at polynomial rate O(T^{-3}), driven by the spectral gap between the largest eigenvalue (which converges to 1) and all others (which shrink as O(T^{-1/2})) [4]. They decompose the attention matrix as A = (1/T)1_{TxT} + A^{perp}, where the rank-one uniform component --- mathematically equivalent to mean aggregation --- dominates [4]. Their remedy is rank-one subtraction: replacing A with A^{perp} = A - (1/T)1_{TxT}, which restores linear stable-rank scaling with width [4]. However, this remedy is specific to softmax attention and not applicable to mean aggregation at FK joins with variable cardinality. No prior work has measured or addressed width-wise rank collapse specifically at FK joins in relational databases, where N child embeddings are mean-aggregated into one parent representation.\n\n## Thread 2: Effective Rank and the Variance-Entropy Proxy\n\nRoy & Vetterli defined the effective rank as erank(A) = exp(H(p)), where H(p) = -Sum p_i log(p_i) is the Shannon entropy of normalized singular values p_i = sigma_i / Sum sigma_j [6]. This continuous measure ranges from 1 (all energy in one singular value) to min(N,d) (all singular values equal), and requires full SVD computation at cost O(min(N,d)^2 * max(N,d)) [6]. Numerical examples illustrate its sensitivity: an identity matrix yields erank = 3, while a highly correlated matrix (rho = 0.99) yields erank approximately 1.06 [7]. In deep learning, effective rank gauges the diversity among neuron basis functions, with staircase-like erank increases corresponding to rapid training loss descent [8].\n\nRAMA proposes a novel O(Nd) variance-entropy proxy that computes per-dimension variance, normalizes to a probability distribution, and takes the entropy. This is equivalent to computing the effective rank of the diagonal of the covariance matrix, ignoring off-diagonal correlations. Research on diagonal covariance approximations shows they are computationally efficient but lose all correlation information; low-rank perturbation methods can improve accuracy at modest additional cost [9]. An alternative cheap proxy is the stable rank sr(A) = ||A||^2_F / ||A||^2, which measures how spread out singular values are and was used in the Mind the Gap analysis [10, 4]. No prior work was found using the specific variance-entropy formulation RAMA proposes, making it a likely novel contribution.\n\n## Thread 3: PNA --- Uniform Multi-Aggregation\n\nPNA combines 4 aggregators (mean, max, min, std) with 3 degree-based scalers S(d, alpha) = (log(d+1)/delta)^alpha for alpha in {-1, 0, +1}, producing 12 operations per node that are concatenated to 12F dimensions and then reduced back to F via a learned transformation [11]. The theoretical justification (Theorem 1) proves that multiple aggregators are necessary to discriminate multisets of continuous features [11]. However, PNA has four key limitations relative to RAMA: (a) it applies all 12 operations uniformly at every node regardless of local diversity needs; (b) its degree scalers conflate cardinality with diversity --- a node with 1000 identical children has high degree but zero information diversity; (c) it was designed for homogeneous, undirected, unweighted graphs and faces fundamental challenges when applied to heterogeneous relational database graphs with n-partite structure and PK-FK semantics [11, 12]; and (d) the 12x dimensionality expansion is computationally expensive. GenAgg improves on PNA by learning a unified parametric f-mean aggregator that can represent centralized moments, but its parameters are globally shared and not adapted per-node based on local set statistics, and it has no rank-awareness mechanism [13].\n\n## Thread 4: GNN-VPA --- Variance as Normalization vs. Information\n\nGNN-VPA proposes variance-preserving aggregation: m_i = (1/sqrt(N)) Sum m_{ij}, which positions VPA between sum (factor 1, variance explodes as N*I) and mean (factor 1/N, variance vanishes as (1/N)*I) [14]. Under random initialization with centered messages, VPA preserves unit variance regardless of neighborhood size, serving as a signal propagation normalization technique [14]. VPA maintains 1-WL expressiveness equivalent to sum aggregation and outperforms GIN+sum by approximately 1.9% on TUDatasets [14]. The fundamental distinction is that VPA treats variance as a nuisance parameter to normalize for training stability, while RAMA treats variance as an informative signal encoding child-set diversity. VPA is task-agnostic normalization applied uniformly everywhere; RAMA is task-aware enrichment gated by local effective rank. These approaches are complementary --- VPA could normalize RAMA's internal activations.\n\n## Thread 5: SOTA Relational Methods\n\nRelGNN achieves state-of-the-art results on the RelBench benchmark [18] via atomic routes that enable single-hop source-destination interaction derived from PK-FK relationships, combined with multi-head attention-weighted aggregation: alpha_{dst,fuse} = softmax((W_Q h_dst)^T (W_K h_fuse) / sqrt(d)) [15]. RelGNN outperforms baselines on 10/12 entity classification, 8/9 entity regression, and 9/9 recommendation tasks [15]. However, RelGNN improves message routing (which paths to aggregate over) but retains standard attention-weighted aggregation without distributional enrichment, rank awareness, or moment injection [15].\n\nGriffin uses two-stage aggregation: mean intra-relation h_i^{(r,l)} = Mean(AMLP(u_j)) and max inter-relation h_i^l = Max(h_i^{(r,l)} odot e_r), plus a cross-attention module with task-conditioned queries [16]. The mean intra-relation step is directly susceptible to rank collapse at high-cardinality FK groups, and the max inter-relation step loses distributional information [16]. Cross-attention partially compensates but requires pre-training and adds substantial complexity [16].\n\nThe GNN information bottleneck problem --- where exponentially growing information is compressed into fixed-size vectors through bottleneck nodes --- is a related but distinct phenomenon from rank collapse [17]. GNNs with equal edge absorption such as GCN and GIN are more susceptible to this over-squashing effect [17], which compounds with rank collapse at high-cardinality FK groups.\n\n## Gap Statement and Positioning\n\nNo existing method addresses width-wise rank collapse at FK aggregation with an adaptive, rank-aware mechanism. PNA [11] injects all moments uniformly regardless of local need, with degree scalers that conflate cardinality with diversity. VPA [14] normalizes variance for training stability but does not inject it as informative signal. Roth & Liebig [1] and MRS-MPNN [3] address depth-wise collapse via architectural/structural changes across GNN layers. Mind the Gap [4] proves width-wise collapse exists in attention but proposes rank-one subtraction not applicable to FK joins. RelGNN [15] improves routing but retains standard aggregation. Griffin [16] uses mean intra-relation aggregation susceptible to rank collapse. GenAgg [13] learns aggregation globally without per-instance adaptation. The RelBench ecosystem [18] with its heterogeneous graph structure [12] requires FK-join-aware solutions.\n\nRAMA uniquely combines: (a) variance as an informative feature encoding child-set diversity, (b) effective-rank-based gating via a novel O(Nd) variance-entropy proxy [6, 7, 8, 9, 10], (c) FK-join-specific adaptation for heterogeneous relational databases, and (d) lightweight drop-in compatibility with all SOTA architectures including RelGNN [15], Griffin [16], and standard GNN frameworks.",
+  "sources": [
+    {
+      "index": 1,
+      "url": "https://arxiv.org/html/2308.16800v3",
+      "title": "Rank Collapse Causes Over-Smoothing and Over-Correlation in Graph Neural Networks (Roth & Liebig, 2024)",
+      "summary": "Foundational theory on depth-wise rank collapse. Theorem 5.2 proves single-step spectral ratio is independent of feature transform W. Proposition 5.6 shows relative amplification depends only on aggregation matrix. Proposes Sum of Kronecker Products (SKP) as remedy."
+    },
+    {
+      "index": 2,
+      "url": "https://arxiv.org/html/2407.11876v1",
+      "title": "Simplifying the Theory on Over-Smoothing (Roth, 2024)",
+      "summary": "Simplifies rank collapse theory as power iteration under Kronecker products. Shows SAGE, ResGCN, UniMP, GIN, GGCN, GCNII all suffer from rank collapse with exponential convergence."
+    },
+    {
+      "index": 3,
+      "url": "https://arxiv.org/html/2409.11504v2",
+      "title": "Preventing Representational Rank Collapse in MPNNs by Splitting the Computational Graph (2024)",
+      "summary": "MRS-MPNN approach splits edges into multiple relation types to prevent depth-wise collapse. Theorem 4.4 gives sufficient conditions for linearly independent representations. Structural solution complementary to RAMA's representational approach."
+    },
+    {
+      "index": 4,
+      "url": "https://arxiv.org/html/2410.07799v2",
+      "title": "Mind the Gap: A Spectral Analysis of Rank Collapse and Signal Propagation in Attention Layers (Naderi et al., 2024)",
+      "summary": "Identifies width-wise rank collapse in attention as context length increases. Theorem 2: stable rank collapses to 1 at O(T^{-3}). Decomposes attention as rank-one uniform component plus residual. Closest prior work to RAMA's framing but remedy (rank-one subtraction) differs fundamentally."
+    },
+    {
+      "index": 5,
+      "url": "https://arxiv.org/pdf/2103.03404",
+      "title": "Attention is Not All You Need: Pure Attention Loses Rank Doubly Exponentially with Depth (Dong et al., ICML 2021)",
+      "summary": "Foundational work on depth-wise rank collapse in attention/transformers. Shows SANs converge exponentially to rank-1 matrix. Skip connections and MLPs are key mitigations."
+    },
+    {
+      "index": 6,
+      "url": "https://www.eurasip.org/Proceedings/Eusipco/Eusipco2007/Papers/a5p-h05.pdf",
+      "title": "The Effective Rank: A Measure of Effective Dimensionality (Roy & Vetterli, EUSIPCO 2007)",
+      "summary": "Original definition of effective rank as erank(A) = exp(H(p)) where p_i are normalized singular values. Continuous, real-valued extension of integer rank. Range [1, rank(A)]. Requires full SVD computation."
+    },
+    {
+      "index": 7,
+      "url": "https://portfoliooptimizer.io/blog/the-matrix-effective-rank-measuring-the-dimensionality-of-a-universe-of-assets/",
+      "title": "The Matrix Effective Rank: Measuring the Dimensionality of a Universe of Assets",
+      "summary": "Clear exposition of Roy-Vetterli effective rank with numerical examples. Identity matrix gives erank=3, highly correlated (rho=0.99) gives erank~1.06."
+    },
+    {
+      "index": 8,
+      "url": "https://www.emergentmind.com/topics/effective-rank-erank",
+      "title": "Effective Rank (eRank) in Deep Learning",
+      "summary": "Documents erank applications in neural networks: gauges diversity among neuron basis functions, staircase-like erank increases correspond to rapid training loss descent."
+    },
+    {
+      "index": 9,
+      "url": "https://www.cs.rpi.edu/~magdon/ps/conference/LRGMMideal2010.pdf",
+      "title": "Approximating the Covariance Matrix with Low-rank Perturbations",
+      "summary": "Shows diagonal covariance approximation is fast but loses all correlation information. Low-rank perturbation improves upon diagonal at modest cost. Relevant to assessing RAMA's variance-entropy proxy limitations."
+    },
+    {
+      "index": 10,
+      "url": "https://en.wikipedia.org/wiki/Matrix_norm",
+      "title": "Stable Rank and Matrix Norms",
+      "summary": "Stable rank sr(A) = ||A||^2_F / ||A||^2 as continuous proxy for matrix rank. Measures how spread out singular values are. Used in Mind the Gap paper and randomized linear algebra."
+    },
+    {
+      "index": 11,
+      "url": "https://ar5iv.labs.arxiv.org/html/2004.05718",
+      "title": "Principal Neighbourhood Aggregation for Graph Nets (Corso et al., NeurIPS 2020)",
+      "summary": "PNA: 4 aggregators (mean, max, min, std) x 3 degree scalers = 12 operations. Theorem proves multiple aggregators needed for continuous features. Key limitation: uniform application everywhere, degree != diversity, not designed for heterogeneous graphs."
+    },
+    {
+      "index": 12,
+      "url": "https://arxiv.org/html/2412.00521v1",
+      "title": "Heterogeneous GNN for Relational Deep Learning and PNA Limitations",
+      "summary": "Documents challenges of applying homogeneous-graph methods like PNA to heterogeneous relational database graphs: n-partite structure, PK-FK semantics differ from general edges, scaling issues with relation types."
+    },
+    {
+      "index": 13,
+      "url": "https://arxiv.org/html/2306.13826",
+      "title": "Generalised f-Mean Aggregation for Graph Neural Networks (Kortvelesy et al., NeurIPS 2023)",
+      "summary": "GenAgg learns unified parametric aggregator via augmented f-mean with learnable alpha, beta. Can represent centralized moments. Globally learned (not per-node adaptive). No rank-awareness mechanism. Outperforms PNA on benchmarks."
+    },
+    {
+      "index": 14,
+      "url": "https://arxiv.org/html/2403.04747v1",
+      "title": "GNN-VPA: A Variance-Preserving Aggregation Strategy for Graph Neural Networks (ICLR 2024)",
+      "summary": "VPA = 1/sqrt(N) sum. Preserves variance for training stability (signal propagation theory). Does NOT inject variance as informative feature. Maintains 1-WL expressiveness. Complementary to but fundamentally different from RAMA."
+    },
+    {
+      "index": 15,
+      "url": "https://arxiv.org/html/2502.06784",
+      "title": "RelGNN: Composite Message Passing for Relational Deep Learning (Liang et al., 2025)",
+      "summary": "SOTA on RelBench. Introduces atomic routes for single-hop FK interaction and attention-based aggregation. Improves routing but retains standard aggregation without distributional enrichment or rank awareness."
+    },
+    {
+      "index": 16,
+      "url": "https://arxiv.org/html/2505.05568v1",
+      "title": "Griffin: A Graph Foundation Model for Relational Databases (Pelevin et al., 2025)",
+      "summary": "Two-stage aggregation: mean intra-relation (susceptible to rank collapse) and max inter-relation (loses distributional info). Cross-attention adds task conditioning. Acknowledges loss from mean aggregation but does not formally address rank collapse."
+    },
+    {
+      "index": 17,
+      "url": "https://arxiv.org/abs/2006.05205",
+      "title": "On the Bottleneck of Graph Neural Networks and its Practical Implications (Alon & Yahav, ICLR 2021)",
+      "summary": "GNN over-squashing: exponentially growing information compressed into fixed-size vectors through bottleneck nodes. Related but distinct from rank collapse. GNNs with equal edge absorption (GCN, GIN) more susceptible."
+    },
+    {
+      "index": 18,
+      "url": "https://relbench.stanford.edu/",
+      "title": "RelBench: Relational Deep Learning Benchmark",
+      "summary": "Standard benchmark for relational deep learning with 11 databases and 66 tasks. RelGNN and Griffin are current SOTA. Default pipeline uses heterogeneous GraphSAGE with sum aggregation."
+    }
+  ],
+  "follow_up_questions": [
+    "Is there empirical evidence that per-dimension variance entropy correlates with SVD-based effective rank for GNN embeddings, and under what conditions does the diagonal covariance approximation break down?",
+    "Has any prior work used gated moment injection (as opposed to uniform concatenation like PNA or globally learned aggregation like GenAgg) for graph aggregation, where the gating signal is derived from local set statistics?",
+    "What is the computational overhead of RAMA relative to standard mean aggregation in practice, and does the O(Nd) variance-entropy proxy dominate inference time for large-scale RelBench datasets?",
+    "Are there theoretical results bounding the information loss of mean aggregation as a function of child-set effective rank, analogous to Mind the Gap's O(T^{-3}) stable rank collapse bound for attention?"
+  ]
+}

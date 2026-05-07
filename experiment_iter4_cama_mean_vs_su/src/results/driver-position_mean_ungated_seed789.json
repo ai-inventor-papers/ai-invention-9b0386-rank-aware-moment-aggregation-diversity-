@@ -1,0 +1,38 @@
+{
+  "method": "mean_ungated",
+  "task": "driver-position",
+  "seed": 789,
+  "dataset": "rel-f1",
+  "hyperparams": {
+    "channels": 128,
+    "lr": 0.005,
+    "epochs": 10,
+    "batch_size": 512,
+    "num_neighbors": 128,
+    "num_layers": 2
+  },
+  "val_metrics": {
+    "mae": 3.236794627246334,
+    "rmse": 4.050072326456806,
+    "r2": 0.236823518141293
+  },
+  "test_metrics": {
+    "mae": 3.236794627246334,
+    "rmse": 4.050072326456806,
+    "r2": 0.236823518141293
+  },
+  "best_epoch": 6,
+  "train_time_seconds": 8.1,
+  "train_losses": [
+    7.9766,
+    5.8052,
+    5.6821,
+    5.5296,
+    5.16,
+    5.1184,
+    5.0657,
+    4.9475,
+    4.9533,
+    4.9283
+  ]
+}

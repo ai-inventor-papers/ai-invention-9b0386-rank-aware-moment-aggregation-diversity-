@@ -1,0 +1,1141 @@
+{
+  "metadata": {
+    "experiment": "cama_5seed_3tasks",
+    "methods": [
+      "baseline (HeteroSAGE+mean)",
+      "CAMA (HeteroSAGE+CAMAAggregation)"
+    ],
+    "seeds": [
+      42,
+      123,
+      456
+    ],
+    "tasks": {
+      "study-outcome": {
+        "dataset": "rel-trial",
+        "metric": "average_precision",
+        "task_type": "binary_classification"
+      },
+      "study-adverse": {
+        "dataset": "rel-trial",
+        "metric": "mae",
+        "task_type": "regression"
+      },
+      "user-engagement": {
+        "dataset": "rel-stack",
+        "metric": "roc_auc",
+        "task_type": "binary_classification"
+      }
+    },
+    "task_level_analysis": {
+      "study-outcome": {
+        "metric": "average_precision",
+        "baseline_mean": 0.736952728682836,
+        "baseline_std": 0.01694351352640681,
+        "baseline_per_seed": [
+          0.755927569376385,
+          0.7101038745582352,
+          0.7350352769388384
+        ],
+        "cama_mean": 0.7389567430402554,
+        "cama_std": 0.010685971374461705,
+        "cama_per_seed": [
+          0.7507153271354192,
+          0.7360529763960245,
+          0.7479189915307876
+        ],
+        "cohens_d": 0.1414803269145083,
+        "cohens_d_ci_lower": -1.5019240756329182,
+        "cohens_d_ci_upper": 1.4356374187351708,
+        "p_value": 0.829612213015088,
+        "significant_at_005": false,
+        "higher_is_better": true
+      },
+      "study-adverse": {
+        "metric": "mae",
+        "baseline_mean": 47.2285323383117,
+        "baseline_std": 0.254856295589689,
+        "baseline_per_seed": [
+          47.37018603590071,
+          47.17592330034546,
+          47.03038297093361
+        ],
+        "cama_mean": 48.27948947034059,
+        "cama_std": 0.550078838625843,
+        "cama_per_seed": [
+          48.677395704693566,
+          48.832999656851094,
+          47.45089018355461
+        ],
+        "cohens_d": -2.4515943053027023,
+        "cohens_d_ci_lower": -7.6845845393920325,
+        "cohens_d_ci_upper": -1.3314793995188083,
+        "p_value": 0.009248959402328314,
+        "significant_at_005": true,
+        "higher_is_better": false
+      },
+      "user-engagement": {
+        "metric": "roc_auc",
+        "baseline_mean": 0.8997215531242253,
+        "baseline_std": 0.000875920529601594,
+        "baseline_per_seed": [
+          0.9006495529393646,
+          0.8990129761762643,
+          0.89860945224255
+        ],
+        "cama_mean": 0.905512128951391,
+        "cama_std": 0.0005415668758806188,
+        "cama_per_seed": [
+          0.9055085152464528,
+          0.9061062086895685,
+          0.9051057146343187
+        ],
+        "cohens_d": 7.9519744098092175,
+        "cohens_d_ci_lower": 6.974429593401235,
+        "cohens_d_ci_upper": 15.720036586419182,
+        "p_value": 6.866553998961203e-06,
+        "significant_at_005": true,
+        "higher_is_better": true
+      }
+    },
+    "gate_analysis": {
+      "study-outcome": {},
+      "study-adverse": {
+        "L0_designs__f2p_nct_id__studies": {
+          "mean_across_seeds": 0.5000000417232513,
+          "std_across_seeds": 4.2964986064291236e-07,
+          "per_seed": [
+            0.4999999701976776,
+            0.5000001788139343,
+            0.5000005960464478
+          ]
+        },
+        "L0_studies__rev_f2p_nct_id__designs": {
+          "mean_across_seeds": 0.4999999403953552,
+          "std_across_seeds": 3.125693941623424e-07,
+          "per_seed": [
+            0.5000004172325134,
+            0.5000001788139343,
+            0.49999961256980896
+          ]
+        },
+        "L0_eligibilities__f2p_nct_id__studies": {
+          "mean_across_seeds": 0.5000001072883606,
+          "std_across_seeds": 3.657802580014767e-07,
+          "per_seed": [
+            0.500000536441803,
+            0.4999995529651642,
+            0.5000004768371582
+          ]
+        },
+        "L0_studies__rev_f2p_nct_id__eligibilities": {
+          "mean_across_seeds": 0.5000000298023224,
+          "std_across_seeds": 2.0474867865225873e-07,
+          "per_seed": [
+            0.5000002980232239,
+            0.5,
+            0.5000001192092896
+          ]
+        },
+        "L0_drop_withdrawals__f2p_nct_id__studies": {
+          "mean_across_seeds": 0.5000000238418579,
+          "std_across_seeds": 5.778884717722331e-08,
+          "per_seed": [
+            0.5000000596046448,
+            0.4999999701976776,
+            0.5000001192092896
+          ]
+        },
+        "L0_conditions_studies__f2p_nct_id__studies": {
+          "mean_across_seeds": 0.5090956330299378,
+          "std_across_seeds": 0.008359157471936081,
+          "per_seed": [
+            0.503835916519165,
+            0.5077993273735046,
+            0.5252137780189514
+          ]
+        },
+        "L0_studies__rev_f2p_nct_id__conditions_studies": {
+          "mean_across_seeds": 0.5,
+          "std_across_seeds": 1.5993604499100135e-07,
+          "per_seed": [
+            0.5000000596046448,
+            0.5000000596046448,
+            0.4999997019767761
+          ]
+        },
+        "L0_conditions_studies__f2p_condition_id__conditions": {
+          "mean_across_seeds": 0.5,
+          "std_across_seeds": 0.0,
+          "per_seed": [
+            0.5,
+            0.5,
+            0.5
+          ]
+        },
+        "L0_conditions__rev_f2p_condition_id__conditions_studies": {
+          "mean_across_seeds": 0.5,
+          "std_across_seeds": 3.264680847556389e-08,
+          "per_seed": [
+            0.5,
+            0.4999999701976776,
+            0.5
+          ]
+        },
+        "L0_outcomes__f2p_nct_id__studies": {
+          "mean_across_seeds": 0.4999999821186066,
+          "std_across_seeds": 1.606010625995097e-07,
+          "per_seed": [
+            0.5000002384185791,
+            0.4999999701976776,
+            0.4999999701976776
+          ]
+        },
+        "L0_reported_event_totals__f2p_nct_id__studies": {
+          "mean_across_seeds": 0.5000000298023224,
+          "std_across_seeds": 2.132480599880018e-07,
+          "per_seed": [
+            0.4999999701976776,
+            0.4999997615814209,
+            0.5000003576278687
+          ]
+        },
+        "L0_facilities_studies__f2p_nct_id__studies": {
+          "mean_across_seeds": 0.5756054043769836,
+          "std_across_seeds": 0.00922322990277115,
+          "per_seed": [
+            0.5838802456855774,
+            0.5872700214385986,
+            0.5705678462982178
+          ]
+        },
+        "L0_studies__rev_f2p_nct_id__facilities_studies": {
+          "mean_across_seeds": 0.49999996423721316,
+          "std_across_seeds": 4.7683715820312496e-08,
+          "per_seed": [
+            0.5000000596046448,
+            0.4999999403953552,
+            0.4999999403953552
+          ]
+        },
+        "L0_facilities_studies__f2p_facility_id__facilities": {
+          "mean_across_seeds": 0.5,
+          "std_across_seeds": 0.0,
+          "per_seed": [
+            0.5,
+            0.5,
+            0.5
+          ]
+        },
+        "L0_facilities__rev_f2p_facility_id__facilities_studies": {
+          "mean_across_seeds": 0.49999999403953554,
+          "std_across_seeds": 6.078504936209661e-08,
+          "per_seed": [
+            0.49999991059303284,
+            0.5,
+            0.4999999403953552
+          ]
+        },
+        "L0_sponsors_studies__f2p_nct_id__studies": {
+          "mean_across_seeds": 0.4644035637378693,
+          "std_across_seeds": 0.002084322072153032,
+          "per_seed": [
+            0.46837109327316284,
+            0.46427109837532043,
+            0.4628876745700836
+          ]
+        },
+        "L0_studies__rev_f2p_nct_id__sponsors_studies": {
+          "mean_across_seeds": 0.5000000178813935,
+          "std_across_seeds": 1.0595553418774114e-07,
+          "per_seed": [
+            0.5000000596046448,
+            0.5000001192092896,
+            0.49999985098838806
+          ]
+        },
+        "L0_sponsors_studies__f2p_sponsor_id__sponsors": {
+          "mean_across_seeds": 0.5,
+          "std_across_seeds": 0.0,
+          "per_seed": [
+            0.5,
+            0.5,
+            0.5
+          ]
+        },
+        "L0_sponsors__rev_f2p_sponsor_id__sponsors_studies": {
+          "mean_across_seeds": 0.49999997615814207,
+          "std_across_seeds": 2.920019319991086e-08,
+          "per_seed": [
+            0.5,
+            0.5,
+            0.4999999403953552
+          ]
+        },
+        "L0_outcome_analyses__f2p_nct_id__studies": {
+          "mean_across_seeds": 0.5000000119209289,
+          "std_across_seeds": 1.0761898806850784e-07,
+          "per_seed": [
+            0.4999999701976776,
+            0.5,
+            0.5000000596046448
+          ]
+        },
+        "L0_interventions_studies__f2p_nct_id__studies": {
+          "mean_across_seeds": 0.5476519823074341,
+          "std_across_seeds": 0.004227606864609871,
+          "per_seed": [
+            0.5491036772727966,
+            0.5499480366706848,
+            0.5408615469932556
+          ]
+        },
+        "L0_studies__rev_f2p_nct_id__interventions_studies": {
+          "mean_across_seeds": 0.5000000298023224,
+          "std_across_seeds": 2.9321608248350245e-07,
+          "per_seed": [
+            0.5000004768371582,
+            0.5000000596046448,
+            0.4999995529651642
+          ]
+        },
+        "L0_interventions_studies__f2p_intervention_id__interventions": {
+          "mean_across_seeds": 0.5,
+          "std_across_seeds": 0.0,
+          "per_seed": [
+            0.5,
+            0.5,
+            0.5
+          ]
+        },
+        "L0_interventions__rev_f2p_intervention_id__interventions_studies": {
+          "mean_across_seeds": 0.5000000059604645,
+          "std_across_seeds": 2.920019319991086e-08,
+          "per_seed": [
+            0.4999999701976776,
+            0.5,
+            0.5000000596046448
+          ]
+        },
+        "L1_designs__f2p_nct_id__studies": {
+          "mean_across_seeds": 0.49999432563781737,
+          "std_across_seeds": 4.333548719714531e-07,
+          "per_seed": [
+            0.4999949634075165,
+            0.4999943971633911,
+            0.49999380111694336
+          ]
+        },
+        "L1_studies__rev_f2p_nct_id__designs": {
+          "mean_across_seeds": 0.5,
+          "std_across_seeds": 0.0,
+          "per_seed": [
+            0.5,
+            0.5,
+            0.5
+          ]
+        },
+        "L1_eligibilities__f2p_nct_id__studies": {
+          "mean_across_seeds": 0.49999481439590454,
+          "std_across_seeds": 7.004496834479612e-07,
+          "per_seed": [
+            0.49999532103538513,
+            0.49999499320983887,
+            0.49999409914016724
+          ]
+        },
+        "L1_studies__rev_f2p_nct_id__eligibilities": {
+          "mean_across_seeds": 0.5,
+          "std_across_seeds": 0.0,
+          "per_seed": [
+            0.5,
+            0.5,
+            0.5
+          ]
+        },
+        "L1_drop_withdrawals__f2p_nct_id__studies": {
+          "mean_across_seeds": 0.5000000476837159,
+          "std_across_seeds": 2.3841857910156248e-08,
+          "per_seed": [
+            0.5000000596046448,
+            0.5000000596046448,
+            0.5
+          ]
+        },
+        "L1_conditions_studies__f2p_nct_id__studies": {
+          "mean_across_seeds": 0.5026002347469329,
+          "std_across_seeds": 0.004957078207371095,
+          "per_seed": [
+            0.505744218826294,
+            0.4962605834007263,
+            0.5055209994316101
+          ]
+        },
+        "L1_studies__rev_f2p_nct_id__conditions_studies": {
+          "mean_across_seeds": 0.5,
+          "std_across_seeds": 0.0,
+          "per_seed": [
+            0.5,
+            0.5,
+            0.5
+          ]
+        },
+        "L1_conditions_studies__f2p_condition_id__conditions": {
+          "mean_across_seeds": 0.5,
+          "std_across_seeds": 0.0,
+          "per_seed": [
+            0.5,
+            0.5,
+            0.5
+          ]
+        },
+        "L1_conditions__rev_f2p_condition_id__conditions_studies": {
+          "mean_across_seeds": 0.5,
+          "std_across_seeds": 0.0,
+          "per_seed": [
+            0.5,
+            0.5,
+            0.5
+          ]
+        },
+        "L1_outcomes__f2p_nct_id__studies": {
+          "mean_across_seeds": 0.5000000596046448,
+          "std_across_seeds": 6.529361695112778e-08,
+          "per_seed": [
+            0.5,
+            0.5,
+            0.5000001788139343
+          ]
+        },
+        "L1_reported_event_totals__f2p_nct_id__studies": {
+          "mean_across_seeds": 0.49999997615814207,
+          "std_across_seeds": 5.778884717722332e-08,
+          "per_seed": [
+            0.49999991059303284,
+            0.5000000596046448,
+            0.5
+          ]
+        },
+        "L1_facilities_studies__f2p_nct_id__studies": {
+          "mean_across_seeds": 0.5538920998573303,
+          "std_across_seeds": 0.012131123704363443,
+          "per_seed": [
+            0.5570157170295715,
+            0.5480086803436279,
+            0.53510582447052
+          ]
+        },
+        "L1_studies__rev_f2p_nct_id__facilities_studies": {
+          "mean_across_seeds": 0.5,
+          "std_across_seeds": 0.0,
+          "per_seed": [
+            0.5,
+            0.5,
+            0.5
+          ]
+        },
+        "L1_facilities_studies__f2p_facility_id__facilities": {
+          "mean_across_seeds": 0.5,
+          "std_across_seeds": 0.0,
+          "per_seed": [
+            0.5,
+            0.5,
+            0.5
+          ]
+        },
+        "L1_facilities__rev_f2p_facility_id__facilities_studies": {
+          "mean_across_seeds": 0.5,
+          "std_across_seeds": 0.0,
+          "per_seed": [
+            0.5,
+            0.5,
+            0.5
+          ]
+        },
+        "L1_sponsors_studies__f2p_nct_id__studies": {
+          "mean_across_seeds": 0.49090964794158937,
+          "std_across_seeds": 0.011394994954742289,
+          "per_seed": [
+            0.48393112421035767,
+            0.4812406599521637,
+            0.5129198431968689
+          ]
+        },
+        "L1_studies__rev_f2p_nct_id__sponsors_studies": {
+          "mean_across_seeds": 0.5,
+          "std_across_seeds": 0.0,
+          "per_seed": [
+            0.5,
+            0.5,
+            0.5
+          ]
+        },
+        "L1_sponsors_studies__f2p_sponsor_id__sponsors": {
+          "mean_across_seeds": 0.5,
+          "std_across_seeds": 0.0,
+          "per_seed": [
+            0.5,
+            0.5,
+            0.5
+          ]
+        },
+        "L1_sponsors__rev_f2p_sponsor_id__sponsors_studies": {
+          "mean_across_seeds": 0.5,
+          "std_across_seeds": 0.0,
+          "per_seed": [
+            0.5,
+            0.5,
+            0.5
+          ]
+        },
+        "L1_outcome_analyses__f2p_nct_id__studies": {
+          "mean_across_seeds": 0.4999999821186066,
+          "std_across_seeds": 4.842304232499576e-08,
+          "per_seed": [
+            0.4999999701976776,
+            0.4999999701976776,
+            0.49999991059303284
+          ]
+        },
+        "L1_interventions_studies__f2p_nct_id__studies": {
+          "mean_across_seeds": 0.5065369367599487,
+          "std_across_seeds": 0.0032513717853139947,
+          "per_seed": [
+            0.5094717741012573,
+            0.5011358857154846,
+            0.5075172781944275
+          ]
+        },
+        "L1_studies__rev_f2p_nct_id__interventions_studies": {
+          "mean_across_seeds": 0.5,
+          "std_across_seeds": 0.0,
+          "per_seed": [
+            0.5,
+            0.5,
+            0.5
+          ]
+        },
+        "L1_interventions_studies__f2p_intervention_id__interventions": {
+          "mean_across_seeds": 0.5,
+          "std_across_seeds": 0.0,
+          "per_seed": [
+            0.5,
+            0.5,
+            0.5
+          ]
+        },
+        "L1_interventions__rev_f2p_intervention_id__interventions_studies": {
+          "mean_across_seeds": 0.5,
+          "std_across_seeds": 0.0,
+          "per_seed": [
+            0.5,
+            0.5,
+            0.5
+          ]
+        }
+      },
+      "user-engagement": {
+        "L0_comments__f2p_UserId__users": {
+          "mean_across_seeds": 0.4022660911083221,
+          "std_across_seeds": 0.010857085468144996,
+          "per_seed": [
+            0.4003000557422638,
+            0.39389801025390625,
+            0.4230674207210541
+          ]
+        },
+        "L0_users__rev_f2p_UserId__comments": {
+          "mean_across_seeds": 0.4999998450279236,
+          "std_across_seeds": 1.8019934246338577e-07,
+          "per_seed": [
+            0.4999997317790985,
+            0.5000000596046448,
+            0.4999999403953552
+          ]
+        },
+        "L0_comments__f2p_PostId__posts": {
+          "mean_across_seeds": 0.4242811858654022,
+          "std_across_seeds": 0.0076784869402777515,
+          "per_seed": [
+            0.43218809366226196,
+            0.43287357687950134,
+            0.4160100519657135
+          ]
+        },
+        "L0_posts__rev_f2p_PostId__comments": {
+          "mean_across_seeds": 0.4999999821186066,
+          "std_across_seeds": 2.3207571904577954e-07,
+          "per_seed": [
+            0.5000003576278687,
+            0.49999991059303284,
+            0.4999999403953552
+          ]
+        },
+        "L0_badges__f2p_UserId__users": {
+          "mean_across_seeds": 0.2470279335975647,
+          "std_across_seeds": 0.024861092628605683,
+          "per_seed": [
+            0.24933910369873047,
+            0.24132412672042847,
+            0.2706778049468994
+          ]
+        },
+        "L0_users__rev_f2p_UserId__badges": {
+          "mean_across_seeds": 0.5000002682209015,
+          "std_across_seeds": 5.182520179577865e-07,
+          "per_seed": [
+            0.5,
+            0.5000007152557373,
+            0.500000536441803
+          ]
+        },
+        "L0_postLinks__f2p_PostId__posts": {
+          "mean_across_seeds": 0.42372812032699586,
+          "std_across_seeds": 0.036793637549095426,
+          "per_seed": [
+            0.4852595627307892,
+            0.40877124667167664,
+            0.4228914678096771
+          ]
+        },
+        "L0_posts__rev_f2p_PostId__postLinks": {
+          "mean_across_seeds": 0.5,
+          "std_across_seeds": 0.0,
+          "per_seed": [
+            0.5,
+            0.5,
+            0.5
+          ]
+        },
+        "L0_postLinks__f2p_RelatedPostId__posts": {
+          "mean_across_seeds": 0.49275785088539126,
+          "std_across_seeds": 0.014731699294501157,
+          "per_seed": [
+            0.4675615429878235,
+            0.49907800555229187,
+            0.4987424910068512
+          ]
+        },
+        "L0_posts__rev_f2p_RelatedPostId__postLinks": {
+          "mean_across_seeds": 0.5,
+          "std_across_seeds": 0.0,
+          "per_seed": [
+            0.5,
+            0.5,
+            0.5
+          ]
+        },
+        "L0_postHistory__f2p_PostId__posts": {
+          "mean_across_seeds": 0.4144072473049164,
+          "std_across_seeds": 0.011960893533297136,
+          "per_seed": [
+            0.42834198474884033,
+            0.4047164022922516,
+            0.42603108286857605
+          ]
+        },
+        "L0_posts__rev_f2p_PostId__postHistory": {
+          "mean_across_seeds": 0.5000000655651092,
+          "std_across_seeds": 1.3113021850585939e-07,
+          "per_seed": [
+            0.4999999701976776,
+            0.49999988079071045,
+            0.5000001788139343
+          ]
+        },
+        "L0_postHistory__f2p_UserId__users": {
+          "mean_across_seeds": 0.3545898973941803,
+          "std_across_seeds": 0.02398577010640249,
+          "per_seed": [
+            0.318816602230072,
+            0.38860777020454407,
+            0.3693248927593231
+          ]
+        },
+        "L0_users__rev_f2p_UserId__postHistory": {
+          "mean_across_seeds": 0.4999999821186066,
+          "std_across_seeds": 4.1876239944101087e-07,
+          "per_seed": [
+            0.499999463558197,
+            0.5000007152557373,
+            0.4999997317790985
+          ]
+        },
+        "L0_votes__f2p_PostId__posts": {
+          "mean_across_seeds": 0.4263553321361542,
+          "std_across_seeds": 0.019678175954046077,
+          "per_seed": [
+            0.4142535328865051,
+            0.425346702337265,
+            0.46461713314056396
+          ]
+        },
+        "L0_posts__rev_f2p_PostId__votes": {
+          "mean_across_seeds": 0.5,
+          "std_across_seeds": 0.0,
+          "per_seed": [
+            0.5,
+            0.5,
+            0.5
+          ]
+        },
+        "L0_votes__f2p_UserId__users": {
+          "mean_across_seeds": 0.3954335927963257,
+          "std_across_seeds": 0.014630506361416626,
+          "per_seed": [
+            0.4195046126842499,
+            0.3796026110649109,
+            0.40088531374931335
+          ]
+        },
+        "L0_users__rev_f2p_UserId__votes": {
+          "mean_across_seeds": 0.5,
+          "std_across_seeds": 0.0,
+          "per_seed": [
+            0.5,
+            0.5,
+            0.5
+          ]
+        },
+        "L0_posts__f2p_OwnerUserId__users": {
+          "mean_across_seeds": 0.3583359241485596,
+          "std_across_seeds": 0.023261282387304016,
+          "per_seed": [
+            0.37639179825782776,
+            0.34239718317985535,
+            0.37530606985092163
+          ]
+        },
+        "L0_users__rev_f2p_OwnerUserId__posts": {
+          "mean_across_seeds": 0.5000000715255737,
+          "std_across_seeds": 1.7438815639409772e-07,
+          "per_seed": [
+            0.5,
+            0.5000004172325134,
+            0.4999999403953552
+          ]
+        },
+        "L0_posts__f2p_ParentId__posts": {
+          "mean_across_seeds": 0.4867096126079559,
+          "std_across_seeds": 0.03732711404925609,
+          "per_seed": [
+            0.46409696340560913,
+            0.47400423884391785,
+            0.551209568977356
+          ]
+        },
+        "L0_posts__rev_f2p_ParentId__posts": {
+          "mean_across_seeds": 0.4999999701976776,
+          "std_across_seeds": 2.7573188558150236e-07,
+          "per_seed": [
+            0.49999961256980896,
+            0.5000000596046448,
+            0.4999997615814209
+          ]
+        },
+        "L1_comments__f2p_UserId__users": {
+          "mean_across_seeds": 0.3716994345188141,
+          "std_across_seeds": 0.01651206932077191,
+          "per_seed": [
+            0.3928861618041992,
+            0.3814181089401245,
+            0.35850051045417786
+          ]
+        },
+        "L1_users__rev_f2p_UserId__comments": {
+          "mean_across_seeds": 0.5,
+          "std_across_seeds": 0.0,
+          "per_seed": [
+            0.5,
+            0.5,
+            0.5
+          ]
+        },
+        "L1_comments__f2p_PostId__posts": {
+          "mean_across_seeds": 0.5,
+          "std_across_seeds": 0.0,
+          "per_seed": [
+            0.5,
+            0.5,
+            0.5
+          ]
+        },
+        "L1_posts__rev_f2p_PostId__comments": {
+          "mean_across_seeds": 0.5,
+          "std_across_seeds": 0.0,
+          "per_seed": [
+            0.5,
+            0.5,
+            0.5
+          ]
+        },
+        "L1_badges__f2p_UserId__users": {
+          "mean_across_seeds": 0.3156442761421204,
+          "std_across_seeds": 0.014821219059359736,
+          "per_seed": [
+            0.3319118022918701,
+            0.328133225440979,
+            0.308808296918869
+          ]
+        },
+        "L1_users__rev_f2p_UserId__badges": {
+          "mean_across_seeds": 0.5,
+          "std_across_seeds": 0.0,
+          "per_seed": [
+            0.5,
+            0.5,
+            0.5
+          ]
+        },
+        "L1_postLinks__f2p_PostId__posts": {
+          "mean_across_seeds": 0.5,
+          "std_across_seeds": 0.0,
+          "per_seed": [
+            0.5,
+            0.5,
+            0.5
+          ]
+        },
+        "L1_posts__rev_f2p_PostId__postLinks": {
+          "mean_across_seeds": 0.5,
+          "std_across_seeds": 0.0,
+          "per_seed": [
+            0.5,
+            0.5,
+            0.5
+          ]
+        },
+        "L1_postLinks__f2p_RelatedPostId__posts": {
+          "mean_across_seeds": 0.5,
+          "std_across_seeds": 0.0,
+          "per_seed": [
+            0.5,
+            0.5,
+            0.5
+          ]
+        },
+        "L1_posts__rev_f2p_RelatedPostId__postLinks": {
+          "mean_across_seeds": 0.5,
+          "std_across_seeds": 0.0,
+          "per_seed": [
+            0.5,
+            0.5,
+            0.5
+          ]
+        },
+        "L1_postHistory__f2p_PostId__posts": {
+          "mean_across_seeds": 0.5,
+          "std_across_seeds": 0.0,
+          "per_seed": [
+            0.5,
+            0.5,
+            0.5
+          ]
+        },
+        "L1_posts__rev_f2p_PostId__postHistory": {
+          "mean_across_seeds": 0.5,
+          "std_across_seeds": 0.0,
+          "per_seed": [
+            0.5,
+            0.5,
+            0.5
+          ]
+        },
+        "L1_postHistory__f2p_UserId__users": {
+          "mean_across_seeds": 0.3531219124794006,
+          "std_across_seeds": 0.04190921585241981,
+          "per_seed": [
+            0.383560448884964,
+            0.37781575322151184,
+            0.38990160822868347
+          ]
+        },
+        "L1_users__rev_f2p_UserId__postHistory": {
+          "mean_across_seeds": 0.5,
+          "std_across_seeds": 0.0,
+          "per_seed": [
+            0.5,
+            0.5,
+            0.5
+          ]
+        },
+        "L1_votes__f2p_PostId__posts": {
+          "mean_across_seeds": 0.5,
+          "std_across_seeds": 0.0,
+          "per_seed": [
+            0.5,
+            0.5,
+            0.5
+          ]
+        },
+        "L1_posts__rev_f2p_PostId__votes": {
+          "mean_across_seeds": 0.5,
+          "std_across_seeds": 0.0,
+          "per_seed": [
+            0.5,
+            0.5,
+            0.5
+          ]
+        },
+        "L1_votes__f2p_UserId__users": {
+          "mean_across_seeds": 0.4261849939823151,
+          "std_across_seeds": 0.01815200235934706,
+          "per_seed": [
+            0.4286683201789856,
+            0.40594667196273804,
+            0.4577275216579437
+          ]
+        },
+        "L1_users__rev_f2p_UserId__votes": {
+          "mean_across_seeds": 0.5,
+          "std_across_seeds": 0.0,
+          "per_seed": [
+            0.5,
+            0.5,
+            0.5
+          ]
+        },
+        "L1_posts__f2p_OwnerUserId__users": {
+          "mean_across_seeds": 0.37168666124343874,
+          "std_across_seeds": 0.016310569112157242,
+          "per_seed": [
+            0.3785271644592285,
+            0.3626246154308319,
+            0.39596453309059143
+          ]
+        },
+        "L1_users__rev_f2p_OwnerUserId__posts": {
+          "mean_across_seeds": 0.5,
+          "std_across_seeds": 0.0,
+          "per_seed": [
+            0.5,
+            0.5,
+            0.5
+          ]
+        },
+        "L1_posts__f2p_ParentId__posts": {
+          "mean_across_seeds": 0.5,
+          "std_across_seeds": 0.0,
+          "per_seed": [
+            0.5,
+            0.5,
+            0.5
+          ]
+        },
+        "L1_posts__rev_f2p_ParentId__posts": {
+          "mean_across_seeds": 0.5,
+          "std_across_seeds": 0.0,
+          "per_seed": [
+            0.5,
+            0.5,
+            0.5
+          ]
+        }
+      }
+    },
+    "study_adverse_diagnosis": {
+      "seed_42": {
+        "pred_variance": 2083.564697265625,
+        "target_variance": 152971.4914640665,
+        "pred_std": 45.646080017089844,
+        "target_std": 391.1157008662098,
+        "pred_range": 185.56179809570312,
+        "target_range": 17245.0,
+        "pred_mean": 19.789257049560547,
+        "target_mean": 57.08286985539488,
+        "pred_median": 0.9176836013793945,
+        "pred_unique_ratio": 0.6646223369916074,
+        "is_degenerate": false
+      },
+      "seed_123": {
+        "pred_variance": 1850.400146484375,
+        "target_variance": 152971.4914640665,
+        "pred_std": 43.01627731323242,
+        "target_std": 391.1157008662098,
+        "pred_range": 193.01112365722656,
+        "target_range": 17245.0,
+        "pred_mean": 19.14612579345703,
+        "target_mean": 57.08286985539488,
+        "pred_median": 1.4894503355026245,
+        "pred_unique_ratio": 0.6158812136862492,
+        "is_degenerate": false
+      },
+      "seed_456": {
+        "pred_variance": 1788.054931640625,
+        "target_variance": 152971.4914640665,
+        "pred_std": 42.285400390625,
+        "target_std": 391.1157008662098,
+        "pred_range": 179.50440979003906,
+        "target_range": 17245.0,
+        "pred_mean": 19.840835571289062,
+        "target_mean": 57.08286985539488,
+        "pred_median": 2.0367889404296875,
+        "pred_unique_ratio": 0.6358941252420917,
+        "is_degenerate": false
+      },
+      "seed_789": {
+        "pred_variance": 1680.74560546875,
+        "target_variance": 152971.4914640665,
+        "pred_std": 40.99689865112305,
+        "target_std": 391.1157008662098,
+        "pred_range": 183.9638214111328,
+        "target_range": 17245.0,
+        "pred_mean": 18.854766845703125,
+        "target_mean": 57.08286985539488,
+        "pred_median": 1.6162197589874268,
+        "pred_unique_ratio": 0.6655907036797934,
+        "is_degenerate": false
+      },
+      "seed_1024": {
+        "pred_variance": 1589.6356201171875,
+        "target_variance": 152971.4914640665,
+        "pred_std": 39.870235443115234,
+        "target_std": 391.1157008662098,
+        "pred_range": 191.20657348632812,
+        "target_range": 17245.0,
+        "pred_mean": 18.216039657592773,
+        "target_mean": 57.08286985539488,
+        "pred_median": 2.7962183952331543,
+        "pred_unique_ratio": 0.7314396384764364,
+        "is_degenerate": false
+      },
+      "degenerate_seeds": [],
+      "num_degenerate": 0,
+      "summary": "No degenerate seeds detected. Baseline produces diverse predictions."
+    }
+  },
+  "datasets": [
+    {
+      "dataset": "rel-trial__study-outcome",
+      "examples": [
+        {
+          "input": "Task: rel-trial/study-outcome\nType: binary_classification\nMetric: average_precision (higher is better)\nSeed: 42\nChannels: 128, LR: 0.001, Epochs: 20\nBatch size: 512, Neighbors: [64, 64]",
+          "output": "{\"baseline_test_metrics\": {\"average_precision\": 0.755927569376385, \"accuracy\": 0.6460606060606061, \"f1\": 0.7281191806331471, \"roc_auc\": 0.6950831184240795}, \"cama_test_metrics\": {\"average_precision\": ...",
+          "predict_baseline": "0.755927569376385",
+          "predict_cama": "0.7507153271354192",
+          "metadata_dataset_name": "rel-trial",
+          "metadata_task_name": "study-outcome",
+          "metadata_task_type": "binary_classification",
+          "metadata_metric": "average_precision",
+          "metadata_seed": 42,
+          "metadata_method_baseline": "HeteroSAGE+mean",
+          "metadata_method_cama": "HeteroSAGE+CAMA"
+        },
+        {
+          "input": "Task: rel-trial/study-outcome\nType: binary_classification\nMetric: average_precision (higher is better)\nSeed: 123\nChannels: 128, LR: 0.001, Epochs: 20\nBatch size: 512, Neighbors: [64, 64]",
+          "output": "{\"baseline_test_metrics\": {\"average_precision\": 0.7101038745582352, \"accuracy\": 0.6278787878787879, \"f1\": 0.7191216834400732, \"roc_auc\": 0.6699538701827031}, \"cama_test_metrics\": {\"average_precision\":...",
+          "predict_baseline": "0.7101038745582352",
+          "predict_cama": "0.7360529763960245",
+          "metadata_dataset_name": "rel-trial",
+          "metadata_task_name": "study-outcome",
+          "metadata_task_type": "binary_classification",
+          "metadata_metric": "average_precision",
+          "metadata_seed": 123,
+          "metadata_method_baseline": "HeteroSAGE+mean",
+          "metadata_method_cama": "HeteroSAGE+CAMA"
+        },
+        {
+          "input": "Task: rel-trial/study-outcome\nType: binary_classification\nMetric: average_precision (higher is better)\nSeed: 456\nChannels: 128, LR: 0.001, Epochs: 20\nBatch size: 512, Neighbors: [64, 64]",
+          "output": "{\"baseline_test_metrics\": {\"average_precision\": 0.7350352769388384, \"accuracy\": 0.6290909090909091, \"f1\": 0.7366609294320138, \"roc_auc\": 0.670571355926047}, \"cama_test_metrics\": {\"average_precision\": ...",
+          "predict_baseline": "0.7350352769388384",
+          "predict_cama": "0.7479189915307876",
+          "metadata_dataset_name": "rel-trial",
+          "metadata_task_name": "study-outcome",
+          "metadata_task_type": "binary_classification",
+          "metadata_metric": "average_precision",
+          "metadata_seed": 456,
+          "metadata_method_baseline": "HeteroSAGE+mean",
+          "metadata_method_cama": "HeteroSAGE+CAMA"
+        }
+      ]
+    },
+    {
+      "dataset": "rel-trial__study-adverse",
+      "examples": [
+        {
+          "input": "Task: rel-trial/study-adverse\nType: regression\nMetric: mae (lower is better)\nSeed: 42\nChannels: 128, LR: 0.001, Epochs: 20\nBatch size: 512, Neighbors: [64, 64]",
+          "output": "{\"baseline_test_metrics\": {\"r2\": 0.11242322057591314, \"mae\": 47.37018603590071, \"rmse\": 235.2326288270558}, \"cama_test_metrics\": {\"r2\": 0.07155102508688838, \"mae\": 48.677395704693566, \"rmse\": 240.5878...",
+          "predict_baseline": "47.37018603590071",
+          "predict_cama": "48.677395704693566",
+          "metadata_dataset_name": "rel-trial",
+          "metadata_task_name": "study-adverse",
+          "metadata_task_type": "regression",
+          "metadata_metric": "mae",
+          "metadata_seed": 42,
+          "metadata_method_baseline": "HeteroSAGE+mean",
+          "metadata_method_cama": "HeteroSAGE+CAMA"
+        },
+        {
+          "input": "Task: rel-trial/study-adverse\nType: regression\nMetric: mae (lower is better)\nSeed: 123\nChannels: 128, LR: 0.001, Epochs: 20\nBatch size: 512, Neighbors: [64, 64]",
+          "output": "{\"baseline_test_metrics\": {\"r2\": 0.11398898756939002, \"mae\": 47.17592330034546, \"rmse\": 235.02505125442332}, \"cama_test_metrics\": {\"r2\": 0.07895747309669565, \"mae\": 48.832999656851094, \"rmse\": 239.626...",
+          "predict_baseline": "47.17592330034546",
+          "predict_cama": "48.832999656851094",
+          "metadata_dataset_name": "rel-trial",
+          "metadata_task_name": "study-adverse",
+          "metadata_task_type": "regression",
+          "metadata_metric": "mae",
+          "metadata_seed": 123,
+          "metadata_method_baseline": "HeteroSAGE+mean",
+          "metadata_method_cama": "HeteroSAGE+CAMA"
+        },
+        {
+          "input": "Task: rel-trial/study-adverse\nType: regression\nMetric: mae (lower is better)\nSeed: 456\nChannels: 128, LR: 0.001, Epochs: 20\nBatch size: 512, Neighbors: [64, 64]",
+          "output": "{\"baseline_test_metrics\": {\"r2\": 0.10767483775430486, \"mae\": 47.03038297093361, \"rmse\": 235.8610165209698}, \"cama_test_metrics\": {\"r2\": 0.0966296308293273, \"mae\": 47.45089018355461, \"rmse\": 237.316271...",
+          "predict_baseline": "47.03038297093361",
+          "predict_cama": "47.45089018355461",
+          "metadata_dataset_name": "rel-trial",
+          "metadata_task_name": "study-adverse",
+          "metadata_task_type": "regression",
+          "metadata_metric": "mae",
+          "metadata_seed": 456,
+          "metadata_method_baseline": "HeteroSAGE+mean",
+          "metadata_method_cama": "HeteroSAGE+CAMA"
+        }
+      ]
+    },
+    {
+      "dataset": "rel-stack__user-engagement",
+      "examples": [
+        {
+          "input": "Task: rel-stack/user-engagement\nType: binary_classification\nMetric: roc_auc (higher is better)\nSeed: 42\nChannels: 128, LR: 0.005, Epochs: 10\nBatch size: 512, Neighbors: [64, 64]",
+          "output": "{\"baseline_test_metrics\": {\"average_precision\": 0.37836198185216124, \"accuracy\": 0.9751069357931402, \"f1\": 0.26720106880427524, \"roc_auc\": 0.9006495529393646}, \"cama_test_metrics\": {\"average_precision...",
+          "predict_baseline": "0.9006495529393646",
+          "predict_cama": "0.9055085152464528",
+          "metadata_dataset_name": "rel-stack",
+          "metadata_task_name": "user-engagement",
+          "metadata_task_type": "binary_classification",
+          "metadata_metric": "roc_auc",
+          "metadata_seed": 42,
+          "metadata_method_baseline": "HeteroSAGE+mean",
+          "metadata_method_cama": "HeteroSAGE+CAMA"
+        },
+        {
+          "input": "Task: rel-stack/user-engagement\nType: binary_classification\nMetric: roc_auc (higher is better)\nSeed: 123\nChannels: 128, LR: 0.005, Epochs: 10\nBatch size: 512, Neighbors: [64, 64]",
+          "output": "{\"baseline_test_metrics\": {\"average_precision\": 0.3710826317265187, \"accuracy\": 0.9748119405017189, \"f1\": 0.29835651074589126, \"roc_auc\": 0.8990129761762643}, \"cama_test_metrics\": {\"average_precision\"...",
+          "predict_baseline": "0.8990129761762643",
+          "predict_cama": "0.9061062086895685",
+          "metadata_dataset_name": "rel-stack",
+          "metadata_task_name": "user-engagement",
+          "metadata_task_type": "binary_classification",
+          "metadata_metric": "roc_auc",
+          "metadata_seed": 123,
+          "metadata_method_baseline": "HeteroSAGE+mean",
+          "metadata_method_cama": "HeteroSAGE+CAMA"
+        },
+        {
+          "input": "Task: rel-stack/user-engagement\nType: binary_classification\nMetric: roc_auc (higher is better)\nSeed: 456\nChannels: 128, LR: 0.005, Epochs: 10\nBatch size: 512, Neighbors: [64, 64]",
+          "output": "{\"baseline_test_metrics\": {\"average_precision\": 0.3694625329938621, \"accuracy\": 0.9749367462019356, \"f1\": 0.31248054777466544, \"roc_auc\": 0.89860945224255}, \"cama_test_metrics\": {\"average_precision\": ...",
+          "predict_baseline": "0.89860945224255",
+          "predict_cama": "0.9051057146343187",
+          "metadata_dataset_name": "rel-stack",
+          "metadata_task_name": "user-engagement",
+          "metadata_task_type": "binary_classification",
+          "metadata_metric": "roc_auc",
+          "metadata_seed": 456,
+          "metadata_method_baseline": "HeteroSAGE+mean",
+          "metadata_method_cama": "HeteroSAGE+CAMA"
+        }
+      ]
+    }
+  ]
+}

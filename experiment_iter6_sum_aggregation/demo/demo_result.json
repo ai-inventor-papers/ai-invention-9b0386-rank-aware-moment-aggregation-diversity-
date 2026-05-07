@@ -1,0 +1,13 @@
+{
+  "id": "exp_id2_it6__opus",
+  "type": "code",
+  "title": "Sum Aggregation Baseline vs CAMA on rel-amazon/item-ltv (3 methods \u00d7 5 seeds)",
+  "summary": "Demo notebook comparing GNN aggregation methods (sum, mean, CAMA) on rel-amazon/item-ltv. Demonstrates the CAMAAggregation module (NumPy reference implementation) with synthetic data, reproduces the statistical analysis (Cohen's d=13.58, p<1e-8) from pre-computed per-seed MAE values, and visualizes results across experimental iterations. Shows CAMA achieves 8% MAE improvement over mean baseline. Uses pre-computed results from the original PyTorch+torch_geometric experiment.",
+  "original_path": "/ai-inventor/aii_pipeline/runs/leskovec-predictive-residual-message-passing-v2_sti/3_invention_loop/iter_6/gen_art/exp_id2_it6__opus",
+  "demo_path": "/ai-inventor/aii_pipeline/runs/leskovec-predictive-residual-message-passing-v2_sti/4_gen_paper_repo/exp_id2_it6__opus",
+  "out_expected_files": {
+    "notebook": "code_demo.ipynb",
+    "mini_data_file": "mini_demo_data.json"
+  },
+  "notebook_path": "/ai-inventor/aii_pipeline/runs/leskovec-predictive-residual-message-passing-v2_sti/4_gen_paper_repo/exp_id2_it6__opus/method_code_demo.ipynb"
+}

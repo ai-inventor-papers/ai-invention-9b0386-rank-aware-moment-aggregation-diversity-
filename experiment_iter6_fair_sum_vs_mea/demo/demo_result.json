@@ -1,0 +1,13 @@
+{
+  "id": "exp_id1_it6__opus",
+  "type": "code",
+  "title": "Fair Sum vs Mean vs CAMA Classification Comparison with Full Hyperparameters",
+  "summary": "Demo notebook for the CAMA (Cardinality-Aware Moment Aggregation) experiment comparing 3 GNN aggregation methods (mean, sum, CAMA) on rel-stack/user-engagement classification. The notebook demonstrates: (1) CAMA module implementation with numpy reference code and unit test verifying output shape, gate initialization at ~0.5, and variance enrichment; (2) statistical analysis (Cohen's d, bootstrap CIs, paired t-tests) on 8 pre-computed training runs across 3 seeds; (3) 4-panel visualization showing training curves, final val AP comparison, CAMA gate evolution, and effective rank. Uses pre-computed results from mini_demo_data.json loaded via GitHub URL with local fallback. Results confirm CAMA > sum > mean with Cohen's d=5.14 (CAMA vs mean) and d=1.63 (CAMA vs sum).",
+  "original_path": "/ai-inventor/aii_pipeline/runs/leskovec-predictive-residual-message-passing-v2_sti/3_invention_loop/iter_6/gen_art/exp_id1_it6__opus",
+  "demo_path": "/ai-inventor/aii_pipeline/runs/leskovec-predictive-residual-message-passing-v2_sti/4_gen_paper_repo/exp_id1_it6__opus",
+  "out_expected_files": {
+    "notebook": "code_demo.ipynb",
+    "mini_data_file": "mini_demo_data.json"
+  },
+  "notebook_path": "/ai-inventor/aii_pipeline/runs/leskovec-predictive-residual-message-passing-v2_sti/4_gen_paper_repo/exp_id1_it6__opus/method_code_demo.ipynb"
+}

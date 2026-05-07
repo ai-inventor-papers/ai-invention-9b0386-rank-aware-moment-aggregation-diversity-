@@ -1,0 +1,13 @@
+{
+  "id": "exp_id2_it5__opus",
+  "type": "code",
+  "title": "Sum, PNA, Ungated-Moment, and CAMA Baselines on rel-stack/user-engagement + Sum on rel-trial/study-outcome",
+  "summary": "Demo notebook that loads pre-computed results from an experiment comparing 5 GNN aggregation methods (Sum, Mean, PNA, Ungated Moment, CAMA) on rel-stack/user-engagement (25 runs: 5 methods x 5 seeds). The notebook demonstrates the CAMA forward pass with numpy, re-runs Cohen's d with bootstrap 95% CIs and paired t-tests, analyzes effective rank of representations, and produces 3 visualizations: validation AP bar chart, Cohen's d forest plot, and effective rank vs performance scatter. Key finding: Sum matches CAMA with no significant difference (p=0.284).",
+  "original_path": "/ai-inventor/aii_pipeline/runs/leskovec-predictive-residual-message-passing-v2_sti/3_invention_loop/iter_5/gen_art/exp_id2_it5__opus",
+  "demo_path": "/ai-inventor/aii_pipeline/runs/leskovec-predictive-residual-message-passing-v2_sti/4_gen_paper_repo/exp_id2_it5__opus",
+  "out_expected_files": {
+    "notebook": "code_demo.ipynb",
+    "mini_data_file": "mini_demo_data.json"
+  },
+  "notebook_path": "/ai-inventor/aii_pipeline/runs/leskovec-predictive-residual-message-passing-v2_sti/4_gen_paper_repo/exp_id2_it5__opus/method_code_demo.ipynb"
+}

@@ -1,0 +1,13 @@
+{
+  "id": "exp_id3_it5__opus",
+  "type": "code",
+  "title": "Controlled CAMA Replication on Amazon item-ltv: 10-Epoch Resolution of Instability",
+  "summary": "Demo notebook analyzing pre-computed results from a controlled 2-method x 5-seed experiment comparing CAMA (Cardinality-Aware Moment Aggregation) vs mean-aggregation baseline on rel-amazon/item-ltv. Demonstrates the CAMA module with a synthetic-data unit test (verifying shape, gradients, gate initialization at 0.5), then reproduces statistical analysis (Cohen's d=13.58, bootstrap CI, t-test, Wilcoxon) on loaded results. Visualizes learning curves across seeds, CAMA gate evolution showing divergence from 0.5 initialization on review-to-product edges, cross-iteration comparison bar chart, and per-seed MAE comparison. Data: curated subset with 3 seeds' learning curves (10 epochs each), gate snapshots at epochs 1/5/10, and summary statistics for all 5 seeds.",
+  "original_path": "/ai-inventor/aii_pipeline/runs/leskovec-predictive-residual-message-passing-v2_sti/3_invention_loop/iter_5/gen_art/exp_id3_it5__opus",
+  "demo_path": "/ai-inventor/aii_pipeline/runs/leskovec-predictive-residual-message-passing-v2_sti/4_gen_paper_repo/exp_id3_it5__opus",
+  "out_expected_files": {
+    "notebook": "code_demo.ipynb",
+    "mini_data_file": "mini_demo_data.json"
+  },
+  "notebook_path": "/ai-inventor/aii_pipeline/runs/leskovec-predictive-residual-message-passing-v2_sti/4_gen_paper_repo/exp_id3_it5__opus/method_code_demo.ipynb"
+}

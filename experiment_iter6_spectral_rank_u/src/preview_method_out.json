@@ -1,0 +1,147 @@
+{
+  "metadata": {
+    "title": "Spectral Rank Under Sum vs Mean Aggregation",
+    "hypothesis_tested": "Sum aggregation preserves higher effective rank than mean at FK joins",
+    "configuration": {
+      "model": "HeteroSAGE",
+      "channels": 128,
+      "num_layers": 2,
+      "epochs": 10,
+      "seed": 42,
+      "aggregation_types": [
+        "mean",
+        "sum"
+      ],
+      "max_parents_per_edge_type": 1000,
+      "max_analysis_batches": 100
+    },
+    "overall_comparison": {
+      "num_tasks_compared": 3,
+      "grand_mean_rank_ratio": 0.978339746434167,
+      "grand_mean_compression_diff": -0.017079401082186134,
+      "hypothesis_supported": false,
+      "interpretation": "DISCONFIRMED: mean aggregation produces HIGHER effective rank than sum. The information-compression mechanism is not the primary explanation for sum's performance advantage."
+    },
+    "key_findings": {
+      "sum_preserves_more_rank": false,
+      "grand_mean_rank_ratio": 0.978339746434167,
+      "grand_mean_compression_diff": -0.017079401082186134
+    }
+  },
+  "datasets": [
+    {
+      "dataset": "mean/rel-f1/driver-dnf",
+      "examples": [
+        {
+          "input": "{\"task\": \"rel-f1/driver-dnf\", \"aggr_type\": \"mean\", \"edge_type\": \"layer_0/races__rev_f2p_raceId__standings\", \"layer\": \"layer_0\", \"edge_description\": \"races__rev_f2p_raceId__standings\", \"cama_cohen_d\": ...",
+          "output": "{\"num_parents_analyzed\": 1000, \"mean_svd_rank\": 1.0, \"mean_proxy_rank\": 0.0078125, \"mean_compression\": 1.0, \"mean_cardinality\": 1.0, \"spearman_svd_vs_proxy\": {\"rho\": null, \"p_value\": null}, \"cardinali...",
+          "metadata_task": "rel-f1/driver-dnf",
+          "metadata_aggr_type": "mean",
+          "metadata_edge_type": "layer_0/races__rev_f2p_raceId__standings",
+          "metadata_layer": "layer_0",
+          "metadata_mean_cardinality": 1.0,
+          "predict_compression_ratio": "1.000000",
+          "predict_svd_effective_rank": "1.000000"
+        },
+        {
+          "input": "{\"task\": \"rel-f1/driver-dnf\", \"aggr_type\": \"mean\", \"edge_type\": \"layer_0/standings__f2p_driverId__drivers\", \"layer\": \"layer_0\", \"edge_description\": \"standings__f2p_driverId__drivers\", \"cama_cohen_d\": ...",
+          "output": "{\"num_parents_analyzed\": 1000, \"mean_svd_rank\": 11.635324131411977, \"mean_proxy_rank\": 0.8321269607238547, \"mean_compression\": 0.3650896412752995, \"mean_cardinality\": 46.534, \"spearman_svd_vs_proxy\": ...",
+          "metadata_task": "rel-f1/driver-dnf",
+          "metadata_aggr_type": "mean",
+          "metadata_edge_type": "layer_0/standings__f2p_driverId__drivers",
+          "metadata_layer": "layer_0",
+          "metadata_mean_cardinality": 46.534,
+          "predict_compression_ratio": "0.365090",
+          "predict_svd_effective_rank": "11.635324"
+        },
+        {
+          "input": "{\"task\": \"rel-f1/driver-dnf\", \"aggr_type\": \"mean\", \"edge_type\": \"layer_0/drivers__rev_f2p_driverId__standings\", \"layer\": \"layer_0\", \"edge_description\": \"drivers__rev_f2p_driverId__standings\", \"cama_co...",
+          "output": "{\"num_parents_analyzed\": 1000, \"mean_svd_rank\": 1.0, \"mean_proxy_rank\": 0.0078125, \"mean_compression\": 1.0, \"mean_cardinality\": 1.0, \"spearman_svd_vs_proxy\": {\"rho\": null, \"p_value\": null}, \"cardinali...",
+          "metadata_task": "rel-f1/driver-dnf",
+          "metadata_aggr_type": "mean",
+          "metadata_edge_type": "layer_0/drivers__rev_f2p_driverId__standings",
+          "metadata_layer": "layer_0",
+          "metadata_mean_cardinality": 1.0,
+          "predict_compression_ratio": "1.000000",
+          "predict_svd_effective_rank": "1.000000"
+        }
+      ]
+    },
+    {
+      "dataset": "mean/rel-trial/study-adverse",
+      "examples": [
+        {
+          "input": "{\"task\": \"rel-trial/study-adverse\", \"aggr_type\": \"mean\", \"edge_type\": \"layer_0/designs__f2p_nct_id__studies\", \"layer\": \"layer_0\", \"edge_description\": \"designs__f2p_nct_id__studies\", \"cama_cohen_d\": -2...",
+          "output": "{\"num_parents_analyzed\": 1000, \"mean_svd_rank\": 1.0, \"mean_proxy_rank\": 0.0078125, \"mean_compression\": 1.0, \"mean_cardinality\": 1.0, \"spearman_svd_vs_proxy\": {\"rho\": null, \"p_value\": null}, \"cardinali...",
+          "metadata_task": "rel-trial/study-adverse",
+          "metadata_aggr_type": "mean",
+          "metadata_edge_type": "layer_0/designs__f2p_nct_id__studies",
+          "metadata_layer": "layer_0",
+          "metadata_mean_cardinality": 1.0,
+          "predict_compression_ratio": "1.000000",
+          "predict_svd_effective_rank": "1.000000"
+        },
+        {
+          "input": "{\"task\": \"rel-trial/study-adverse\", \"aggr_type\": \"mean\", \"edge_type\": \"layer_0/studies__rev_f2p_nct_id__designs\", \"layer\": \"layer_0\", \"edge_description\": \"studies__rev_f2p_nct_id__designs\", \"cama_cohe...",
+          "output": "{\"num_parents_analyzed\": 1000, \"mean_svd_rank\": 1.0, \"mean_proxy_rank\": 0.0078125, \"mean_compression\": 1.0, \"mean_cardinality\": 1.0, \"spearman_svd_vs_proxy\": {\"rho\": null, \"p_value\": null}, \"cardinali...",
+          "metadata_task": "rel-trial/study-adverse",
+          "metadata_aggr_type": "mean",
+          "metadata_edge_type": "layer_0/studies__rev_f2p_nct_id__designs",
+          "metadata_layer": "layer_0",
+          "metadata_mean_cardinality": 1.0,
+          "predict_compression_ratio": "1.000000",
+          "predict_svd_effective_rank": "1.000000"
+        },
+        {
+          "input": "{\"task\": \"rel-trial/study-adverse\", \"aggr_type\": \"mean\", \"edge_type\": \"layer_0/eligibilities__f2p_nct_id__studies\", \"layer\": \"layer_0\", \"edge_description\": \"eligibilities__f2p_nct_id__studies\", \"cama_...",
+          "output": "{\"num_parents_analyzed\": 1000, \"mean_svd_rank\": 1.0, \"mean_proxy_rank\": 0.0078125, \"mean_compression\": 1.0, \"mean_cardinality\": 1.0, \"spearman_svd_vs_proxy\": {\"rho\": null, \"p_value\": null}, \"cardinali...",
+          "metadata_task": "rel-trial/study-adverse",
+          "metadata_aggr_type": "mean",
+          "metadata_edge_type": "layer_0/eligibilities__f2p_nct_id__studies",
+          "metadata_layer": "layer_0",
+          "metadata_mean_cardinality": 1.0,
+          "predict_compression_ratio": "1.000000",
+          "predict_svd_effective_rank": "1.000000"
+        }
+      ]
+    },
+    {
+      "dataset": "mean/rel-stack/user-engagement",
+      "examples": [
+        {
+          "input": "{\"task\": \"rel-stack/user-engagement\", \"aggr_type\": \"mean\", \"edge_type\": \"layer_0/comments__f2p_UserId__users\", \"layer\": \"layer_0\", \"edge_description\": \"comments__f2p_UserId__users\", \"cama_cohen_d\": 7....",
+          "output": "{\"num_parents_analyzed\": 1000, \"mean_svd_rank\": 1.500715443788789, \"mean_proxy_rank\": 0.5462026379244603, \"mean_compression\": 0.5756769330183199, \"mean_cardinality\": 7.714, \"spearman_svd_vs_proxy\": {\"...",
+          "metadata_task": "rel-stack/user-engagement",
+          "metadata_aggr_type": "mean",
+          "metadata_edge_type": "layer_0/comments__f2p_UserId__users",
+          "metadata_layer": "layer_0",
+          "metadata_mean_cardinality": 7.714,
+          "predict_compression_ratio": "0.575677",
+          "predict_svd_effective_rank": "1.500715"
+        },
+        {
+          "input": "{\"task\": \"rel-stack/user-engagement\", \"aggr_type\": \"mean\", \"edge_type\": \"layer_0/users__rev_f2p_UserId__comments\", \"layer\": \"layer_0\", \"edge_description\": \"users__rev_f2p_UserId__comments\", \"cama_cohe...",
+          "output": "{\"num_parents_analyzed\": 1000, \"mean_svd_rank\": 1.0, \"mean_proxy_rank\": 0.0078125, \"mean_compression\": 1.0, \"mean_cardinality\": 1.0, \"spearman_svd_vs_proxy\": {\"rho\": null, \"p_value\": null}, \"cardinali...",
+          "metadata_task": "rel-stack/user-engagement",
+          "metadata_aggr_type": "mean",
+          "metadata_edge_type": "layer_0/users__rev_f2p_UserId__comments",
+          "metadata_layer": "layer_0",
+          "metadata_mean_cardinality": 1.0,
+          "predict_compression_ratio": "1.000000",
+          "predict_svd_effective_rank": "1.000000"
+        },
+        {
+          "input": "{\"task\": \"rel-stack/user-engagement\", \"aggr_type\": \"mean\", \"edge_type\": \"layer_0/comments__f2p_PostId__posts\", \"layer\": \"layer_0\", \"edge_description\": \"comments__f2p_PostId__posts\", \"cama_cohen_d\": 7....",
+          "output": "{\"num_parents_analyzed\": 1000, \"mean_svd_rank\": 1.2822768380180103, \"mean_proxy_rank\": 0.5948618748969263, \"mean_compression\": 0.5698123095383769, \"mean_cardinality\": 3.335, \"spearman_svd_vs_proxy\": {...",
+          "metadata_task": "rel-stack/user-engagement",
+          "metadata_aggr_type": "mean",
+          "metadata_edge_type": "layer_0/comments__f2p_PostId__posts",
+          "metadata_layer": "layer_0",
+          "metadata_mean_cardinality": 3.335,
+          "predict_compression_ratio": "0.569812",
+          "predict_svd_effective_rank": "1.282277"
+        }
+      ]
+    }
+  ]
+}

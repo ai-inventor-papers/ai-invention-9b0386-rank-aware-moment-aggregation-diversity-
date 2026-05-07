@@ -1,0 +1,391 @@
+{
+  "metadata": {
+    "experiment": "RAMA Integration: RelGNN vs baseline on rel-f1 and rel-amazon",
+    "method_name": "RAMA (Rank-Aware Moment Aggregation)",
+    "architecture_used": "RelGNN",
+    "description": "Tests RAMA against standard sum aggregation using RelGNN on rel-f1/driver-position and rel-amazon/item-ltv (regression/MAE). RAMA enriches mean pooling with gated per-dimension variance conditioned on...",
+    "tasks": [
+      "rel-f1/driver-position",
+      "rel-amazon/item-ltv"
+    ],
+    "hyperparameters": {
+      "channels": 128,
+      "lr": 0.005,
+      "epochs": 10,
+      "seeds": [
+        42,
+        123,
+        456
+      ],
+      "max_steps_per_epoch": 2000,
+      "rama_gate_hidden": 16,
+      "task_configs": {
+        "rel-f1/driver-position": {
+          "num_model_layers": 1,
+          "channels": 128,
+          "aggr": "sum",
+          "num_heads": 4,
+          "batch_size": 512,
+          "num_neighbors": 128,
+          "subgraph_type": "bidirectional"
+        },
+        "rel-amazon/item-ltv": {
+          "num_model_layers": 2,
+          "channels": 128,
+          "aggr": "sum",
+          "num_heads": 8,
+          "batch_size": 2048,
+          "num_neighbors": 128,
+          "subgraph_type": "directional"
+        }
+      }
+    },
+    "statistical_analysis": {
+      "rel-f1/driver-position": {
+        "baseline_maes": [
+          4.567229895926358,
+          3.98049121998904,
+          4.190010654298883
+        ],
+        "rama_maes": [
+          4.499982705199928,
+          4.665570769644621,
+          4.079634210603279
+        ],
+        "baseline_mean": 4.281344508539166,
+        "baseline_std": 0.27300020814796583,
+        "rama_mean": 4.37574510836183,
+        "rama_std": 0.26745957493300465,
+        "cohens_d": -0.3493160547339246,
+        "cohens_d_ci_95": [
+          -1.91504166950828,
+          1.2164095600404305
+        ],
+        "paired_ttest_t": -0.6342362973873397,
+        "paired_ttest_p": 0.5603863048310057,
+        "wilcoxon_stat": 6.0,
+        "wilcoxon_p": 0.8125,
+        "improvement_pct": -2.2049288403299774
+      },
+      "rel-amazon/item-ltv": {
+        "baseline_maes": [
+          59.08366661659803,
+          55.33343596739759,
+          58.99299352472994
+        ],
+        "rama_maes": [
+          58.32935410193428,
+          56.8316073553107,
+          59.192890196443344
+        ],
+        "baseline_mean": 57.57384281842086,
+        "baseline_std": 1.6942152354024567,
+        "rama_mean": 57.98992967774187,
+        "rama_std": 0.8629017543901423,
+        "cohens_d": -0.3094902470342838,
+        "cohens_d_ci_95": [
+          -1.8527775604256163,
+          1.2337970663570488
+        ],
+        "paired_ttest_t": -0.8774706386442269,
+        "paired_ttest_p": 0.4297740564112083,
+        "wilcoxon_stat": 5.0,
+        "wilcoxon_p": 0.625,
+        "improvement_pct": -0.7227012110921398
+      }
+    },
+    "meta_analysis": {
+      "pooled_effect": -0.3293395737344105,
+      "pooled_se": 0.4532582638256716,
+      "tau2": 0.0,
+      "I2": 0.0
+    },
+    "gate_analysis": {
+      "rel-f1/driver-position": {
+        "seed_42": {
+          "gnn.convs.0.convs.<dim-fact-dim___constructor_standings___f2p_raceId___races___constructors___rev_f2p_constructorId___constructor_standings>.aggr_conv.aggr_module": {
+            "gate_bias_mean": 0.0,
+            "gate_bias_std": 0.0,
+            "gate_bias_sigmoid_mean": 0.5,
+            "W_sigma_norm": 0.0
+          }
+        },
+        "seed_123": {
+          "gnn.convs.0.convs.<dim-fact-dim___constructor_standings___f2p_raceId___races___constructors___rev_f2p_constructorId___constructor_standings>.aggr_conv.aggr_module": {
+            "gate_bias_mean": 0.0,
+            "gate_bias_std": 0.0,
+            "gate_bias_sigmoid_mean": 0.5,
+            "W_sigma_norm": 0.0
+          }
+        },
+        "seed_456": {
+          "gnn.convs.0.convs.<dim-fact-dim___constructor_standings___f2p_raceId___races___constructors___rev_f2p_constructorId___constructor_standings>.aggr_conv.aggr_module": {
+            "gate_bias_mean": 0.0,
+            "gate_bias_std": 0.0,
+            "gate_bias_sigmoid_mean": 0.5,
+            "W_sigma_norm": 0.0
+          }
+        },
+        "seed_789": {
+          "gnn.convs.0.convs.<dim-fact-dim___constructor_standings___f2p_raceId___races___constructors___rev_f2p_constructorId___constructor_standings>.aggr_conv.aggr_module": {
+            "gate_bias_mean": 0.0,
+            "gate_bias_std": 0.0,
+            "gate_bias_sigmoid_mean": 0.5,
+            "W_sigma_norm": 0.0
+          }
+        },
+        "seed_1024": {
+          "gnn.convs.0.convs.<dim-fact-dim___constructor_standings___f2p_raceId___races___constructors___rev_f2p_constructorId___constructor_standings>.aggr_conv.aggr_module": {
+            "gate_bias_mean": 0.0,
+            "gate_bias_std": 0.0,
+            "gate_bias_sigmoid_mean": 0.5,
+            "W_sigma_norm": 0.0
+          }
+        }
+      },
+      "rel-amazon/item-ltv": {
+        "seed_42": {
+          "gnn.convs.0.convs.<dim-fact-dim___review___f2p_customer_id___customer___product___rev_f2p_product_id___review>.aggr_conv.aggr_module": {
+            "gate_bias_mean": 0.0,
+            "gate_bias_std": 0.0,
+            "gate_bias_sigmoid_mean": 0.5,
+            "W_sigma_norm": 0.0
+          }
+        },
+        "seed_123": {
+          "gnn.convs.0.convs.<dim-fact-dim___review___f2p_customer_id___customer___product___rev_f2p_product_id___review>.aggr_conv.aggr_module": {
+            "gate_bias_mean": 0.0,
+            "gate_bias_std": 0.0,
+            "gate_bias_sigmoid_mean": 0.5,
+            "W_sigma_norm": 0.0
+          }
+        },
+        "seed_456": {
+          "gnn.convs.0.convs.<dim-fact-dim___review___f2p_customer_id___customer___product___rev_f2p_product_id___review>.aggr_conv.aggr_module": {
+            "gate_bias_mean": 0.0,
+            "gate_bias_std": 0.0,
+            "gate_bias_sigmoid_mean": 0.5,
+            "W_sigma_norm": 0.0
+          }
+        },
+        "seed_789": {
+          "gnn.convs.0.convs.<dim-fact-dim___review___f2p_customer_id___customer___product___rev_f2p_product_id___review>.aggr_conv.aggr_module": {
+            "gate_bias_mean": 0.0,
+            "gate_bias_std": 0.0,
+            "gate_bias_sigmoid_mean": 0.5,
+            "W_sigma_norm": 0.0
+          }
+        },
+        "seed_1024": {
+          "gnn.convs.0.convs.<dim-fact-dim___review___f2p_customer_id___customer___product___rev_f2p_product_id___review>.aggr_conv.aggr_module": {
+            "gate_bias_mean": 0.0,
+            "gate_bias_std": 0.0,
+            "gate_bias_sigmoid_mean": 0.5,
+            "W_sigma_norm": 0.0
+          }
+        }
+      }
+    },
+    "comparison_with_heterosage": {
+      "rel-f1/driver-position": {
+        "heterosage_rama_cohens_d": -0.5,
+        "note": "RAMA was worse with HeteroSAGE on F1"
+      },
+      "rel-amazon/item-ltv": {
+        "heterosage_rama_cohens_d": 10.83,
+        "note": "RAMA was dramatically better with HeteroSAGE on Amazon"
+      }
+    },
+    "per_run_results": [
+      {
+        "config": "relgnn_sum",
+        "label": "RelGNN+sum (original)",
+        "task": "rel-f1/driver-position",
+        "seed": 42,
+        "test_mae": 4.567229895926358,
+        "best_val_mae": 3.0993986943919576,
+        "train_losses": [
+          9.103183143077786,
+          5.9548550319402915,
+          5.61131987123222
+        ],
+        "epoch_times": [
+          0.8285624980926514,
+          0.814063549041748,
+          0.8203186988830566
+        ],
+        "mean_epoch_time": 0.8300612449645997,
+        "gate_stats": {},
+        "test_metrics": {
+          "r2": -0.12909728872378534,
+          "mae": 4.567229895926358,
+          "rmse": 5.536502981176908
+        },
+        "num_params": 10550145
+      },
+      {
+        "config": "relgnn_sum",
+        "label": "RelGNN+sum (original)",
+        "task": "rel-f1/driver-position",
+        "seed": 123,
+        "test_mae": 3.98049121998904,
+        "best_val_mae": 3.1017069570685356,
+        "train_losses": [
+          8.969424574035743,
+          5.882988141204597,
+          5.551129487381995
+        ],
+        "epoch_times": [
+          0.8460257053375244,
+          0.8412902355194092,
+          0.8398258686065674
+        ],
+        "mean_epoch_time": 0.8482635974884033,
+        "gate_stats": {},
+        "test_metrics": {
+          "r2": 0.11297272486889864,
+          "mae": 3.98049121998904,
+          "rmse": 4.90725179887257
+        },
+        "num_params": 10550145
+      },
+      {
+        "config": "relgnn_sum",
+        "label": "RelGNN+sum (original)",
+        "task": "rel-f1/driver-position",
+        "seed": 456,
+        "test_mae": 4.190010654298883,
+        "best_val_mae": 2.9442499540452567,
+        "train_losses": [
+          8.901832006544806,
+          5.80573610848074,
+          5.561559415640934
+        ],
+        "epoch_times": [
+          0.858074426651001,
+          0.8658320903778076,
+          0.8591313362121582
+        ],
+        "mean_epoch_time": 0.8470519542694092,
+        "gate_stats": {},
+        "test_metrics": {
+          "r2": 0.028001134850312748,
+          "mae": 4.190010654298883,
+          "rmse": 5.136919201444896
+        },
+        "num_params": 10550145
+      }
+    ],
+    "deviations_from_plan": [],
+    "num_seeds": 5,
+    "total_runtime_seconds": 8444.902473449707
+  },
+  "datasets": [
+    {
+      "dataset": "rel-f1/driver-position",
+      "examples": [
+        {
+          "input": "{\"date\": \"1992-09-06T00:00:00\", \"driverId\": 78, \"driverRef\": \"katayama\", \"code\": \"\\\\N\", \"forename\": \"Ukyo\", \"surname\": \"Katayama\", \"dob\": \"1963-05-29T00:00:00\", \"nationality\": \"Japanese\"}",
+          "output": "12.666667",
+          "predict_baseline_sum": "4.281345",
+          "predict_rama": "4.375745",
+          "metadata_fold": 0,
+          "metadata_task_type": "regression",
+          "metadata_entity_col": "driverId",
+          "metadata_target_col": "position",
+          "metadata_row_index": 78,
+          "metadata_feature_names": [
+            "date",
+            "driverId",
+            "driverRef"
+          ]
+        },
+        {
+          "input": "{\"date\": \"1970-03-06T00:00:00\", \"driverId\": 357, \"driverRef\": \"rindt\", \"code\": \"\\\\N\", \"forename\": \"Jochen\", \"surname\": \"Rindt\", \"dob\": \"1942-04-18T00:00:00\", \"nationality\": \"Austrian\"}",
+          "output": "13.0",
+          "predict_baseline_sum": "4.281345",
+          "predict_rama": "4.375745",
+          "metadata_fold": 0,
+          "metadata_task_type": "regression",
+          "metadata_entity_col": "driverId",
+          "metadata_target_col": "position",
+          "metadata_row_index": 357,
+          "metadata_feature_names": [
+            "date",
+            "driverId",
+            "driverRef"
+          ]
+        },
+        {
+          "input": "{\"date\": \"1979-03-19T00:00:00\", \"driverId\": 177, \"driverRef\": \"jones\", \"code\": \"\\\\N\", \"forename\": \"Alan\", \"surname\": \"Jones\", \"dob\": \"1946-11-02T00:00:00\", \"nationality\": \"Australian\"}",
+          "output": "11.333333",
+          "predict_baseline_sum": "4.281345",
+          "predict_rama": "4.375745",
+          "metadata_fold": 0,
+          "metadata_task_type": "regression",
+          "metadata_entity_col": "driverId",
+          "metadata_target_col": "position",
+          "metadata_row_index": 177,
+          "metadata_feature_names": [
+            "date",
+            "driverId",
+            "driverRef"
+          ]
+        }
+      ]
+    },
+    {
+      "dataset": "rel-amazon/item-ltv",
+      "examples": [
+        {
+          "input": "{\"timestamp\": \"2015-04-02T00:00:00\", \"product_id\": 391310, \"category\": [\"Books\", \"Religion &amp; Spirituality\", \"New Age &amp; Spirituality\"], \"brand\": \"Visit Amazon's Phillip Cooper Page\", \"title\": \"...",
+          "output": "14.95",
+          "predict_baseline_sum": "57.573843",
+          "predict_rama": "57.989930",
+          "metadata_fold": 0,
+          "metadata_task_type": "regression",
+          "metadata_entity_col": "product_id",
+          "metadata_target_col": "ltv",
+          "metadata_row_index": 391310,
+          "metadata_feature_names": [
+            "timestamp",
+            "product_id",
+            "category"
+          ]
+        },
+        {
+          "input": "{\"timestamp\": \"2013-07-04T00:00:00\", \"product_id\": 78597, \"category\": [\"Books\", \"Literature &amp; Fiction\", \"United States\"], \"brand\": \"Visit Amazon's Michael Herr Page\", \"title\": \"Walter Winchell\", \"...",
+          "output": "5.19",
+          "predict_baseline_sum": "57.573843",
+          "predict_rama": "57.989930",
+          "metadata_fold": 0,
+          "metadata_task_type": "regression",
+          "metadata_entity_col": "product_id",
+          "metadata_target_col": "ltv",
+          "metadata_row_index": 78597,
+          "metadata_feature_names": [
+            "timestamp",
+            "product_id",
+            "category"
+          ]
+        },
+        {
+          "input": "{\"timestamp\": \"2015-01-01T00:00:00\", \"product_id\": 2233, \"category\": null, \"brand\": \"Visit Amazon's Holly Smale Page\", \"title\": \"Model Misfit (Geek Girl)\", \"price\": 13.16}",
+          "output": "13.16",
+          "predict_baseline_sum": "57.573843",
+          "predict_rama": "57.989930",
+          "metadata_fold": 0,
+          "metadata_task_type": "regression",
+          "metadata_entity_col": "product_id",
+          "metadata_target_col": "ltv",
+          "metadata_row_index": 2233,
+          "metadata_feature_names": [
+            "timestamp",
+            "product_id",
+            "category"
+          ]
+        }
+      ]
+    }
+  ]
+}

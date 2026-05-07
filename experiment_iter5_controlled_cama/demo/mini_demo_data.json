@@ -1,0 +1,1082 @@
+{
+  "metadata": {
+    "experiment": "CAMA 10-epoch controlled replication on rel-amazon/item-ltv",
+    "objective": "Resolve d=10.83 (iter-2) vs d=-1.38 (iter-4) instability",
+    "method_name": "CAMA (Cardinality-Aware Moment Aggregation)",
+    "description": "Tests whether iter-4 CAMA failure (d=-1.38) on Amazon item-ltv was due to insufficient training (5 vs 10 epochs) or architectural difference (CAMA vs RAMA). Runs 2 methods x 5 seeds x 10 epochs with per-epoch gate evolution tracking.",
+    "hyperparameters": {
+      "channels": 128,
+      "lr": 0.005,
+      "epochs": 10,
+      "batch_size": 512,
+      "num_neighbors": [
+        128,
+        128
+      ],
+      "num_layers": 2,
+      "max_steps_per_epoch": 2000,
+      "grad_clip": 1.0
+    },
+    "seeds": [
+      42,
+      123,
+      456
+    ],
+    "methods": [
+      "baseline",
+      "cama"
+    ]
+  },
+  "results": {
+    "per_method": {
+      "baseline": {
+        "per_seed": {
+          "42": 49.262534998003154,
+          "123": 49.57912124353847,
+          "456": 49.1938740604905,
+          "789": 48.64034034092493,
+          "1024": 49.28837807167783
+        },
+        "mean_mae": 49.192849742926974,
+        "std_mae": 0.34221888356750085
+      },
+      "cama": {
+        "per_seed": {
+          "42": 45.07928275454481,
+          "123": 45.15921936949696,
+          "456": 45.05202547750112,
+          "789": 45.52170612942091,
+          "1024": 45.48089544961955
+        },
+        "mean_mae": 45.25862583611668,
+        "std_mae": 0.22546857680469978
+      }
+    },
+    "statistical_comparison": {
+      "cohens_d": 13.576388879112448,
+      "d_ci_95": [
+        10.48130029456235,
+        33.036514272194566
+      ],
+      "p_value": 2.3349051737908785e-08,
+      "t_statistic": 21.46615562908786,
+      "wilcoxon_stat": 0.0,
+      "wilcoxon_p": 0.0625,
+      "baseline_mean_mae": 49.192849742926974,
+      "baseline_std_mae": 0.34221888356750085,
+      "cama_mean_mae": 45.25862583611668,
+      "cama_std_mae": 0.22546857680469978,
+      "improvement_pct": 7.997552342199822
+    },
+    "cross_iteration_comparison": {
+      "iter2_rama_10epochs": {
+        "module": "RAMA (rank+cardinality gate, gate_hidden=16)",
+        "epochs": 10,
+        "num_neighbors": [
+          128,
+          64
+        ],
+        "baseline_mae": 48.78,
+        "method_mae": 44.99,
+        "cohens_d": 10.83,
+        "note": "RAMA with full rank proxy + cardinality gating"
+      },
+      "iter4_cama_5epochs": {
+        "module": "CAMA (cardinality-only gate)",
+        "epochs": 5,
+        "num_neighbors": [
+          128,
+          128
+        ],
+        "baseline_mae": 171.91,
+        "method_mae": 343.1,
+        "cohens_d": -1.38,
+        "note": "CAMA underperformed baseline with only 5 epochs"
+      },
+      "this_experiment_cama_10epochs": {
+        "module": "CAMA (cardinality-only gate)",
+        "epochs": 10,
+        "num_neighbors": [
+          128,
+          128
+        ],
+        "baseline_mae": 49.192849742926974,
+        "method_mae": 45.25862583611668,
+        "cohens_d": 13.576388879112448,
+        "note": "CAMA with 10 epochs (matching iter-2)"
+      }
+    }
+  },
+  "diagnostics": {
+    "learning_curves": {
+      "baseline": {
+        "42": [
+          {
+            "epoch": 1,
+            "train_loss": 49.468329303741456,
+            "val_mae": 53.18022405922919,
+            "elapsed_s": 95.5088541507721
+          },
+          {
+            "epoch": 2,
+            "train_loss": 48.88084532833099,
+            "val_mae": 52.22315319155209,
+            "elapsed_s": 84.14028525352478
+          },
+          {
+            "epoch": 3,
+            "train_loss": 46.339502692222595,
+            "val_mae": 50.53454845173356,
+            "elapsed_s": 94.37809824943542
+          },
+          {
+            "epoch": 4,
+            "train_loss": 44.62398511505127,
+            "val_mae": 50.06500153452428,
+            "elapsed_s": 96.9170241355896
+          },
+          {
+            "epoch": 5,
+            "train_loss": 44.5811555891037,
+            "val_mae": 50.77380040559078,
+            "elapsed_s": 89.63095140457153
+          },
+          {
+            "epoch": 6,
+            "train_loss": 43.91150855922699,
+            "val_mae": 49.262534998003154,
+            "elapsed_s": 92.42477416992188
+          },
+          {
+            "epoch": 7,
+            "train_loss": 43.066585981369016,
+            "val_mae": 49.41052766698288,
+            "elapsed_s": 94.21921372413635
+          },
+          {
+            "epoch": 8,
+            "train_loss": 43.19388624572754,
+            "val_mae": 50.49143791123016,
+            "elapsed_s": 91.09044122695923
+          },
+          {
+            "epoch": 9,
+            "train_loss": 43.061542579650876,
+            "val_mae": 50.4632351320948,
+            "elapsed_s": 92.62326192855835
+          },
+          {
+            "epoch": 10,
+            "train_loss": 42.761576745986936,
+            "val_mae": 49.75511782734203,
+            "elapsed_s": 93.13022017478943
+          }
+        ],
+        "123": [
+          {
+            "epoch": 1,
+            "train_loss": 50.29385932159424,
+            "val_mae": 52.52296565637482,
+            "elapsed_s": 85.33576130867004
+          },
+          {
+            "epoch": 2,
+            "train_loss": 47.18803366184235,
+            "val_mae": 51.638127026251546,
+            "elapsed_s": 92.45398592948914
+          },
+          {
+            "epoch": 3,
+            "train_loss": 45.50173613739014,
+            "val_mae": 51.202174459690205,
+            "elapsed_s": 85.19466423988342
+          },
+          {
+            "epoch": 4,
+            "train_loss": 45.29837425613403,
+            "val_mae": 51.46427435108924,
+            "elapsed_s": 96.78939509391785
+          },
+          {
+            "epoch": 5,
+            "train_loss": 44.48197764205933,
+            "val_mae": 49.84073759407738,
+            "elapsed_s": 85.94768476486206
+          },
+          {
+            "epoch": 6,
+            "train_loss": 43.59397651004791,
+            "val_mae": 51.412870847678334,
+            "elapsed_s": 78.54621148109436
+          },
+          {
+            "epoch": 7,
+            "train_loss": 43.54809687137604,
+            "val_mae": 50.39285789599514,
+            "elapsed_s": 93.71732997894287
+          },
+          {
+            "epoch": 8,
+            "train_loss": 43.10877548027039,
+            "val_mae": 49.57912124353847,
+            "elapsed_s": 96.04676985740662
+          },
+          {
+            "epoch": 9,
+            "train_loss": 43.18276032543182,
+            "val_mae": 50.57970249822331,
+            "elapsed_s": 94.2541172504425
+          },
+          {
+            "epoch": 10,
+            "train_loss": 42.582294577598574,
+            "val_mae": 50.118748551779156,
+            "elapsed_s": 88.04203057289124
+          }
+        ],
+        "456": [
+          {
+            "epoch": 1,
+            "train_loss": 49.769857160568236,
+            "val_mae": 53.053901315468195,
+            "elapsed_s": 92.87994122505188
+          },
+          {
+            "epoch": 2,
+            "train_loss": 46.93369903945923,
+            "val_mae": 51.109364335061976,
+            "elapsed_s": 95.75997996330261
+          },
+          {
+            "epoch": 3,
+            "train_loss": 46.245495483398436,
+            "val_mae": 50.81500038494909,
+            "elapsed_s": 84.78935718536377
+          },
+          {
+            "epoch": 4,
+            "train_loss": 45.55076929855347,
+            "val_mae": 50.82370130557382,
+            "elapsed_s": 94.56541609764099
+          },
+          {
+            "epoch": 5,
+            "train_loss": 44.107000973701474,
+            "val_mae": 49.892632651727645,
+            "elapsed_s": 87.47077488899231
+          },
+          {
+            "epoch": 6,
+            "train_loss": 44.926636078834534,
+            "val_mae": 49.64896759813383,
+            "elapsed_s": 92.82482266426086
+          },
+          {
+            "epoch": 7,
+            "train_loss": 43.69450332546234,
+            "val_mae": 50.17967847763037,
+            "elapsed_s": 84.93307304382324
+          },
+          {
+            "epoch": 8,
+            "train_loss": 42.41382438659668,
+            "val_mae": 49.902947587790095,
+            "elapsed_s": 96.31962704658508
+          },
+          {
+            "epoch": 9,
+            "train_loss": 43.06497800064087,
+            "val_mae": 49.849728885965526,
+            "elapsed_s": 93.01291489601135
+          },
+          {
+            "epoch": 10,
+            "train_loss": 42.65305445098877,
+            "val_mae": 49.1938740604905,
+            "elapsed_s": 96.4608895778656
+          }
+        ]
+      },
+      "cama": {
+        "42": [
+          {
+            "epoch": 1,
+            "train_loss": 44.25776972293854,
+            "val_mae": 47.07821541070524,
+            "elapsed_s": 114.80982947349548
+          },
+          {
+            "epoch": 2,
+            "train_loss": 40.057775049209596,
+            "val_mae": 46.65843173144476,
+            "elapsed_s": 110.28640866279602
+          },
+          {
+            "epoch": 3,
+            "train_loss": 39.94802668476105,
+            "val_mae": 46.16183085801538,
+            "elapsed_s": 113.08078718185425
+          },
+          {
+            "epoch": 4,
+            "train_loss": 39.729237634658816,
+            "val_mae": 46.364506978865,
+            "elapsed_s": 113.4755003452301
+          },
+          {
+            "epoch": 5,
+            "train_loss": 39.0696119222641,
+            "val_mae": 45.613933822798636,
+            "elapsed_s": 106.88118600845337
+          },
+          {
+            "epoch": 6,
+            "train_loss": 38.3611914844513,
+            "val_mae": 45.57011775518266,
+            "elapsed_s": 112.53218793869019
+          },
+          {
+            "epoch": 7,
+            "train_loss": 37.687260759353634,
+            "val_mae": 46.01934764877893,
+            "elapsed_s": 106.68265914916992
+          },
+          {
+            "epoch": 8,
+            "train_loss": 37.834064281463625,
+            "val_mae": 46.2606455531506,
+            "elapsed_s": 111.78787302970886
+          },
+          {
+            "epoch": 9,
+            "train_loss": 38.20056476688385,
+            "val_mae": 45.07928275454481,
+            "elapsed_s": 114.17396116256714
+          },
+          {
+            "epoch": 10,
+            "train_loss": 37.78949136257172,
+            "val_mae": 45.94437729779471,
+            "elapsed_s": 110.66001510620117
+          }
+        ],
+        "123": [
+          {
+            "epoch": 1,
+            "train_loss": 44.01837355804443,
+            "val_mae": 46.951283911937345,
+            "elapsed_s": 111.82687902450562
+          },
+          {
+            "epoch": 2,
+            "train_loss": 40.4914907207489,
+            "val_mae": 47.520435154482314,
+            "elapsed_s": 115.73111581802368
+          },
+          {
+            "epoch": 3,
+            "train_loss": 40.596122073173525,
+            "val_mae": 46.2960795608887,
+            "elapsed_s": 114.40500140190125
+          },
+          {
+            "epoch": 4,
+            "train_loss": 39.95932764911652,
+            "val_mae": 45.830480881542556,
+            "elapsed_s": 116.57832098007202
+          },
+          {
+            "epoch": 5,
+            "train_loss": 38.89070326995849,
+            "val_mae": 45.366514927743644,
+            "elapsed_s": 113.69734287261963
+          },
+          {
+            "epoch": 6,
+            "train_loss": 37.98040786838531,
+            "val_mae": 45.60955509812507,
+            "elapsed_s": 116.31910467147827
+          },
+          {
+            "epoch": 7,
+            "train_loss": 38.08708475208282,
+            "val_mae": 45.22767200560091,
+            "elapsed_s": 111.91879606246948
+          },
+          {
+            "epoch": 8,
+            "train_loss": 38.824055459022524,
+            "val_mae": 45.54982909184866,
+            "elapsed_s": 114.84876012802124
+          },
+          {
+            "epoch": 9,
+            "train_loss": 37.90580534744263,
+            "val_mae": 45.15921936949696,
+            "elapsed_s": 116.65216302871704
+          },
+          {
+            "epoch": 10,
+            "train_loss": 37.25294796180725,
+            "val_mae": 45.72331759117271,
+            "elapsed_s": 112.00258588790894
+          }
+        ],
+        "456": [
+          {
+            "epoch": 1,
+            "train_loss": 44.24714428138733,
+            "val_mae": 46.51071751649299,
+            "elapsed_s": 116.07710218429565
+          },
+          {
+            "epoch": 2,
+            "train_loss": 40.25591055965423,
+            "val_mae": 46.1071160037217,
+            "elapsed_s": 115.60195922851562
+          },
+          {
+            "epoch": 3,
+            "train_loss": 39.28719627571106,
+            "val_mae": 45.7911584433631,
+            "elapsed_s": 103.45097208023071
+          },
+          {
+            "epoch": 4,
+            "train_loss": 39.12669837093353,
+            "val_mae": 45.708732018381774,
+            "elapsed_s": 99.27978801727295
+          },
+          {
+            "epoch": 5,
+            "train_loss": 38.77898035526275,
+            "val_mae": 45.65134878599042,
+            "elapsed_s": 113.421715259552
+          },
+          {
+            "epoch": 6,
+            "train_loss": 39.0921818780899,
+            "val_mae": 45.607557040731145,
+            "elapsed_s": 114.18048882484436
+          },
+          {
+            "epoch": 7,
+            "train_loss": 38.711150382995605,
+            "val_mae": 45.34672006570949,
+            "elapsed_s": 113.68617343902588
+          },
+          {
+            "epoch": 8,
+            "train_loss": 37.6744847278595,
+            "val_mae": 47.075386181295656,
+            "elapsed_s": 109.23668956756592
+          },
+          {
+            "epoch": 9,
+            "train_loss": 38.08425867080688,
+            "val_mae": 45.7574900241729,
+            "elapsed_s": 114.17087531089783
+          },
+          {
+            "epoch": 10,
+            "train_loss": 36.92928702735901,
+            "val_mae": 45.05202547750112,
+            "elapsed_s": 114.20600867271423
+          }
+        ]
+      }
+    },
+    "gate_evolution": {
+      "42": [
+        {
+          "epoch": 1,
+          "gates": {
+            "L0_review__f2p_customer_id__customer": {
+              "mean": 0.5,
+              "std": 0.0,
+              "min": 0.5,
+              "max": 0.5,
+              "median": 0.5
+            },
+            "L0_customer__rev_f2p_customer_id__review": {
+              "mean": 0.5000001192092896,
+              "std": 2.189475708291866e-06,
+              "min": 0.49999475479125977,
+              "max": 0.5000057816505432,
+              "median": 0.4999999403953552
+            },
+            "L0_review__f2p_product_id__product": {
+              "mean": 0.2660087049007416,
+              "std": 0.20445701479911804,
+              "min": 0.0016395546263083816,
+              "max": 0.7731342315673828,
+              "median": 0.20187817513942719
+            },
+            "L0_product__rev_f2p_product_id__review": {
+              "mean": 0.49999985098838806,
+              "std": 3.3999228890024824e-06,
+              "min": 0.4999932646751404,
+              "max": 0.5000078082084656,
+              "median": 0.49999988079071045
+            },
+            "L1_review__f2p_customer_id__customer": {
+              "mean": 0.5,
+              "std": 0.0,
+              "min": 0.5,
+              "max": 0.5,
+              "median": 0.5
+            },
+            "L1_customer__rev_f2p_customer_id__review": {
+              "mean": 0.5,
+              "std": 0.0,
+              "min": 0.5,
+              "max": 0.5,
+              "median": 0.5
+            },
+            "L1_review__f2p_product_id__product": {
+              "mean": 0.24716100096702576,
+              "std": 0.21431700885295868,
+              "min": 0.006484575569629669,
+              "max": 0.8927353024482727,
+              "median": 0.1618133932352066
+            },
+            "L1_product__rev_f2p_product_id__review": {
+              "mean": 0.5,
+              "std": 0.0,
+              "min": 0.5,
+              "max": 0.5,
+              "median": 0.5
+            }
+          }
+        },
+        {
+          "epoch": 5,
+          "gates": {
+            "L0_review__f2p_customer_id__customer": {
+              "mean": 0.5,
+              "std": 0.0,
+              "min": 0.5,
+              "max": 0.5,
+              "median": 0.5
+            },
+            "L0_customer__rev_f2p_customer_id__review": {
+              "mean": 0.5000000596046448,
+              "std": 2.1232519884506473e-06,
+              "min": 0.49999451637268066,
+              "max": 0.5000059008598328,
+              "median": 0.5
+            },
+            "L0_review__f2p_product_id__product": {
+              "mean": 0.11110451072454453,
+              "std": 0.14668649435043335,
+              "min": 2.813913488353137e-05,
+              "max": 0.7265589237213135,
+              "median": 0.048521511256694794
+            },
+            "L0_product__rev_f2p_product_id__review": {
+              "mean": 0.4999997913837433,
+              "std": 9.02959618542809e-06,
+              "min": 0.49998414516448975,
+              "max": 0.5000253319740295,
+              "median": 0.49999964237213135
+            },
+            "L1_review__f2p_customer_id__customer": {
+              "mean": 0.5,
+              "std": 0.0,
+              "min": 0.5,
+              "max": 0.5,
+              "median": 0.5
+            },
+            "L1_customer__rev_f2p_customer_id__review": {
+              "mean": 0.5,
+              "std": 0.0,
+              "min": 0.5,
+              "max": 0.5,
+              "median": 0.5
+            },
+            "L1_review__f2p_product_id__product": {
+              "mean": 0.10975459963083267,
+              "std": 0.18287040293216705,
+              "min": 6.411445792764425e-05,
+              "max": 0.8639587163925171,
+              "median": 0.026768486946821213
+            },
+            "L1_product__rev_f2p_product_id__review": {
+              "mean": 0.5,
+              "std": 0.0,
+              "min": 0.5,
+              "max": 0.5,
+              "median": 0.5
+            }
+          }
+        },
+        {
+          "epoch": 10,
+          "gates": {
+            "L0_review__f2p_customer_id__customer": {
+              "mean": 0.5,
+              "std": 0.0,
+              "min": 0.5,
+              "max": 0.5,
+              "median": 0.5
+            },
+            "L0_customer__rev_f2p_customer_id__review": {
+              "mean": 0.5000000596046448,
+              "std": 2.134861233571428e-06,
+              "min": 0.4999943971633911,
+              "max": 0.5000060200691223,
+              "median": 0.4999999403953552
+            },
+            "L0_review__f2p_product_id__product": {
+              "mean": 0.07251153886318207,
+              "std": 0.12509052455425262,
+              "min": 3.4508471458138956e-07,
+              "max": 0.7292664051055908,
+              "median": 0.017723865807056427
+            },
+            "L0_product__rev_f2p_product_id__review": {
+              "mean": 0.49999934434890747,
+              "std": 1.4951056073186919e-05,
+              "min": 0.49997198581695557,
+              "max": 0.5000381469726562,
+              "median": 0.4999985694885254
+            },
+            "L1_review__f2p_customer_id__customer": {
+              "mean": 0.5,
+              "std": 0.0,
+              "min": 0.5,
+              "max": 0.5,
+              "median": 0.5
+            },
+            "L1_customer__rev_f2p_customer_id__review": {
+              "mean": 0.5,
+              "std": 0.0,
+              "min": 0.5,
+              "max": 0.5,
+              "median": 0.5
+            },
+            "L1_review__f2p_product_id__product": {
+              "mean": 0.07295893132686615,
+              "std": 0.15948352217674255,
+              "min": 9.508173093308869e-07,
+              "max": 0.8391076922416687,
+              "median": 0.00579046830534935
+            },
+            "L1_product__rev_f2p_product_id__review": {
+              "mean": 0.5,
+              "std": 0.0,
+              "min": 0.5,
+              "max": 0.5,
+              "median": 0.5
+            }
+          }
+        }
+      ],
+      "123": [
+        {
+          "epoch": 1,
+          "gates": {
+            "L0_review__f2p_customer_id__customer": {
+              "mean": 0.5,
+              "std": 0.0,
+              "min": 0.5,
+              "max": 0.5,
+              "median": 0.5
+            },
+            "L0_customer__rev_f2p_customer_id__review": {
+              "mean": 0.5000002384185791,
+              "std": 1.7725180896377424e-06,
+              "min": 0.4999959468841553,
+              "max": 0.5000041127204895,
+              "median": 0.5000000596046448
+            },
+            "L0_review__f2p_product_id__product": {
+              "mean": 0.27760496735572815,
+              "std": 0.196278914809227,
+              "min": 0.0031449743546545506,
+              "max": 0.7559686899185181,
+              "median": 0.22307255864143372
+            },
+            "L0_product__rev_f2p_product_id__review": {
+              "mean": 0.49999964237213135,
+              "std": 3.912587089871522e-06,
+              "min": 0.499991774559021,
+              "max": 0.5000089406967163,
+              "median": 0.4999995231628418
+            },
+            "L1_review__f2p_customer_id__customer": {
+              "mean": 0.5,
+              "std": 0.0,
+              "min": 0.5,
+              "max": 0.5,
+              "median": 0.5
+            },
+            "L1_customer__rev_f2p_customer_id__review": {
+              "mean": 0.5,
+              "std": 0.0,
+              "min": 0.5,
+              "max": 0.5,
+              "median": 0.5
+            },
+            "L1_review__f2p_product_id__product": {
+              "mean": 0.2748015522956848,
+              "std": 0.2348453849554062,
+              "min": 0.009270859882235527,
+              "max": 0.9380000829696655,
+              "median": 0.19845250248908997
+            },
+            "L1_product__rev_f2p_product_id__review": {
+              "mean": 0.5,
+              "std": 0.0,
+              "min": 0.5,
+              "max": 0.5,
+              "median": 0.5
+            }
+          }
+        },
+        {
+          "epoch": 5,
+          "gates": {
+            "L0_review__f2p_customer_id__customer": {
+              "mean": 0.5,
+              "std": 0.0,
+              "min": 0.5,
+              "max": 0.5,
+              "median": 0.5
+            },
+            "L0_customer__rev_f2p_customer_id__review": {
+              "mean": 0.5000002384185791,
+              "std": 1.7752171288520913e-06,
+              "min": 0.4999961853027344,
+              "max": 0.5000041723251343,
+              "median": 0.5000001192092896
+            },
+            "L0_review__f2p_product_id__product": {
+              "mean": 0.11154792457818985,
+              "std": 0.14397172629833221,
+              "min": 1.5053175957291387e-05,
+              "max": 0.7145684361457825,
+              "median": 0.050125833600759506
+            },
+            "L0_product__rev_f2p_product_id__review": {
+              "mean": 0.4999992549419403,
+              "std": 1.021571097226115e-05,
+              "min": 0.4999766945838928,
+              "max": 0.5000181198120117,
+              "median": 0.49999916553497314
+            },
+            "L1_review__f2p_customer_id__customer": {
+              "mean": 0.5,
+              "std": 0.0,
+              "min": 0.5,
+              "max": 0.5,
+              "median": 0.5
+            },
+            "L1_customer__rev_f2p_customer_id__review": {
+              "mean": 0.5,
+              "std": 0.0,
+              "min": 0.5,
+              "max": 0.5,
+              "median": 0.5
+            },
+            "L1_review__f2p_product_id__product": {
+              "mean": 0.1088264137506485,
+              "std": 0.18188174068927765,
+              "min": 6.147295789560303e-05,
+              "max": 0.8253396153450012,
+              "median": 0.02204708568751812
+            },
+            "L1_product__rev_f2p_product_id__review": {
+              "mean": 0.5,
+              "std": 0.0,
+              "min": 0.5,
+              "max": 0.5,
+              "median": 0.5
+            }
+          }
+        },
+        {
+          "epoch": 10,
+          "gates": {
+            "L0_review__f2p_customer_id__customer": {
+              "mean": 0.5,
+              "std": 0.0,
+              "min": 0.5,
+              "max": 0.5,
+              "median": 0.5
+            },
+            "L0_customer__rev_f2p_customer_id__review": {
+              "mean": 0.5000002384185791,
+              "std": 1.7689520745989284e-06,
+              "min": 0.4999961853027344,
+              "max": 0.5000041127204895,
+              "median": 0.5000001788139343
+            },
+            "L0_review__f2p_product_id__product": {
+              "mean": 0.07068385183811188,
+              "std": 0.1223246231675148,
+              "min": 1.5369869288406335e-07,
+              "max": 0.715833306312561,
+              "median": 0.018146470189094543
+            },
+            "L0_product__rev_f2p_product_id__review": {
+              "mean": 0.49999895691871643,
+              "std": 1.2403990695020184e-05,
+              "min": 0.4999699592590332,
+              "max": 0.5000208020210266,
+              "median": 0.49999749660491943
+            },
+            "L1_review__f2p_customer_id__customer": {
+              "mean": 0.5,
+              "std": 0.0,
+              "min": 0.5,
+              "max": 0.5,
+              "median": 0.5
+            },
+            "L1_customer__rev_f2p_customer_id__review": {
+              "mean": 0.5,
+              "std": 0.0,
+              "min": 0.5,
+              "max": 0.5,
+              "median": 0.5
+            },
+            "L1_review__f2p_product_id__product": {
+              "mean": 0.07201254367828369,
+              "std": 0.15216457843780518,
+              "min": 3.9084986269699584e-07,
+              "max": 0.8301752805709839,
+              "median": 0.005265555810183287
+            },
+            "L1_product__rev_f2p_product_id__review": {
+              "mean": 0.5,
+              "std": 0.0,
+              "min": 0.5,
+              "max": 0.5,
+              "median": 0.5
+            }
+          }
+        }
+      ],
+      "456": [
+        {
+          "epoch": 1,
+          "gates": {
+            "L0_review__f2p_customer_id__customer": {
+              "mean": 0.5,
+              "std": 0.0,
+              "min": 0.5,
+              "max": 0.5,
+              "median": 0.5
+            },
+            "L0_customer__rev_f2p_customer_id__review": {
+              "mean": 0.4999998211860657,
+              "std": 1.9268143205408705e-06,
+              "min": 0.49999547004699707,
+              "max": 0.500005304813385,
+              "median": 0.4999999403953552
+            },
+            "L0_review__f2p_product_id__product": {
+              "mean": 0.3022605776786804,
+              "std": 0.19631464779376984,
+              "min": 0.003146706148982048,
+              "max": 0.7843083739280701,
+              "median": 0.24893862009048462
+            },
+            "L0_product__rev_f2p_product_id__review": {
+              "mean": 0.4999997019767761,
+              "std": 6.697216122120153e-06,
+              "min": 0.4999867081642151,
+              "max": 0.5000117421150208,
+              "median": 0.49999892711639404
+            },
+            "L1_review__f2p_customer_id__customer": {
+              "mean": 0.5,
+              "std": 0.0,
+              "min": 0.5,
+              "max": 0.5,
+              "median": 0.5
+            },
+            "L1_customer__rev_f2p_customer_id__review": {
+              "mean": 0.5,
+              "std": 0.0,
+              "min": 0.5,
+              "max": 0.5,
+              "median": 0.5
+            },
+            "L1_review__f2p_product_id__product": {
+              "mean": 0.31490474939346313,
+              "std": 0.23642295598983765,
+              "min": 0.005914583802223206,
+              "max": 0.9071803689002991,
+              "median": 0.28821054100990295
+            },
+            "L1_product__rev_f2p_product_id__review": {
+              "mean": 0.5,
+              "std": 0.0,
+              "min": 0.5,
+              "max": 0.5,
+              "median": 0.5
+            }
+          }
+        },
+        {
+          "epoch": 5,
+          "gates": {
+            "L0_review__f2p_customer_id__customer": {
+              "mean": 0.5,
+              "std": 0.0,
+              "min": 0.5,
+              "max": 0.5,
+              "median": 0.5
+            },
+            "L0_customer__rev_f2p_customer_id__review": {
+              "mean": 0.49999985098838806,
+              "std": 1.8941626649393584e-06,
+              "min": 0.4999954104423523,
+              "max": 0.5000055432319641,
+              "median": 0.4999999403953552
+            },
+            "L0_review__f2p_product_id__product": {
+              "mean": 0.14800837635993958,
+              "std": 0.15604300796985626,
+              "min": 0.00010813614790095016,
+              "max": 0.7536726593971252,
+              "median": 0.09019497036933899
+            },
+            "L0_product__rev_f2p_product_id__review": {
+              "mean": 0.4999997317790985,
+              "std": 1.4727966117789038e-05,
+              "min": 0.49997204542160034,
+              "max": 0.5000283718109131,
+              "median": 0.4999992847442627
+            },
+            "L1_review__f2p_customer_id__customer": {
+              "mean": 0.5,
+              "std": 0.0,
+              "min": 0.5,
+              "max": 0.5,
+              "median": 0.5
+            },
+            "L1_customer__rev_f2p_customer_id__review": {
+              "mean": 0.5,
+              "std": 0.0,
+              "min": 0.5,
+              "max": 0.5,
+              "median": 0.5
+            },
+            "L1_review__f2p_product_id__product": {
+              "mean": 0.14421479403972626,
+              "std": 0.2018984854221344,
+              "min": 3.253314571338706e-05,
+              "max": 0.8655798435211182,
+              "median": 0.041295070201158524
+            },
+            "L1_product__rev_f2p_product_id__review": {
+              "mean": 0.5,
+              "std": 0.0,
+              "min": 0.5,
+              "max": 0.5,
+              "median": 0.5
+            }
+          }
+        },
+        {
+          "epoch": 10,
+          "gates": {
+            "L0_review__f2p_customer_id__customer": {
+              "mean": 0.5,
+              "std": 0.0,
+              "min": 0.5,
+              "max": 0.5,
+              "median": 0.5
+            },
+            "L0_customer__rev_f2p_customer_id__review": {
+              "mean": 0.49999988079071045,
+              "std": 1.8843194311557454e-06,
+              "min": 0.4999954104423523,
+              "max": 0.5000055432319641,
+              "median": 0.4999999403953552
+            },
+            "L0_review__f2p_product_id__product": {
+              "mean": 0.0948106199502945,
+              "std": 0.1413218379020691,
+              "min": 6.341810149024241e-06,
+              "max": 0.7771627306938171,
+              "median": 0.03726331889629364
+            },
+            "L0_product__rev_f2p_product_id__review": {
+              "mean": 0.4999997317790985,
+              "std": 2.1070440197945572e-05,
+              "min": 0.4999634027481079,
+              "max": 0.5000352263450623,
+              "median": 0.4999990463256836
+            },
+            "L1_review__f2p_customer_id__customer": {
+              "mean": 0.5,
+              "std": 0.0,
+              "min": 0.5,
+              "max": 0.5,
+              "median": 0.5
+            },
+            "L1_customer__rev_f2p_customer_id__review": {
+              "mean": 0.5,
+              "std": 0.0,
+              "min": 0.5,
+              "max": 0.5,
+              "median": 0.5
+            },
+            "L1_review__f2p_product_id__product": {
+              "mean": 0.08000354468822479,
+              "std": 0.14983053505420685,
+              "min": 1.6282021420011006e-07,
+              "max": 0.755037248134613,
+              "median": 0.008457695133984089
+            },
+            "L1_product__rev_f2p_product_id__review": {
+              "mean": 0.5,
+              "std": 0.0,
+              "min": 0.5,
+              "max": 0.5,
+              "median": 0.5
+            }
+          }
+        }
+      ]
+    }
+  },
+  "examples": [
+    {
+      "input": "{\"timestamp\": \"2015-10-01T00:00:00\", \"product_id\": 60845, \"ltv\": 39.95}",
+      "output": "39.95",
+      "predict_baseline": "48.6403",
+      "predict_cama": "45.052",
+      "metadata_fold": 1,
+      "metadata_task_type": "regression",
+      "metadata_entity_col": "product_id",
+      "metadata_target_col": "ltv",
+      "metadata_row_index": 60845
+    },
+    {
+      "input": "{\"timestamp\": \"2015-10-01T00:00:00\", \"product_id\": 61025, \"ltv\": 409.80000000000024}",
+      "output": "409.8",
+      "predict_baseline": "48.6403",
+      "predict_cama": "45.052",
+      "metadata_fold": 1,
+      "metadata_task_type": "regression",
+      "metadata_entity_col": "product_id",
+      "metadata_target_col": "ltv",
+      "metadata_row_index": 61025
+    },
+    {
+      "input": "{\"timestamp\": \"2015-10-01T00:00:00\", \"product_id\": 61104, \"ltv\": 54.2}",
+      "output": "54.2",
+      "predict_baseline": "48.6403",
+      "predict_cama": "45.052",
+      "metadata_fold": 1,
+      "metadata_task_type": "regression",
+      "metadata_entity_col": "product_id",
+      "metadata_target_col": "ltv",
+      "metadata_row_index": 61104
+    }
+  ]
+}

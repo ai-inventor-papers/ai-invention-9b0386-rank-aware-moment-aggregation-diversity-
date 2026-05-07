@@ -1,0 +1,2614 @@
+{
+  "metadata": {
+    "title": "Sum vs Mean vs CAMA on Classification Tasks with Full Hyperparameters",
+    "description": "Fair comparison of 3 aggregation methods (mean, sum, CAMA) on 2 RelBench classification tasks with full hyperparameters. CAMA (Cardinality-Aware Moment Aggregation) enriches mean with variance information gated by log-cardinality.",
+    "methods_tested": [
+      "mean",
+      "sum",
+      "cama"
+    ],
+    "hyperparameters": {
+      "channels": 128,
+      "lr": 0.005,
+      "epochs": 10,
+      "batch_size": 512,
+      "num_neighbors": [
+        128,
+        128
+      ],
+      "num_layers": 2,
+      "max_steps_per_epoch": 2000,
+      "grad_clip": 1.0
+    },
+    "seeds": [
+      42,
+      123,
+      456,
+      789,
+      1024
+    ],
+    "evaluation_metric": "average_precision (val-based, test labels may be unavailable)",
+    "statistical_analysis": {
+      "rel-stack__user-engagement": {
+        "comparisons": {
+          "cama_vs_mean": {
+            "comparison": "mean_vs_cama",
+            "cohens_d": 5.137830541264972,
+            "d_ci_95": [
+              0.0,
+              43.23130889460429
+            ],
+            "t_statistic": null,
+            "p_value": null,
+            "mean_mean": 0.3785939157231906,
+            "mean_std": 0.005293546271062791,
+            "cama_mean": 0.40092782267508,
+            "cama_std": 0.0008029521584797687,
+            "n_seeds": 2,
+            "interpretation": "cama better than mean by d=5.138"
+          },
+          "cama_vs_sum": {
+            "comparison": "sum_vs_cama",
+            "cohens_d": 1.632332344932734,
+            "d_ci_95": [
+              0.0,
+              397.9949237770538
+            ],
+            "t_statistic": null,
+            "p_value": null,
+            "sum_mean": 0.39948541440986834,
+            "sum_std": 0.0009213502634706475,
+            "cama_mean": 0.40092782267508,
+            "cama_std": 0.0008029521584797687,
+            "n_seeds": 2,
+            "interpretation": "cama better than sum by d=1.632"
+          },
+          "mean_vs_sum": {
+            "comparison": "mean_vs_sum",
+            "cohens_d": 5.498665517469787,
+            "d_ci_95": [
+              4.958721931067887,
+              42.35975554916269
+            ],
+            "t_statistic": -7.576079293398923,
+            "p_value": 0.01698003430271958,
+            "mean_mean": 0.3785939157231906,
+            "mean_std": 0.005293546271062791,
+            "sum_mean": 0.39948541440986834,
+            "sum_std": 0.0009213502634706475,
+            "n_seeds": 3,
+            "interpretation": "sum better than mean by d=5.499"
+          }
+        },
+        "per_method": {
+          "mean": {
+            "mean": 0.3785939157231906,
+            "std": 0.005293546271062791,
+            "median": 0.38088645169500396,
+            "n_seeds": 3,
+            "per_seed_values": [
+              0.38088645169500396,
+              0.38235476921910394,
+              0.37254052625546397
+            ]
+          },
+          "sum": {
+            "mean": 0.39948541440986834,
+            "std": 0.0009213502634706475,
+            "median": 0.39896026776003884,
+            "n_seeds": 3,
+            "per_seed_values": [
+              0.39896026776003884,
+              0.40054926924282325,
+              0.398946706226743
+            ]
+          },
+          "cama": {
+            "mean": 0.40092782267508,
+            "std": 0.0008029521584797687,
+            "median": 0.40092782267508,
+            "n_seeds": 2,
+            "per_seed_values": [
+              0.40149559559130943,
+              0.4003600497588506
+            ]
+          }
+        }
+      }
+    },
+    "effective_rank_analysis": {
+      "rel-stack__user-engagement/mean/seed42": {
+        "effective_rank": 12.182084083557129,
+        "normalized_effective_rank": 0.09517253190279007,
+        "embedding_shape": [
+          1536,
+          128
+        ]
+      },
+      "rel-stack__user-engagement/sum/seed42": {
+        "effective_rank": 9.821452140808105,
+        "normalized_effective_rank": 0.07673009485006332,
+        "embedding_shape": [
+          1536,
+          128
+        ]
+      },
+      "rel-stack__user-engagement/cama/seed42": {
+        "effective_rank": 4.830820560455322,
+        "normalized_effective_rank": 0.037740785628557205,
+        "embedding_shape": [
+          1536,
+          128
+        ]
+      },
+      "rel-stack__user-engagement/mean/seed123": {
+        "effective_rank": 11.493410110473633,
+        "normalized_effective_rank": 0.08979226648807526,
+        "embedding_shape": [
+          1536,
+          128
+        ]
+      },
+      "rel-stack__user-engagement/sum/seed123": {
+        "effective_rank": 9.739802360534668,
+        "normalized_effective_rank": 0.0760922059416771,
+        "embedding_shape": [
+          1536,
+          128
+        ]
+      },
+      "rel-stack__user-engagement/cama/seed123": {
+        "effective_rank": 4.704142093658447,
+        "normalized_effective_rank": 0.03675111010670662,
+        "embedding_shape": [
+          1536,
+          128
+        ]
+      },
+      "rel-stack__user-engagement/mean/seed456": {
+        "effective_rank": 8.895636558532715,
+        "normalized_effective_rank": 0.06949716061353683,
+        "embedding_shape": [
+          1536,
+          128
+        ]
+      },
+      "rel-stack__user-engagement/sum/seed456": {
+        "effective_rank": 10.108664512634277,
+        "normalized_effective_rank": 0.07897394150495529,
+        "embedding_shape": [
+          1536,
+          128
+        ]
+      }
+    },
+    "key_findings": [
+      "CAMA outperforms sum on rel-stack__user-engagement: d=1.632 (medium+ effect size)",
+      "CAMA vs mean on rel-stack__user-engagement: d=5.138",
+      "Mean vs sum on rel-stack__user-engagement: d=5.499"
+    ],
+    "conclusion": "CAMA shows promise on rel-stack__user-engagement",
+    "all_run_results": [
+      {
+        "method": "mean",
+        "seed": 42,
+        "best_val_metric": 0.38088645169500396,
+        "best_epoch": 7,
+        "test_metric": null,
+        "epoch_records": [
+          {
+            "epoch": 1,
+            "train_loss": 0.15046911658346654,
+            "val_ap": 0.3284485966830467,
+            "elapsed_s": 60.86625289916992
+          },
+          {
+            "epoch": 2,
+            "train_loss": 0.1393062082529068,
+            "val_ap": 0.3470163531779534,
+            "elapsed_s": 60.874069929122925
+          },
+          {
+            "epoch": 3,
+            "train_loss": 0.13803826980292797,
+            "val_ap": 0.3639170440929931,
+            "elapsed_s": 60.7796528339386
+          },
+          {
+            "epoch": 4,
+            "train_loss": 0.1376080408245325,
+            "val_ap": 0.3701425802556131,
+            "elapsed_s": 60.72694492340088
+          },
+          {
+            "epoch": 5,
+            "train_loss": 0.13447881403565407,
+            "val_ap": 0.3748504541382762,
+            "elapsed_s": 60.96937847137451
+          },
+          {
+            "epoch": 6,
+            "train_loss": 0.1353392457962036,
+            "val_ap": 0.3739270311967146,
+            "elapsed_s": 60.84910035133362
+          },
+          {
+            "epoch": 7,
+            "train_loss": 0.13300875526666642,
+            "val_ap": 0.38088645169500396,
+            "elapsed_s": 60.68672752380371
+          }
+        ],
+        "gate_evolution": [],
+        "final_gate_stats": {},
+        "effective_rank": {
+          "effective_rank": 12.182084083557129,
+          "normalized_effective_rank": 0.09517253190279007,
+          "embedding_shape": [
+            1536,
+            128
+          ]
+        },
+        "peak_vram_gb": 0.856565248,
+        "param_count": 3762817,
+        "task_key": "rel-stack__user-engagement"
+      },
+      {
+        "method": "sum",
+        "seed": 42,
+        "best_val_metric": 0.39896026776003884,
+        "best_epoch": 7,
+        "test_metric": null,
+        "epoch_records": [
+          {
+            "epoch": 1,
+            "train_loss": 0.1411287530809641,
+            "val_ap": 0.36913870392248155,
+            "elapsed_s": 58.72819924354553
+          },
+          {
+            "epoch": 2,
+            "train_loss": 0.13438063964247704,
+            "val_ap": 0.39449362404532307,
+            "elapsed_s": 58.288535833358765
+          },
+          {
+            "epoch": 3,
+            "train_loss": 0.1326553860604763,
+            "val_ap": 0.3948616449057595,
+            "elapsed_s": 58.469600200653076
+          },
+          {
+            "epoch": 4,
+            "train_loss": 0.13216355884075165,
+            "val_ap": 0.3950517700481495,
+            "elapsed_s": 58.91719126701355
+          },
+          {
+            "epoch": 5,
+            "train_loss": 0.13162125945091246,
+            "val_ap": 0.39762608674490274,
+            "elapsed_s": 58.307637214660645
+          },
+          {
+            "epoch": 6,
+            "train_loss": 0.13159559461474418,
+            "val_ap": 0.3989400927798118,
+            "elapsed_s": 58.8150749206543
+          },
+          {
+            "epoch": 7,
+            "train_loss": 0.13159962916374207,
+            "val_ap": 0.39896026776003884,
+            "elapsed_s": 58.74567198753357
+          }
+        ],
+        "gate_evolution": [],
+        "final_gate_stats": {},
+        "effective_rank": {
+          "effective_rank": 9.821452140808105,
+          "normalized_effective_rank": 0.07673009485006332,
+          "embedding_shape": [
+            1536,
+            128
+          ]
+        },
+        "peak_vram_gb": 0.881904128,
+        "param_count": 3762817,
+        "task_key": "rel-stack__user-engagement"
+      },
+      {
+        "method": "cama",
+        "seed": 42,
+        "best_val_metric": 0.40149559559130943,
+        "best_epoch": 7,
+        "test_metric": null,
+        "epoch_records": [
+          {
+            "epoch": 1,
+            "train_loss": 0.14188698098063468,
+            "val_ap": 0.395176957412389,
+            "elapsed_s": 80.97101426124573
+          },
+          {
+            "epoch": 2,
+            "train_loss": 0.13512744311988353,
+            "val_ap": 0.39384431416737636,
+            "elapsed_s": 81.14073610305786
+          },
+          {
+            "epoch": 3,
+            "train_loss": 0.13224161657691003,
+            "val_ap": 0.39691912471677826,
+            "elapsed_s": 81.73717761039734
+          },
+          {
+            "epoch": 4,
+            "train_loss": 0.1329126072227955,
+            "val_ap": 0.3979861508980355,
+            "elapsed_s": 82.51048803329468
+          },
+          {
+            "epoch": 5,
+            "train_loss": 0.1305753828138113,
+            "val_ap": 0.4012138727057878,
+            "elapsed_s": 81.74485778808594
+          },
+          {
+            "epoch": 6,
+            "train_loss": 0.12991342456638813,
+            "val_ap": 0.3957686742288984,
+            "elapsed_s": 81.53416013717651
+          },
+          {
+            "epoch": 7,
+            "train_loss": 0.1307248076200485,
+            "val_ap": 0.40149559559130943,
+            "elapsed_s": 81.52769637107849
+          }
+        ],
+        "gate_evolution": [
+          {
+            "epoch": 1,
+            "gates": {
+              "L0_comments__f2p_UserId__users": {
+                "mean": 0.5019616484642029,
+                "std": 0.09334935992956161,
+                "min": 0.09624036401510239,
+                "max": 0.8445279002189636,
+                "median": 0.5061632394790649
+              },
+              "L0_users__rev_f2p_UserId__comments": {
+                "mean": 0.5,
+                "std": 3.852328802622651e-07,
+                "min": 0.4999988079071045,
+                "max": 0.5000013709068298,
+                "median": 0.5
+              },
+              "L0_comments__f2p_PostId__posts": {
+                "mean": 0.4878194034099579,
+                "std": 0.03421798720955849,
+                "min": 0.26951220631599426,
+                "max": 0.8281851410865784,
+                "median": 0.48371919989585876
+              },
+              "L0_posts__rev_f2p_PostId__comments": {
+                "mean": 0.5,
+                "std": 3.8292498061309743e-07,
+                "min": 0.4999989867210388,
+                "max": 0.5000014901161194,
+                "median": 0.5
+              },
+              "L0_badges__f2p_UserId__users": {
+                "mean": 0.4551873505115509,
+                "std": 0.09009367972612381,
+                "min": 0.05094354227185249,
+                "max": 0.7357863783836365,
+                "median": 0.47424978017807007
+              },
+              "L0_users__rev_f2p_UserId__badges": {
+                "mean": 0.5000000596046448,
+                "std": 1.0727412700362038e-06,
+                "min": 0.4999971389770508,
+                "max": 0.5000031590461731,
+                "median": 0.49999988079071045
+              },
+              "L0_postLinks__f2p_PostId__posts": {
+                "mean": 0.5107994675636292,
+                "std": 0.015916649252176285,
+                "min": 0.3765595853328705,
+                "max": 0.6730595827102661,
+                "median": 0.5081309080123901
+              },
+              "L0_posts__rev_f2p_PostId__postLinks": {
+                "mean": 0.5,
+                "std": 0.0,
+                "min": 0.5,
+                "max": 0.5,
+                "median": 0.5
+              },
+              "L0_postLinks__f2p_RelatedPostId__posts": {
+                "mean": 0.49058833718299866,
+                "std": 0.02002616412937641,
+                "min": 0.27337661385536194,
+                "max": 0.7160272002220154,
+                "median": 0.4901619553565979
+              },
+              "L0_posts__rev_f2p_RelatedPostId__postLinks": {
+                "mean": 0.5,
+                "std": 0.0,
+                "min": 0.5,
+                "max": 0.5,
+                "median": 0.5
+              },
+              "L0_postHistory__f2p_PostId__posts": {
+                "mean": 0.5248982906341553,
+                "std": 0.05323261767625809,
+                "min": 0.3403215706348419,
+                "max": 0.9038012027740479,
+                "median": 0.5101834535598755
+              },
+              "L0_posts__rev_f2p_PostId__postHistory": {
+                "mean": 0.5,
+                "std": 7.346619099735108e-07,
+                "min": 0.4999980330467224,
+                "max": 0.5000019669532776,
+                "median": 0.5
+              },
+              "L0_postHistory__f2p_UserId__users": {
+                "mean": 0.4640143811702728,
+                "std": 0.11762863397598267,
+                "min": 0.13244690001010895,
+                "max": 0.8186661601066589,
+                "median": 0.47031205892562866
+              },
+              "L0_users__rev_f2p_UserId__postHistory": {
+                "mean": 0.5,
+                "std": 7.438596867359593e-07,
+                "min": 0.49999791383743286,
+                "max": 0.5000019669532776,
+                "median": 0.5
+              },
+              "L0_votes__f2p_PostId__posts": {
+                "mean": 0.5108773112297058,
+                "std": 0.04659057781100273,
+                "min": 0.25224632024765015,
+                "max": 0.849434494972229,
+                "median": 0.501373827457428
+              },
+              "L0_posts__rev_f2p_PostId__votes": {
+                "mean": 0.5,
+                "std": 1.4014541527274105e-08,
+                "min": 0.4999999403953552,
+                "max": 0.5000000596046448,
+                "median": 0.5
+              },
+              "L0_votes__f2p_UserId__users": {
+                "mean": 0.4868200719356537,
+                "std": 0.02536565065383911,
+                "min": 0.22220772504806519,
+                "max": 0.8267090320587158,
+                "median": 0.4882131814956665
+              },
+              "L0_users__rev_f2p_UserId__votes": {
+                "mean": 0.5,
+                "std": 1.0615990753137794e-08,
+                "min": 0.4999999403953552,
+                "max": 0.5000000596046448,
+                "median": 0.5
+              },
+              "L0_posts__f2p_OwnerUserId__users": {
+                "mean": 0.5023720264434814,
+                "std": 0.0801447257399559,
+                "min": 0.11607684195041656,
+                "max": 0.8245444893836975,
+                "median": 0.5186206698417664
+              },
+              "L0_users__rev_f2p_OwnerUserId__posts": {
+                "mean": 0.5,
+                "std": 3.6733757724505267e-07,
+                "min": 0.49999892711639404,
+                "max": 0.5000012516975403,
+                "median": 0.49999988079071045
+              },
+              "L0_posts__f2p_ParentId__posts": {
+                "mean": 0.4996514320373535,
+                "std": 0.029848286882042885,
+                "min": 0.21007809042930603,
+                "max": 0.7955110669136047,
+                "median": 0.4983749985694885
+              },
+              "L0_posts__rev_f2p_ParentId__posts": {
+                "mean": 0.5,
+                "std": 3.2254479265247937e-07,
+                "min": 0.49999916553497314,
+                "max": 0.5000009536743164,
+                "median": 0.5
+              },
+              "L1_comments__f2p_UserId__users": {
+                "mean": 0.4910165071487427,
+                "std": 0.07638009637594223,
+                "min": 0.12500479817390442,
+                "max": 0.8392724394798279,
+                "median": 0.48252591490745544
+              },
+              "L1_users__rev_f2p_UserId__comments": {
+                "mean": 0.5,
+                "std": 0.0,
+                "min": 0.5,
+                "max": 0.5,
+                "median": 0.5
+              },
+              "L1_comments__f2p_PostId__posts": {
+                "mean": 0.5,
+                "std": 0.0,
+                "min": 0.5,
+                "max": 0.5,
+                "median": 0.5
+              },
+              "L1_posts__rev_f2p_PostId__comments": {
+                "mean": 0.5,
+                "std": 0.0,
+                "min": 0.5,
+                "max": 0.5,
+                "median": 0.5
+              },
+              "L1_badges__f2p_UserId__users": {
+                "mean": 0.3844015598297119,
+                "std": 0.11334086209535599,
+                "min": 0.042564671486616135,
+                "max": 0.78703773021698,
+                "median": 0.3905882239341736
+              },
+              "L1_users__rev_f2p_UserId__badges": {
+                "mean": 0.5000000596046448,
+                "std": 5.960464477539063e-08,
+                "min": 0.5,
+                "max": 0.5,
+                "median": 0.5
+              },
+              "L1_postLinks__f2p_PostId__posts": {
+                "mean": 0.5,
+                "std": 0.0,
+                "min": 0.5,
+                "max": 0.5,
+                "median": 0.5
+              },
+              "L1_posts__rev_f2p_PostId__postLinks": {
+                "mean": 0.5,
+                "std": 0.0,
+                "min": 0.5,
+                "max": 0.5,
+                "median": 0.5
+              },
+              "L1_postLinks__f2p_RelatedPostId__posts": {
+                "mean": 0.5,
+                "std": 0.0,
+                "min": 0.5,
+                "max": 0.5,
+                "median": 0.5
+              },
+              "L1_posts__rev_f2p_RelatedPostId__postLinks": {
+                "mean": 0.5,
+                "std": 0.0,
+                "min": 0.5,
+                "max": 0.5,
+                "median": 0.5
+              },
+              "L1_postHistory__f2p_PostId__posts": {
+                "mean": 0.5,
+                "std": 0.0,
+                "min": 0.5,
+                "max": 0.5,
+                "median": 0.5
+              },
+              "L1_posts__rev_f2p_PostId__postHistory": {
+                "mean": 0.5,
+                "std": 0.0,
+                "min": 0.5,
+                "max": 0.5,
+                "median": 0.5
+              },
+              "L1_postHistory__f2p_UserId__users": {
+                "mean": 0.4494747817516327,
+                "std": 0.11418335884809494,
+                "min": 0.11219874024391174,
+                "max": 0.8314076662063599,
+                "median": 0.4680441915988922
+              },
+              "L1_users__rev_f2p_UserId__postHistory": {
+                "mean": 0.5,
+                "std": 0.0,
+                "min": 0.5,
+                "max": 0.5,
+                "median": 0.5
+              },
+              "L1_votes__f2p_PostId__posts": {
+                "mean": 0.5,
+                "std": 0.0,
+                "min": 0.5,
+                "max": 0.5,
+                "median": 0.5
+              },
+              "L1_posts__rev_f2p_PostId__votes": {
+                "mean": 0.5,
+                "std": 0.0,
+                "min": 0.5,
+                "max": 0.5,
+                "median": 0.5
+              },
+              "L1_votes__f2p_UserId__users": {
+                "mean": 0.5148290991783142,
+                "std": 0.036841198801994324,
+                "min": 0.2052413523197174,
+                "max": 0.8895814418792725,
+                "median": 0.5113775134086609
+              },
+              "L1_users__rev_f2p_UserId__votes": {
+                "mean": 0.5,
+                "std": 0.0,
+                "min": 0.5,
+                "max": 0.5,
+                "median": 0.5
+              },
+              "L1_posts__f2p_OwnerUserId__users": {
+                "mean": 0.5097416639328003,
+                "std": 0.0717812031507492,
+                "min": 0.09154821187257767,
+                "max": 0.8576666116714478,
+                "median": 0.5135481953620911
+              },
+              "L1_users__rev_f2p_OwnerUserId__posts": {
+                "mean": 0.5,
+                "std": 0.0,
+                "min": 0.5,
+                "max": 0.5,
+                "median": 0.5
+              },
+              "L1_posts__f2p_ParentId__posts": {
+                "mean": 0.5,
+                "std": 0.0,
+                "min": 0.5,
+                "max": 0.5,
+                "median": 0.5
+              },
+              "L1_posts__rev_f2p_ParentId__posts": {
+                "mean": 0.5,
+                "std": 0.0,
+                "min": 0.5,
+                "max": 0.5,
+                "median": 0.5
+              }
+            }
+          },
+          {
+            "epoch": 7,
+            "gates": {
+              "L0_comments__f2p_UserId__users": {
+                "mean": 0.42985695600509644,
+                "std": 0.10613468289375305,
+                "min": 0.024519676342606544,
+                "max": 0.8367296457290649,
+                "median": 0.43546420335769653
+              },
+              "L0_users__rev_f2p_UserId__comments": {
+                "mean": 0.5,
+                "std": 3.849559959689941e-07,
+                "min": 0.4999988079071045,
+                "max": 0.5000013709068298,
+                "median": 0.5
+              },
+              "L0_comments__f2p_PostId__posts": {
+                "mean": 0.42432278394699097,
+                "std": 0.10054878890514374,
+                "min": 0.02439160645008087,
+                "max": 0.9778968095779419,
+                "median": 0.4164683520793915
+              },
+              "L0_posts__rev_f2p_PostId__comments": {
+                "mean": 0.5,
+                "std": 3.8280478520391625e-07,
+                "min": 0.4999989867210388,
+                "max": 0.5000015497207642,
+                "median": 0.5
+              },
+              "L0_badges__f2p_UserId__users": {
+                "mean": 0.27285754680633545,
+                "std": 0.12249729782342911,
+                "min": 0.0007482407963834703,
+                "max": 0.7435353994369507,
+                "median": 0.26582175493240356
+              },
+              "L0_users__rev_f2p_UserId__badges": {
+                "mean": 0.5000000596046448,
+                "std": 1.0610866638671723e-06,
+                "min": 0.49999725818634033,
+                "max": 0.5000030994415283,
+                "median": 0.5
+              },
+              "L0_postLinks__f2p_PostId__posts": {
+                "mean": 0.5397077202796936,
+                "std": 0.05196212977170944,
+                "min": 0.12763510644435883,
+                "max": 0.9106832146644592,
+                "median": 0.5484849810600281
+              },
+              "L0_posts__rev_f2p_PostId__postLinks": {
+                "mean": 0.5,
+                "std": 0.0,
+                "min": 0.5,
+                "max": 0.5,
+                "median": 0.5
+              },
+              "L0_postLinks__f2p_RelatedPostId__posts": {
+                "mean": 0.46294429898262024,
+                "std": 0.07243236154317856,
+                "min": 0.02155977301299572,
+                "max": 0.9371818900108337,
+                "median": 0.45444679260253906
+              },
+              "L0_posts__rev_f2p_RelatedPostId__postLinks": {
+                "mean": 0.5,
+                "std": 0.0,
+                "min": 0.5,
+                "max": 0.5,
+                "median": 0.5
+              },
+              "L0_postHistory__f2p_PostId__posts": {
+                "mean": 0.4048202633857727,
+                "std": 0.09877283871173859,
+                "min": 0.019087370485067368,
+                "max": 0.8303695917129517,
+                "median": 0.41397491097450256
+              },
+              "L0_posts__rev_f2p_PostId__postHistory": {
+                "mean": 0.5,
+                "std": 7.324804300878895e-07,
+                "min": 0.49999797344207764,
+                "max": 0.5000020265579224,
+                "median": 0.5
+              },
+              "L0_postHistory__f2p_UserId__users": {
+                "mean": 0.31927382946014404,
+                "std": 0.15585456788539886,
+                "min": 0.015870120376348495,
+                "max": 0.9343969821929932,
+                "median": 0.2891334295272827
+              },
+              "L0_users__rev_f2p_UserId__postHistory": {
+                "mean": 0.4999999403953552,
+                "std": 7.405179189845512e-07,
+                "min": 0.49999791383743286,
+                "max": 0.5000019669532776,
+                "median": 0.5
+              },
+              "L0_votes__f2p_PostId__posts": {
+                "mean": 0.361860990524292,
+                "std": 0.09485983103513718,
+                "min": 0.009990566410124302,
+                "max": 0.7723517417907715,
+                "median": 0.37247857451438904
+              },
+              "L0_posts__rev_f2p_PostId__votes": {
+                "mean": 0.5000000596046448,
+                "std": 5.6978237239491136e-08,
+                "min": 0.4999999403953552,
+                "max": 0.5000000596046448,
+                "median": 0.5
+              },
+              "L0_votes__f2p_UserId__users": {
+                "mean": 0.4148883521556854,
+                "std": 0.04238118603825569,
+                "min": 0.012395337224006653,
+                "max": 0.8561416864395142,
+                "median": 0.4149920642375946
+              },
+              "L0_users__rev_f2p_UserId__votes": {
+                "mean": 0.5000000596046448,
+                "std": 5.889251752932978e-08,
+                "min": 0.4999999403953552,
+                "max": 0.5000000596046448,
+                "median": 0.5
+              },
+              "L0_posts__f2p_OwnerUserId__users": {
+                "mean": 0.38264745473861694,
+                "std": 0.1190086305141449,
+                "min": 0.004223071038722992,
+                "max": 0.87462317943573,
+                "median": 0.3969057500362396
+              },
+              "L0_users__rev_f2p_OwnerUserId__posts": {
+                "mean": 0.5,
+                "std": 3.6216727039573016e-07,
+                "min": 0.49999886751174927,
+                "max": 0.5000011920928955,
+                "median": 0.49999988079071045
+              },
+              "L0_posts__f2p_ParentId__posts": {
+                "mean": 0.42004361748695374,
+                "std": 0.06875889003276825,
+                "min": 0.01472229789942503,
+                "max": 0.7996179461479187,
+                "median": 0.4242591857910156
+              },
+              "L0_posts__rev_f2p_ParentId__posts": {
+                "mean": 0.5,
+                "std": 3.316818322218751e-07,
+                "min": 0.4999992251396179,
+                "max": 0.5000009536743164,
+                "median": 0.5000000596046448
+              },
+              "L1_comments__f2p_UserId__users": {
+                "mean": 0.3594968914985657,
+                "std": 0.11611094325780869,
+                "min": 0.010925629176199436,
+                "max": 0.9236219525337219,
+                "median": 0.351531058549881
+              },
+              "L1_users__rev_f2p_UserId__comments": {
+                "mean": 0.5,
+                "std": 0.0,
+                "min": 0.5,
+                "max": 0.5,
+                "median": 0.5
+              },
+              "L1_comments__f2p_PostId__posts": {
+                "mean": 0.5,
+                "std": 0.0,
+                "min": 0.5,
+                "max": 0.5,
+                "median": 0.5
+              },
+              "L1_posts__rev_f2p_PostId__comments": {
+                "mean": 0.5,
+                "std": 0.0,
+                "min": 0.5,
+                "max": 0.5,
+                "median": 0.5
+              },
+              "L1_badges__f2p_UserId__users": {
+                "mean": 0.2530657649040222,
+                "std": 0.13881808519363403,
+                "min": 0.0016877007437869906,
+                "max": 0.8981569409370422,
+                "median": 0.226758673787117
+              },
+              "L1_users__rev_f2p_UserId__badges": {
+                "mean": 0.5000000596046448,
+                "std": 5.960464477539063e-08,
+                "min": 0.5,
+                "max": 0.5,
+                "median": 0.5
+              },
+              "L1_postLinks__f2p_PostId__posts": {
+                "mean": 0.5,
+                "std": 0.0,
+                "min": 0.5,
+                "max": 0.5,
+                "median": 0.5
+              },
+              "L1_posts__rev_f2p_PostId__postLinks": {
+                "mean": 0.5,
+                "std": 0.0,
+                "min": 0.5,
+                "max": 0.5,
+                "median": 0.5
+              },
+              "L1_postLinks__f2p_RelatedPostId__posts": {
+                "mean": 0.5,
+                "std": 0.0,
+                "min": 0.5,
+                "max": 0.5,
+                "median": 0.5
+              },
+              "L1_posts__rev_f2p_RelatedPostId__postLinks": {
+                "mean": 0.5,
+                "std": 0.0,
+                "min": 0.5,
+                "max": 0.5,
+                "median": 0.5
+              },
+              "L1_postHistory__f2p_PostId__posts": {
+                "mean": 0.5,
+                "std": 0.0,
+                "min": 0.5,
+                "max": 0.5,
+                "median": 0.5
+              },
+              "L1_posts__rev_f2p_PostId__postHistory": {
+                "mean": 0.5,
+                "std": 0.0,
+                "min": 0.5,
+                "max": 0.5,
+                "median": 0.5
+              },
+              "L1_postHistory__f2p_UserId__users": {
+                "mean": 0.3017595410346985,
+                "std": 0.13239610195159912,
+                "min": 0.020676082000136375,
+                "max": 0.8500363230705261,
+                "median": 0.2848523259162903
+              },
+              "L1_users__rev_f2p_UserId__postHistory": {
+                "mean": 0.5,
+                "std": 0.0,
+                "min": 0.5,
+                "max": 0.5,
+                "median": 0.5
+              },
+              "L1_votes__f2p_PostId__posts": {
+                "mean": 0.5,
+                "std": 0.0,
+                "min": 0.5,
+                "max": 0.5,
+                "median": 0.5
+              },
+              "L1_posts__rev_f2p_PostId__votes": {
+                "mean": 0.5000000596046448,
+                "std": 5.960464477539063e-08,
+                "min": 0.5,
+                "max": 0.5,
+                "median": 0.5
+              },
+              "L1_votes__f2p_UserId__users": {
+                "mean": 0.459927499294281,
+                "std": 0.058532245457172394,
+                "min": 0.02147466503083706,
+                "max": 0.8496970534324646,
+                "median": 0.4654785096645355
+              },
+              "L1_users__rev_f2p_UserId__votes": {
+                "mean": 0.5000000596046448,
+                "std": 5.960464477539063e-08,
+                "min": 0.5,
+                "max": 0.5,
+                "median": 0.5
+              },
+              "L1_posts__f2p_OwnerUserId__users": {
+                "mean": 0.3811875879764557,
+                "std": 0.09937559068202972,
+                "min": 0.01663387380540371,
+                "max": 0.9203922748565674,
+                "median": 0.38195204734802246
+              },
+              "L1_users__rev_f2p_OwnerUserId__posts": {
+                "mean": 0.5,
+                "std": 0.0,
+                "min": 0.5,
+                "max": 0.5,
+                "median": 0.5
+              },
+              "L1_posts__f2p_ParentId__posts": {
+                "mean": 0.5,
+                "std": 0.0,
+                "min": 0.5,
+                "max": 0.5,
+                "median": 0.5
+              },
+              "L1_posts__rev_f2p_ParentId__posts": {
+                "mean": 0.5,
+                "std": 0.0,
+                "min": 0.5,
+                "max": 0.5,
+                "median": 0.5
+              }
+            }
+          }
+        ],
+        "final_gate_stats": {
+          "L0_comments__f2p_UserId__users": {
+            "mean": 0.42985695600509644,
+            "std": 0.10613468289375305,
+            "min": 0.024519676342606544,
+            "max": 0.8367296457290649,
+            "median": 0.43546420335769653
+          },
+          "L0_users__rev_f2p_UserId__comments": {
+            "mean": 0.5,
+            "std": 3.849748964057653e-07,
+            "min": 0.4999988079071045,
+            "max": 0.5000013709068298,
+            "median": 0.5
+          },
+          "L0_comments__f2p_PostId__posts": {
+            "mean": 0.4243333637714386,
+            "std": 0.10053601115942001,
+            "min": 0.02439160645008087,
+            "max": 0.9778968095779419,
+            "median": 0.4164683520793915
+          },
+          "L0_posts__rev_f2p_PostId__comments": {
+            "mean": 0.5,
+            "std": 3.828244814485515e-07,
+            "min": 0.4999989867210388,
+            "max": 0.5000015497207642,
+            "median": 0.5
+          },
+          "L0_badges__f2p_UserId__users": {
+            "mean": 0.27285754680633545,
+            "std": 0.12249729782342911,
+            "min": 0.0007482407963834703,
+            "max": 0.7435353994369507,
+            "median": 0.26582175493240356
+          },
+          "L0_users__rev_f2p_UserId__badges": {
+            "mean": 0.5000000596046448,
+            "std": 1.0610866638671723e-06,
+            "min": 0.49999725818634033,
+            "max": 0.5000030994415283,
+            "median": 0.5
+          },
+          "L0_postLinks__f2p_PostId__posts": {
+            "mean": 0.5397064685821533,
+            "std": 0.05195631459355354,
+            "min": 0.12763510644435883,
+            "max": 0.9106832146644592,
+            "median": 0.5484849810600281
+          },
+          "L0_posts__rev_f2p_PostId__postLinks": {
+            "mean": 0.5,
+            "std": 0.0,
+            "min": 0.5,
+            "max": 0.5,
+            "median": 0.5
+          },
+          "L0_postLinks__f2p_RelatedPostId__posts": {
+            "mean": 0.46294838190078735,
+            "std": 0.07242166996002197,
+            "min": 0.02155977301299572,
+            "max": 0.9371818900108337,
+            "median": 0.45444679260253906
+          },
+          "L0_posts__rev_f2p_RelatedPostId__postLinks": {
+            "mean": 0.5,
+            "std": 0.0,
+            "min": 0.5,
+            "max": 0.5,
+            "median": 0.5
+          },
+          "L0_postHistory__f2p_PostId__posts": {
+            "mean": 0.40482762455940247,
+            "std": 0.09876616299152374,
+            "min": 0.019087370485067368,
+            "max": 0.8303695917129517,
+            "median": 0.41397491097450256
+          },
+          "L0_posts__rev_f2p_PostId__postHistory": {
+            "mean": 0.5,
+            "std": 7.324438229261432e-07,
+            "min": 0.49999797344207764,
+            "max": 0.5000020265579224,
+            "median": 0.5
+          },
+          "L0_postHistory__f2p_UserId__users": {
+            "mean": 0.31927382946014404,
+            "std": 0.15585456788539886,
+            "min": 0.015870120376348495,
+            "max": 0.9343969821929932,
+            "median": 0.2891334295272827
+          },
+          "L0_users__rev_f2p_UserId__postHistory": {
+            "mean": 0.4999999403953552,
+            "std": 7.404808002320351e-07,
+            "min": 0.49999791383743286,
+            "max": 0.5000019669532776,
+            "median": 0.5
+          },
+          "L0_votes__f2p_PostId__posts": {
+            "mean": 0.3618835508823395,
+            "std": 0.094833143055439,
+            "min": 0.009990566410124302,
+            "max": 0.7723517417907715,
+            "median": 0.37247857451438904
+          },
+          "L0_posts__rev_f2p_PostId__votes": {
+            "mean": 0.5,
+            "std": 1.753884326660682e-08,
+            "min": 0.4999999403953552,
+            "max": 0.5000000596046448,
+            "median": 0.5
+          },
+          "L0_votes__f2p_UserId__users": {
+            "mean": 0.4148883521556854,
+            "std": 0.04238118603825569,
+            "min": 0.012395337224006653,
+            "max": 0.8561416864395142,
+            "median": 0.4149920642375946
+          },
+          "L0_users__rev_f2p_UserId__votes": {
+            "mean": 0.5,
+            "std": 9.22678378145747e-09,
+            "min": 0.4999999403953552,
+            "max": 0.5000000596046448,
+            "median": 0.5
+          },
+          "L0_posts__f2p_OwnerUserId__users": {
+            "mean": 0.38264745473861694,
+            "std": 0.1190086305141449,
+            "min": 0.004223071038722992,
+            "max": 0.87462317943573,
+            "median": 0.3969057500362396
+          },
+          "L0_users__rev_f2p_OwnerUserId__posts": {
+            "mean": 0.5,
+            "std": 3.621487962846004e-07,
+            "min": 0.49999886751174927,
+            "max": 0.5000011920928955,
+            "median": 0.49999988079071045
+          },
+          "L0_posts__f2p_ParentId__posts": {
+            "mean": 0.42005860805511475,
+            "std": 0.06874468922615051,
+            "min": 0.01472229789942503,
+            "max": 0.7996179461479187,
+            "median": 0.4242591857910156
+          },
+          "L0_posts__rev_f2p_ParentId__posts": {
+            "mean": 0.5,
+            "std": 3.3168160484819964e-07,
+            "min": 0.4999992251396179,
+            "max": 0.5000009536743164,
+            "median": 0.5000000596046448
+          },
+          "L1_comments__f2p_UserId__users": {
+            "mean": 0.3594968914985657,
+            "std": 0.11611094325780869,
+            "min": 0.010925629176199436,
+            "max": 0.9236219525337219,
+            "median": 0.351531058549881
+          },
+          "L1_users__rev_f2p_UserId__comments": {
+            "mean": 0.5,
+            "std": 0.0,
+            "min": 0.5,
+            "max": 0.5,
+            "median": 0.5
+          },
+          "L1_comments__f2p_PostId__posts": {
+            "mean": 0.5,
+            "std": 0.0,
+            "min": 0.5,
+            "max": 0.5,
+            "median": 0.5
+          },
+          "L1_posts__rev_f2p_PostId__comments": {
+            "mean": 0.5,
+            "std": 0.0,
+            "min": 0.5,
+            "max": 0.5,
+            "median": 0.5
+          },
+          "L1_badges__f2p_UserId__users": {
+            "mean": 0.2530657649040222,
+            "std": 0.13881808519363403,
+            "min": 0.0016877007437869906,
+            "max": 0.8981569409370422,
+            "median": 0.226758673787117
+          },
+          "L1_users__rev_f2p_UserId__badges": {
+            "mean": 0.5000000596046448,
+            "std": 5.960464477539063e-08,
+            "min": 0.5,
+            "max": 0.5,
+            "median": 0.5
+          },
+          "L1_postLinks__f2p_PostId__posts": {
+            "mean": 0.5,
+            "std": 0.0,
+            "min": 0.5,
+            "max": 0.5,
+            "median": 0.5
+          },
+          "L1_posts__rev_f2p_PostId__postLinks": {
+            "mean": 0.5,
+            "std": 0.0,
+            "min": 0.5,
+            "max": 0.5,
+            "median": 0.5
+          },
+          "L1_postLinks__f2p_RelatedPostId__posts": {
+            "mean": 0.5,
+            "std": 0.0,
+            "min": 0.5,
+            "max": 0.5,
+            "median": 0.5
+          },
+          "L1_posts__rev_f2p_RelatedPostId__postLinks": {
+            "mean": 0.5,
+            "std": 0.0,
+            "min": 0.5,
+            "max": 0.5,
+            "median": 0.5
+          },
+          "L1_postHistory__f2p_PostId__posts": {
+            "mean": 0.5,
+            "std": 0.0,
+            "min": 0.5,
+            "max": 0.5,
+            "median": 0.5
+          },
+          "L1_posts__rev_f2p_PostId__postHistory": {
+            "mean": 0.5,
+            "std": 0.0,
+            "min": 0.5,
+            "max": 0.5,
+            "median": 0.5
+          },
+          "L1_postHistory__f2p_UserId__users": {
+            "mean": 0.3017595410346985,
+            "std": 0.13239610195159912,
+            "min": 0.020676082000136375,
+            "max": 0.8500363230705261,
+            "median": 0.2848523259162903
+          },
+          "L1_users__rev_f2p_UserId__postHistory": {
+            "mean": 0.5,
+            "std": 0.0,
+            "min": 0.5,
+            "max": 0.5,
+            "median": 0.5
+          },
+          "L1_votes__f2p_PostId__posts": {
+            "mean": 0.5,
+            "std": 0.0,
+            "min": 0.5,
+            "max": 0.5,
+            "median": 0.5
+          },
+          "L1_posts__rev_f2p_PostId__votes": {
+            "mean": 0.5,
+            "std": 0.0,
+            "min": 0.5,
+            "max": 0.5,
+            "median": 0.5
+          },
+          "L1_votes__f2p_UserId__users": {
+            "mean": 0.459927499294281,
+            "std": 0.058532245457172394,
+            "min": 0.02147466503083706,
+            "max": 0.8496970534324646,
+            "median": 0.4654785096645355
+          },
+          "L1_users__rev_f2p_UserId__votes": {
+            "mean": 0.5,
+            "std": 0.0,
+            "min": 0.5,
+            "max": 0.5,
+            "median": 0.5
+          },
+          "L1_posts__f2p_OwnerUserId__users": {
+            "mean": 0.3811875879764557,
+            "std": 0.09937559068202972,
+            "min": 0.01663387380540371,
+            "max": 0.9203922748565674,
+            "median": 0.38195204734802246
+          },
+          "L1_users__rev_f2p_OwnerUserId__posts": {
+            "mean": 0.5,
+            "std": 0.0,
+            "min": 0.5,
+            "max": 0.5,
+            "median": 0.5
+          },
+          "L1_posts__f2p_ParentId__posts": {
+            "mean": 0.5,
+            "std": 0.0,
+            "min": 0.5,
+            "max": 0.5,
+            "median": 0.5
+          },
+          "L1_posts__rev_f2p_ParentId__posts": {
+            "mean": 0.5,
+            "std": 0.0,
+            "min": 0.5,
+            "max": 0.5,
+            "median": 0.5
+          }
+        },
+        "effective_rank": {
+          "effective_rank": 4.830820560455322,
+          "normalized_effective_rank": 0.037740785628557205,
+          "embedding_shape": [
+            1536,
+            128
+          ]
+        },
+        "peak_vram_gb": 1.489967616,
+        "param_count": 4494977,
+        "task_key": "rel-stack__user-engagement"
+      },
+      {
+        "method": "mean",
+        "seed": 123,
+        "best_val_metric": 0.38235476921910394,
+        "best_epoch": 7,
+        "test_metric": null,
+        "epoch_records": [
+          {
+            "epoch": 1,
+            "train_loss": 0.15192038860917093,
+            "val_ap": 0.3454608637945212,
+            "elapsed_s": 61.809178590774536
+          },
+          {
+            "epoch": 2,
+            "train_loss": 0.1393013182580471,
+            "val_ap": 0.3516264352223385,
+            "elapsed_s": 61.74441957473755
+          },
+          {
+            "epoch": 3,
+            "train_loss": 0.13803539672493934,
+            "val_ap": 0.3691403613731866,
+            "elapsed_s": 62.05449390411377
+          },
+          {
+            "epoch": 4,
+            "train_loss": 0.13695097194612027,
+            "val_ap": 0.3721161482362069,
+            "elapsed_s": 62.23089861869812
+          },
+          {
+            "epoch": 5,
+            "train_loss": 0.13486082239449024,
+            "val_ap": 0.37678320090867073,
+            "elapsed_s": 62.695733308792114
+          },
+          {
+            "epoch": 6,
+            "train_loss": 0.13496692338585853,
+            "val_ap": 0.3772364587025553,
+            "elapsed_s": 62.06625819206238
+          },
+          {
+            "epoch": 7,
+            "train_loss": 0.13363788905739785,
+            "val_ap": 0.38235476921910394,
+            "elapsed_s": 62.225488901138306
+          }
+        ],
+        "gate_evolution": [],
+        "final_gate_stats": {},
+        "effective_rank": {
+          "effective_rank": 11.493410110473633,
+          "normalized_effective_rank": 0.08979226648807526,
+          "embedding_shape": [
+            1536,
+            128
+          ]
+        },
+        "peak_vram_gb": 0.869334016,
+        "param_count": 3762817,
+        "task_key": "rel-stack__user-engagement"
+      },
+      {
+        "method": "sum",
+        "seed": 123,
+        "best_val_metric": 0.40054926924282325,
+        "best_epoch": 6,
+        "test_metric": null,
+        "epoch_records": [
+          {
+            "epoch": 1,
+            "train_loss": 0.14213415898382664,
+            "val_ap": 0.384103986311009,
+            "elapsed_s": 59.647605895996094
+          },
+          {
+            "epoch": 2,
+            "train_loss": 0.1343938711732626,
+            "val_ap": 0.395054530261202,
+            "elapsed_s": 59.36236619949341
+          },
+          {
+            "epoch": 3,
+            "train_loss": 0.13392087039351463,
+            "val_ap": 0.3927153117920771,
+            "elapsed_s": 59.263840436935425
+          },
+          {
+            "epoch": 4,
+            "train_loss": 0.1325923818796873,
+            "val_ap": 0.3923856787130766,
+            "elapsed_s": 59.76983094215393
+          },
+          {
+            "epoch": 5,
+            "train_loss": 0.13287848035991193,
+            "val_ap": 0.39672259147383815,
+            "elapsed_s": 58.51599717140198
+          },
+          {
+            "epoch": 6,
+            "train_loss": 0.13173054805397988,
+            "val_ap": 0.40054926924282325,
+            "elapsed_s": 58.17460775375366
+          },
+          {
+            "epoch": 7,
+            "train_loss": 0.13172605362534523,
+            "val_ap": 0.3999276313807541,
+            "elapsed_s": 59.584338665008545
+          }
+        ],
+        "gate_evolution": [],
+        "final_gate_stats": {},
+        "effective_rank": {
+          "effective_rank": 9.739802360534668,
+          "normalized_effective_rank": 0.0760922059416771,
+          "embedding_shape": [
+            1536,
+            128
+          ]
+        },
+        "peak_vram_gb": 0.877453312,
+        "param_count": 3762817,
+        "task_key": "rel-stack__user-engagement"
+      },
+      {
+        "method": "cama",
+        "seed": 123,
+        "best_val_metric": 0.4003600497588506,
+        "best_epoch": 6,
+        "test_metric": null,
+        "epoch_records": [
+          {
+            "epoch": 1,
+            "train_loss": 0.1406856555044651,
+            "val_ap": 0.39204296864797794,
+            "elapsed_s": 81.49541854858398
+          },
+          {
+            "epoch": 2,
+            "train_loss": 0.1326529868543148,
+            "val_ap": 0.39734922000903933,
+            "elapsed_s": 82.2370879650116
+          },
+          {
+            "epoch": 3,
+            "train_loss": 0.1320644089281559,
+            "val_ap": 0.3997451846978324,
+            "elapsed_s": 82.9097809791565
+          },
+          {
+            "epoch": 4,
+            "train_loss": 0.1320976581722498,
+            "val_ap": 0.39792519266574944,
+            "elapsed_s": 81.61164808273315
+          },
+          {
+            "epoch": 5,
+            "train_loss": 0.13200472643971442,
+            "val_ap": 0.3969614373159681,
+            "elapsed_s": 82.55052256584167
+          },
+          {
+            "epoch": 6,
+            "train_loss": 0.13014568747580052,
+            "val_ap": 0.4003600497588506,
+            "elapsed_s": 80.36951565742493
+          },
+          {
+            "epoch": 7,
+            "train_loss": 0.13019433075934647,
+            "val_ap": 0.39421467886966527,
+            "elapsed_s": 78.98796319961548
+          }
+        ],
+        "gate_evolution": [
+          {
+            "epoch": 1,
+            "gates": {
+              "L0_comments__f2p_UserId__users": {
+                "mean": 0.5075979232788086,
+                "std": 0.09035355597734451,
+                "min": 0.09571832418441772,
+                "max": 0.8367292881011963,
+                "median": 0.5108256340026855
+              },
+              "L0_users__rev_f2p_UserId__comments": {
+                "mean": 0.5,
+                "std": 3.5178712209926744e-07,
+                "min": 0.4999989867210388,
+                "max": 0.5000009536743164,
+                "median": 0.4999999403953552
+              },
+              "L0_comments__f2p_PostId__posts": {
+                "mean": 0.48287415504455566,
+                "std": 0.027621852234005928,
+                "min": 0.2041204571723938,
+                "max": 0.7473166584968567,
+                "median": 0.4846348166465759
+              },
+              "L0_posts__rev_f2p_PostId__comments": {
+                "mean": 0.5,
+                "std": 3.4082003708135744e-07,
+                "min": 0.4999990463256836,
+                "max": 0.5000009536743164,
+                "median": 0.5
+              },
+              "L0_badges__f2p_UserId__users": {
+                "mean": 0.4456675946712494,
+                "std": 0.07934147119522095,
+                "min": 0.10348360985517502,
+                "max": 0.7340547442436218,
+                "median": 0.45947834849357605
+              },
+              "L0_users__rev_f2p_UserId__badges": {
+                "mean": 0.5000000596046448,
+                "std": 9.274850754081854e-07,
+                "min": 0.499997615814209,
+                "max": 0.5000020861625671,
+                "median": 0.5000001788139343
+              },
+              "L0_postLinks__f2p_PostId__posts": {
+                "mean": 0.48114654421806335,
+                "std": 0.02304459922015667,
+                "min": 0.2380145639181137,
+                "max": 0.7282240986824036,
+                "median": 0.4812440872192383
+              },
+              "L0_posts__rev_f2p_PostId__postLinks": {
+                "mean": 0.5,
+                "std": 0.0,
+                "min": 0.5,
+                "max": 0.5,
+                "median": 0.5
+              },
+              "L0_postLinks__f2p_RelatedPostId__posts": {
+                "mean": 0.5156086087226868,
+                "std": 0.032819151878356934,
+                "min": 0.2590082585811615,
+                "max": 0.8636277318000793,
+                "median": 0.5147777199745178
+              },
+              "L0_posts__rev_f2p_RelatedPostId__postLinks": {
+                "mean": 0.5,
+                "std": 0.0,
+                "min": 0.5,
+                "max": 0.5,
+                "median": 0.5
+              },
+              "L0_postHistory__f2p_PostId__posts": {
+                "mean": 0.49997368454933167,
+                "std": 0.03544062376022339,
+                "min": 0.29035961627960205,
+                "max": 0.7531572580337524,
+                "median": 0.4978766441345215
+              },
+              "L0_posts__rev_f2p_PostId__postHistory": {
+                "mean": 0.49999988079071045,
+                "std": 7.859474067117844e-07,
+                "min": 0.4999983310699463,
+                "max": 0.5000020861625671,
+                "median": 0.49999988079071045
+              },
+              "L0_postHistory__f2p_UserId__users": {
+                "mean": 0.49974265694618225,
+                "std": 0.10954756289720535,
+                "min": 0.17071868479251862,
+                "max": 0.8036714196205139,
+                "median": 0.5142056941986084
+              },
+              "L0_users__rev_f2p_UserId__postHistory": {
+                "mean": 0.5,
+                "std": 6.775111387469224e-07,
+                "min": 0.49999821186065674,
+                "max": 0.5000020265579224,
+                "median": 0.5000000596046448
+              },
+              "L0_votes__f2p_PostId__posts": {
+                "mean": 0.48726972937583923,
+                "std": 0.04041801765561104,
+                "min": 0.2137657254934311,
+                "max": 0.7144303321838379,
+                "median": 0.4865472614765167
+              },
+              "L0_posts__rev_f2p_PostId__votes": {
+                "mean": 0.5000000596046448,
+                "std": 5.59892079365909e-08,
+                "min": 0.4999999403953552,
+                "max": 0.5000000596046448,
+                "median": 0.5
+              },
+              "L0_votes__f2p_UserId__users": {
+                "mean": 0.5019777417182922,
+                "std": 0.02937248907983303,
+                "min": 0.2517543137073517,
+                "max": 0.8343782424926758,
+                "median": 0.5027072429656982
+              },
+              "L0_users__rev_f2p_UserId__votes": {
+                "mean": 0.5000000596046448,
+                "std": 5.8659580304265546e-08,
+                "min": 0.4999999403953552,
+                "max": 0.5000000596046448,
+                "median": 0.5
+              },
+              "L0_posts__f2p_OwnerUserId__users": {
+                "mean": 0.49474936723709106,
+                "std": 0.0847458690404892,
+                "min": 0.10922829061746597,
+                "max": 0.8317607045173645,
+                "median": 0.5101876854896545
+              },
+              "L0_users__rev_f2p_OwnerUserId__posts": {
+                "mean": 0.5,
+                "std": 3.7079024650665815e-07,
+                "min": 0.49999892711639404,
+                "max": 0.5000013113021851,
+                "median": 0.5000000596046448
+              },
+              "L0_posts__f2p_ParentId__posts": {
+                "mean": 0.49473142623901367,
+                "std": 0.02393432706594467,
+                "min": 0.1407318115234375,
+                "max": 0.6777605414390564,
+                "median": 0.49537184834480286
+              },
+              "L0_posts__rev_f2p_ParentId__posts": {
+                "mean": 0.5,
+                "std": 3.2919950854193303e-07,
+                "min": 0.4999992847442627,
+                "max": 0.5000009536743164,
+                "median": 0.5000001192092896
+              },
+              "L1_comments__f2p_UserId__users": {
+                "mean": 0.49824395775794983,
+                "std": 0.05977364256978035,
+                "min": 0.11791079491376877,
+                "max": 0.835021436214447,
+                "median": 0.49504196643829346
+              },
+              "L1_users__rev_f2p_UserId__comments": {
+                "mean": 0.5,
+                "std": 0.0,
+                "min": 0.5,
+                "max": 0.5,
+                "median": 0.5
+              },
+              "L1_comments__f2p_PostId__posts": {
+                "mean": 0.5,
+                "std": 0.0,
+                "min": 0.5,
+                "max": 0.5,
+                "median": 0.5
+              },
+              "L1_posts__rev_f2p_PostId__comments": {
+                "mean": 0.5,
+                "std": 0.0,
+                "min": 0.5,
+                "max": 0.5,
+                "median": 0.5
+              },
+              "L1_badges__f2p_UserId__users": {
+                "mean": 0.47606974840164185,
+                "std": 0.0969400703907013,
+                "min": 0.05408243462443352,
+                "max": 0.8313430547714233,
+                "median": 0.49008509516716003
+              },
+              "L1_users__rev_f2p_UserId__badges": {
+                "mean": 0.5000000596046448,
+                "std": 5.960464477539063e-08,
+                "min": 0.5,
+                "max": 0.5,
+                "median": 0.5
+              },
+              "L1_postLinks__f2p_PostId__posts": {
+                "mean": 0.5,
+                "std": 0.0,
+                "min": 0.5,
+                "max": 0.5,
+                "median": 0.5
+              },
+              "L1_posts__rev_f2p_PostId__postLinks": {
+                "mean": 0.5,
+                "std": 0.0,
+                "min": 0.5,
+                "max": 0.5,
+                "median": 0.5
+              },
+              "L1_postLinks__f2p_RelatedPostId__posts": {
+                "mean": 0.5,
+                "std": 0.0,
+                "min": 0.5,
+                "max": 0.5,
+                "median": 0.5
+              },
+              "L1_posts__rev_f2p_RelatedPostId__postLinks": {
+                "mean": 0.5,
+                "std": 0.0,
+                "min": 0.5,
+                "max": 0.5,
+                "median": 0.5
+              },
+              "L1_postHistory__f2p_PostId__posts": {
+                "mean": 0.5,
+                "std": 0.0,
+                "min": 0.5,
+                "max": 0.5,
+                "median": 0.5
+              },
+              "L1_posts__rev_f2p_PostId__postHistory": {
+                "mean": 0.5000000596046448,
+                "std": 5.960464477539063e-08,
+                "min": 0.5,
+                "max": 0.5,
+                "median": 0.5
+              },
+              "L1_postHistory__f2p_UserId__users": {
+                "mean": 0.4716065227985382,
+                "std": 0.10341422259807587,
+                "min": 0.1174345463514328,
+                "max": 0.8306663036346436,
+                "median": 0.4882185459136963
+              },
+              "L1_users__rev_f2p_UserId__postHistory": {
+                "mean": 0.5000000596046448,
+                "std": 5.960464477539063e-08,
+                "min": 0.5,
+                "max": 0.5,
+                "median": 0.5
+              },
+              "L1_votes__f2p_PostId__posts": {
+                "mean": 0.5,
+                "std": 0.0,
+                "min": 0.5,
+                "max": 0.5,
+                "median": 0.5
+              },
+              "L1_posts__rev_f2p_PostId__votes": {
+                "mean": 0.5000000596046448,
+                "std": 5.960464477539063e-08,
+                "min": 0.5,
+                "max": 0.5,
+                "median": 0.5
+              },
+              "L1_votes__f2p_UserId__users": {
+                "mean": 0.4975460171699524,
+                "std": 0.030815307050943375,
+                "min": 0.12830418348312378,
+                "max": 0.8408833742141724,
+                "median": 0.5004304647445679
+              },
+              "L1_users__rev_f2p_UserId__votes": {
+                "mean": 0.5000000596046448,
+                "std": 5.960464477539063e-08,
+                "min": 0.5,
+                "max": 0.5,
+                "median": 0.5
+              },
+              "L1_posts__f2p_OwnerUserId__users": {
+                "mean": 0.5079012513160706,
+                "std": 0.07247309386730194,
+                "min": 0.09922938048839569,
+                "max": 0.8431658148765564,
+                "median": 0.5071895122528076
+              },
+              "L1_users__rev_f2p_OwnerUserId__posts": {
+                "mean": 0.5,
+                "std": 0.0,
+                "min": 0.5,
+                "max": 0.5,
+                "median": 0.5
+              },
+              "L1_posts__f2p_ParentId__posts": {
+                "mean": 0.5,
+                "std": 0.0,
+                "min": 0.5,
+                "max": 0.5,
+                "median": 0.5
+              },
+              "L1_posts__rev_f2p_ParentId__posts": {
+                "mean": 0.5,
+                "std": 0.0,
+                "min": 0.5,
+                "max": 0.5,
+                "median": 0.5
+              }
+            }
+          },
+          {
+            "epoch": 7,
+            "gates": {
+              "L0_comments__f2p_UserId__users": {
+                "mean": 0.4325515329837799,
+                "std": 0.10712932050228119,
+                "min": 0.01868637464940548,
+                "max": 0.8444318771362305,
+                "median": 0.4441133439540863
+              },
+              "L0_users__rev_f2p_UserId__comments": {
+                "mean": 0.5,
+                "std": 3.5299865430715727e-07,
+                "min": 0.4999989867210388,
+                "max": 0.5000010132789612,
+                "median": 0.4999999403953552
+              },
+              "L0_comments__f2p_PostId__posts": {
+                "mean": 0.4337083101272583,
+                "std": 0.07371225953102112,
+                "min": 0.043010711669921875,
+                "max": 0.7469579577445984,
+                "median": 0.4383600950241089
+              },
+              "L0_posts__rev_f2p_PostId__comments": {
+                "mean": 0.5,
+                "std": 3.388988147889904e-07,
+                "min": 0.4999990463256836,
+                "max": 0.5000008940696716,
+                "median": 0.5
+              },
+              "L0_badges__f2p_UserId__users": {
+                "mean": 0.2707524299621582,
+                "std": 0.12054996192455292,
+                "min": 0.0019419121090322733,
+                "max": 0.8414736390113831,
+                "median": 0.2615704834461212
+              },
+              "L0_users__rev_f2p_UserId__badges": {
+                "mean": 0.5000000596046448,
+                "std": 9.222331982527976e-07,
+                "min": 0.49999749660491943,
+                "max": 0.5000020265579224,
+                "median": 0.5000001788139343
+              },
+              "L0_postLinks__f2p_PostId__posts": {
+                "mean": 0.4596165120601654,
+                "std": 0.07402834296226501,
+                "min": 0.05099770799279213,
+                "max": 0.9558541774749756,
+                "median": 0.4462885856628418
+              },
+              "L0_posts__rev_f2p_PostId__postLinks": {
+                "mean": 0.5,
+                "std": 0.0,
+                "min": 0.5,
+                "max": 0.5,
+                "median": 0.5
+              },
+              "L0_postLinks__f2p_RelatedPostId__posts": {
+                "mean": 0.4935552775859833,
+                "std": 0.08246392756700516,
+                "min": 0.040649786591529846,
+                "max": 0.9780347347259521,
+                "median": 0.47868630290031433
+              },
+              "L0_posts__rev_f2p_RelatedPostId__postLinks": {
+                "mean": 0.5,
+                "std": 0.0,
+                "min": 0.5,
+                "max": 0.5,
+                "median": 0.5
+              },
+              "L0_postHistory__f2p_PostId__posts": {
+                "mean": 0.41404151916503906,
+                "std": 0.09171325713396072,
+                "min": 0.021084191277623177,
+                "max": 0.8582412004470825,
+                "median": 0.43032845854759216
+              },
+              "L0_posts__rev_f2p_PostId__postHistory": {
+                "mean": 0.49999988079071045,
+                "std": 7.777433665978606e-07,
+                "min": 0.4999982714653015,
+                "max": 0.5000020861625671,
+                "median": 0.49999988079071045
+              },
+              "L0_postHistory__f2p_UserId__users": {
+                "mean": 0.3640231192111969,
+                "std": 0.14432275295257568,
+                "min": 0.016395963728427887,
+                "max": 0.8235653042793274,
+                "median": 0.372429221868515
+              },
+              "L0_users__rev_f2p_UserId__postHistory": {
+                "mean": 0.5,
+                "std": 6.768531761736085e-07,
+                "min": 0.49999821186065674,
+                "max": 0.5000020265579224,
+                "median": 0.5000000596046448
+              },
+              "L0_votes__f2p_PostId__posts": {
+                "mean": 0.4586290419101715,
+                "std": 0.0732407346367836,
+                "min": 0.024757567793130875,
+                "max": 0.8115941286087036,
+                "median": 0.47001585364341736
+              },
+              "L0_posts__rev_f2p_PostId__votes": {
+                "mean": 0.5000000596046448,
+                "std": 5.551352089128159e-08,
+                "min": 0.49999988079071045,
+                "max": 0.5000000596046448,
+                "median": 0.5
+              },
+              "L0_votes__f2p_UserId__users": {
+                "mean": 0.42883816361427307,
+                "std": 0.042078472673892975,
+                "min": 0.031772371381521225,
+                "max": 0.8872939944267273,
+                "median": 0.4232071340084076
+              },
+              "L0_users__rev_f2p_UserId__votes": {
+                "mean": 0.5000000596046448,
+                "std": 5.7951915266585274e-08,
+                "min": 0.4999999403953552,
+                "max": 0.5000000596046448,
+                "median": 0.5
+              },
+              "L0_posts__f2p_OwnerUserId__users": {
+                "mean": 0.3733343482017517,
+                "std": 0.1082867905497551,
+                "min": 0.014518369920551777,
+                "max": 0.8508985638618469,
+                "median": 0.3839748203754425
+              },
+              "L0_users__rev_f2p_OwnerUserId__posts": {
+                "mean": 0.5,
+                "std": 3.690217340590607e-07,
+                "min": 0.49999892711639404,
+                "max": 0.5000013113021851,
+                "median": 0.5000000596046448
+              },
+              "L0_posts__f2p_ParentId__posts": {
+                "mean": 0.5116337537765503,
+                "std": 0.05698588490486145,
+                "min": 0.07731642574071884,
+                "max": 0.979354739189148,
+                "median": 0.509998083114624
+              },
+              "L0_posts__rev_f2p_ParentId__posts": {
+                "mean": 0.5,
+                "std": 3.3945502764254343e-07,
+                "min": 0.4999992847442627,
+                "max": 0.5000008940696716,
+                "median": 0.5000001192092896
+              },
+              "L1_comments__f2p_UserId__users": {
+                "mean": 0.38271835446357727,
+                "std": 0.11535390466451645,
+                "min": 0.029916835948824883,
+                "max": 0.9296943545341492,
+                "median": 0.3732450008392334
+              },
+              "L1_users__rev_f2p_UserId__comments": {
+                "mean": 0.5,
+                "std": 0.0,
+                "min": 0.5,
+                "max": 0.5,
+                "median": 0.5
+              },
+              "L1_comments__f2p_PostId__posts": {
+                "mean": 0.5,
+                "std": 0.0,
+                "min": 0.5,
+                "max": 0.5,
+                "median": 0.5
+              },
+              "L1_posts__rev_f2p_PostId__comments": {
+                "mean": 0.5,
+                "std": 0.0,
+                "min": 0.5,
+                "max": 0.5,
+                "median": 0.5
+              },
+              "L1_badges__f2p_UserId__users": {
+                "mean": 0.35521626472473145,
+                "std": 0.13625892996788025,
+                "min": 0.0033204136416316032,
+                "max": 0.8827353715896606,
+                "median": 0.35971325635910034
+              },
+              "L1_users__rev_f2p_UserId__badges": {
+                "mean": 0.5000000596046448,
+                "std": 5.960464477539063e-08,
+                "min": 0.5,
+                "max": 0.5,
+                "median": 0.5
+              },
+              "L1_postLinks__f2p_PostId__posts": {
+                "mean": 0.5,
+                "std": 0.0,
+                "min": 0.5,
+                "max": 0.5,
+                "median": 0.5
+              },
+              "L1_posts__rev_f2p_PostId__postLinks": {
+                "mean": 0.5,
+                "std": 0.0,
+                "min": 0.5,
+                "max": 0.5,
+                "median": 0.5
+              },
+              "L1_postLinks__f2p_RelatedPostId__posts": {
+                "mean": 0.5,
+                "std": 0.0,
+                "min": 0.5,
+                "max": 0.5,
+                "median": 0.5
+              },
+              "L1_posts__rev_f2p_RelatedPostId__postLinks": {
+                "mean": 0.5,
+                "std": 0.0,
+                "min": 0.5,
+                "max": 0.5,
+                "median": 0.5
+              },
+              "L1_postHistory__f2p_PostId__posts": {
+                "mean": 0.5,
+                "std": 0.0,
+                "min": 0.5,
+                "max": 0.5,
+                "median": 0.5
+              },
+              "L1_posts__rev_f2p_PostId__postHistory": {
+                "mean": 0.5,
+                "std": 0.0,
+                "min": 0.5,
+                "max": 0.5,
+                "median": 0.5
+              },
+              "L1_postHistory__f2p_UserId__users": {
+                "mean": 0.34896668791770935,
+                "std": 0.13670065999031067,
+                "min": 0.023234661668539047,
+                "max": 0.866692304611206,
+                "median": 0.32566556334495544
+              },
+              "L1_users__rev_f2p_UserId__postHistory": {
+                "mean": 0.5,
+                "std": 0.0,
+                "min": 0.5,
+                "max": 0.5,
+                "median": 0.5
+              },
+              "L1_votes__f2p_PostId__posts": {
+                "mean": 0.5,
+                "std": 0.0,
+                "min": 0.5,
+                "max": 0.5,
+                "median": 0.5
+              },
+              "L1_posts__rev_f2p_PostId__votes": {
+                "mean": 0.5000000596046448,
+                "std": 5.960464477539063e-08,
+                "min": 0.5,
+                "max": 0.5,
+                "median": 0.5
+              },
+              "L1_votes__f2p_UserId__users": {
+                "mean": 0.4531605839729309,
+                "std": 0.035533130168914795,
+                "min": 0.04519859328866005,
+                "max": 0.7853113412857056,
+                "median": 0.45686599612236023
+              },
+              "L1_users__rev_f2p_UserId__votes": {
+                "mean": 0.5000000596046448,
+                "std": 5.960464477539063e-08,
+                "min": 0.5,
+                "max": 0.5,
+                "median": 0.5
+              },
+              "L1_posts__f2p_OwnerUserId__users": {
+                "mean": 0.3872300386428833,
+                "std": 0.10661626607179642,
+                "min": 0.01088599395006895,
+                "max": 0.9076246023178101,
+                "median": 0.39416882395744324
+              },
+              "L1_users__rev_f2p_OwnerUserId__posts": {
+                "mean": 0.5,
+                "std": 0.0,
+                "min": 0.5,
+                "max": 0.5,
+                "median": 0.5
+              },
+              "L1_posts__f2p_ParentId__posts": {
+                "mean": 0.5,
+                "std": 0.0,
+                "min": 0.5,
+                "max": 0.5,
+                "median": 0.5
+              },
+              "L1_posts__rev_f2p_ParentId__posts": {
+                "mean": 0.5,
+                "std": 0.0,
+                "min": 0.5,
+                "max": 0.5,
+                "median": 0.5
+              }
+            }
+          }
+        ],
+        "final_gate_stats": {
+          "L0_comments__f2p_UserId__users": {
+            "mean": 0.4441382884979248,
+            "std": 0.10647347569465637,
+            "min": 0.014970456250011921,
+            "max": 0.8393262624740601,
+            "median": 0.4554596245288849
+          },
+          "L0_users__rev_f2p_UserId__comments": {
+            "mean": 0.5,
+            "std": 3.516395850056142e-07,
+            "min": 0.4999989867210388,
+            "max": 0.5000010132789612,
+            "median": 0.4999999403953552
+          },
+          "L0_comments__f2p_PostId__posts": {
+            "mean": 0.45166051387786865,
+            "std": 0.06655289977788925,
+            "min": 0.047432247549295425,
+            "max": 0.7435922622680664,
+            "median": 0.45317989587783813
+          },
+          "L0_posts__rev_f2p_PostId__comments": {
+            "mean": 0.5,
+            "std": 3.389019980204466e-07,
+            "min": 0.4999990463256836,
+            "max": 0.5000008940696716,
+            "median": 0.5
+          },
+          "L0_badges__f2p_UserId__users": {
+            "mean": 0.28678229451179504,
+            "std": 0.11617334932088852,
+            "min": 0.0034696615766733885,
+            "max": 0.8004531264305115,
+            "median": 0.28249701857566833
+          },
+          "L0_users__rev_f2p_UserId__badges": {
+            "mean": 0.5000000596046448,
+            "std": 9.245777619071305e-07,
+            "min": 0.49999749660491943,
+            "max": 0.5000020265579224,
+            "median": 0.5000001788139343
+          },
+          "L0_postLinks__f2p_PostId__posts": {
+            "mean": 0.4626600444316864,
+            "std": 0.07406961917877197,
+            "min": 0.06807759404182434,
+            "max": 0.9517157077789307,
+            "median": 0.45007821917533875
+          },
+          "L0_posts__rev_f2p_PostId__postLinks": {
+            "mean": 0.5,
+            "std": 0.0,
+            "min": 0.5,
+            "max": 0.5,
+            "median": 0.5
+          },
+          "L0_postLinks__f2p_RelatedPostId__posts": {
+            "mean": 0.4976078271865845,
+            "std": 0.08243168890476227,
+            "min": 0.042322851717472076,
+            "max": 0.9799205660820007,
+            "median": 0.48050543665885925
+          },
+          "L0_posts__rev_f2p_RelatedPostId__postLinks": {
+            "mean": 0.5,
+            "std": 0.0,
+            "min": 0.5,
+            "max": 0.5,
+            "median": 0.5
+          },
+          "L0_postHistory__f2p_PostId__posts": {
+            "mean": 0.45310693979263306,
+            "std": 0.0864691510796547,
+            "min": 0.03969266638159752,
+            "max": 0.8907470107078552,
+            "median": 0.46058666706085205
+          },
+          "L0_posts__rev_f2p_PostId__postHistory": {
+            "mean": 0.49999991059303284,
+            "std": 7.780446935612417e-07,
+            "min": 0.4999982714653015,
+            "max": 0.5000020861625671,
+            "median": 0.49999988079071045
+          },
+          "L0_postHistory__f2p_UserId__users": {
+            "mean": 0.3735414147377014,
+            "std": 0.147872194647789,
+            "min": 0.014936858788132668,
+            "max": 0.8160572052001953,
+            "median": 0.38238632678985596
+          },
+          "L0_users__rev_f2p_UserId__postHistory": {
+            "mean": 0.4999999403953552,
+            "std": 6.799841685278807e-07,
+            "min": 0.49999821186065674,
+            "max": 0.5000020265579224,
+            "median": 0.5000000596046448
+          },
+          "L0_votes__f2p_PostId__posts": {
+            "mean": 0.45133814215660095,
+            "std": 0.06838629394769669,
+            "min": 0.03689751774072647,
+            "max": 0.7689680457115173,
+            "median": 0.4598068594932556
+          },
+          "L0_posts__rev_f2p_PostId__votes": {
+            "mean": 0.5,
+            "std": 2.419748135196187e-08,
+            "min": 0.49999988079071045,
+            "max": 0.5000000596046448,
+            "median": 0.5
+          },
+          "L0_votes__f2p_UserId__users": {
+            "mean": 0.4356642961502075,
+            "std": 0.03600500524044037,
+            "min": 0.04117979481816292,
+            "max": 0.8242558240890503,
+            "median": 0.43393996357917786
+          },
+          "L0_users__rev_f2p_UserId__votes": {
+            "mean": 0.5,
+            "std": 1.498233181962405e-08,
+            "min": 0.4999999403953552,
+            "max": 0.5000000596046448,
+            "median": 0.5
+          },
+          "L0_posts__f2p_OwnerUserId__users": {
+            "mean": 0.37943407893180847,
+            "std": 0.10433661937713623,
+            "min": 0.016358494758605957,
+            "max": 0.8247634768486023,
+            "median": 0.3964264392852783
+          },
+          "L0_users__rev_f2p_OwnerUserId__posts": {
+            "mean": 0.5,
+            "std": 3.6996053154325637e-07,
+            "min": 0.49999892711639404,
+            "max": 0.5000013113021851,
+            "median": 0.5000000596046448
+          },
+          "L0_posts__f2p_ParentId__posts": {
+            "mean": 0.5157737135887146,
+            "std": 0.05585445463657379,
+            "min": 0.08421579003334045,
+            "max": 0.9707730412483215,
+            "median": 0.5146142840385437
+          },
+          "L0_posts__rev_f2p_ParentId__posts": {
+            "mean": 0.5,
+            "std": 3.3880817795761686e-07,
+            "min": 0.4999992847442627,
+            "max": 0.5000008940696716,
+            "median": 0.5000001192092896
+          },
+          "L1_comments__f2p_UserId__users": {
+            "mean": 0.39875996112823486,
+            "std": 0.10785458981990814,
+            "min": 0.025656070560216904,
+            "max": 0.9286500215530396,
+            "median": 0.3921578526496887
+          },
+          "L1_users__rev_f2p_UserId__comments": {
+            "mean": 0.5,
+            "std": 0.0,
+            "min": 0.5,
+            "max": 0.5,
+            "median": 0.5
+          },
+          "L1_comments__f2p_PostId__posts": {
+            "mean": 0.5,
+            "std": 0.0,
+            "min": 0.5,
+            "max": 0.5,
+            "median": 0.5
+          },
+          "L1_posts__rev_f2p_PostId__comments": {
+            "mean": 0.5,
+            "std": 0.0,
+            "min": 0.5,
+            "max": 0.5,
+            "median": 0.5
+          },
+          "L1_badges__f2p_UserId__users": {
+            "mean": 0.36330264806747437,
+            "std": 0.13222891092300415,
+            "min": 0.003931520972400904,
+            "max": 0.8808280229568481,
+            "median": 0.3694365322589874
+          },
+          "L1_users__rev_f2p_UserId__badges": {
+            "mean": 0.5000000596046448,
+            "std": 5.960464477539063e-08,
+            "min": 0.5,
+            "max": 0.5,
+            "median": 0.5
+          },
+          "L1_postLinks__f2p_PostId__posts": {
+            "mean": 0.5,
+            "std": 0.0,
+            "min": 0.5,
+            "max": 0.5,
+            "median": 0.5
+          },
+          "L1_posts__rev_f2p_PostId__postLinks": {
+            "mean": 0.5,
+            "std": 0.0,
+            "min": 0.5,
+            "max": 0.5,
+            "median": 0.5
+          },
+          "L1_postLinks__f2p_RelatedPostId__posts": {
+            "mean": 0.5,
+            "std": 0.0,
+            "min": 0.5,
+            "max": 0.5,
+            "median": 0.5
+          },
+          "L1_posts__rev_f2p_RelatedPostId__postLinks": {
+            "mean": 0.5,
+            "std": 0.0,
+            "min": 0.5,
+            "max": 0.5,
+            "median": 0.5
+          },
+          "L1_postHistory__f2p_PostId__posts": {
+            "mean": 0.5,
+            "std": 0.0,
+            "min": 0.5,
+            "max": 0.5,
+            "median": 0.5
+          },
+          "L1_posts__rev_f2p_PostId__postHistory": {
+            "mean": 0.5,
+            "std": 0.0,
+            "min": 0.5,
+            "max": 0.5,
+            "median": 0.5
+          },
+          "L1_postHistory__f2p_UserId__users": {
+            "mean": 0.35959720611572266,
+            "std": 0.1346903294324875,
+            "min": 0.03133893758058548,
+            "max": 0.8637393712997437,
+            "median": 0.33918964862823486
+          },
+          "L1_users__rev_f2p_UserId__postHistory": {
+            "mean": 0.5,
+            "std": 0.0,
+            "min": 0.5,
+            "max": 0.5,
+            "median": 0.5
+          },
+          "L1_votes__f2p_PostId__posts": {
+            "mean": 0.5,
+            "std": 0.0,
+            "min": 0.5,
+            "max": 0.5,
+            "median": 0.5
+          },
+          "L1_posts__rev_f2p_PostId__votes": {
+            "mean": 0.5,
+            "std": 0.0,
+            "min": 0.5,
+            "max": 0.5,
+            "median": 0.5
+          },
+          "L1_votes__f2p_UserId__users": {
+            "mean": 0.45508208870887756,
+            "std": 0.03608102723956108,
+            "min": 0.05449706315994263,
+            "max": 0.8118664026260376,
+            "median": 0.456590861082077
+          },
+          "L1_users__rev_f2p_UserId__votes": {
+            "mean": 0.5,
+            "std": 0.0,
+            "min": 0.5,
+            "max": 0.5,
+            "median": 0.5
+          },
+          "L1_posts__f2p_OwnerUserId__users": {
+            "mean": 0.3985756039619446,
+            "std": 0.10521112382411957,
+            "min": 0.01176209095865488,
+            "max": 0.9045642614364624,
+            "median": 0.4056006371974945
+          },
+          "L1_users__rev_f2p_OwnerUserId__posts": {
+            "mean": 0.5,
+            "std": 0.0,
+            "min": 0.5,
+            "max": 0.5,
+            "median": 0.5
+          },
+          "L1_posts__f2p_ParentId__posts": {
+            "mean": 0.5,
+            "std": 0.0,
+            "min": 0.5,
+            "max": 0.5,
+            "median": 0.5
+          },
+          "L1_posts__rev_f2p_ParentId__posts": {
+            "mean": 0.5,
+            "std": 0.0,
+            "min": 0.5,
+            "max": 0.5,
+            "median": 0.5
+          }
+        },
+        "effective_rank": {
+          "effective_rank": 4.704142093658447,
+          "normalized_effective_rank": 0.03675111010670662,
+          "embedding_shape": [
+            1536,
+            128
+          ]
+        },
+        "peak_vram_gb": 1.436575744,
+        "param_count": 4494977,
+        "task_key": "rel-stack__user-engagement"
+      },
+      {
+        "method": "mean",
+        "seed": 456,
+        "best_val_metric": 0.37254052625546397,
+        "best_epoch": 4,
+        "test_metric": null,
+        "epoch_records": [
+          {
+            "epoch": 1,
+            "train_loss": 0.1501027406156063,
+            "val_ap": 0.3363740856898339,
+            "elapsed_s": 62.17419981956482
+          },
+          {
+            "epoch": 2,
+            "train_loss": 0.1401939015686512,
+            "val_ap": 0.3514059087295949,
+            "elapsed_s": 62.39179801940918
+          },
+          {
+            "epoch": 3,
+            "train_loss": 0.13671617746353149,
+            "val_ap": 0.366951438079398,
+            "elapsed_s": 61.91572403907776
+          },
+          {
+            "epoch": 4,
+            "train_loss": 0.13398249197006226,
+            "val_ap": 0.37254052625546397,
+            "elapsed_s": 62.513051986694336
+          },
+          {
+            "epoch": 5,
+            "train_loss": 0.13575605243444444,
+            "val_ap": 0.3712397115062419,
+            "elapsed_s": 62.96174645423889
+          },
+          {
+            "epoch": 6,
+            "train_loss": 0.13479772490262984,
+            "val_ap": 0.36998030743724686,
+            "elapsed_s": 62.35046052932739
+          },
+          {
+            "epoch": 7,
+            "train_loss": 0.13302130837738513,
+            "val_ap": 0.36900675007924777,
+            "elapsed_s": 62.6209990978241
+          }
+        ],
+        "gate_evolution": [],
+        "final_gate_stats": {},
+        "effective_rank": {
+          "effective_rank": 8.895636558532715,
+          "normalized_effective_rank": 0.06949716061353683,
+          "embedding_shape": [
+            1536,
+            128
+          ]
+        },
+        "peak_vram_gb": 0.861490688,
+        "param_count": 3762817,
+        "task_key": "rel-stack__user-engagement"
+      },
+      {
+        "method": "sum",
+        "seed": 456,
+        "best_val_metric": 0.398946706226743,
+        "best_epoch": 7,
+        "test_metric": null,
+        "epoch_records": [
+          {
+            "epoch": 1,
+            "train_loss": 0.14102334356307983,
+            "val_ap": 0.3834934115325574,
+            "elapsed_s": 58.60087704658508
+          },
+          {
+            "epoch": 2,
+            "train_loss": 0.1341540893763304,
+            "val_ap": 0.3943733658708858,
+            "elapsed_s": 59.876893043518066
+          },
+          {
+            "epoch": 3,
+            "train_loss": 0.1332157341837883,
+            "val_ap": 0.393719083010863,
+            "elapsed_s": 59.90323853492737
+          },
+          {
+            "epoch": 4,
+            "train_loss": 0.13287434168159962,
+            "val_ap": 0.39286891570153293,
+            "elapsed_s": 59.59373450279236
+          },
+          {
+            "epoch": 5,
+            "train_loss": 0.13097555263340474,
+            "val_ap": 0.3981837982994586,
+            "elapsed_s": 51.82616376876831
+          },
+          {
+            "epoch": 6,
+            "train_loss": 0.1305363118648529,
+            "val_ap": 0.3959633680425875,
+            "elapsed_s": 59.80874419212341
+          },
+          {
+            "epoch": 7,
+            "train_loss": 0.13055461291968823,
+            "val_ap": 0.398946706226743,
+            "elapsed_s": 59.52998447418213
+          }
+        ],
+        "gate_evolution": [],
+        "final_gate_stats": {},
+        "effective_rank": {
+          "effective_rank": 10.108664512634277,
+          "normalized_effective_rank": 0.07897394150495529,
+          "embedding_shape": [
+            1536,
+            128
+          ]
+        },
+        "peak_vram_gb": 0.919793664,
+        "param_count": 3762817,
+        "task_key": "rel-stack__user-engagement"
+      }
+    ]
+  },
+  "datasets": [
+    {
+      "dataset": "rel-stack__user-engagement",
+      "examples": [
+        {
+          "input": "{\"task\": \"rel-stack__user-engagement\", \"seed\": 42, \"metric\": \"average_precision\", \"hyperparameters\": {\"channels\": 128, \"lr\": 0.005, \"epochs\": 10, \"batch_size\": 512, \"num_neighbors\": [128, 128], \"num_layers\": 2, \"max_steps_per_epoch\": 2000, \"grad_clip\": 1.0}}",
+          "output": "0.40149559559130943",
+          "metadata_seed": 42,
+          "metadata_task": "rel-stack__user-engagement",
+          "metadata_best_method": "cama",
+          "predict_mean": "0.38088645169500396",
+          "predict_sum": "0.39896026776003884",
+          "predict_cama": "0.40149559559130943"
+        },
+        {
+          "input": "{\"task\": \"rel-stack__user-engagement\", \"seed\": 123, \"metric\": \"average_precision\", \"hyperparameters\": {\"channels\": 128, \"lr\": 0.005, \"epochs\": 10, \"batch_size\": 512, \"num_neighbors\": [128, 128], \"num_layers\": 2, \"max_steps_per_epoch\": 2000, \"grad_clip\": 1.0}}",
+          "output": "0.40054926924282325",
+          "metadata_seed": 123,
+          "metadata_task": "rel-stack__user-engagement",
+          "metadata_best_method": "sum",
+          "predict_mean": "0.38235476921910394",
+          "predict_sum": "0.40054926924282325",
+          "predict_cama": "0.4003600497588506"
+        },
+        {
+          "input": "{\"task\": \"rel-stack__user-engagement\", \"seed\": 456, \"metric\": \"average_precision\", \"hyperparameters\": {\"channels\": 128, \"lr\": 0.005, \"epochs\": 10, \"batch_size\": 512, \"num_neighbors\": [128, 128], \"num_layers\": 2, \"max_steps_per_epoch\": 2000, \"grad_clip\": 1.0}}",
+          "output": "0.398946706226743",
+          "metadata_seed": 456,
+          "metadata_task": "rel-stack__user-engagement",
+          "metadata_best_method": "sum",
+          "predict_mean": "0.37254052625546397",
+          "predict_sum": "0.398946706226743"
+        }
+      ]
+    }
+  ]
+}

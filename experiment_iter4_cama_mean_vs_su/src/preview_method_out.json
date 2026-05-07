@@ -1,0 +1,420 @@
+{
+  "metadata": {
+    "method_name": "CAMA (Cardinality-Aware Moment Aggregation)",
+    "description": "Controlled experiment on rel-f1 comparing 5 aggregation methods across 2 tasks with 5 seeds.",
+    "experiment_config": {
+      "dataset": "rel-f1",
+      "tasks": [
+        "driver-position",
+        "driver-dnf"
+      ],
+      "methods": [
+        "mean",
+        "sum",
+        "mean_cama"
+      ],
+      "seeds": [
+        42,
+        123,
+        456
+      ],
+      "hyperparams": {
+        "channels": 128,
+        "lr": 0.005,
+        "epochs": 10,
+        "batch_size": 512,
+        "num_neighbors": 128,
+        "num_layers": 2
+      }
+    },
+    "per_run_results": [
+      {
+        "method": "mean",
+        "task": "driver-position",
+        "seed": 42,
+        "dataset": "rel-f1",
+        "hyperparams": {
+          "channels": 128,
+          "lr": 0.005,
+          "epochs": 10,
+          "batch_size": 512,
+          "num_neighbors": 128,
+          "num_layers": 2
+        },
+        "val_metrics": {
+          "mae": 3.1753327231448574,
+          "rmse": 4.021667564507451,
+          "r2": 0.24749089733291652
+        },
+        "test_metrics": {
+          "mae": 3.1753327231448574,
+          "rmse": 4.021667564507451,
+          "r2": 0.24749089733291652
+        },
+        "best_epoch": 7,
+        "train_time_seconds": 7.7,
+        "train_losses": [
+          7.8397,
+          5.7654,
+          5.6923
+        ]
+      },
+      {
+        "method": "mean",
+        "task": "driver-position",
+        "seed": 123,
+        "dataset": "rel-f1",
+        "hyperparams": {
+          "channels": 128,
+          "lr": 0.005,
+          "epochs": 10,
+          "batch_size": 512,
+          "num_neighbors": 128,
+          "num_layers": 2
+        },
+        "val_metrics": {
+          "mae": 3.166519306338303,
+          "rmse": 3.9869845875059755,
+          "r2": 0.260414250701525
+        },
+        "test_metrics": {
+          "mae": 3.166519306338303,
+          "rmse": 3.9869845875059755,
+          "r2": 0.260414250701525
+        },
+        "best_epoch": 9,
+        "train_time_seconds": 7.0,
+        "train_losses": [
+          7.7066,
+          5.76,
+          5.6028
+        ]
+      },
+      {
+        "method": "mean",
+        "task": "driver-position",
+        "seed": 456,
+        "dataset": "rel-f1",
+        "hyperparams": {
+          "channels": 128,
+          "lr": 0.005,
+          "epochs": 10,
+          "batch_size": 512,
+          "num_neighbors": 128,
+          "num_layers": 2
+        },
+        "val_metrics": {
+          "mae": 3.237032127762605,
+          "rmse": 4.044896530705278,
+          "r2": 0.2387728767161813
+        },
+        "test_metrics": {
+          "mae": 3.237032127762605,
+          "rmse": 4.044896530705278,
+          "r2": 0.2387728767161813
+        },
+        "best_epoch": 5,
+        "train_time_seconds": 6.9,
+        "train_losses": [
+          7.8838,
+          5.7359,
+          5.687
+        ]
+      }
+    ],
+    "summary_table": {
+      "driver-position": {
+        "mean": {
+          "test_mae_mean": 3.2114,
+          "test_mae_std": 0.0371,
+          "per_seed": [
+            3.1753,
+            3.1665,
+            3.237
+          ],
+          "n_seeds": 5
+        },
+        "sum": {
+          "test_mae_mean": 3.2209,
+          "test_mae_std": 0.0534,
+          "per_seed": [
+            3.2048,
+            3.239,
+            3.1619
+          ],
+          "n_seeds": 5
+        },
+        "mean_cama": {
+          "test_mae_mean": 3.2242,
+          "test_mae_std": 0.0617,
+          "per_seed": [
+            3.2747,
+            3.1534,
+            3.1602
+          ],
+          "n_seeds": 5
+        },
+        "sum_cama": {
+          "test_mae_mean": 3.2182,
+          "test_mae_std": 0.0169,
+          "per_seed": [
+            3.2125,
+            3.2002,
+            3.2461
+          ],
+          "n_seeds": 5
+        },
+        "mean_ungated": {
+          "test_mae_mean": 3.2345,
+          "test_mae_std": 0.0645,
+          "per_seed": [
+            3.1842,
+            3.3423,
+            3.2233
+          ],
+          "n_seeds": 5
+        }
+      },
+      "driver-dnf": {
+        "mean": {
+          "test_ap_mean": 0.9019,
+          "test_ap_std": 0.0008,
+          "per_seed": [
+            0.9017,
+            0.903,
+            0.9025
+          ],
+          "n_seeds": 5
+        },
+        "sum": {
+          "test_ap_mean": 0.8972,
+          "test_ap_std": 0.0018,
+          "per_seed": [
+            0.8977,
+            0.8974,
+            0.8986
+          ],
+          "n_seeds": 5
+        },
+        "mean_cama": {
+          "test_ap_mean": 0.9025,
+          "test_ap_std": 0.0015,
+          "per_seed": [
+            0.9039,
+            0.9006,
+            0.9034
+          ],
+          "n_seeds": 5
+        },
+        "sum_cama": {
+          "test_ap_mean": 0.8982,
+          "test_ap_std": 0.0017,
+          "per_seed": [
+            0.899,
+            0.8961,
+            0.9
+          ],
+          "n_seeds": 5
+        },
+        "mean_ungated": {
+          "test_ap_mean": 0.9035,
+          "test_ap_std": 0.0016,
+          "per_seed": [
+            0.9018,
+            0.9061,
+            0.9029
+          ],
+          "n_seeds": 5
+        }
+      }
+    },
+    "cohens_d_comparisons": {
+      "driver-position": {
+        "mean_cama_vs_mean": {
+          "d": -0.2515,
+          "ci_low": -2.6277,
+          "ci_high": 1.0794,
+          "p_value": 0.5866
+        },
+        "sum_cama_vs_sum": {
+          "d": 0.0674,
+          "ci_low": -1.9719,
+          "ci_high": 1.3923,
+          "p_value": 0.8869
+        },
+        "sum_vs_mean": {
+          "d": -0.2056,
+          "ci_low": -1.5367,
+          "ci_high": 1.4815,
+          "p_value": 0.663
+        },
+        "mean_ungated_vs_mean": {
+          "d": -0.4394,
+          "ci_low": -1.6006,
+          "ci_high": 1.3265,
+          "p_value": 0.3788
+        },
+        "mean_cama_vs_mean_ungated": {
+          "d": 0.1634,
+          "ci_low": -1.8055,
+          "ci_high": 1.377,
+          "p_value": 0.7252
+        },
+        "mean_cama_vs_sum": {
+          "d": -0.0582,
+          "ci_low": -2.3988,
+          "ci_high": 1.1819,
+          "p_value": 0.8879
+        }
+      },
+      "driver-dnf": {
+        "mean_cama_vs_mean": {
+          "d": 0.505,
+          "ci_low": -0.7437,
+          "ci_high": 3.6203,
+          "p_value": 0.2698
+        },
+        "sum_cama_vs_sum": {
+          "d": 0.5636,
+          "ci_low": -0.8023,
+          "ci_high": 2.2717,
+          "p_value": 0.2579
+        },
+        "sum_vs_mean": {
+          "d": -3.3711,
+          "ci_low": -9.4368,
+          "ci_high": -2.8884,
+          "p_value": 0.0
+        },
+        "mean_ungated_vs_mean": {
+          "d": 1.2348,
+          "ci_low": 0.3686,
+          "ci_high": 3.0283,
+          "p_value": 0.0119
+        },
+        "mean_cama_vs_mean_ungated": {
+          "d": -0.6177,
+          "ci_low": -1.9644,
+          "ci_high": 0.7873,
+          "p_value": 0.2033
+        },
+        "mean_cama_vs_sum": {
+          "d": 3.1924,
+          "ci_low": 2.5869,
+          "ci_high": 12.2199,
+          "p_value": 0.0
+        }
+      }
+    },
+    "interaction_test": {
+      "driver-position": {
+        "F_stat": 0.1439,
+        "p_value": 0.7094,
+        "interpretation": "No significant interaction (p=0.7094): CAMA benefit NOT aggregation-specific"
+      },
+      "driver-dnf": {
+        "F_stat": 0.0826,
+        "p_value": 0.7775,
+        "interpretation": "No significant interaction (p=0.7775): CAMA benefit NOT aggregation-specific"
+      }
+    },
+    "rank_analysis": {
+      "mean_aggregation": {
+        "entity_embeddings": {
+          "erank": 18.0108,
+          "normalized_erank": 0.1407,
+          "num_rows": 499,
+          "num_singular_values": 128
+        },
+        "method": "mean"
+      },
+      "sum_aggregation": {
+        "entity_embeddings": {
+          "erank": 22.5319,
+          "normalized_erank": 0.176,
+          "num_rows": 499,
+          "num_singular_values": 128
+        },
+        "method": "sum"
+      },
+      "collapse_ratio": 0.7993
+    },
+    "key_findings": [
+      "driver-position: mean_cama_vs_mean d=-0.252 (p=0.5866)",
+      "driver-position: sum_cama_vs_sum d=0.067 (p=0.8869)",
+      "driver-position: sum_vs_mean d=-0.206 (p=0.663)"
+    ]
+  },
+  "datasets": [
+    {
+      "dataset": "rel-f1/driver-position",
+      "examples": [
+        {
+          "input": "{\"method\": \"mean\", \"task\": \"driver-position\", \"seed\": 42, \"dataset\": \"rel-f1\", \"hyperparams\": {\"channels\": 128, \"lr\": 0.005, \"epochs\": 10, \"batch_size\": 512, \"num_neighbors\": 128, \"num_layers\": 2}}",
+          "output": "{\"mae\": 3.1753327231448574, \"rmse\": 4.021667564507451, \"r2\": 0.24749089733291652}",
+          "predict_baseline": "3.1753327231448574",
+          "predict_our_method": "3.1753327231448574",
+          "metadata_method": "mean",
+          "metadata_task": "driver-position",
+          "metadata_seed": 42,
+          "metadata_best_epoch": 7
+        },
+        {
+          "input": "{\"method\": \"mean\", \"task\": \"driver-position\", \"seed\": 123, \"dataset\": \"rel-f1\", \"hyperparams\": {\"channels\": 128, \"lr\": 0.005, \"epochs\": 10, \"batch_size\": 512, \"num_neighbors\": 128, \"num_layers\": 2}}",
+          "output": "{\"mae\": 3.166519306338303, \"rmse\": 3.9869845875059755, \"r2\": 0.260414250701525}",
+          "predict_baseline": "3.166519306338303",
+          "predict_our_method": "3.166519306338303",
+          "metadata_method": "mean",
+          "metadata_task": "driver-position",
+          "metadata_seed": 123,
+          "metadata_best_epoch": 9
+        },
+        {
+          "input": "{\"method\": \"mean\", \"task\": \"driver-position\", \"seed\": 456, \"dataset\": \"rel-f1\", \"hyperparams\": {\"channels\": 128, \"lr\": 0.005, \"epochs\": 10, \"batch_size\": 512, \"num_neighbors\": 128, \"num_layers\": 2}}",
+          "output": "{\"mae\": 3.237032127762605, \"rmse\": 4.044896530705278, \"r2\": 0.2387728767161813}",
+          "predict_baseline": "3.237032127762605",
+          "predict_our_method": "3.237032127762605",
+          "metadata_method": "mean",
+          "metadata_task": "driver-position",
+          "metadata_seed": 456,
+          "metadata_best_epoch": 5
+        }
+      ]
+    },
+    {
+      "dataset": "rel-f1/driver-dnf",
+      "examples": [
+        {
+          "input": "{\"method\": \"mean\", \"task\": \"driver-dnf\", \"seed\": 42, \"dataset\": \"rel-f1\", \"hyperparams\": {\"channels\": 128, \"lr\": 0.005, \"epochs\": 10, \"batch_size\": 512, \"num_neighbors\": 128, \"num_layers\": 2}}",
+          "output": "{\"average_precision\": 0.9016843355577555, \"accuracy\": 0.7791519434628975, \"f1\": 0.8758689175769613}",
+          "predict_baseline": "0.9016843355577555",
+          "predict_our_method": "0.9016843355577555",
+          "metadata_method": "mean",
+          "metadata_task": "driver-dnf",
+          "metadata_seed": 42,
+          "metadata_best_epoch": 7
+        },
+        {
+          "input": "{\"method\": \"mean\", \"task\": \"driver-dnf\", \"seed\": 123, \"dataset\": \"rel-f1\", \"hyperparams\": {\"channels\": 128, \"lr\": 0.005, \"epochs\": 10, \"batch_size\": 512, \"num_neighbors\": 128, \"num_layers\": 2}}",
+          "output": "{\"average_precision\": 0.9029927560387315, \"accuracy\": 0.7791519434628975, \"f1\": 0.8758689175769613}",
+          "predict_baseline": "0.9029927560387315",
+          "predict_our_method": "0.9029927560387315",
+          "metadata_method": "mean",
+          "metadata_task": "driver-dnf",
+          "metadata_seed": 123,
+          "metadata_best_epoch": 4
+        },
+        {
+          "input": "{\"method\": \"mean\", \"task\": \"driver-dnf\", \"seed\": 456, \"dataset\": \"rel-f1\", \"hyperparams\": {\"channels\": 128, \"lr\": 0.005, \"epochs\": 10, \"batch_size\": 512, \"num_neighbors\": 128, \"num_layers\": 2}}",
+          "output": "{\"average_precision\": 0.9024715297276402, \"accuracy\": 0.7791519434628975, \"f1\": 0.8758689175769613}",
+          "predict_baseline": "0.9024715297276402",
+          "predict_our_method": "0.9024715297276402",
+          "metadata_method": "mean",
+          "metadata_task": "driver-dnf",
+          "metadata_seed": 456,
+          "metadata_best_epoch": 3
+        }
+      ]
+    }
+  ]
+}

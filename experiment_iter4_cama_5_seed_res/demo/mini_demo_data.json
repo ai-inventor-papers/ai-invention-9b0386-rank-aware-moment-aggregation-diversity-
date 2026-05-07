@@ -1,0 +1,2380 @@
+{
+  "experiment": {
+    "name": "CAMA 5-Seed Amazon + Avito Negative Init",
+    "description": "Two-part experiment: (A) 5-seed CAMA vs mean on rel-amazon/item-ltv, (B) 5-seed mean vs CAMA-default vs CAMA-negative-init on rel-avito/ad-ctr to fix 34% degradation by initializing gate_bias=-3.",
+    "methods": {
+      "mean_baseline": "Standard mean aggregation",
+      "cama_default": "CAMA with gate_bias=0 (iter-3 default)",
+      "cama_neg_init": "CAMA with gate_bias=-3 (starts nearly closed)"
+    },
+    "seeds": [
+      42,
+      123,
+      456,
+      789,
+      1024
+    ],
+    "hyperparameters": {
+      "part_a": {
+        "channels": 128,
+        "lr": 0.005,
+        "epochs": 5,
+        "batch_size": 512,
+        "num_neighbors": [
+          128,
+          128
+        ],
+        "max_steps_per_epoch": 2000,
+        "grad_clip": 1.0,
+        "methods": [
+          "mean_baseline",
+          "cama_default"
+        ]
+      },
+      "part_b": {
+        "channels": 64,
+        "lr": 0.005,
+        "epochs": 5,
+        "batch_size": 256,
+        "num_neighbors": [
+          64,
+          64
+        ],
+        "max_steps_per_epoch": 2000,
+        "grad_clip": 1.0,
+        "methods": [
+          "mean_baseline",
+          "cama_default",
+          "cama_neg_init"
+        ]
+      },
+      "seeds": [
+        42,
+        123,
+        456,
+        789,
+        1024
+      ]
+    },
+    "test_target_status": {
+      "rel-amazon/item-ltv": {
+        "target_col": "ltv",
+        "test_columns": [
+          "timestamp",
+          "product_id"
+        ],
+        "target_present": false,
+        "available": false
+      },
+      "rel-avito/ad-ctr": {
+        "target_col": "num_click",
+        "test_columns": [
+          "timestamp",
+          "AdID"
+        ],
+        "target_present": false,
+        "available": false
+      }
+    },
+    "deviations": [
+      "Reduced epochs from 10 to 5 (plan fallback mode 7: time constraints)",
+      "Removed review_text and summary from review table to prevent OOM",
+      "Removed customer_name from customer table"
+    ]
+  },
+  "results": {
+    "part_a_amazon": {
+      "task": "rel-amazon/item-ltv",
+      "evaluation_split": "val",
+      "per_method": {
+        "mean_baseline": {
+          "mean_mae": 171.909069,
+          "std_mae": 142.415754,
+          "mean_r2": -0.158361,
+          "per_seed": {
+            "42": {
+              "val_mae": 244.62124287377324,
+              "val_r2": -0.18368348483781127,
+              "best_epoch": 2,
+              "wall_clock_s": 339.5,
+              "train_losses": [
+                55.570342,
+                54.980394,
+                55.243754,
+                55.777729,
+                55.773203
+              ]
+            },
+            "123": {
+              "val_mae": 59.79714517309985,
+              "val_r2": -0.014424114187590487,
+              "best_epoch": 4,
+              "wall_clock_s": 340.5,
+              "train_losses": [
+                56.408535,
+                55.901761,
+                55.308502,
+                55.480985,
+                54.842179
+              ]
+            },
+            "456": {
+              "val_mae": 94.0115981975449,
+              "val_r2": -0.0016778511262791618,
+              "best_epoch": 1,
+              "wall_clock_s": 340.5,
+              "train_losses": [
+                55.669683,
+                55.265245,
+                55.576582,
+                55.263092,
+                54.744514
+              ]
+            },
+            "789": {
+              "val_mae": 389.1854029350224,
+              "val_r2": -0.5909633266233987,
+              "best_epoch": 1,
+              "wall_clock_s": 339.5,
+              "train_losses": [
+                55.402153,
+                54.494412,
+                55.345635,
+                55.383982,
+                55.696576
+              ]
+            },
+            "1024": {
+              "val_mae": 71.92995405199359,
+              "val_r2": -0.0010541026819455013,
+              "best_epoch": 5,
+              "wall_clock_s": 343.9,
+              "train_losses": [
+                55.470805,
+                55.287343,
+                55.180504,
+                55.031462,
+                55.128283
+              ]
+            }
+          }
+        },
+        "cama_default": {
+          "mean_mae": 343.095362,
+          "std_mae": 103.060464,
+          "mean_r2": -0.48218,
+          "per_seed": {
+            "42": {
+              "val_mae": 389.1854029350224,
+              "val_r2": -0.5909633266233987,
+              "best_epoch": 1,
+              "wall_clock_s": 455.7,
+              "train_losses": [
+                53.751055,
+                51.644452,
+                52.6354,
+                53.273408,
+                52.111335
+              ],
+              "gate_stats": {
+                "L0_review__f2p_customer_id__customer": {
+                  "mean_gate": 0.5,
+                  "mean_N": 0.0,
+                  "mean_rho": 0.000364
+                },
+                "L0_customer__rev_f2p_customer_id__review": {
+                  "mean_gate": 0.5,
+                  "mean_N": 1.0,
+                  "mean_rho": 0.000364
+                },
+                "L0_review__f2p_product_id__product": {
+                  "mean_gate": 0.5,
+                  "mean_N": 44.87,
+                  "mean_rho": 0.000364
+                },
+                "L0_product__rev_f2p_product_id__review": {
+                  "mean_gate": 0.5,
+                  "mean_N": 1.0,
+                  "mean_rho": 0.000364
+                },
+                "L1_review__f2p_customer_id__customer": {
+                  "mean_gate": 0.5,
+                  "mean_N": 0.0,
+                  "mean_rho": 0.000364
+                },
+                "L1_customer__rev_f2p_customer_id__review": {
+                  "mean_gate": 0.5,
+                  "mean_N": 1.0,
+                  "mean_rho": 0.000364
+                },
+                "L1_review__f2p_product_id__product": {
+                  "mean_gate": 0.358631,
+                  "mean_N": 44.87,
+                  "mean_rho": 0.169047
+                },
+                "L1_product__rev_f2p_product_id__review": {
+                  "mean_gate": 0.5,
+                  "mean_N": 1.0,
+                  "mean_rho": 0.000364
+                }
+              }
+            },
+            "123": {
+              "val_mae": 389.1854029350224,
+              "val_r2": -0.5909633266233987,
+              "best_epoch": 1,
+              "wall_clock_s": 451.5,
+              "train_losses": [
+                52.939972,
+                52.39541,
+                52.977239,
+                51.464735,
+                51.489541
+              ],
+              "gate_stats": {
+                "L0_review__f2p_customer_id__customer": {
+                  "mean_gate": 0.5,
+                  "mean_N": 0.0,
+                  "mean_rho": 0.000364
+                },
+                "L0_customer__rev_f2p_customer_id__review": {
+                  "mean_gate": 0.5,
+                  "mean_N": 1.0,
+                  "mean_rho": 0.000364
+                },
+                "L0_review__f2p_product_id__product": {
+                  "mean_gate": 0.5,
+                  "mean_N": 44.87,
+                  "mean_rho": 0.000364
+                },
+                "L0_product__rev_f2p_product_id__review": {
+                  "mean_gate": 0.5,
+                  "mean_N": 1.0,
+                  "mean_rho": 0.000364
+                },
+                "L1_review__f2p_customer_id__customer": {
+                  "mean_gate": 0.5,
+                  "mean_N": 0.0,
+                  "mean_rho": 0.000364
+                },
+                "L1_customer__rev_f2p_customer_id__review": {
+                  "mean_gate": 0.5,
+                  "mean_N": 1.0,
+                  "mean_rho": 0.000364
+                },
+                "L1_review__f2p_product_id__product": {
+                  "mean_gate": 0.365504,
+                  "mean_N": 44.87,
+                  "mean_rho": 0.232695
+                },
+                "L1_product__rev_f2p_product_id__review": {
+                  "mean_gate": 0.5,
+                  "mean_N": 1.0,
+                  "mean_rho": 0.000364
+                }
+              }
+            },
+            "456": {
+              "val_mae": 389.1854029350224,
+              "val_r2": -0.5909633266233987,
+              "best_epoch": 1,
+              "wall_clock_s": 457.7,
+              "train_losses": [
+                52.548628,
+                52.411199,
+                52.675521,
+                52.654429,
+                52.08829
+              ],
+              "gate_stats": {
+                "L0_review__f2p_customer_id__customer": {
+                  "mean_gate": 0.5,
+                  "mean_N": 0.0,
+                  "mean_rho": 0.000364
+                },
+                "L0_customer__rev_f2p_customer_id__review": {
+                  "mean_gate": 0.5,
+                  "mean_N": 1.0,
+                  "mean_rho": 0.000364
+                },
+                "L0_review__f2p_product_id__product": {
+                  "mean_gate": 0.5,
+                  "mean_N": 44.87,
+                  "mean_rho": 0.000364
+                },
+                "L0_product__rev_f2p_product_id__review": {
+                  "mean_gate": 0.5,
+                  "mean_N": 1.0,
+                  "mean_rho": 0.000364
+                },
+                "L1_review__f2p_customer_id__customer": {
+                  "mean_gate": 0.5,
+                  "mean_N": 0.0,
+                  "mean_rho": 0.000364
+                },
+                "L1_customer__rev_f2p_customer_id__review": {
+                  "mean_gate": 0.5,
+                  "mean_N": 1.0,
+                  "mean_rho": 0.000364
+                },
+                "L1_review__f2p_product_id__product": {
+                  "mean_gate": 0.357731,
+                  "mean_N": 44.87,
+                  "mean_rho": 0.095737
+                },
+                "L1_product__rev_f2p_product_id__review": {
+                  "mean_gate": 0.5,
+                  "mean_N": 1.0,
+                  "mean_rho": 0.000364
+                }
+              }
+            },
+            "789": {
+              "val_mae": 389.1854029350224,
+              "val_r2": -0.5909633266233987,
+              "best_epoch": 1,
+              "wall_clock_s": 460.3,
+              "train_losses": [
+                53.394688,
+                51.841566,
+                51.696052,
+                52.665471,
+                51.945455
+              ],
+              "gate_stats": {
+                "L0_review__f2p_customer_id__customer": {
+                  "mean_gate": 0.5,
+                  "mean_N": 0.0,
+                  "mean_rho": 0.000364
+                },
+                "L0_customer__rev_f2p_customer_id__review": {
+                  "mean_gate": 0.5,
+                  "mean_N": 1.0,
+                  "mean_rho": 0.000364
+                },
+                "L0_review__f2p_product_id__product": {
+                  "mean_gate": 0.5,
+                  "mean_N": 44.87,
+                  "mean_rho": 0.000364
+                },
+                "L0_product__rev_f2p_product_id__review": {
+                  "mean_gate": 0.5,
+                  "mean_N": 1.0,
+                  "mean_rho": 0.000364
+                },
+                "L1_review__f2p_customer_id__customer": {
+                  "mean_gate": 0.5,
+                  "mean_N": 0.0,
+                  "mean_rho": 0.000364
+                },
+                "L1_customer__rev_f2p_customer_id__review": {
+                  "mean_gate": 0.5,
+                  "mean_N": 1.0,
+                  "mean_rho": 0.000364
+                },
+                "L1_review__f2p_product_id__product": {
+                  "mean_gate": 0.399169,
+                  "mean_N": 44.87,
+                  "mean_rho": 0.207729
+                },
+                "L1_product__rev_f2p_product_id__review": {
+                  "mean_gate": 0.5,
+                  "mean_N": 1.0,
+                  "mean_rho": 0.000364
+                }
+              }
+            },
+            "1024": {
+              "val_mae": 158.73519884188977,
+              "val_r2": -0.04704677345350672,
+              "best_epoch": 1,
+              "wall_clock_s": 454.7,
+              "train_losses": [
+                52.736596,
+                52.408248,
+                52.56894,
+                52.509001,
+                52.547765
+              ],
+              "gate_stats": {
+                "L0_review__f2p_customer_id__customer": {
+                  "mean_gate": 0.5,
+                  "mean_N": 0.0,
+                  "mean_rho": 0.000364
+                },
+                "L0_customer__rev_f2p_customer_id__review": {
+                  "mean_gate": 0.5,
+                  "mean_N": 1.0,
+                  "mean_rho": 0.000364
+                },
+                "L0_review__f2p_product_id__product": {
+                  "mean_gate": 0.5,
+                  "mean_N": 44.87,
+                  "mean_rho": 0.000364
+                },
+                "L0_product__rev_f2p_product_id__review": {
+                  "mean_gate": 0.5,
+                  "mean_N": 1.0,
+                  "mean_rho": 0.000364
+                },
+                "L1_review__f2p_customer_id__customer": {
+                  "mean_gate": 0.5,
+                  "mean_N": 0.0,
+                  "mean_rho": 0.000364
+                },
+                "L1_customer__rev_f2p_customer_id__review": {
+                  "mean_gate": 0.5,
+                  "mean_N": 1.0,
+                  "mean_rho": 0.000364
+                },
+                "L1_review__f2p_product_id__product": {
+                  "mean_gate": 0.526552,
+                  "mean_N": 44.87,
+                  "mean_rho": 0.016205
+                },
+                "L1_product__rev_f2p_product_id__review": {
+                  "mean_gate": 0.5,
+                  "mean_N": 1.0,
+                  "mean_rho": 0.000364
+                }
+              }
+            }
+          }
+        }
+      },
+      "statistical_comparison": {
+        "cama_default_vs_mean": {
+          "cohens_d": -1.377142,
+          "d_ci_95": [
+            -2.674198,
+            -0.080086
+          ],
+          "p_value_ttest": 0.05140652,
+          "t_statistic": -2.749392,
+          "wilcoxon_stat": 0.0,
+          "wilcoxon_p": 0.125,
+          "mean_a": 171.909069,
+          "std_a": 142.415754,
+          "mean_b": 343.095362,
+          "std_b": 103.060464,
+          "n": 5
+        }
+      }
+    },
+    "part_b_avito": {
+      "task": "rel-avito/ad-ctr",
+      "evaluation_split": "val",
+      "per_method": {
+        "mean_baseline": {
+          "mean_mae": 0.042729,
+          "std_mae": 0.003456,
+          "mean_r2": -0.149782,
+          "per_seed": {
+            "42": {
+              "val_mae": 0.04082965210666368,
+              "val_r2": -0.14114534626210684,
+              "best_epoch": 1,
+              "wall_clock_s": 10.0,
+              "train_losses": [
+                0.079498,
+                0.040222,
+                0.03715,
+                0.036018,
+                0.036375
+              ]
+            },
+            "123": {
+              "val_mae": 0.03992330743944193,
+              "val_r2": -0.08358583232211436,
+              "best_epoch": 1,
+              "wall_clock_s": 9.9,
+              "train_losses": [
+                0.076434,
+                0.051835,
+                0.038259,
+                0.038276,
+                0.038246
+              ]
+            },
+            "456": {
+              "val_mae": 0.03990635818495174,
+              "val_r2": -0.08524375376254212,
+              "best_epoch": 3,
+              "wall_clock_s": 9.9,
+              "train_losses": [
+                0.086735,
+                0.058519,
+                0.038322,
+                0.03989,
+                0.036187
+              ]
+            },
+            "789": {
+              "val_mae": 0.046493200830915515,
+              "val_r2": -0.2194665881573017,
+              "best_epoch": 1,
+              "wall_clock_s": 10.0,
+              "train_losses": [
+                0.073348,
+                0.039622,
+                0.0372,
+                0.036435,
+                0.036076
+              ]
+            },
+            "1024": {
+              "val_mae": 0.046493200830915515,
+              "val_r2": -0.2194665881573017,
+              "best_epoch": 1,
+              "wall_clock_s": 10.0,
+              "train_losses": [
+                0.084235,
+                0.047749,
+                0.057229,
+                0.045919,
+                0.044251
+              ]
+            }
+          }
+        },
+        "cama_default": {
+          "mean_mae": 0.044751,
+          "std_mae": 0.002562,
+          "mean_r2": -0.163811,
+          "per_seed": {
+            "42": {
+              "val_mae": 0.043458021608742785,
+              "val_r2": -0.019812564264645394,
+              "best_epoch": 1,
+              "wall_clock_s": 15.2,
+              "train_losses": [
+                0.073868,
+                0.0573,
+                0.037047,
+                0.036371,
+                0.036605
+              ],
+              "gate_stats": {
+                "L0_PhoneRequestsStream__f2p_AdID__AdsInfo": {
+                  "mean_gate": 0.5,
+                  "mean_N": 0.0,
+                  "mean_rho": 0.000213
+                },
+                "L0_VisitStream__f2p_AdID__AdsInfo": {
+                  "mean_gate": 0.5,
+                  "mean_N": 0.0,
+                  "mean_rho": 0.000213
+                },
+                "L0_SearchStream__f2p_SearchID__SearchInfo": {
+                  "mean_gate": 0.5,
+                  "mean_N": 0.0,
+                  "mean_rho": 0.000213
+                },
+                "L0_SearchInfo__rev_f2p_SearchID__SearchStream": {
+                  "mean_gate": 0.5,
+                  "mean_N": 1.0,
+                  "mean_rho": 0.000213
+                },
+                "L0_SearchStream__f2p_AdID__AdsInfo": {
+                  "mean_gate": 0.5,
+                  "mean_N": 7.32,
+                  "mean_rho": 0.000213
+                },
+                "L0_AdsInfo__rev_f2p_AdID__SearchStream": {
+                  "mean_gate": 0.5,
+                  "mean_N": 1.0,
+                  "mean_rho": 0.000213
+                },
+                "L0_UserInfo__rev_f2p_UserID__SearchInfo": {
+                  "mean_gate": 0.5,
+                  "mean_N": 0.0,
+                  "mean_rho": 0.000213
+                },
+                "L0_Location__rev_f2p_LocationID__SearchInfo": {
+                  "mean_gate": 0.5,
+                  "mean_N": 0.0,
+                  "mean_rho": 0.000213
+                },
+                "L0_SearchInfo__f2p_CategoryID__Category": {
+                  "mean_gate": 0.5,
+                  "mean_N": 64.0,
+                  "mean_rho": 0.000213
+                },
+                "L0_Category__rev_f2p_CategoryID__SearchInfo": {
+                  "mean_gate": 0.5,
+                  "mean_N": 0.0,
+                  "mean_rho": 0.000213
+                },
+                "L0_Location__rev_f2p_LocationID__AdsInfo": {
+                  "mean_gate": 0.5,
+                  "mean_N": 0.0,
+                  "mean_rho": 0.000213
+                },
+                "L0_AdsInfo__f2p_CategoryID__Category": {
+                  "mean_gate": 0.5,
+                  "mean_N": 64.0,
+                  "mean_rho": 0.000213
+                },
+                "L0_Category__rev_f2p_CategoryID__AdsInfo": {
+                  "mean_gate": 0.5,
+                  "mean_N": 0.12,
+                  "mean_rho": 0.000213
+                },
+                "L1_PhoneRequestsStream__f2p_AdID__AdsInfo": {
+                  "mean_gate": 0.5,
+                  "mean_N": 0.0,
+                  "mean_rho": 0.000213
+                },
+                "L1_VisitStream__f2p_AdID__AdsInfo": {
+                  "mean_gate": 0.5,
+                  "mean_N": 0.0,
+                  "mean_rho": 0.000213
+                },
+                "L1_SearchStream__f2p_SearchID__SearchInfo": {
+                  "mean_gate": 0.5,
+                  "mean_N": 0.0,
+                  "mean_rho": 0.000213
+                },
+                "L1_SearchInfo__rev_f2p_SearchID__SearchStream": {
+                  "mean_gate": 0.5,
+                  "mean_N": 1.0,
+                  "mean_rho": 0.000213
+                },
+                "L1_SearchStream__f2p_AdID__AdsInfo": {
+                  "mean_gate": 0.5,
+                  "mean_N": 7.32,
+                  "mean_rho": 0.006254
+                },
+                "L1_AdsInfo__rev_f2p_AdID__SearchStream": {
+                  "mean_gate": 0.5,
+                  "mean_N": 1.0,
+                  "mean_rho": 0.000213
+                },
+                "L1_UserInfo__rev_f2p_UserID__SearchInfo": {
+                  "mean_gate": 0.5,
+                  "mean_N": 0.0,
+                  "mean_rho": 0.000213
+                },
+                "L1_Location__rev_f2p_LocationID__SearchInfo": {
+                  "mean_gate": 0.5,
+                  "mean_N": 0.0,
+                  "mean_rho": 0.000213
+                },
+                "L1_SearchInfo__f2p_CategoryID__Category": {
+                  "mean_gate": 0.5,
+                  "mean_N": 64.0,
+                  "mean_rho": 0.028076
+                },
+                "L1_Category__rev_f2p_CategoryID__SearchInfo": {
+                  "mean_gate": 0.5,
+                  "mean_N": 0.0,
+                  "mean_rho": 0.000213
+                },
+                "L1_Location__rev_f2p_LocationID__AdsInfo": {
+                  "mean_gate": 0.5,
+                  "mean_N": 0.0,
+                  "mean_rho": 0.000213
+                },
+                "L1_AdsInfo__f2p_CategoryID__Category": {
+                  "mean_gate": 0.5,
+                  "mean_N": 64.0,
+                  "mean_rho": 0.136443
+                },
+                "L1_Category__rev_f2p_CategoryID__AdsInfo": {
+                  "mean_gate": 0.5,
+                  "mean_N": 0.12,
+                  "mean_rho": 0.000213
+                }
+              }
+            },
+            "123": {
+              "val_mae": 0.046493200830915515,
+              "val_r2": -0.2194665881573017,
+              "best_epoch": 3,
+              "wall_clock_s": 15.1,
+              "train_losses": [
+                0.072835,
+                0.042239,
+                0.038945,
+                0.036877,
+                0.03637
+              ],
+              "gate_stats": {
+                "L0_PhoneRequestsStream__f2p_AdID__AdsInfo": {
+                  "mean_gate": 0.5,
+                  "mean_N": 0.0,
+                  "mean_rho": 0.000213
+                },
+                "L0_VisitStream__f2p_AdID__AdsInfo": {
+                  "mean_gate": 0.5,
+                  "mean_N": 0.0,
+                  "mean_rho": 0.000213
+                },
+                "L0_SearchStream__f2p_SearchID__SearchInfo": {
+                  "mean_gate": 0.5,
+                  "mean_N": 0.0,
+                  "mean_rho": 0.000213
+                },
+                "L0_SearchInfo__rev_f2p_SearchID__SearchStream": {
+                  "mean_gate": 0.5,
+                  "mean_N": 1.0,
+                  "mean_rho": 0.000213
+                },
+                "L0_SearchStream__f2p_AdID__AdsInfo": {
+                  "mean_gate": 0.5,
+                  "mean_N": 7.32,
+                  "mean_rho": 0.000213
+                },
+                "L0_AdsInfo__rev_f2p_AdID__SearchStream": {
+                  "mean_gate": 0.5,
+                  "mean_N": 1.0,
+                  "mean_rho": 0.000213
+                },
+                "L0_UserInfo__rev_f2p_UserID__SearchInfo": {
+                  "mean_gate": 0.5,
+                  "mean_N": 0.0,
+                  "mean_rho": 0.000213
+                },
+                "L0_Location__rev_f2p_LocationID__SearchInfo": {
+                  "mean_gate": 0.5,
+                  "mean_N": 0.0,
+                  "mean_rho": 0.000213
+                },
+                "L0_SearchInfo__f2p_CategoryID__Category": {
+                  "mean_gate": 0.5,
+                  "mean_N": 64.0,
+                  "mean_rho": 0.000213
+                },
+                "L0_Category__rev_f2p_CategoryID__SearchInfo": {
+                  "mean_gate": 0.5,
+                  "mean_N": 0.0,
+                  "mean_rho": 0.000213
+                },
+                "L0_Location__rev_f2p_LocationID__AdsInfo": {
+                  "mean_gate": 0.5,
+                  "mean_N": 0.0,
+                  "mean_rho": 0.000213
+                },
+                "L0_AdsInfo__f2p_CategoryID__Category": {
+                  "mean_gate": 0.5,
+                  "mean_N": 64.0,
+                  "mean_rho": 0.000213
+                },
+                "L0_Category__rev_f2p_CategoryID__AdsInfo": {
+                  "mean_gate": 0.5,
+                  "mean_N": 0.12,
+                  "mean_rho": 0.000213
+                },
+                "L1_PhoneRequestsStream__f2p_AdID__AdsInfo": {
+                  "mean_gate": 0.5,
+                  "mean_N": 0.0,
+                  "mean_rho": 0.000213
+                },
+                "L1_VisitStream__f2p_AdID__AdsInfo": {
+                  "mean_gate": 0.5,
+                  "mean_N": 0.0,
+                  "mean_rho": 0.000213
+                },
+                "L1_SearchStream__f2p_SearchID__SearchInfo": {
+                  "mean_gate": 0.5,
+                  "mean_N": 0.0,
+                  "mean_rho": 0.000213
+                },
+                "L1_SearchInfo__rev_f2p_SearchID__SearchStream": {
+                  "mean_gate": 0.5,
+                  "mean_N": 1.0,
+                  "mean_rho": 0.000213
+                },
+                "L1_SearchStream__f2p_AdID__AdsInfo": {
+                  "mean_gate": 0.5,
+                  "mean_N": 7.32,
+                  "mean_rho": 0.016033
+                },
+                "L1_AdsInfo__rev_f2p_AdID__SearchStream": {
+                  "mean_gate": 0.5,
+                  "mean_N": 1.0,
+                  "mean_rho": 0.000213
+                },
+                "L1_UserInfo__rev_f2p_UserID__SearchInfo": {
+                  "mean_gate": 0.5,
+                  "mean_N": 0.0,
+                  "mean_rho": 0.000213
+                },
+                "L1_Location__rev_f2p_LocationID__SearchInfo": {
+                  "mean_gate": 0.5,
+                  "mean_N": 0.0,
+                  "mean_rho": 0.000213
+                },
+                "L1_SearchInfo__f2p_CategoryID__Category": {
+                  "mean_gate": 0.5,
+                  "mean_N": 64.0,
+                  "mean_rho": 0.001115
+                },
+                "L1_Category__rev_f2p_CategoryID__SearchInfo": {
+                  "mean_gate": 0.5,
+                  "mean_N": 0.0,
+                  "mean_rho": 0.000213
+                },
+                "L1_Location__rev_f2p_LocationID__AdsInfo": {
+                  "mean_gate": 0.5,
+                  "mean_N": 0.0,
+                  "mean_rho": 0.000213
+                },
+                "L1_AdsInfo__f2p_CategoryID__Category": {
+                  "mean_gate": 0.5,
+                  "mean_N": 64.0,
+                  "mean_rho": 0.188733
+                },
+                "L1_Category__rev_f2p_CategoryID__AdsInfo": {
+                  "mean_gate": 0.5,
+                  "mean_N": 0.12,
+                  "mean_rho": 0.000213
+                }
+              }
+            },
+            "456": {
+              "val_mae": 0.046493200830915515,
+              "val_r2": -0.2194665881573017,
+              "best_epoch": 1,
+              "wall_clock_s": 14.7,
+              "train_losses": [
+                0.103866,
+                0.052981,
+                0.051054,
+                0.044945,
+                0.038188
+              ],
+              "gate_stats": {
+                "L0_PhoneRequestsStream__f2p_AdID__AdsInfo": {
+                  "mean_gate": 0.5,
+                  "mean_N": 0.0,
+                  "mean_rho": 0.000213
+                },
+                "L0_VisitStream__f2p_AdID__AdsInfo": {
+                  "mean_gate": 0.5,
+                  "mean_N": 0.0,
+                  "mean_rho": 0.000213
+                },
+                "L0_SearchStream__f2p_SearchID__SearchInfo": {
+                  "mean_gate": 0.5,
+                  "mean_N": 0.0,
+                  "mean_rho": 0.000213
+                },
+                "L0_SearchInfo__rev_f2p_SearchID__SearchStream": {
+                  "mean_gate": 0.5,
+                  "mean_N": 1.0,
+                  "mean_rho": 0.000213
+                },
+                "L0_SearchStream__f2p_AdID__AdsInfo": {
+                  "mean_gate": 0.5,
+                  "mean_N": 7.32,
+                  "mean_rho": 0.000213
+                },
+                "L0_AdsInfo__rev_f2p_AdID__SearchStream": {
+                  "mean_gate": 0.5,
+                  "mean_N": 1.0,
+                  "mean_rho": 0.000213
+                },
+                "L0_UserInfo__rev_f2p_UserID__SearchInfo": {
+                  "mean_gate": 0.5,
+                  "mean_N": 0.0,
+                  "mean_rho": 0.000213
+                },
+                "L0_Location__rev_f2p_LocationID__SearchInfo": {
+                  "mean_gate": 0.5,
+                  "mean_N": 0.0,
+                  "mean_rho": 0.000213
+                },
+                "L0_SearchInfo__f2p_CategoryID__Category": {
+                  "mean_gate": 0.5,
+                  "mean_N": 64.0,
+                  "mean_rho": 0.000213
+                },
+                "L0_Category__rev_f2p_CategoryID__SearchInfo": {
+                  "mean_gate": 0.5,
+                  "mean_N": 0.0,
+                  "mean_rho": 0.000213
+                },
+                "L0_Location__rev_f2p_LocationID__AdsInfo": {
+                  "mean_gate": 0.5,
+                  "mean_N": 0.0,
+                  "mean_rho": 0.000213
+                },
+                "L0_AdsInfo__f2p_CategoryID__Category": {
+                  "mean_gate": 0.5,
+                  "mean_N": 64.0,
+                  "mean_rho": 0.000213
+                },
+                "L0_Category__rev_f2p_CategoryID__AdsInfo": {
+                  "mean_gate": 0.5,
+                  "mean_N": 0.12,
+                  "mean_rho": 0.000213
+                },
+                "L1_PhoneRequestsStream__f2p_AdID__AdsInfo": {
+                  "mean_gate": 0.5,
+                  "mean_N": 0.0,
+                  "mean_rho": 0.000213
+                },
+                "L1_VisitStream__f2p_AdID__AdsInfo": {
+                  "mean_gate": 0.5,
+                  "mean_N": 0.0,
+                  "mean_rho": 0.000213
+                },
+                "L1_SearchStream__f2p_SearchID__SearchInfo": {
+                  "mean_gate": 0.5,
+                  "mean_N": 0.0,
+                  "mean_rho": 0.000213
+                },
+                "L1_SearchInfo__rev_f2p_SearchID__SearchStream": {
+                  "mean_gate": 0.5,
+                  "mean_N": 1.0,
+                  "mean_rho": 0.000213
+                },
+                "L1_SearchStream__f2p_AdID__AdsInfo": {
+                  "mean_gate": 0.5,
+                  "mean_N": 7.32,
+                  "mean_rho": 0.007805
+                },
+                "L1_AdsInfo__rev_f2p_AdID__SearchStream": {
+                  "mean_gate": 0.5,
+                  "mean_N": 1.0,
+                  "mean_rho": 0.000213
+                },
+                "L1_UserInfo__rev_f2p_UserID__SearchInfo": {
+                  "mean_gate": 0.5,
+                  "mean_N": 0.0,
+                  "mean_rho": 0.000213
+                },
+                "L1_Location__rev_f2p_LocationID__SearchInfo": {
+                  "mean_gate": 0.5,
+                  "mean_N": 0.0,
+                  "mean_rho": 0.000213
+                },
+                "L1_SearchInfo__f2p_CategoryID__Category": {
+                  "mean_gate": 0.5,
+                  "mean_N": 64.0,
+                  "mean_rho": 0.068819
+                },
+                "L1_Category__rev_f2p_CategoryID__SearchInfo": {
+                  "mean_gate": 0.5,
+                  "mean_N": 0.0,
+                  "mean_rho": 0.000213
+                },
+                "L1_Location__rev_f2p_LocationID__AdsInfo": {
+                  "mean_gate": 0.5,
+                  "mean_N": 0.0,
+                  "mean_rho": 0.000213
+                },
+                "L1_AdsInfo__f2p_CategoryID__Category": {
+                  "mean_gate": 0.5,
+                  "mean_N": 64.0,
+                  "mean_rho": 0.189803
+                },
+                "L1_Category__rev_f2p_CategoryID__AdsInfo": {
+                  "mean_gate": 0.5,
+                  "mean_N": 0.12,
+                  "mean_rho": 0.000213
+                }
+              }
+            },
+            "789": {
+              "val_mae": 0.046493200830915515,
+              "val_r2": -0.2194665881573017,
+              "best_epoch": 1,
+              "wall_clock_s": 14.8,
+              "train_losses": [
+                0.063567,
+                0.043638,
+                0.039287,
+                0.038181,
+                0.036404
+              ],
+              "gate_stats": {
+                "L0_PhoneRequestsStream__f2p_AdID__AdsInfo": {
+                  "mean_gate": 0.5,
+                  "mean_N": 0.0,
+                  "mean_rho": 0.000213
+                },
+                "L0_VisitStream__f2p_AdID__AdsInfo": {
+                  "mean_gate": 0.5,
+                  "mean_N": 0.0,
+                  "mean_rho": 0.000213
+                },
+                "L0_SearchStream__f2p_SearchID__SearchInfo": {
+                  "mean_gate": 0.5,
+                  "mean_N": 0.0,
+                  "mean_rho": 0.000213
+                },
+                "L0_SearchInfo__rev_f2p_SearchID__SearchStream": {
+                  "mean_gate": 0.5,
+                  "mean_N": 1.0,
+                  "mean_rho": 0.000213
+                },
+                "L0_SearchStream__f2p_AdID__AdsInfo": {
+                  "mean_gate": 0.5,
+                  "mean_N": 7.32,
+                  "mean_rho": 0.000213
+                },
+                "L0_AdsInfo__rev_f2p_AdID__SearchStream": {
+                  "mean_gate": 0.5,
+                  "mean_N": 1.0,
+                  "mean_rho": 0.000213
+                },
+                "L0_UserInfo__rev_f2p_UserID__SearchInfo": {
+                  "mean_gate": 0.5,
+                  "mean_N": 0.0,
+                  "mean_rho": 0.000213
+                },
+                "L0_Location__rev_f2p_LocationID__SearchInfo": {
+                  "mean_gate": 0.5,
+                  "mean_N": 0.0,
+                  "mean_rho": 0.000213
+                },
+                "L0_SearchInfo__f2p_CategoryID__Category": {
+                  "mean_gate": 0.5,
+                  "mean_N": 64.0,
+                  "mean_rho": 0.000213
+                },
+                "L0_Category__rev_f2p_CategoryID__SearchInfo": {
+                  "mean_gate": 0.5,
+                  "mean_N": 0.0,
+                  "mean_rho": 0.000213
+                },
+                "L0_Location__rev_f2p_LocationID__AdsInfo": {
+                  "mean_gate": 0.5,
+                  "mean_N": 0.0,
+                  "mean_rho": 0.000213
+                },
+                "L0_AdsInfo__f2p_CategoryID__Category": {
+                  "mean_gate": 0.5,
+                  "mean_N": 64.0,
+                  "mean_rho": 0.000213
+                },
+                "L0_Category__rev_f2p_CategoryID__AdsInfo": {
+                  "mean_gate": 0.5,
+                  "mean_N": 0.12,
+                  "mean_rho": 0.000213
+                },
+                "L1_PhoneRequestsStream__f2p_AdID__AdsInfo": {
+                  "mean_gate": 0.5,
+                  "mean_N": 0.0,
+                  "mean_rho": 0.000213
+                },
+                "L1_VisitStream__f2p_AdID__AdsInfo": {
+                  "mean_gate": 0.5,
+                  "mean_N": 0.0,
+                  "mean_rho": 0.000213
+                },
+                "L1_SearchStream__f2p_SearchID__SearchInfo": {
+                  "mean_gate": 0.5,
+                  "mean_N": 0.0,
+                  "mean_rho": 0.000213
+                },
+                "L1_SearchInfo__rev_f2p_SearchID__SearchStream": {
+                  "mean_gate": 0.5,
+                  "mean_N": 1.0,
+                  "mean_rho": 0.000213
+                },
+                "L1_SearchStream__f2p_AdID__AdsInfo": {
+                  "mean_gate": 0.5,
+                  "mean_N": 7.32,
+                  "mean_rho": 0.003853
+                },
+                "L1_AdsInfo__rev_f2p_AdID__SearchStream": {
+                  "mean_gate": 0.5,
+                  "mean_N": 1.0,
+                  "mean_rho": 0.000213
+                },
+                "L1_UserInfo__rev_f2p_UserID__SearchInfo": {
+                  "mean_gate": 0.5,
+                  "mean_N": 0.0,
+                  "mean_rho": 0.000213
+                },
+                "L1_Location__rev_f2p_LocationID__SearchInfo": {
+                  "mean_gate": 0.5,
+                  "mean_N": 0.0,
+                  "mean_rho": 0.000213
+                },
+                "L1_SearchInfo__f2p_CategoryID__Category": {
+                  "mean_gate": 0.5,
+                  "mean_N": 64.0,
+                  "mean_rho": 0.022599
+                },
+                "L1_Category__rev_f2p_CategoryID__SearchInfo": {
+                  "mean_gate": 0.5,
+                  "mean_N": 0.0,
+                  "mean_rho": 0.000213
+                },
+                "L1_Location__rev_f2p_LocationID__AdsInfo": {
+                  "mean_gate": 0.5,
+                  "mean_N": 0.0,
+                  "mean_rho": 0.000213
+                },
+                "L1_AdsInfo__f2p_CategoryID__Category": {
+                  "mean_gate": 0.5,
+                  "mean_N": 64.0,
+                  "mean_rho": 0.114937
+                },
+                "L1_Category__rev_f2p_CategoryID__AdsInfo": {
+                  "mean_gate": 0.5,
+                  "mean_N": 0.12,
+                  "mean_rho": 0.000213
+                }
+              }
+            },
+            "1024": {
+              "val_mae": 0.04081733979252915,
+              "val_r2": -0.1408430573536119,
+              "best_epoch": 2,
+              "wall_clock_s": 14.2,
+              "train_losses": [
+                0.061265,
+                0.043565,
+                0.03855,
+                0.03765,
+                0.036674
+              ],
+              "gate_stats": {
+                "L0_PhoneRequestsStream__f2p_AdID__AdsInfo": {
+                  "mean_gate": 0.5,
+                  "mean_N": 0.0,
+                  "mean_rho": 0.000213
+                },
+                "L0_VisitStream__f2p_AdID__AdsInfo": {
+                  "mean_gate": 0.5,
+                  "mean_N": 0.0,
+                  "mean_rho": 0.000213
+                },
+                "L0_SearchStream__f2p_SearchID__SearchInfo": {
+                  "mean_gate": 0.5,
+                  "mean_N": 0.0,
+                  "mean_rho": 0.000213
+                },
+                "L0_SearchInfo__rev_f2p_SearchID__SearchStream": {
+                  "mean_gate": 0.5,
+                  "mean_N": 1.0,
+                  "mean_rho": 0.000213
+                },
+                "L0_SearchStream__f2p_AdID__AdsInfo": {
+                  "mean_gate": 0.5,
+                  "mean_N": 7.32,
+                  "mean_rho": 0.000213
+                },
+                "L0_AdsInfo__rev_f2p_AdID__SearchStream": {
+                  "mean_gate": 0.5,
+                  "mean_N": 1.0,
+                  "mean_rho": 0.000213
+                },
+                "L0_UserInfo__rev_f2p_UserID__SearchInfo": {
+                  "mean_gate": 0.5,
+                  "mean_N": 0.0,
+                  "mean_rho": 0.000213
+                },
+                "L0_Location__rev_f2p_LocationID__SearchInfo": {
+                  "mean_gate": 0.5,
+                  "mean_N": 0.0,
+                  "mean_rho": 0.000213
+                },
+                "L0_SearchInfo__f2p_CategoryID__Category": {
+                  "mean_gate": 0.5,
+                  "mean_N": 64.0,
+                  "mean_rho": 0.000213
+                },
+                "L0_Category__rev_f2p_CategoryID__SearchInfo": {
+                  "mean_gate": 0.5,
+                  "mean_N": 0.0,
+                  "mean_rho": 0.000213
+                },
+                "L0_Location__rev_f2p_LocationID__AdsInfo": {
+                  "mean_gate": 0.5,
+                  "mean_N": 0.0,
+                  "mean_rho": 0.000213
+                },
+                "L0_AdsInfo__f2p_CategoryID__Category": {
+                  "mean_gate": 0.5,
+                  "mean_N": 64.0,
+                  "mean_rho": 0.000213
+                },
+                "L0_Category__rev_f2p_CategoryID__AdsInfo": {
+                  "mean_gate": 0.5,
+                  "mean_N": 0.12,
+                  "mean_rho": 0.000213
+                },
+                "L1_PhoneRequestsStream__f2p_AdID__AdsInfo": {
+                  "mean_gate": 0.5,
+                  "mean_N": 0.0,
+                  "mean_rho": 0.000213
+                },
+                "L1_VisitStream__f2p_AdID__AdsInfo": {
+                  "mean_gate": 0.5,
+                  "mean_N": 0.0,
+                  "mean_rho": 0.000213
+                },
+                "L1_SearchStream__f2p_SearchID__SearchInfo": {
+                  "mean_gate": 0.5,
+                  "mean_N": 0.0,
+                  "mean_rho": 0.000213
+                },
+                "L1_SearchInfo__rev_f2p_SearchID__SearchStream": {
+                  "mean_gate": 0.5,
+                  "mean_N": 1.0,
+                  "mean_rho": 0.000213
+                },
+                "L1_SearchStream__f2p_AdID__AdsInfo": {
+                  "mean_gate": 0.5,
+                  "mean_N": 7.32,
+                  "mean_rho": 0.020843
+                },
+                "L1_AdsInfo__rev_f2p_AdID__SearchStream": {
+                  "mean_gate": 0.5,
+                  "mean_N": 1.0,
+                  "mean_rho": 0.000213
+                },
+                "L1_UserInfo__rev_f2p_UserID__SearchInfo": {
+                  "mean_gate": 0.5,
+                  "mean_N": 0.0,
+                  "mean_rho": 0.000213
+                },
+                "L1_Location__rev_f2p_LocationID__SearchInfo": {
+                  "mean_gate": 0.5,
+                  "mean_N": 0.0,
+                  "mean_rho": 0.000213
+                },
+                "L1_SearchInfo__f2p_CategoryID__Category": {
+                  "mean_gate": 0.5,
+                  "mean_N": 64.0,
+                  "mean_rho": 0.003781
+                },
+                "L1_Category__rev_f2p_CategoryID__SearchInfo": {
+                  "mean_gate": 0.5,
+                  "mean_N": 0.0,
+                  "mean_rho": 0.000213
+                },
+                "L1_Location__rev_f2p_LocationID__AdsInfo": {
+                  "mean_gate": 0.5,
+                  "mean_N": 0.0,
+                  "mean_rho": 0.000213
+                },
+                "L1_AdsInfo__f2p_CategoryID__Category": {
+                  "mean_gate": 0.5,
+                  "mean_N": 64.0,
+                  "mean_rho": 0.234881
+                },
+                "L1_Category__rev_f2p_CategoryID__AdsInfo": {
+                  "mean_gate": 0.5,
+                  "mean_N": 0.12,
+                  "mean_rho": 0.000213
+                }
+              }
+            }
+          }
+        },
+        "cama_neg_init": {
+          "mean_mae": 0.049005,
+          "std_mae": 0.005617,
+          "mean_r2": -0.180451,
+          "per_seed": {
+            "42": {
+              "val_mae": 0.059053011700099835,
+              "val_r2": -0.024386601640475458,
+              "best_epoch": 1,
+              "wall_clock_s": 13.8,
+              "train_losses": [
+                0.071966,
+                0.037525,
+                0.038321,
+                0.037556,
+                0.036581
+              ],
+              "gate_stats": {
+                "L0_PhoneRequestsStream__f2p_AdID__AdsInfo": {
+                  "mean_gate": 0.047426,
+                  "mean_N": 0.0,
+                  "mean_rho": 0.000213
+                },
+                "L0_VisitStream__f2p_AdID__AdsInfo": {
+                  "mean_gate": 0.047426,
+                  "mean_N": 0.0,
+                  "mean_rho": 0.000213
+                },
+                "L0_SearchStream__f2p_SearchID__SearchInfo": {
+                  "mean_gate": 0.047426,
+                  "mean_N": 0.0,
+                  "mean_rho": 0.000213
+                },
+                "L0_SearchInfo__rev_f2p_SearchID__SearchStream": {
+                  "mean_gate": 0.047426,
+                  "mean_N": 1.0,
+                  "mean_rho": 0.000213
+                },
+                "L0_SearchStream__f2p_AdID__AdsInfo": {
+                  "mean_gate": 0.047426,
+                  "mean_N": 7.32,
+                  "mean_rho": 0.000213
+                },
+                "L0_AdsInfo__rev_f2p_AdID__SearchStream": {
+                  "mean_gate": 0.047426,
+                  "mean_N": 1.0,
+                  "mean_rho": 0.000213
+                },
+                "L0_UserInfo__rev_f2p_UserID__SearchInfo": {
+                  "mean_gate": 0.047426,
+                  "mean_N": 0.0,
+                  "mean_rho": 0.000213
+                },
+                "L0_Location__rev_f2p_LocationID__SearchInfo": {
+                  "mean_gate": 0.047426,
+                  "mean_N": 0.0,
+                  "mean_rho": 0.000213
+                },
+                "L0_SearchInfo__f2p_CategoryID__Category": {
+                  "mean_gate": 0.047426,
+                  "mean_N": 64.0,
+                  "mean_rho": 0.000213
+                },
+                "L0_Category__rev_f2p_CategoryID__SearchInfo": {
+                  "mean_gate": 0.047426,
+                  "mean_N": 0.0,
+                  "mean_rho": 0.000213
+                },
+                "L0_Location__rev_f2p_LocationID__AdsInfo": {
+                  "mean_gate": 0.047426,
+                  "mean_N": 0.0,
+                  "mean_rho": 0.000213
+                },
+                "L0_AdsInfo__f2p_CategoryID__Category": {
+                  "mean_gate": 0.047426,
+                  "mean_N": 64.0,
+                  "mean_rho": 0.000213
+                },
+                "L0_Category__rev_f2p_CategoryID__AdsInfo": {
+                  "mean_gate": 0.047426,
+                  "mean_N": 0.12,
+                  "mean_rho": 0.000213
+                },
+                "L1_PhoneRequestsStream__f2p_AdID__AdsInfo": {
+                  "mean_gate": 0.047426,
+                  "mean_N": 0.0,
+                  "mean_rho": 0.000213
+                },
+                "L1_VisitStream__f2p_AdID__AdsInfo": {
+                  "mean_gate": 0.047426,
+                  "mean_N": 0.0,
+                  "mean_rho": 0.000213
+                },
+                "L1_SearchStream__f2p_SearchID__SearchInfo": {
+                  "mean_gate": 0.047426,
+                  "mean_N": 0.0,
+                  "mean_rho": 0.000213
+                },
+                "L1_SearchInfo__rev_f2p_SearchID__SearchStream": {
+                  "mean_gate": 0.047426,
+                  "mean_N": 1.0,
+                  "mean_rho": 0.000213
+                },
+                "L1_SearchStream__f2p_AdID__AdsInfo": {
+                  "mean_gate": 0.047426,
+                  "mean_N": 7.32,
+                  "mean_rho": 0.004806
+                },
+                "L1_AdsInfo__rev_f2p_AdID__SearchStream": {
+                  "mean_gate": 0.047426,
+                  "mean_N": 1.0,
+                  "mean_rho": 0.000213
+                },
+                "L1_UserInfo__rev_f2p_UserID__SearchInfo": {
+                  "mean_gate": 0.047426,
+                  "mean_N": 0.0,
+                  "mean_rho": 0.000213
+                },
+                "L1_Location__rev_f2p_LocationID__SearchInfo": {
+                  "mean_gate": 0.047426,
+                  "mean_N": 0.0,
+                  "mean_rho": 0.000213
+                },
+                "L1_SearchInfo__f2p_CategoryID__Category": {
+                  "mean_gate": 0.047426,
+                  "mean_N": 64.0,
+                  "mean_rho": 0.028076
+                },
+                "L1_Category__rev_f2p_CategoryID__SearchInfo": {
+                  "mean_gate": 0.047426,
+                  "mean_N": 0.0,
+                  "mean_rho": 0.000213
+                },
+                "L1_Location__rev_f2p_LocationID__AdsInfo": {
+                  "mean_gate": 0.047426,
+                  "mean_N": 0.0,
+                  "mean_rho": 0.000213
+                },
+                "L1_AdsInfo__f2p_CategoryID__Category": {
+                  "mean_gate": 0.047426,
+                  "mean_N": 64.0,
+                  "mean_rho": 0.116705
+                },
+                "L1_Category__rev_f2p_CategoryID__AdsInfo": {
+                  "mean_gate": 0.047426,
+                  "mean_N": 0.12,
+                  "mean_rho": 0.000213
+                }
+              }
+            },
+            "123": {
+              "val_mae": 0.046493200830915515,
+              "val_r2": -0.2194665881573017,
+              "best_epoch": 3,
+              "wall_clock_s": 14.5,
+              "train_losses": [
+                0.072818,
+                0.045578,
+                0.042029,
+                0.036873,
+                0.036007
+              ],
+              "gate_stats": {
+                "L0_PhoneRequestsStream__f2p_AdID__AdsInfo": {
+                  "mean_gate": 0.047426,
+                  "mean_N": 0.0,
+                  "mean_rho": 0.000213
+                },
+                "L0_VisitStream__f2p_AdID__AdsInfo": {
+                  "mean_gate": 0.047426,
+                  "mean_N": 0.0,
+                  "mean_rho": 0.000213
+                },
+                "L0_SearchStream__f2p_SearchID__SearchInfo": {
+                  "mean_gate": 0.047426,
+                  "mean_N": 0.0,
+                  "mean_rho": 0.000213
+                },
+                "L0_SearchInfo__rev_f2p_SearchID__SearchStream": {
+                  "mean_gate": 0.047426,
+                  "mean_N": 1.0,
+                  "mean_rho": 0.000213
+                },
+                "L0_SearchStream__f2p_AdID__AdsInfo": {
+                  "mean_gate": 0.047426,
+                  "mean_N": 7.32,
+                  "mean_rho": 0.000213
+                },
+                "L0_AdsInfo__rev_f2p_AdID__SearchStream": {
+                  "mean_gate": 0.047426,
+                  "mean_N": 1.0,
+                  "mean_rho": 0.000213
+                },
+                "L0_UserInfo__rev_f2p_UserID__SearchInfo": {
+                  "mean_gate": 0.047426,
+                  "mean_N": 0.0,
+                  "mean_rho": 0.000213
+                },
+                "L0_Location__rev_f2p_LocationID__SearchInfo": {
+                  "mean_gate": 0.047426,
+                  "mean_N": 0.0,
+                  "mean_rho": 0.000213
+                },
+                "L0_SearchInfo__f2p_CategoryID__Category": {
+                  "mean_gate": 0.047426,
+                  "mean_N": 64.0,
+                  "mean_rho": 0.000213
+                },
+                "L0_Category__rev_f2p_CategoryID__SearchInfo": {
+                  "mean_gate": 0.047426,
+                  "mean_N": 0.0,
+                  "mean_rho": 0.000213
+                },
+                "L0_Location__rev_f2p_LocationID__AdsInfo": {
+                  "mean_gate": 0.047426,
+                  "mean_N": 0.0,
+                  "mean_rho": 0.000213
+                },
+                "L0_AdsInfo__f2p_CategoryID__Category": {
+                  "mean_gate": 0.047426,
+                  "mean_N": 64.0,
+                  "mean_rho": 0.000213
+                },
+                "L0_Category__rev_f2p_CategoryID__AdsInfo": {
+                  "mean_gate": 0.047426,
+                  "mean_N": 0.12,
+                  "mean_rho": 0.000213
+                },
+                "L1_PhoneRequestsStream__f2p_AdID__AdsInfo": {
+                  "mean_gate": 0.047426,
+                  "mean_N": 0.0,
+                  "mean_rho": 0.000213
+                },
+                "L1_VisitStream__f2p_AdID__AdsInfo": {
+                  "mean_gate": 0.047426,
+                  "mean_N": 0.0,
+                  "mean_rho": 0.000213
+                },
+                "L1_SearchStream__f2p_SearchID__SearchInfo": {
+                  "mean_gate": 0.047426,
+                  "mean_N": 0.0,
+                  "mean_rho": 0.000213
+                },
+                "L1_SearchInfo__rev_f2p_SearchID__SearchStream": {
+                  "mean_gate": 0.047426,
+                  "mean_N": 1.0,
+                  "mean_rho": 0.000213
+                },
+                "L1_SearchStream__f2p_AdID__AdsInfo": {
+                  "mean_gate": 0.047426,
+                  "mean_N": 7.32,
+                  "mean_rho": 0.022554
+                },
+                "L1_AdsInfo__rev_f2p_AdID__SearchStream": {
+                  "mean_gate": 0.047426,
+                  "mean_N": 1.0,
+                  "mean_rho": 0.000213
+                },
+                "L1_UserInfo__rev_f2p_UserID__SearchInfo": {
+                  "mean_gate": 0.047426,
+                  "mean_N": 0.0,
+                  "mean_rho": 0.000213
+                },
+                "L1_Location__rev_f2p_LocationID__SearchInfo": {
+                  "mean_gate": 0.047426,
+                  "mean_N": 0.0,
+                  "mean_rho": 0.000213
+                },
+                "L1_SearchInfo__f2p_CategoryID__Category": {
+                  "mean_gate": 0.047426,
+                  "mean_N": 64.0,
+                  "mean_rho": 0.001115
+                },
+                "L1_Category__rev_f2p_CategoryID__SearchInfo": {
+                  "mean_gate": 0.047426,
+                  "mean_N": 0.0,
+                  "mean_rho": 0.000213
+                },
+                "L1_Location__rev_f2p_LocationID__AdsInfo": {
+                  "mean_gate": 0.047426,
+                  "mean_N": 0.0,
+                  "mean_rho": 0.000213
+                },
+                "L1_AdsInfo__f2p_CategoryID__Category": {
+                  "mean_gate": 0.047426,
+                  "mean_N": 64.0,
+                  "mean_rho": 0.259124
+                },
+                "L1_Category__rev_f2p_CategoryID__AdsInfo": {
+                  "mean_gate": 0.047426,
+                  "mean_N": 0.12,
+                  "mean_rho": 0.000213
+                }
+              }
+            },
+            "456": {
+              "val_mae": 0.046493200830915515,
+              "val_r2": -0.2194665881573017,
+              "best_epoch": 1,
+              "wall_clock_s": 14.6,
+              "train_losses": [
+                0.103862,
+                0.05271,
+                0.040187,
+                0.037225,
+                0.038173
+              ],
+              "gate_stats": {
+                "L0_PhoneRequestsStream__f2p_AdID__AdsInfo": {
+                  "mean_gate": 0.047426,
+                  "mean_N": 0.0,
+                  "mean_rho": 0.000213
+                },
+                "L0_VisitStream__f2p_AdID__AdsInfo": {
+                  "mean_gate": 0.047426,
+                  "mean_N": 0.0,
+                  "mean_rho": 0.000213
+                },
+                "L0_SearchStream__f2p_SearchID__SearchInfo": {
+                  "mean_gate": 0.047426,
+                  "mean_N": 0.0,
+                  "mean_rho": 0.000213
+                },
+                "L0_SearchInfo__rev_f2p_SearchID__SearchStream": {
+                  "mean_gate": 0.047426,
+                  "mean_N": 1.0,
+                  "mean_rho": 0.000213
+                },
+                "L0_SearchStream__f2p_AdID__AdsInfo": {
+                  "mean_gate": 0.047426,
+                  "mean_N": 7.32,
+                  "mean_rho": 0.000213
+                },
+                "L0_AdsInfo__rev_f2p_AdID__SearchStream": {
+                  "mean_gate": 0.047426,
+                  "mean_N": 1.0,
+                  "mean_rho": 0.000213
+                },
+                "L0_UserInfo__rev_f2p_UserID__SearchInfo": {
+                  "mean_gate": 0.047426,
+                  "mean_N": 0.0,
+                  "mean_rho": 0.000213
+                },
+                "L0_Location__rev_f2p_LocationID__SearchInfo": {
+                  "mean_gate": 0.047426,
+                  "mean_N": 0.0,
+                  "mean_rho": 0.000213
+                },
+                "L0_SearchInfo__f2p_CategoryID__Category": {
+                  "mean_gate": 0.047426,
+                  "mean_N": 64.0,
+                  "mean_rho": 0.000213
+                },
+                "L0_Category__rev_f2p_CategoryID__SearchInfo": {
+                  "mean_gate": 0.047426,
+                  "mean_N": 0.0,
+                  "mean_rho": 0.000213
+                },
+                "L0_Location__rev_f2p_LocationID__AdsInfo": {
+                  "mean_gate": 0.047426,
+                  "mean_N": 0.0,
+                  "mean_rho": 0.000213
+                },
+                "L0_AdsInfo__f2p_CategoryID__Category": {
+                  "mean_gate": 0.047426,
+                  "mean_N": 64.0,
+                  "mean_rho": 0.000213
+                },
+                "L0_Category__rev_f2p_CategoryID__AdsInfo": {
+                  "mean_gate": 0.047426,
+                  "mean_N": 0.12,
+                  "mean_rho": 0.000213
+                },
+                "L1_PhoneRequestsStream__f2p_AdID__AdsInfo": {
+                  "mean_gate": 0.047426,
+                  "mean_N": 0.0,
+                  "mean_rho": 0.000213
+                },
+                "L1_VisitStream__f2p_AdID__AdsInfo": {
+                  "mean_gate": 0.047426,
+                  "mean_N": 0.0,
+                  "mean_rho": 0.000213
+                },
+                "L1_SearchStream__f2p_SearchID__SearchInfo": {
+                  "mean_gate": 0.047426,
+                  "mean_N": 0.0,
+                  "mean_rho": 0.000213
+                },
+                "L1_SearchInfo__rev_f2p_SearchID__SearchStream": {
+                  "mean_gate": 0.047426,
+                  "mean_N": 1.0,
+                  "mean_rho": 0.000213
+                },
+                "L1_SearchStream__f2p_AdID__AdsInfo": {
+                  "mean_gate": 0.047426,
+                  "mean_N": 7.32,
+                  "mean_rho": 0.004382
+                },
+                "L1_AdsInfo__rev_f2p_AdID__SearchStream": {
+                  "mean_gate": 0.047426,
+                  "mean_N": 1.0,
+                  "mean_rho": 0.000213
+                },
+                "L1_UserInfo__rev_f2p_UserID__SearchInfo": {
+                  "mean_gate": 0.047426,
+                  "mean_N": 0.0,
+                  "mean_rho": 0.000213
+                },
+                "L1_Location__rev_f2p_LocationID__SearchInfo": {
+                  "mean_gate": 0.047426,
+                  "mean_N": 0.0,
+                  "mean_rho": 0.000213
+                },
+                "L1_SearchInfo__f2p_CategoryID__Category": {
+                  "mean_gate": 0.047426,
+                  "mean_N": 64.0,
+                  "mean_rho": 0.068819
+                },
+                "L1_Category__rev_f2p_CategoryID__SearchInfo": {
+                  "mean_gate": 0.047426,
+                  "mean_N": 0.0,
+                  "mean_rho": 0.000213
+                },
+                "L1_Location__rev_f2p_LocationID__AdsInfo": {
+                  "mean_gate": 0.047426,
+                  "mean_N": 0.0,
+                  "mean_rho": 0.000213
+                },
+                "L1_AdsInfo__f2p_CategoryID__Category": {
+                  "mean_gate": 0.047426,
+                  "mean_N": 64.0,
+                  "mean_rho": 0.120298
+                },
+                "L1_Category__rev_f2p_CategoryID__AdsInfo": {
+                  "mean_gate": 0.047426,
+                  "mean_N": 0.12,
+                  "mean_rho": 0.000213
+                }
+              }
+            },
+            "789": {
+              "val_mae": 0.046493200830915515,
+              "val_r2": -0.2194665881573017,
+              "best_epoch": 1,
+              "wall_clock_s": 14.6,
+              "train_losses": [
+                0.063572,
+                0.041485,
+                0.039479,
+                0.043159,
+                0.037062
+              ],
+              "gate_stats": {
+                "L0_PhoneRequestsStream__f2p_AdID__AdsInfo": {
+                  "mean_gate": 0.047426,
+                  "mean_N": 0.0,
+                  "mean_rho": 0.000213
+                },
+                "L0_VisitStream__f2p_AdID__AdsInfo": {
+                  "mean_gate": 0.047426,
+                  "mean_N": 0.0,
+                  "mean_rho": 0.000213
+                },
+                "L0_SearchStream__f2p_SearchID__SearchInfo": {
+                  "mean_gate": 0.047426,
+                  "mean_N": 0.0,
+                  "mean_rho": 0.000213
+                },
+                "L0_SearchInfo__rev_f2p_SearchID__SearchStream": {
+                  "mean_gate": 0.047426,
+                  "mean_N": 1.0,
+                  "mean_rho": 0.000213
+                },
+                "L0_SearchStream__f2p_AdID__AdsInfo": {
+                  "mean_gate": 0.047426,
+                  "mean_N": 7.32,
+                  "mean_rho": 0.000213
+                },
+                "L0_AdsInfo__rev_f2p_AdID__SearchStream": {
+                  "mean_gate": 0.047426,
+                  "mean_N": 1.0,
+                  "mean_rho": 0.000213
+                },
+                "L0_UserInfo__rev_f2p_UserID__SearchInfo": {
+                  "mean_gate": 0.047426,
+                  "mean_N": 0.0,
+                  "mean_rho": 0.000213
+                },
+                "L0_Location__rev_f2p_LocationID__SearchInfo": {
+                  "mean_gate": 0.047426,
+                  "mean_N": 0.0,
+                  "mean_rho": 0.000213
+                },
+                "L0_SearchInfo__f2p_CategoryID__Category": {
+                  "mean_gate": 0.047426,
+                  "mean_N": 64.0,
+                  "mean_rho": 0.000213
+                },
+                "L0_Category__rev_f2p_CategoryID__SearchInfo": {
+                  "mean_gate": 0.047426,
+                  "mean_N": 0.0,
+                  "mean_rho": 0.000213
+                },
+                "L0_Location__rev_f2p_LocationID__AdsInfo": {
+                  "mean_gate": 0.047426,
+                  "mean_N": 0.0,
+                  "mean_rho": 0.000213
+                },
+                "L0_AdsInfo__f2p_CategoryID__Category": {
+                  "mean_gate": 0.047426,
+                  "mean_N": 64.0,
+                  "mean_rho": 0.000213
+                },
+                "L0_Category__rev_f2p_CategoryID__AdsInfo": {
+                  "mean_gate": 0.047426,
+                  "mean_N": 0.12,
+                  "mean_rho": 0.000213
+                },
+                "L1_PhoneRequestsStream__f2p_AdID__AdsInfo": {
+                  "mean_gate": 0.047426,
+                  "mean_N": 0.0,
+                  "mean_rho": 0.000213
+                },
+                "L1_VisitStream__f2p_AdID__AdsInfo": {
+                  "mean_gate": 0.047426,
+                  "mean_N": 0.0,
+                  "mean_rho": 0.000213
+                },
+                "L1_SearchStream__f2p_SearchID__SearchInfo": {
+                  "mean_gate": 0.047426,
+                  "mean_N": 0.0,
+                  "mean_rho": 0.000213
+                },
+                "L1_SearchInfo__rev_f2p_SearchID__SearchStream": {
+                  "mean_gate": 0.047426,
+                  "mean_N": 1.0,
+                  "mean_rho": 0.000213
+                },
+                "L1_SearchStream__f2p_AdID__AdsInfo": {
+                  "mean_gate": 0.047426,
+                  "mean_N": 7.32,
+                  "mean_rho": 0.009431
+                },
+                "L1_AdsInfo__rev_f2p_AdID__SearchStream": {
+                  "mean_gate": 0.047426,
+                  "mean_N": 1.0,
+                  "mean_rho": 0.000213
+                },
+                "L1_UserInfo__rev_f2p_UserID__SearchInfo": {
+                  "mean_gate": 0.047426,
+                  "mean_N": 0.0,
+                  "mean_rho": 0.000213
+                },
+                "L1_Location__rev_f2p_LocationID__SearchInfo": {
+                  "mean_gate": 0.047426,
+                  "mean_N": 0.0,
+                  "mean_rho": 0.000213
+                },
+                "L1_SearchInfo__f2p_CategoryID__Category": {
+                  "mean_gate": 0.047426,
+                  "mean_N": 64.0,
+                  "mean_rho": 0.022599
+                },
+                "L1_Category__rev_f2p_CategoryID__SearchInfo": {
+                  "mean_gate": 0.047426,
+                  "mean_N": 0.0,
+                  "mean_rho": 0.000213
+                },
+                "L1_Location__rev_f2p_LocationID__AdsInfo": {
+                  "mean_gate": 0.047426,
+                  "mean_N": 0.0,
+                  "mean_rho": 0.000213
+                },
+                "L1_AdsInfo__f2p_CategoryID__Category": {
+                  "mean_gate": 0.047426,
+                  "mean_N": 64.0,
+                  "mean_rho": 0.104032
+                },
+                "L1_Category__rev_f2p_CategoryID__AdsInfo": {
+                  "mean_gate": 0.047426,
+                  "mean_N": 0.12,
+                  "mean_rho": 0.000213
+                }
+              }
+            },
+            "1024": {
+              "val_mae": 0.046493200830915515,
+              "val_r2": -0.2194665881573017,
+              "best_epoch": 1,
+              "wall_clock_s": 14.6,
+              "train_losses": [
+                0.069699,
+                0.040414,
+                0.045171,
+                0.038689,
+                0.037697
+              ],
+              "gate_stats": {
+                "L0_PhoneRequestsStream__f2p_AdID__AdsInfo": {
+                  "mean_gate": 0.047426,
+                  "mean_N": 0.0,
+                  "mean_rho": 0.000213
+                },
+                "L0_VisitStream__f2p_AdID__AdsInfo": {
+                  "mean_gate": 0.047426,
+                  "mean_N": 0.0,
+                  "mean_rho": 0.000213
+                },
+                "L0_SearchStream__f2p_SearchID__SearchInfo": {
+                  "mean_gate": 0.047426,
+                  "mean_N": 0.0,
+                  "mean_rho": 0.000213
+                },
+                "L0_SearchInfo__rev_f2p_SearchID__SearchStream": {
+                  "mean_gate": 0.047426,
+                  "mean_N": 1.0,
+                  "mean_rho": 0.000213
+                },
+                "L0_SearchStream__f2p_AdID__AdsInfo": {
+                  "mean_gate": 0.047426,
+                  "mean_N": 7.32,
+                  "mean_rho": 0.000213
+                },
+                "L0_AdsInfo__rev_f2p_AdID__SearchStream": {
+                  "mean_gate": 0.047426,
+                  "mean_N": 1.0,
+                  "mean_rho": 0.000213
+                },
+                "L0_UserInfo__rev_f2p_UserID__SearchInfo": {
+                  "mean_gate": 0.047426,
+                  "mean_N": 0.0,
+                  "mean_rho": 0.000213
+                },
+                "L0_Location__rev_f2p_LocationID__SearchInfo": {
+                  "mean_gate": 0.047426,
+                  "mean_N": 0.0,
+                  "mean_rho": 0.000213
+                },
+                "L0_SearchInfo__f2p_CategoryID__Category": {
+                  "mean_gate": 0.047426,
+                  "mean_N": 64.0,
+                  "mean_rho": 0.000213
+                },
+                "L0_Category__rev_f2p_CategoryID__SearchInfo": {
+                  "mean_gate": 0.047426,
+                  "mean_N": 0.0,
+                  "mean_rho": 0.000213
+                },
+                "L0_Location__rev_f2p_LocationID__AdsInfo": {
+                  "mean_gate": 0.047426,
+                  "mean_N": 0.0,
+                  "mean_rho": 0.000213
+                },
+                "L0_AdsInfo__f2p_CategoryID__Category": {
+                  "mean_gate": 0.047426,
+                  "mean_N": 64.0,
+                  "mean_rho": 0.000213
+                },
+                "L0_Category__rev_f2p_CategoryID__AdsInfo": {
+                  "mean_gate": 0.047426,
+                  "mean_N": 0.12,
+                  "mean_rho": 0.000213
+                },
+                "L1_PhoneRequestsStream__f2p_AdID__AdsInfo": {
+                  "mean_gate": 0.047426,
+                  "mean_N": 0.0,
+                  "mean_rho": 0.000213
+                },
+                "L1_VisitStream__f2p_AdID__AdsInfo": {
+                  "mean_gate": 0.047426,
+                  "mean_N": 0.0,
+                  "mean_rho": 0.000213
+                },
+                "L1_SearchStream__f2p_SearchID__SearchInfo": {
+                  "mean_gate": 0.047426,
+                  "mean_N": 0.0,
+                  "mean_rho": 0.000213
+                },
+                "L1_SearchInfo__rev_f2p_SearchID__SearchStream": {
+                  "mean_gate": 0.047426,
+                  "mean_N": 1.0,
+                  "mean_rho": 0.000213
+                },
+                "L1_SearchStream__f2p_AdID__AdsInfo": {
+                  "mean_gate": 0.047426,
+                  "mean_N": 7.32,
+                  "mean_rho": 0.00752
+                },
+                "L1_AdsInfo__rev_f2p_AdID__SearchStream": {
+                  "mean_gate": 0.047426,
+                  "mean_N": 1.0,
+                  "mean_rho": 0.000213
+                },
+                "L1_UserInfo__rev_f2p_UserID__SearchInfo": {
+                  "mean_gate": 0.047426,
+                  "mean_N": 0.0,
+                  "mean_rho": 0.000213
+                },
+                "L1_Location__rev_f2p_LocationID__SearchInfo": {
+                  "mean_gate": 0.047426,
+                  "mean_N": 0.0,
+                  "mean_rho": 0.000213
+                },
+                "L1_SearchInfo__f2p_CategoryID__Category": {
+                  "mean_gate": 0.047426,
+                  "mean_N": 64.0,
+                  "mean_rho": 0.026973
+                },
+                "L1_Category__rev_f2p_CategoryID__SearchInfo": {
+                  "mean_gate": 0.047426,
+                  "mean_N": 0.0,
+                  "mean_rho": 0.000213
+                },
+                "L1_Location__rev_f2p_LocationID__AdsInfo": {
+                  "mean_gate": 0.047426,
+                  "mean_N": 0.0,
+                  "mean_rho": 0.000213
+                },
+                "L1_AdsInfo__f2p_CategoryID__Category": {
+                  "mean_gate": 0.047426,
+                  "mean_N": 64.0,
+                  "mean_rho": 0.142137
+                },
+                "L1_Category__rev_f2p_CategoryID__AdsInfo": {
+                  "mean_gate": 0.047426,
+                  "mean_N": 0.12,
+                  "mean_rho": 0.000213
+                }
+              }
+            }
+          }
+        }
+      },
+      "statistical_comparison": {
+        "cama_default_vs_mean": {
+          "cohens_d": -0.664616,
+          "d_ci_95": [
+            -1.917843,
+            0.588611
+          ],
+          "p_value_ttest": 0.4278681,
+          "t_statistic": -0.881424,
+          "wilcoxon_stat": 2.0,
+          "wilcoxon_p": 0.375,
+          "mean_a": 0.042729,
+          "std_a": 0.003456,
+          "mean_b": 0.044751,
+          "std_b": 0.002562,
+          "n": 5
+        },
+        "cama_neg_init_vs_mean": {
+          "cohens_d": -1.345781,
+          "d_ci_95": [
+            -2.640305,
+            -0.051257
+          ],
+          "p_value_ttest": 0.13250932,
+          "t_statistic": -1.885027,
+          "wilcoxon_stat": 0.0,
+          "wilcoxon_p": 0.25,
+          "mean_a": 0.042729,
+          "std_a": 0.003456,
+          "mean_b": 0.049005,
+          "std_b": 0.005617,
+          "n": 5
+        },
+        "cama_neg_init_vs_cama_default": {
+          "cohens_d": -0.974531,
+          "d_ci_95": [
+            -2.243234,
+            0.294172
+          ],
+          "p_value_ttest": 0.23436925,
+          "t_statistic": -1.39903,
+          "wilcoxon_stat": 0.0,
+          "wilcoxon_p": 0.5,
+          "mean_a": 0.044751,
+          "std_a": 0.002562,
+          "mean_b": 0.049005,
+          "std_b": 0.005617,
+          "n": 5
+        }
+      },
+      "safety_check": {
+        "cama_default_mae_pct_diff": 4.7318,
+        "cama_neg_init_mae_pct_diff": 14.6879,
+        "neg_init_passes_safety": false
+      },
+      "gate_analysis": {
+        "cama_default": {
+          "L0_PhoneRequestsStream__f2p_AdID__AdsInfo": {
+            "mean_gate": 0.5,
+            "mean_N": 0.0,
+            "max_N": 0.0,
+            "mean_rho": 0.000213
+          },
+          "L0_VisitStream__f2p_AdID__AdsInfo": {
+            "mean_gate": 0.5,
+            "mean_N": 0.0,
+            "max_N": 0.0,
+            "mean_rho": 0.000213
+          },
+          "L0_SearchStream__f2p_SearchID__SearchInfo": {
+            "mean_gate": 0.5,
+            "mean_N": 0.0,
+            "max_N": 0.0,
+            "mean_rho": 0.000213
+          },
+          "L0_SearchInfo__rev_f2p_SearchID__SearchStream": {
+            "mean_gate": 0.5,
+            "mean_N": 1.0,
+            "max_N": 1.0,
+            "mean_rho": 0.000213
+          },
+          "L0_SearchStream__f2p_AdID__AdsInfo": {
+            "mean_gate": 0.5,
+            "mean_N": 7.32,
+            "max_N": 64.0,
+            "mean_rho": 0.000213
+          },
+          "L0_AdsInfo__rev_f2p_AdID__SearchStream": {
+            "mean_gate": 0.5,
+            "mean_N": 1.0,
+            "max_N": 1.0,
+            "mean_rho": 0.000213
+          },
+          "L0_UserInfo__rev_f2p_UserID__SearchInfo": {
+            "mean_gate": 0.5,
+            "mean_N": 0.0,
+            "max_N": 0.0,
+            "mean_rho": 0.000213
+          },
+          "L0_Location__rev_f2p_LocationID__SearchInfo": {
+            "mean_gate": 0.5,
+            "mean_N": 0.0,
+            "max_N": 0.0,
+            "mean_rho": 0.000213
+          },
+          "L0_SearchInfo__f2p_CategoryID__Category": {
+            "mean_gate": 0.5,
+            "mean_N": 64.0,
+            "max_N": 64.0,
+            "mean_rho": 0.000213
+          },
+          "L0_Category__rev_f2p_CategoryID__SearchInfo": {
+            "mean_gate": 0.5,
+            "mean_N": 0.0,
+            "max_N": 0.0,
+            "mean_rho": 0.000213
+          },
+          "L0_Location__rev_f2p_LocationID__AdsInfo": {
+            "mean_gate": 0.5,
+            "mean_N": 0.0,
+            "max_N": 0.0,
+            "mean_rho": 0.000213
+          },
+          "L0_AdsInfo__f2p_CategoryID__Category": {
+            "mean_gate": 0.5,
+            "mean_N": 64.0,
+            "max_N": 64.0,
+            "mean_rho": 0.000213
+          },
+          "L0_Category__rev_f2p_CategoryID__AdsInfo": {
+            "mean_gate": 0.5,
+            "mean_N": 0.12,
+            "max_N": 1.0,
+            "mean_rho": 0.000213
+          },
+          "L1_PhoneRequestsStream__f2p_AdID__AdsInfo": {
+            "mean_gate": 0.5,
+            "mean_N": 0.0,
+            "max_N": 0.0,
+            "mean_rho": 0.000213
+          },
+          "L1_VisitStream__f2p_AdID__AdsInfo": {
+            "mean_gate": 0.5,
+            "mean_N": 0.0,
+            "max_N": 0.0,
+            "mean_rho": 0.000213
+          },
+          "L1_SearchStream__f2p_SearchID__SearchInfo": {
+            "mean_gate": 0.5,
+            "mean_N": 0.0,
+            "max_N": 0.0,
+            "mean_rho": 0.000213
+          },
+          "L1_SearchInfo__rev_f2p_SearchID__SearchStream": {
+            "mean_gate": 0.5,
+            "mean_N": 1.0,
+            "max_N": 1.0,
+            "mean_rho": 0.000213
+          },
+          "L1_SearchStream__f2p_AdID__AdsInfo": {
+            "mean_gate": 0.5,
+            "mean_N": 7.32,
+            "max_N": 64.0,
+            "mean_rho": 0.010958
+          },
+          "L1_AdsInfo__rev_f2p_AdID__SearchStream": {
+            "mean_gate": 0.5,
+            "mean_N": 1.0,
+            "max_N": 1.0,
+            "mean_rho": 0.000213
+          },
+          "L1_UserInfo__rev_f2p_UserID__SearchInfo": {
+            "mean_gate": 0.5,
+            "mean_N": 0.0,
+            "max_N": 0.0,
+            "mean_rho": 0.000213
+          },
+          "L1_Location__rev_f2p_LocationID__SearchInfo": {
+            "mean_gate": 0.5,
+            "mean_N": 0.0,
+            "max_N": 0.0,
+            "mean_rho": 0.000213
+          },
+          "L1_SearchInfo__f2p_CategoryID__Category": {
+            "mean_gate": 0.5,
+            "mean_N": 64.0,
+            "max_N": 64.0,
+            "mean_rho": 0.024878
+          },
+          "L1_Category__rev_f2p_CategoryID__SearchInfo": {
+            "mean_gate": 0.5,
+            "mean_N": 0.0,
+            "max_N": 0.0,
+            "mean_rho": 0.000213
+          },
+          "L1_Location__rev_f2p_LocationID__AdsInfo": {
+            "mean_gate": 0.5,
+            "mean_N": 0.0,
+            "max_N": 0.0,
+            "mean_rho": 0.000213
+          },
+          "L1_AdsInfo__f2p_CategoryID__Category": {
+            "mean_gate": 0.5,
+            "mean_N": 64.0,
+            "max_N": 64.0,
+            "mean_rho": 0.172959
+          },
+          "L1_Category__rev_f2p_CategoryID__AdsInfo": {
+            "mean_gate": 0.5,
+            "mean_N": 0.12,
+            "max_N": 1.0,
+            "mean_rho": 0.000213
+          }
+        },
+        "cama_neg_init": {
+          "L0_PhoneRequestsStream__f2p_AdID__AdsInfo": {
+            "mean_gate": 0.047426,
+            "mean_N": 0.0,
+            "max_N": 0.0,
+            "mean_rho": 0.000213
+          },
+          "L0_VisitStream__f2p_AdID__AdsInfo": {
+            "mean_gate": 0.047426,
+            "mean_N": 0.0,
+            "max_N": 0.0,
+            "mean_rho": 0.000213
+          },
+          "L0_SearchStream__f2p_SearchID__SearchInfo": {
+            "mean_gate": 0.047426,
+            "mean_N": 0.0,
+            "max_N": 0.0,
+            "mean_rho": 0.000213
+          },
+          "L0_SearchInfo__rev_f2p_SearchID__SearchStream": {
+            "mean_gate": 0.047426,
+            "mean_N": 1.0,
+            "max_N": 1.0,
+            "mean_rho": 0.000213
+          },
+          "L0_SearchStream__f2p_AdID__AdsInfo": {
+            "mean_gate": 0.047426,
+            "mean_N": 7.32,
+            "max_N": 64.0,
+            "mean_rho": 0.000213
+          },
+          "L0_AdsInfo__rev_f2p_AdID__SearchStream": {
+            "mean_gate": 0.047426,
+            "mean_N": 1.0,
+            "max_N": 1.0,
+            "mean_rho": 0.000213
+          },
+          "L0_UserInfo__rev_f2p_UserID__SearchInfo": {
+            "mean_gate": 0.047426,
+            "mean_N": 0.0,
+            "max_N": 0.0,
+            "mean_rho": 0.000213
+          },
+          "L0_Location__rev_f2p_LocationID__SearchInfo": {
+            "mean_gate": 0.047426,
+            "mean_N": 0.0,
+            "max_N": 0.0,
+            "mean_rho": 0.000213
+          },
+          "L0_SearchInfo__f2p_CategoryID__Category": {
+            "mean_gate": 0.047426,
+            "mean_N": 64.0,
+            "max_N": 64.0,
+            "mean_rho": 0.000213
+          },
+          "L0_Category__rev_f2p_CategoryID__SearchInfo": {
+            "mean_gate": 0.047426,
+            "mean_N": 0.0,
+            "max_N": 0.0,
+            "mean_rho": 0.000213
+          },
+          "L0_Location__rev_f2p_LocationID__AdsInfo": {
+            "mean_gate": 0.047426,
+            "mean_N": 0.0,
+            "max_N": 0.0,
+            "mean_rho": 0.000213
+          },
+          "L0_AdsInfo__f2p_CategoryID__Category": {
+            "mean_gate": 0.047426,
+            "mean_N": 64.0,
+            "max_N": 64.0,
+            "mean_rho": 0.000213
+          },
+          "L0_Category__rev_f2p_CategoryID__AdsInfo": {
+            "mean_gate": 0.047426,
+            "mean_N": 0.12,
+            "max_N": 1.0,
+            "mean_rho": 0.000213
+          },
+          "L1_PhoneRequestsStream__f2p_AdID__AdsInfo": {
+            "mean_gate": 0.047426,
+            "mean_N": 0.0,
+            "max_N": 0.0,
+            "mean_rho": 0.000213
+          },
+          "L1_VisitStream__f2p_AdID__AdsInfo": {
+            "mean_gate": 0.047426,
+            "mean_N": 0.0,
+            "max_N": 0.0,
+            "mean_rho": 0.000213
+          },
+          "L1_SearchStream__f2p_SearchID__SearchInfo": {
+            "mean_gate": 0.047426,
+            "mean_N": 0.0,
+            "max_N": 0.0,
+            "mean_rho": 0.000213
+          },
+          "L1_SearchInfo__rev_f2p_SearchID__SearchStream": {
+            "mean_gate": 0.047426,
+            "mean_N": 1.0,
+            "max_N": 1.0,
+            "mean_rho": 0.000213
+          },
+          "L1_SearchStream__f2p_AdID__AdsInfo": {
+            "mean_gate": 0.047426,
+            "mean_N": 7.32,
+            "max_N": 64.0,
+            "mean_rho": 0.009739
+          },
+          "L1_AdsInfo__rev_f2p_AdID__SearchStream": {
+            "mean_gate": 0.047426,
+            "mean_N": 1.0,
+            "max_N": 1.0,
+            "mean_rho": 0.000213
+          },
+          "L1_UserInfo__rev_f2p_UserID__SearchInfo": {
+            "mean_gate": 0.047426,
+            "mean_N": 0.0,
+            "max_N": 0.0,
+            "mean_rho": 0.000213
+          },
+          "L1_Location__rev_f2p_LocationID__SearchInfo": {
+            "mean_gate": 0.047426,
+            "mean_N": 0.0,
+            "max_N": 0.0,
+            "mean_rho": 0.000213
+          },
+          "L1_SearchInfo__f2p_CategoryID__Category": {
+            "mean_gate": 0.047426,
+            "mean_N": 64.0,
+            "max_N": 64.0,
+            "mean_rho": 0.029516
+          },
+          "L1_Category__rev_f2p_CategoryID__SearchInfo": {
+            "mean_gate": 0.047426,
+            "mean_N": 0.0,
+            "max_N": 0.0,
+            "mean_rho": 0.000213
+          },
+          "L1_Location__rev_f2p_LocationID__AdsInfo": {
+            "mean_gate": 0.047426,
+            "mean_N": 0.0,
+            "max_N": 0.0,
+            "mean_rho": 0.000213
+          },
+          "L1_AdsInfo__f2p_CategoryID__Category": {
+            "mean_gate": 0.047426,
+            "mean_N": 64.0,
+            "max_N": 64.0,
+            "mean_rho": 0.148459
+          },
+          "L1_Category__rev_f2p_CategoryID__AdsInfo": {
+            "mean_gate": 0.047426,
+            "mean_N": 0.12,
+            "max_N": 1.0,
+            "mean_rho": 0.000213
+          }
+        }
+      }
+    }
+  }
+}

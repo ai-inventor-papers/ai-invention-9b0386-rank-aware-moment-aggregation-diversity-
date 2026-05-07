@@ -1,0 +1,13 @@
+{
+  "id": "exp_id1_it4__opus",
+  "type": "code",
+  "title": "CAMA Mean-vs-Sum Aggregation Causal Diagnosis on rel-f1 (5 methods \u00d7 2 tasks \u00d7 5 seeds)",
+  "summary": "Demo notebook for CAMA (Cardinality-Aware Moment Aggregation) mean-vs-sum aggregation experiment on rel-f1 dataset. Demonstrates: (1) CAMA/SumCAMA/UngatedMoment PyG Aggregation modules with zero-init unit tests (torch_geometric required, runs on Colab), (2) effective rank measurement via SVD spectral entropy, (3) statistical analysis with Cohen's d bootstrap 95% CI and 2-way ANOVA interaction tests on 50 pre-computed experiment results (5 methods x 2 tasks x 5 seeds), (4) four-panel visualization showing test metrics, effect size forest plot, effective rank comparison, and training loss curves. Core statistical analysis and visualization run without torch dependency; CAMA module demo activates automatically on Colab where torch is pre-installed.",
+  "original_path": "/ai-inventor/aii_pipeline/runs/leskovec-predictive-residual-message-passing-v2_sti/3_invention_loop/iter_4/gen_art/exp_id1_it4__opus",
+  "demo_path": "/ai-inventor/aii_pipeline/runs/leskovec-predictive-residual-message-passing-v2_sti/4_gen_paper_repo/exp_id1_it4__opus",
+  "out_expected_files": {
+    "notebook": "code_demo.ipynb",
+    "mini_data_file": "mini_demo_data.json"
+  },
+  "notebook_path": "/ai-inventor/aii_pipeline/runs/leskovec-predictive-residual-message-passing-v2_sti/4_gen_paper_repo/exp_id1_it4__opus/method_code_demo.ipynb"
+}

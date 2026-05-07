@@ -1,0 +1,38 @@
+{
+  "method": "mean_cama",
+  "task": "driver-position",
+  "seed": 123,
+  "dataset": "rel-f1",
+  "hyperparams": {
+    "channels": 128,
+    "lr": 0.005,
+    "epochs": 10,
+    "batch_size": 512,
+    "num_neighbors": 128,
+    "num_layers": 2
+  },
+  "val_metrics": {
+    "mae": 3.1534059791463007,
+    "rmse": 3.9498654595291014,
+    "r2": 0.274121343748168
+  },
+  "test_metrics": {
+    "mae": 3.1534059791463007,
+    "rmse": 3.9498654595291014,
+    "r2": 0.274121343748168
+  },
+  "best_epoch": 10,
+  "train_time_seconds": 8.2,
+  "train_losses": [
+    8.0264,
+    5.7645,
+    5.6731,
+    5.6542,
+    5.1877,
+    5.124,
+    5.0523,
+    5.01,
+    4.9811,
+    4.9337
+  ]
+}
