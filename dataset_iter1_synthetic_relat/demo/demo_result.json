@@ -1,0 +1,13 @@
+{
+  "id": "data_id5_it1__opus",
+  "type": "code",
+  "title": "Synthetic Relational Database Testbed for Rank Collapse & RAMA Validation",
+  "summary": "Demo notebook for the Synthetic Relational Database Testbed that generates parent-child hierarchical data across 12 conditions (4 cardinality regimes x 3 projection ranks). The notebook loads a 60-example mini dataset covering all 12 conditions, then regenerates the full 3,750-example dataset using the original parameters (5.8s generation time). Runs all 7 validation checks (rank correlation, proxy accuracy, target-variance dependency, classification balance, condition coverage, split ratios, NaN/Inf) - all pass. Includes 4-panel visualization of effective rank vs projection rank, SVD vs proxy correlation, regression target vs variance, and classification balance. Total runtime ~2m11s including package installation.",
+  "original_path": "/ai-inventor/aii_pipeline/runs/leskovec-predictive-residual-message-passing-v2_sti/3_invention_loop/iter_1/gen_art/data_id5_it1__opus",
+  "demo_path": "/ai-inventor/aii_pipeline/runs/leskovec-predictive-residual-message-passing-v2_sti/4_gen_paper_repo/data_id5_it1__opus",
+  "out_expected_files": {
+    "notebook": "code_demo.ipynb",
+    "mini_data_file": "mini_demo_data.json"
+  },
+  "notebook_path": "/ai-inventor/aii_pipeline/runs/leskovec-predictive-residual-message-passing-v2_sti/4_gen_paper_repo/data_id5_it1__opus/data_code_demo.ipynb"
+}

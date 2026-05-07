@@ -1,0 +1,13 @@
+{
+  "id": "data_id3_it1__opus",
+  "type": "code",
+  "title": "RelBench Regression Task Benchmarks with FK-Join Cardinality Profiles",
+  "summary": "Demo notebook analyzing RelBench regression task benchmarks with FK-join cardinality profiles. Loads pre-computed data for the rel-f1/driver-position task (30 curated examples across train/val/test folds). Demonstrates: relational schema extraction (9 tables, row counts, PKs/FKs), FK cardinality percentile profiles (3 edge types with min-to-max distributions), task split statistics (7,453 train / 499 val / 760 test rows), mini dataset sizing estimates, and example data parsing. Visualizations include log-scale cardinality profile plots and target distribution histograms by fold.",
+  "original_path": "/ai-inventor/aii_pipeline/runs/leskovec-predictive-residual-message-passing-v2_sti/3_invention_loop/iter_1/gen_art/data_id3_it1__opus",
+  "demo_path": "/ai-inventor/aii_pipeline/runs/leskovec-predictive-residual-message-passing-v2_sti/4_gen_paper_repo/data_id3_it1__opus",
+  "out_expected_files": {
+    "notebook": "code_demo.ipynb",
+    "mini_data_file": "mini_demo_data.json"
+  },
+  "notebook_path": "/ai-inventor/aii_pipeline/runs/leskovec-predictive-residual-message-passing-v2_sti/4_gen_paper_repo/data_id3_it1__opus/data_code_demo.ipynb"
+}

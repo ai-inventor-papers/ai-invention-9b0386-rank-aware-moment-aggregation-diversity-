@@ -1,0 +1,422 @@
+{
+  "datasets": [
+    {
+      "dataset": "rel-f1__driver-dnf",
+      "examples": [
+        {
+          "input": "=== Relational Prediction Task ===\nDataset: rel-f1\nTask: driver-dnf (binary_classification)\nPredict: did_not_finish for entity driverId\nMetrics: average_precision, accuracy, f1, roc_auc\nTimedelta: 30 days\n\n=== Query Instance ===\ndriverId: 362\nTimestamp: 1970-09-02T00:00:00\n\n=== Relational Schema (9 tables, 74063 total rows) ===\n  results (20323 rows, 15 cols) PK=resultId FKs=[raceId->races, driverId->drivers, constructorId->constructors]\n  qualifying (4082 rows, 7 cols) PK=qualifyId FKs=[raceId->races, driverId->drivers, constructorId->constructors]\n  circuits (77 rows, 8 cols) PK=circuitId FKs=[(root)]\n  constructor_results (9408 rows, 5 cols) PK=constructorResultsId FKs=[raceId->races, constructorId->constructors]\n  constructors (211 rows, 4 cols) PK=constructorId FKs=[(root)]\n  standings (28115 rows, 7 cols) PK=driverStandingsId FKs=[raceId->races, driverId->drivers]\n  constructor_standings (10170 rows, 7 cols) PK=constructorStandingsId FKs=[raceId->races, constructorId->constructors]\n  drivers (857 rows, 7 cols) PK=driverId FKs=[(root)]\n  races (820 rows, 7 cols) PK=raceId FKs=[circuitId->circuits]\n\n=== FK Cardinality Profiles ===\n  results.raceId -> races: mean=24.8 median=24.0 p95=34.0 p99=39.0 max=55\n  results.driverId -> drivers: mean=25.2 median=6.0 p95=128.8 p99=209.8 max=288\n  results.constructorId -> constructors: mean=102.1 median=14.0 p95=527.8 p99=1071.9 max=1829 [HIGH-CARDINALITY]\n  qualifying.raceId -> races: mean=21.6 median=22.0 p95=26.0 p99=26.0 max=28\n  qualifying.driverId -> drivers: mean=34.9 median=17.0 p95=126.4 p99=163.4 max=189\n  qualifying.constructorId -> constructors: mean=127.6 median=80.0 p95=378.0 p99=378.0 max=378 [HIGH-CARDINALITY]\n  constructor_results.raceId -> races: mean=12.4 median=11.0 p95=18.0 p99=20.0 max=20\n  constructor_results.constructorId -> constructors: mean=57.7 median=14.0 p95=292.9 p99=570.7 max=741\n  standings.raceId -> races: mean=34.3 median=30.0 p95=75.0 p99=93.8 max=108\n  standings.driverId -> drivers: mean=35.2 median=16.0 p95=144.0 p99=215.0 max=270\n  constructor_standings.raceId -> races: mean=13.5 median=13.0 p95=19.0 p99=20.0 max=22\n  constructor_standings.constructorId -> constructors: mean=69.2 median=24.0 p95=309.6 p99=590.9 max=753\n  races.circuitId -> circuits: mean=12.4 median=7.0 p95=41.0 p99=57.0 max=59\n\n=== Aggregate FK Profile ===\nTotal FK edges: 13, Max mean cardinality: 127.5625, Max max cardinality: 1829, High-cardinality edges: 2, Danger score: ?",
+          "output": "1",
+          "metadata_dataset_name": "rel-f1",
+          "metadata_task_name": "driver-dnf",
+          "metadata_task_type": "binary_classification",
+          "metadata_entity_col": "driverId",
+          "metadata_target_col": "did_not_finish",
+          "metadata_entity_id": "362",
+          "metadata_row_index": 0,
+          "metadata_num_tables": 9,
+          "metadata_total_rows": 74063,
+          "metadata_num_fk_edges": 13,
+          "metadata_num_high_cardinality_edges": 2,
+          "metadata_danger_score": 0.0,
+          "metadata_split_train": 11411,
+          "metadata_split_val": 566,
+          "metadata_split_test": 702,
+          "metadata_positive_fraction": 0.8804,
+          "metadata_n_classes": 2,
+          "metadata_metrics": [
+            "average_precision",
+            "accuracy",
+            "f1",
+            "roc_auc"
+          ],
+          "metadata_timedelta_days": 30
+        },
+        {
+          "input": "=== Relational Prediction Task ===\nDataset: rel-f1\nTask: driver-dnf (binary_classification)\nPredict: did_not_finish for entity driverId\nMetrics: average_precision, accuracy, f1, roc_auc\nTimedelta: 30 days\n\n=== Query Instance ===\ndriverId: 104\nTimestamp: 1984-08-19T00:00:00\n\n=== Relational Schema (9 tables, 74063 total rows) ===\n  results (20323 rows, 15 cols) PK=resultId FKs=[raceId->races, driverId->drivers, constructorId->constructors]\n  qualifying (4082 rows, 7 cols) PK=qualifyId FKs=[raceId->races, driverId->drivers, constructorId->constructors]\n  circuits (77 rows, 8 cols) PK=circuitId FKs=[(root)]\n  constructor_results (9408 rows, 5 cols) PK=constructorResultsId FKs=[raceId->races, constructorId->constructors]\n  constructors (211 rows, 4 cols) PK=constructorId FKs=[(root)]\n  standings (28115 rows, 7 cols) PK=driverStandingsId FKs=[raceId->races, driverId->drivers]\n  constructor_standings (10170 rows, 7 cols) PK=constructorStandingsId FKs=[raceId->races, constructorId->constructors]\n  drivers (857 rows, 7 cols) PK=driverId FKs=[(root)]\n  races (820 rows, 7 cols) PK=raceId FKs=[circuitId->circuits]\n\n=== FK Cardinality Profiles ===\n  results.raceId -> races: mean=24.8 median=24.0 p95=34.0 p99=39.0 max=55\n  results.driverId -> drivers: mean=25.2 median=6.0 p95=128.8 p99=209.8 max=288\n  results.constructorId -> constructors: mean=102.1 median=14.0 p95=527.8 p99=1071.9 max=1829 [HIGH-CARDINALITY]\n  qualifying.raceId -> races: mean=21.6 median=22.0 p95=26.0 p99=26.0 max=28\n  qualifying.driverId -> drivers: mean=34.9 median=17.0 p95=126.4 p99=163.4 max=189\n  qualifying.constructorId -> constructors: mean=127.6 median=80.0 p95=378.0 p99=378.0 max=378 [HIGH-CARDINALITY]\n  constructor_results.raceId -> races: mean=12.4 median=11.0 p95=18.0 p99=20.0 max=20\n  constructor_results.constructorId -> constructors: mean=57.7 median=14.0 p95=292.9 p99=570.7 max=741\n  standings.raceId -> races: mean=34.3 median=30.0 p95=75.0 p99=93.8 max=108\n  standings.driverId -> drivers: mean=35.2 median=16.0 p95=144.0 p99=215.0 max=270\n  constructor_standings.raceId -> races: mean=13.5 median=13.0 p95=19.0 p99=20.0 max=22\n  constructor_standings.constructorId -> constructors: mean=69.2 median=24.0 p95=309.6 p99=590.9 max=753\n  races.circuitId -> circuits: mean=12.4 median=7.0 p95=41.0 p99=57.0 max=59\n\n=== Aggregate FK Profile ===\nTotal FK edges: 13, Max mean cardinality: 127.5625, Max max cardinality: 1829, High-cardinality edges: 2, Danger score: ?",
+          "output": "1",
+          "metadata_dataset_name": "rel-f1",
+          "metadata_task_name": "driver-dnf",
+          "metadata_task_type": "binary_classification",
+          "metadata_entity_col": "driverId",
+          "metadata_target_col": "did_not_finish",
+          "metadata_entity_id": "104",
+          "metadata_row_index": 1,
+          "metadata_num_tables": 9,
+          "metadata_total_rows": 74063,
+          "metadata_num_fk_edges": 13,
+          "metadata_num_high_cardinality_edges": 2,
+          "metadata_danger_score": 0.0,
+          "metadata_split_train": 11411,
+          "metadata_split_val": 566,
+          "metadata_split_test": 702,
+          "metadata_positive_fraction": 0.8804,
+          "metadata_n_classes": 2,
+          "metadata_metrics": [
+            "average_precision",
+            "accuracy",
+            "f1",
+            "roc_auc"
+          ],
+          "metadata_timedelta_days": 30
+        },
+        {
+          "input": "=== Relational Prediction Task ===\nDataset: rel-f1\nTask: driver-dnf (binary_classification)\nPredict: did_not_finish for entity driverId\nMetrics: average_precision, accuracy, f1, roc_auc\nTimedelta: 30 days\n\n=== Query Instance ===\ndriverId: 29\nTimestamp: 2000-09-24T00:00:00\n\n=== Relational Schema (9 tables, 74063 total rows) ===\n  results (20323 rows, 15 cols) PK=resultId FKs=[raceId->races, driverId->drivers, constructorId->constructors]\n  qualifying (4082 rows, 7 cols) PK=qualifyId FKs=[raceId->races, driverId->drivers, constructorId->constructors]\n  circuits (77 rows, 8 cols) PK=circuitId FKs=[(root)]\n  constructor_results (9408 rows, 5 cols) PK=constructorResultsId FKs=[raceId->races, constructorId->constructors]\n  constructors (211 rows, 4 cols) PK=constructorId FKs=[(root)]\n  standings (28115 rows, 7 cols) PK=driverStandingsId FKs=[raceId->races, driverId->drivers]\n  constructor_standings (10170 rows, 7 cols) PK=constructorStandingsId FKs=[raceId->races, constructorId->constructors]\n  drivers (857 rows, 7 cols) PK=driverId FKs=[(root)]\n  races (820 rows, 7 cols) PK=raceId FKs=[circuitId->circuits]\n\n=== FK Cardinality Profiles ===\n  results.raceId -> races: mean=24.8 median=24.0 p95=34.0 p99=39.0 max=55\n  results.driverId -> drivers: mean=25.2 median=6.0 p95=128.8 p99=209.8 max=288\n  results.constructorId -> constructors: mean=102.1 median=14.0 p95=527.8 p99=1071.9 max=1829 [HIGH-CARDINALITY]\n  qualifying.raceId -> races: mean=21.6 median=22.0 p95=26.0 p99=26.0 max=28\n  qualifying.driverId -> drivers: mean=34.9 median=17.0 p95=126.4 p99=163.4 max=189\n  qualifying.constructorId -> constructors: mean=127.6 median=80.0 p95=378.0 p99=378.0 max=378 [HIGH-CARDINALITY]\n  constructor_results.raceId -> races: mean=12.4 median=11.0 p95=18.0 p99=20.0 max=20\n  constructor_results.constructorId -> constructors: mean=57.7 median=14.0 p95=292.9 p99=570.7 max=741\n  standings.raceId -> races: mean=34.3 median=30.0 p95=75.0 p99=93.8 max=108\n  standings.driverId -> drivers: mean=35.2 median=16.0 p95=144.0 p99=215.0 max=270\n  constructor_standings.raceId -> races: mean=13.5 median=13.0 p95=19.0 p99=20.0 max=22\n  constructor_standings.constructorId -> constructors: mean=69.2 median=24.0 p95=309.6 p99=590.9 max=753\n  races.circuitId -> circuits: mean=12.4 median=7.0 p95=41.0 p99=57.0 max=59\n\n=== Aggregate FK Profile ===\nTotal FK edges: 13, Max mean cardinality: 127.5625, Max max cardinality: 1829, High-cardinality edges: 2, Danger score: ?",
+          "output": "0",
+          "metadata_dataset_name": "rel-f1",
+          "metadata_task_name": "driver-dnf",
+          "metadata_task_type": "binary_classification",
+          "metadata_entity_col": "driverId",
+          "metadata_target_col": "did_not_finish",
+          "metadata_entity_id": "29",
+          "metadata_row_index": 2,
+          "metadata_num_tables": 9,
+          "metadata_total_rows": 74063,
+          "metadata_num_fk_edges": 13,
+          "metadata_num_high_cardinality_edges": 2,
+          "metadata_danger_score": 0.0,
+          "metadata_split_train": 11411,
+          "metadata_split_val": 566,
+          "metadata_split_test": 702,
+          "metadata_positive_fraction": 0.8804,
+          "metadata_n_classes": 2,
+          "metadata_metrics": [
+            "average_precision",
+            "accuracy",
+            "f1",
+            "roc_auc"
+          ],
+          "metadata_timedelta_days": 30
+        }
+      ]
+    },
+    {
+      "dataset": "rel-stack__user-engagement",
+      "examples": [
+        {
+          "input": "=== Relational Prediction Task ===\nDataset: rel-stack\nTask: user-engagement (binary_classification)\nPredict: contribution for entity OwnerUserId\nMetrics: average_precision, accuracy, f1, roc_auc\nTimedelta: 91 days\n\n=== Query Instance ===\nOwnerUserId: 19333\nTimestamp: 2014-01-09T00:00:00\n\n=== Relational Schema (7 tables, 4247264 total rows) ===\n  comments (623967 rows, 7 cols) PK=Id FKs=[UserId->users, PostId->posts]\n  badges (463463 rows, 6 cols) PK=Id FKs=[UserId->users]\n  postLinks (77337 rows, 5 cols) PK=Id FKs=[PostId->posts, RelatedPostId->posts]\n  postHistory (1175368 rows, 10 cols) PK=Id FKs=[PostId->posts, UserId->users]\n  votes (1317876 rows, 5 cols) PK=Id FKs=[PostId->posts, UserId->users]\n  users (255360 rows, 8 cols) PK=Id FKs=[(root)]\n  posts (333893 rows, 10 cols) PK=Id FKs=[OwnerUserId->users, ParentId->posts]\n\n=== FK Cardinality Profiles ===\n  comments.UserId -> users: mean=11.5 median=2.0 p95=21.0 p99=102.0 max=40851\n  comments.PostId -> posts: mean=3.3 median=2.0 p95=9.0 p99=14.0 max=66\n  badges.UserId -> users: mean=3.3 median=2.0 p95=10.0 p99=25.0 max=1578\n  postLinks.PostId -> posts: mean=1.6 median=1.0 p95=4.0 p99=6.0 max=25\n  postLinks.RelatedPostId -> posts: mean=3.0 median=1.0 p95=9.0 p99=30.0 max=392\n  postHistory.PostId -> posts: mean=3.5 median=3.0 p95=8.0 p99=13.0 max=76\n  postHistory.UserId -> users: mean=12.9 median=3.0 p95=29.0 p99=107.0 max=69917\n  votes.PostId -> posts: mean=4.3 median=2.0 p95=13.0 p99=35.0 max=1561\n  votes.UserId -> users: mean=2.0 median=1.0 p95=5.0 p99=14.0 max=168\n  posts.OwnerUserId -> users: mean=3.9 median=1.0 p95=9.0 p99=38.0 max=4672\n  posts.ParentId -> posts: mean=1.5 median=1.0 p95=3.0 p99=5.0 max=151\n\n=== Aggregate FK Profile ===\nTotal FK edges: 11, Max mean cardinality: 12.947, Max max cardinality: 69917, High-cardinality edges: 0, Danger score: ?",
+          "output": "0",
+          "metadata_dataset_name": "rel-stack",
+          "metadata_task_name": "user-engagement",
+          "metadata_task_type": "binary_classification",
+          "metadata_entity_col": "OwnerUserId",
+          "metadata_target_col": "contribution",
+          "metadata_entity_id": "19333",
+          "metadata_row_index": 0,
+          "metadata_num_tables": 7,
+          "metadata_total_rows": 4247264,
+          "metadata_num_fk_edges": 11,
+          "metadata_num_high_cardinality_edges": 0,
+          "metadata_danger_score": 0.0,
+          "metadata_split_train": 1360850,
+          "metadata_split_val": 85838,
+          "metadata_split_test": 88137,
+          "metadata_positive_fraction": 0.05,
+          "metadata_n_classes": 2,
+          "metadata_metrics": [
+            "average_precision",
+            "accuracy",
+            "f1",
+            "roc_auc"
+          ],
+          "metadata_timedelta_days": 91
+        },
+        {
+          "input": "=== Relational Prediction Task ===\nDataset: rel-stack\nTask: user-engagement (binary_classification)\nPredict: contribution for entity OwnerUserId\nMetrics: average_precision, accuracy, f1, roc_auc\nTimedelta: 91 days\n\n=== Query Instance ===\nOwnerUserId: 30772\nTimestamp: 2019-07-04T00:00:00\n\n=== Relational Schema (7 tables, 4247264 total rows) ===\n  comments (623967 rows, 7 cols) PK=Id FKs=[UserId->users, PostId->posts]\n  badges (463463 rows, 6 cols) PK=Id FKs=[UserId->users]\n  postLinks (77337 rows, 5 cols) PK=Id FKs=[PostId->posts, RelatedPostId->posts]\n  postHistory (1175368 rows, 10 cols) PK=Id FKs=[PostId->posts, UserId->users]\n  votes (1317876 rows, 5 cols) PK=Id FKs=[PostId->posts, UserId->users]\n  users (255360 rows, 8 cols) PK=Id FKs=[(root)]\n  posts (333893 rows, 10 cols) PK=Id FKs=[OwnerUserId->users, ParentId->posts]\n\n=== FK Cardinality Profiles ===\n  comments.UserId -> users: mean=11.5 median=2.0 p95=21.0 p99=102.0 max=40851\n  comments.PostId -> posts: mean=3.3 median=2.0 p95=9.0 p99=14.0 max=66\n  badges.UserId -> users: mean=3.3 median=2.0 p95=10.0 p99=25.0 max=1578\n  postLinks.PostId -> posts: mean=1.6 median=1.0 p95=4.0 p99=6.0 max=25\n  postLinks.RelatedPostId -> posts: mean=3.0 median=1.0 p95=9.0 p99=30.0 max=392\n  postHistory.PostId -> posts: mean=3.5 median=3.0 p95=8.0 p99=13.0 max=76\n  postHistory.UserId -> users: mean=12.9 median=3.0 p95=29.0 p99=107.0 max=69917\n  votes.PostId -> posts: mean=4.3 median=2.0 p95=13.0 p99=35.0 max=1561\n  votes.UserId -> users: mean=2.0 median=1.0 p95=5.0 p99=14.0 max=168\n  posts.OwnerUserId -> users: mean=3.9 median=1.0 p95=9.0 p99=38.0 max=4672\n  posts.ParentId -> posts: mean=1.5 median=1.0 p95=3.0 p99=5.0 max=151\n\n=== Aggregate FK Profile ===\nTotal FK edges: 11, Max mean cardinality: 12.947, Max max cardinality: 69917, High-cardinality edges: 0, Danger score: ?",
+          "output": "0",
+          "metadata_dataset_name": "rel-stack",
+          "metadata_task_name": "user-engagement",
+          "metadata_task_type": "binary_classification",
+          "metadata_entity_col": "OwnerUserId",
+          "metadata_target_col": "contribution",
+          "metadata_entity_id": "30772",
+          "metadata_row_index": 1,
+          "metadata_num_tables": 7,
+          "metadata_total_rows": 4247264,
+          "metadata_num_fk_edges": 11,
+          "metadata_num_high_cardinality_edges": 0,
+          "metadata_danger_score": 0.0,
+          "metadata_split_train": 1360850,
+          "metadata_split_val": 85838,
+          "metadata_split_test": 88137,
+          "metadata_positive_fraction": 0.05,
+          "metadata_n_classes": 2,
+          "metadata_metrics": [
+            "average_precision",
+            "accuracy",
+            "f1",
+            "roc_auc"
+          ],
+          "metadata_timedelta_days": 91
+        },
+        {
+          "input": "=== Relational Prediction Task ===\nDataset: rel-stack\nTask: user-engagement (binary_classification)\nPredict: contribution for entity OwnerUserId\nMetrics: average_precision, accuracy, f1, roc_auc\nTimedelta: 91 days\n\n=== Query Instance ===\nOwnerUserId: 3537\nTimestamp: 2017-04-06T00:00:00\n\n=== Relational Schema (7 tables, 4247264 total rows) ===\n  comments (623967 rows, 7 cols) PK=Id FKs=[UserId->users, PostId->posts]\n  badges (463463 rows, 6 cols) PK=Id FKs=[UserId->users]\n  postLinks (77337 rows, 5 cols) PK=Id FKs=[PostId->posts, RelatedPostId->posts]\n  postHistory (1175368 rows, 10 cols) PK=Id FKs=[PostId->posts, UserId->users]\n  votes (1317876 rows, 5 cols) PK=Id FKs=[PostId->posts, UserId->users]\n  users (255360 rows, 8 cols) PK=Id FKs=[(root)]\n  posts (333893 rows, 10 cols) PK=Id FKs=[OwnerUserId->users, ParentId->posts]\n\n=== FK Cardinality Profiles ===\n  comments.UserId -> users: mean=11.5 median=2.0 p95=21.0 p99=102.0 max=40851\n  comments.PostId -> posts: mean=3.3 median=2.0 p95=9.0 p99=14.0 max=66\n  badges.UserId -> users: mean=3.3 median=2.0 p95=10.0 p99=25.0 max=1578\n  postLinks.PostId -> posts: mean=1.6 median=1.0 p95=4.0 p99=6.0 max=25\n  postLinks.RelatedPostId -> posts: mean=3.0 median=1.0 p95=9.0 p99=30.0 max=392\n  postHistory.PostId -> posts: mean=3.5 median=3.0 p95=8.0 p99=13.0 max=76\n  postHistory.UserId -> users: mean=12.9 median=3.0 p95=29.0 p99=107.0 max=69917\n  votes.PostId -> posts: mean=4.3 median=2.0 p95=13.0 p99=35.0 max=1561\n  votes.UserId -> users: mean=2.0 median=1.0 p95=5.0 p99=14.0 max=168\n  posts.OwnerUserId -> users: mean=3.9 median=1.0 p95=9.0 p99=38.0 max=4672\n  posts.ParentId -> posts: mean=1.5 median=1.0 p95=3.0 p99=5.0 max=151\n\n=== Aggregate FK Profile ===\nTotal FK edges: 11, Max mean cardinality: 12.947, Max max cardinality: 69917, High-cardinality edges: 0, Danger score: ?",
+          "output": "0",
+          "metadata_dataset_name": "rel-stack",
+          "metadata_task_name": "user-engagement",
+          "metadata_task_type": "binary_classification",
+          "metadata_entity_col": "OwnerUserId",
+          "metadata_target_col": "contribution",
+          "metadata_entity_id": "3537",
+          "metadata_row_index": 2,
+          "metadata_num_tables": 7,
+          "metadata_total_rows": 4247264,
+          "metadata_num_fk_edges": 11,
+          "metadata_num_high_cardinality_edges": 0,
+          "metadata_danger_score": 0.0,
+          "metadata_split_train": 1360850,
+          "metadata_split_val": 85838,
+          "metadata_split_test": 88137,
+          "metadata_positive_fraction": 0.05,
+          "metadata_n_classes": 2,
+          "metadata_metrics": [
+            "average_precision",
+            "accuracy",
+            "f1",
+            "roc_auc"
+          ],
+          "metadata_timedelta_days": 91
+        }
+      ]
+    },
+    {
+      "dataset": "rel-hm__user-churn",
+      "examples": [
+        {
+          "input": "=== Relational Prediction Task ===\nDataset: rel-hm\nTask: user-churn (binary_classification)\nPredict: churn for entity customer_id\nMetrics: average_precision, accuracy, f1, roc_auc\nTimedelta: 7 days\n\n=== Query Instance ===\ncustomer_id: 340249\nTimestamp: 2020-06-08T00:00:00\n\n=== Relational Schema (3 tables, 16664809 total rows) ===\n  transactions (15187287 rows, 5 cols) PK=None FKs=[customer_id->customer, article_id->article]\n  customer (1371980 rows, 7 cols) PK=customer_id FKs=[(root)]\n  article (105542 rows, 25 cols) PK=article_id FKs=[(root)]\n\n=== FK Cardinality Profiles ===\n  transactions.customer_id -> customer: mean=15.2 median=8.0 p95=54.0 p99=105.0 max=1039\n  transactions.article_id -> article: mean=212.8 median=29.0 p95=1005.0 p99=2486.8 max=31458 [HIGH-CARDINALITY]\n\n=== Aggregate FK Profile ===\nTotal FK edges: 2, Max mean cardinality: 212.7816, Max max cardinality: 31458, High-cardinality edges: 1, Danger score: ?",
+          "output": "1",
+          "metadata_dataset_name": "rel-hm",
+          "metadata_task_name": "user-churn",
+          "metadata_task_type": "binary_classification",
+          "metadata_entity_col": "customer_id",
+          "metadata_target_col": "churn",
+          "metadata_entity_id": "340249",
+          "metadata_row_index": 0,
+          "metadata_num_tables": 3,
+          "metadata_total_rows": 16664809,
+          "metadata_num_fk_edges": 2,
+          "metadata_num_high_cardinality_edges": 1,
+          "metadata_danger_score": 0.0,
+          "metadata_split_train": 3832692,
+          "metadata_split_val": 76556,
+          "metadata_split_test": 74575,
+          "metadata_positive_fraction": 0.8187,
+          "metadata_n_classes": 2,
+          "metadata_metrics": [
+            "average_precision",
+            "accuracy",
+            "f1",
+            "roc_auc"
+          ],
+          "metadata_timedelta_days": 7
+        },
+        {
+          "input": "=== Relational Prediction Task ===\nDataset: rel-hm\nTask: user-churn (binary_classification)\nPredict: churn for entity customer_id\nMetrics: average_precision, accuracy, f1, roc_auc\nTimedelta: 7 days\n\n=== Query Instance ===\ncustomer_id: 1048426\nTimestamp: 2020-08-17T00:00:00\n\n=== Relational Schema (3 tables, 16664809 total rows) ===\n  transactions (15187287 rows, 5 cols) PK=None FKs=[customer_id->customer, article_id->article]\n  customer (1371980 rows, 7 cols) PK=customer_id FKs=[(root)]\n  article (105542 rows, 25 cols) PK=article_id FKs=[(root)]\n\n=== FK Cardinality Profiles ===\n  transactions.customer_id -> customer: mean=15.2 median=8.0 p95=54.0 p99=105.0 max=1039\n  transactions.article_id -> article: mean=212.8 median=29.0 p95=1005.0 p99=2486.8 max=31458 [HIGH-CARDINALITY]\n\n=== Aggregate FK Profile ===\nTotal FK edges: 2, Max mean cardinality: 212.7816, Max max cardinality: 31458, High-cardinality edges: 1, Danger score: ?",
+          "output": "1",
+          "metadata_dataset_name": "rel-hm",
+          "metadata_task_name": "user-churn",
+          "metadata_task_type": "binary_classification",
+          "metadata_entity_col": "customer_id",
+          "metadata_target_col": "churn",
+          "metadata_entity_id": "1048426",
+          "metadata_row_index": 1,
+          "metadata_num_tables": 3,
+          "metadata_total_rows": 16664809,
+          "metadata_num_fk_edges": 2,
+          "metadata_num_high_cardinality_edges": 1,
+          "metadata_danger_score": 0.0,
+          "metadata_split_train": 3832692,
+          "metadata_split_val": 76556,
+          "metadata_split_test": 74575,
+          "metadata_positive_fraction": 0.8187,
+          "metadata_n_classes": 2,
+          "metadata_metrics": [
+            "average_precision",
+            "accuracy",
+            "f1",
+            "roc_auc"
+          ],
+          "metadata_timedelta_days": 7
+        },
+        {
+          "input": "=== Relational Prediction Task ===\nDataset: rel-hm\nTask: user-churn (binary_classification)\nPredict: churn for entity customer_id\nMetrics: average_precision, accuracy, f1, roc_auc\nTimedelta: 7 days\n\n=== Query Instance ===\ncustomer_id: 882716\nTimestamp: 2019-09-30T00:00:00\n\n=== Relational Schema (3 tables, 16664809 total rows) ===\n  transactions (15187287 rows, 5 cols) PK=None FKs=[customer_id->customer, article_id->article]\n  customer (1371980 rows, 7 cols) PK=customer_id FKs=[(root)]\n  article (105542 rows, 25 cols) PK=article_id FKs=[(root)]\n\n=== FK Cardinality Profiles ===\n  transactions.customer_id -> customer: mean=15.2 median=8.0 p95=54.0 p99=105.0 max=1039\n  transactions.article_id -> article: mean=212.8 median=29.0 p95=1005.0 p99=2486.8 max=31458 [HIGH-CARDINALITY]\n\n=== Aggregate FK Profile ===\nTotal FK edges: 2, Max mean cardinality: 212.7816, Max max cardinality: 31458, High-cardinality edges: 1, Danger score: ?",
+          "output": "1",
+          "metadata_dataset_name": "rel-hm",
+          "metadata_task_name": "user-churn",
+          "metadata_task_type": "binary_classification",
+          "metadata_entity_col": "customer_id",
+          "metadata_target_col": "churn",
+          "metadata_entity_id": "882716",
+          "metadata_row_index": 2,
+          "metadata_num_tables": 3,
+          "metadata_total_rows": 16664809,
+          "metadata_num_fk_edges": 2,
+          "metadata_num_high_cardinality_edges": 1,
+          "metadata_danger_score": 0.0,
+          "metadata_split_train": 3832692,
+          "metadata_split_val": 76556,
+          "metadata_split_test": 74575,
+          "metadata_positive_fraction": 0.8187,
+          "metadata_n_classes": 2,
+          "metadata_metrics": [
+            "average_precision",
+            "accuracy",
+            "f1",
+            "roc_auc"
+          ],
+          "metadata_timedelta_days": 7
+        }
+      ]
+    },
+    {
+      "dataset": "rel-avito__ad-ctr",
+      "examples": [
+        {
+          "input": "=== Relational Prediction Task ===\nDataset: rel-avito\nTask: ad-ctr (regression)\nPredict: num_click for entity AdID\nMetrics: r2, mae, rmse\nTimedelta: 4 days\n\n=== Query Instance ===\nAdID: 1881207\nTimestamp: 2015-05-04T00:00:00\n\n=== Relational Schema (8 tables, 20679117 total rows) ===\n  AdsInfo (5960558 rows, 6 cols) PK=AdID FKs=[LocationID->Location, CategoryID->Category]\n  SearchInfo (1987156 rows, 8 cols) PK=SearchID FKs=[UserID->UserInfo, LocationID->Location, CategoryID->Category]\n  UserInfo (98250 rows, 5 cols) PK=UserID FKs=[(root)]\n  Location (3512 rows, 4 cols) PK=LocationID FKs=[(root)]\n  SearchStream (7107277 rows, 7 cols) PK=None FKs=[SearchID->SearchInfo, AdID->AdsInfo]\n  VisitStream (5277861 rows, 4 cols) PK=None FKs=[UserID->UserInfo, AdID->AdsInfo]\n  PhoneRequestsStream (244435 rows, 4 cols) PK=None FKs=[UserID->UserInfo, AdID->AdsInfo]\n  Category (68 rows, 4 cols) PK=CategoryID FKs=[(root)]\n\n=== FK Cardinality Profiles ===\n  AdsInfo.LocationID -> Location: mean=1765.0 median=31.0 p95=3237.7 p99=34816.6 max=929887 [HIGH-CARDINALITY]\n  AdsInfo.CategoryID -> Category: mean=114625.5 median=47661.0 p95=433438.0 p99=703376.9 max=741045 [HIGH-CARDINALITY]\n  SearchInfo.UserID -> UserInfo: mean=35.4 median=8.0 p95=146.4 p99=437.0 max=3325\n  SearchInfo.LocationID -> Location: mean=1093.0 median=17.0 p95=4467.9 p99=19318.3 max=261154 [HIGH-CARDINALITY]\n  SearchInfo.CategoryID -> Category: mean=50952.7 median=19622.0 p95=188393.9 p99=221797.2 max=222683 [HIGH-CARDINALITY]\n  SearchStream.SearchID -> SearchInfo: mean=3.6 median=4.0 p95=5.0 p99=5.0 max=6\n  SearchStream.AdID -> AdsInfo: mean=3.5 median=1.0 p95=5.0 p99=22.0 max=23775\n  VisitStream.UserID -> UserInfo: mean=89.7 median=31.0 p95=371.0 p99=850.3 max=6493\n  VisitStream.AdID -> AdsInfo: mean=1.7 median=1.0 p95=4.0 p99=8.0 max=367\n  PhoneRequestsStream.UserID -> UserInfo: mean=8.1 median=3.0 p95=29.0 p99=71.0 max=1123\n  PhoneRequestsStream.AdID -> AdsInfo: mean=1.2 median=1.0 p95=2.0 p99=3.0 max=83\n\n=== Aggregate FK Profile ===\nTotal FK edges: 11, Max mean cardinality: 114625.5, Max max cardinality: 929887, High-cardinality edges: 4, Danger score: ?",
+          "output": "0.00540541",
+          "metadata_dataset_name": "rel-avito",
+          "metadata_task_name": "ad-ctr",
+          "metadata_task_type": "regression",
+          "metadata_entity_col": "AdID",
+          "metadata_target_col": "num_click",
+          "metadata_entity_id": "1881207",
+          "metadata_row_index": 0,
+          "metadata_num_tables": 8,
+          "metadata_total_rows": 20679117,
+          "metadata_num_fk_edges": 11,
+          "metadata_num_high_cardinality_edges": 4,
+          "metadata_danger_score": 0.0,
+          "metadata_split_train": 5100,
+          "metadata_split_val": 1766,
+          "metadata_split_test": 1816,
+          "metadata_metrics": [
+            "r2",
+            "mae",
+            "rmse"
+          ],
+          "metadata_timedelta_days": 4
+        },
+        {
+          "input": "=== Relational Prediction Task ===\nDataset: rel-avito\nTask: ad-ctr (regression)\nPredict: num_click for entity AdID\nMetrics: r2, mae, rmse\nTimedelta: 4 days\n\n=== Query Instance ===\nAdID: 472000\nTimestamp: 2015-04-30T00:00:00\n\n=== Relational Schema (8 tables, 20679117 total rows) ===\n  AdsInfo (5960558 rows, 6 cols) PK=AdID FKs=[LocationID->Location, CategoryID->Category]\n  SearchInfo (1987156 rows, 8 cols) PK=SearchID FKs=[UserID->UserInfo, LocationID->Location, CategoryID->Category]\n  UserInfo (98250 rows, 5 cols) PK=UserID FKs=[(root)]\n  Location (3512 rows, 4 cols) PK=LocationID FKs=[(root)]\n  SearchStream (7107277 rows, 7 cols) PK=None FKs=[SearchID->SearchInfo, AdID->AdsInfo]\n  VisitStream (5277861 rows, 4 cols) PK=None FKs=[UserID->UserInfo, AdID->AdsInfo]\n  PhoneRequestsStream (244435 rows, 4 cols) PK=None FKs=[UserID->UserInfo, AdID->AdsInfo]\n  Category (68 rows, 4 cols) PK=CategoryID FKs=[(root)]\n\n=== FK Cardinality Profiles ===\n  AdsInfo.LocationID -> Location: mean=1765.0 median=31.0 p95=3237.7 p99=34816.6 max=929887 [HIGH-CARDINALITY]\n  AdsInfo.CategoryID -> Category: mean=114625.5 median=47661.0 p95=433438.0 p99=703376.9 max=741045 [HIGH-CARDINALITY]\n  SearchInfo.UserID -> UserInfo: mean=35.4 median=8.0 p95=146.4 p99=437.0 max=3325\n  SearchInfo.LocationID -> Location: mean=1093.0 median=17.0 p95=4467.9 p99=19318.3 max=261154 [HIGH-CARDINALITY]\n  SearchInfo.CategoryID -> Category: mean=50952.7 median=19622.0 p95=188393.9 p99=221797.2 max=222683 [HIGH-CARDINALITY]\n  SearchStream.SearchID -> SearchInfo: mean=3.6 median=4.0 p95=5.0 p99=5.0 max=6\n  SearchStream.AdID -> AdsInfo: mean=3.5 median=1.0 p95=5.0 p99=22.0 max=23775\n  VisitStream.UserID -> UserInfo: mean=89.7 median=31.0 p95=371.0 p99=850.3 max=6493\n  VisitStream.AdID -> AdsInfo: mean=1.7 median=1.0 p95=4.0 p99=8.0 max=367\n  PhoneRequestsStream.UserID -> UserInfo: mean=8.1 median=3.0 p95=29.0 p99=71.0 max=1123\n  PhoneRequestsStream.AdID -> AdsInfo: mean=1.2 median=1.0 p95=2.0 p99=3.0 max=83\n\n=== Aggregate FK Profile ===\nTotal FK edges: 11, Max mean cardinality: 114625.5, Max max cardinality: 929887, High-cardinality edges: 4, Danger score: ?",
+          "output": "0.015873",
+          "metadata_dataset_name": "rel-avito",
+          "metadata_task_name": "ad-ctr",
+          "metadata_task_type": "regression",
+          "metadata_entity_col": "AdID",
+          "metadata_target_col": "num_click",
+          "metadata_entity_id": "472000",
+          "metadata_row_index": 1,
+          "metadata_num_tables": 8,
+          "metadata_total_rows": 20679117,
+          "metadata_num_fk_edges": 11,
+          "metadata_num_high_cardinality_edges": 4,
+          "metadata_danger_score": 0.0,
+          "metadata_split_train": 5100,
+          "metadata_split_val": 1766,
+          "metadata_split_test": 1816,
+          "metadata_metrics": [
+            "r2",
+            "mae",
+            "rmse"
+          ],
+          "metadata_timedelta_days": 4
+        },
+        {
+          "input": "=== Relational Prediction Task ===\nDataset: rel-avito\nTask: ad-ctr (regression)\nPredict: num_click for entity AdID\nMetrics: r2, mae, rmse\nTimedelta: 4 days\n\n=== Query Instance ===\nAdID: 1872653\nTimestamp: 2015-05-04T00:00:00\n\n=== Relational Schema (8 tables, 20679117 total rows) ===\n  AdsInfo (5960558 rows, 6 cols) PK=AdID FKs=[LocationID->Location, CategoryID->Category]\n  SearchInfo (1987156 rows, 8 cols) PK=SearchID FKs=[UserID->UserInfo, LocationID->Location, CategoryID->Category]\n  UserInfo (98250 rows, 5 cols) PK=UserID FKs=[(root)]\n  Location (3512 rows, 4 cols) PK=LocationID FKs=[(root)]\n  SearchStream (7107277 rows, 7 cols) PK=None FKs=[SearchID->SearchInfo, AdID->AdsInfo]\n  VisitStream (5277861 rows, 4 cols) PK=None FKs=[UserID->UserInfo, AdID->AdsInfo]\n  PhoneRequestsStream (244435 rows, 4 cols) PK=None FKs=[UserID->UserInfo, AdID->AdsInfo]\n  Category (68 rows, 4 cols) PK=CategoryID FKs=[(root)]\n\n=== FK Cardinality Profiles ===\n  AdsInfo.LocationID -> Location: mean=1765.0 median=31.0 p95=3237.7 p99=34816.6 max=929887 [HIGH-CARDINALITY]\n  AdsInfo.CategoryID -> Category: mean=114625.5 median=47661.0 p95=433438.0 p99=703376.9 max=741045 [HIGH-CARDINALITY]\n  SearchInfo.UserID -> UserInfo: mean=35.4 median=8.0 p95=146.4 p99=437.0 max=3325\n  SearchInfo.LocationID -> Location: mean=1093.0 median=17.0 p95=4467.9 p99=19318.3 max=261154 [HIGH-CARDINALITY]\n  SearchInfo.CategoryID -> Category: mean=50952.7 median=19622.0 p95=188393.9 p99=221797.2 max=222683 [HIGH-CARDINALITY]\n  SearchStream.SearchID -> SearchInfo: mean=3.6 median=4.0 p95=5.0 p99=5.0 max=6\n  SearchStream.AdID -> AdsInfo: mean=3.5 median=1.0 p95=5.0 p99=22.0 max=23775\n  VisitStream.UserID -> UserInfo: mean=89.7 median=31.0 p95=371.0 p99=850.3 max=6493\n  VisitStream.AdID -> AdsInfo: mean=1.7 median=1.0 p95=4.0 p99=8.0 max=367\n  PhoneRequestsStream.UserID -> UserInfo: mean=8.1 median=3.0 p95=29.0 p99=71.0 max=1123\n  PhoneRequestsStream.AdID -> AdsInfo: mean=1.2 median=1.0 p95=2.0 p99=3.0 max=83\n\n=== Aggregate FK Profile ===\nTotal FK edges: 11, Max mean cardinality: 114625.5, Max max cardinality: 929887, High-cardinality edges: 4, Danger score: ?",
+          "output": "0.0625",
+          "metadata_dataset_name": "rel-avito",
+          "metadata_task_name": "ad-ctr",
+          "metadata_task_type": "regression",
+          "metadata_entity_col": "AdID",
+          "metadata_target_col": "num_click",
+          "metadata_entity_id": "1872653",
+          "metadata_row_index": 2,
+          "metadata_num_tables": 8,
+          "metadata_total_rows": 20679117,
+          "metadata_num_fk_edges": 11,
+          "metadata_num_high_cardinality_edges": 4,
+          "metadata_danger_score": 0.0,
+          "metadata_split_train": 5100,
+          "metadata_split_val": 1766,
+          "metadata_split_test": 1816,
+          "metadata_metrics": [
+            "r2",
+            "mae",
+            "rmse"
+          ],
+          "metadata_timedelta_days": 4
+        }
+      ]
+    }
+  ],
+  "metadata": {
+    "description": "RelBench Classification + Avito Stress-Test Tasks with FK-Join Cardinality Profiles. Each example represents one prediction instance (entity at a timestamp) in a relational database. Input contains the relational schema, FK cardinality profiles, and entity query. Output is the target label/value.",
+    "source": "relbench (Stanford SNAP)",
+    "num_datasets": 4,
+    "total_examples": 2000,
+    "cross_dataset_comparison": {
+      "fk_danger_ranking": [
+        "rel-avito",
+        "rel-stack",
+        "rel-f1",
+        "rel-hm"
+      ],
+      "fk_danger_scores": {
+        "rel-avito": 98.1488,
+        "rel-stack": 72.7909,
+        "rel-f1": 65.3676,
+        "rel-hm": 17.3024
+      },
+      "high_cardinality_edges_by_dataset": {
+        "rel-f1": {
+          "num_high_cardinality_edges": 2,
+          "high_cardinality_edge_names": [
+            "results.constructorId -> constructors",
+            "qualifying.constructorId -> constructors"
+          ],
+          "max_mean_cardinality": 127.5625,
+          "max_max_cardinality": 1829
+        },
+        "rel-stack": {
+          "num_high_cardinality_edges": 0,
+          "high_cardinality_edge_names": [],
+          "max_mean_cardinality": 12.947,
+          "max_max_cardinality": 69917
+        },
+        "rel-hm": {
+          "num_high_cardinality_edges": 1,
+          "high_cardinality_edge_names": [
+            "transactions.article_id -> article"
+          ],
+          "max_mean_cardinality": 212.7816,
+          "max_max_cardinality": 31458
+        },
+        "rel-avito": {
+          "num_high_cardinality_edges": 4,
+          "high_cardinality_edge_names": [
+            "AdsInfo.LocationID -> Location",
+            "AdsInfo.CategoryID -> Category",
+            "SearchInfo.LocationID -> Location",
+            "SearchInfo.CategoryID -> Category"
+          ],
+          "max_mean_cardinality": 114625.5,
+          "max_max_cardinality": 929887
+        }
+      },
+      "avito_vs_others_structural_differences": {
+        "avito_max_mean_cardinality": 114625.5,
+        "others_max_mean_cardinality": 212.7816,
+        "avito_max_max_cardinality": 929887,
+        "others_max_max_cardinality": 69917,
+        "avito_extreme_edges": [
+          "AdsInfo.LocationID -> Location",
+          "AdsInfo.CategoryID -> Category",
+          "SearchInfo.LocationID -> Location",
+          "SearchInfo.CategoryID -> Category",
+          "SearchStream.AdID -> AdsInfo"
+        ],
+        "avito_num_extreme_edges": 5,
+        "summary": "Avito has 5 extreme FK edges (mean>100 or max>10000) with max mean cardinality 114625.5 vs 212.8 for other datasets. The stream tables (VisitStream, SearchStream, PhoneRequestsStream) have no primary keys and extreme fan-out, creating the FK-join cardinality explosion that likely caused PRMP's catastrophic R²=-5046 on ad-ctr."
+      }
+    }
+  }
+}

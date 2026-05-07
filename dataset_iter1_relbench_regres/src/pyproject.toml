@@ -1,0 +1,13 @@
+[project]
+name = "relbench-fk-cardinality-dataset"
+version = "1.0.0"
+requires-python = ">=3.11,<3.12"
+description = "RelBench regression task benchmarks with FK-join cardinality profiles"
+dependencies = [
+    "loguru==0.7.3",
+    "numpy==2.4.3",
+    "pandas==3.0.1",
+    "pyarrow==23.0.1",
+    "python-dateutil==2.9.0.post0",
+    "six==1.17.0",
+]

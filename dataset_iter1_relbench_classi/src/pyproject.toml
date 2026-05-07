@@ -1,0 +1,10 @@
+[project]
+name = "relbench-fk-cardinality-dataset"
+version = "1.0.0"
+requires-python = ">=3.11,<3.12"
+description = "RelBench Classification + Avito Stress-Test Tasks with FK-Join Cardinality Profiles"
+dependencies = [
+    "loguru==0.7.3",
+    "numpy==2.4.3",
+    "pandas==3.0.1",
+]

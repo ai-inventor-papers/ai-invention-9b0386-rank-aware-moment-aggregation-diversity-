@@ -1,0 +1,329 @@
+{
+  "datasets": [
+    {
+      "dataset": "rel-f1__driver-dnf",
+      "examples": [
+        {
+          "input": "=== Relational Prediction Task ===\nDataset: rel-f1\nTask: driver-dnf (binary_classification)\nPredict: did_not_finish for entity driverId\nMetrics: average_precision, accuracy, f1, roc_auc\nTimedelta: 30 ...",
+          "output": "1",
+          "metadata_dataset_name": "rel-f1",
+          "metadata_task_name": "driver-dnf",
+          "metadata_task_type": "binary_classification",
+          "metadata_entity_col": "driverId",
+          "metadata_target_col": "did_not_finish",
+          "metadata_entity_id": "362",
+          "metadata_row_index": 0,
+          "metadata_num_tables": 9,
+          "metadata_total_rows": 74063,
+          "metadata_num_fk_edges": 13,
+          "metadata_num_high_cardinality_edges": 2,
+          "metadata_danger_score": 0.0,
+          "metadata_split_train": 11411,
+          "metadata_split_val": 566,
+          "metadata_split_test": 702,
+          "metadata_positive_fraction": 0.8804,
+          "metadata_n_classes": 2,
+          "metadata_metrics": [
+            "average_precision",
+            "accuracy",
+            "f1"
+          ],
+          "metadata_timedelta_days": 30
+        },
+        {
+          "input": "=== Relational Prediction Task ===\nDataset: rel-f1\nTask: driver-dnf (binary_classification)\nPredict: did_not_finish for entity driverId\nMetrics: average_precision, accuracy, f1, roc_auc\nTimedelta: 30 ...",
+          "output": "1",
+          "metadata_dataset_name": "rel-f1",
+          "metadata_task_name": "driver-dnf",
+          "metadata_task_type": "binary_classification",
+          "metadata_entity_col": "driverId",
+          "metadata_target_col": "did_not_finish",
+          "metadata_entity_id": "104",
+          "metadata_row_index": 1,
+          "metadata_num_tables": 9,
+          "metadata_total_rows": 74063,
+          "metadata_num_fk_edges": 13,
+          "metadata_num_high_cardinality_edges": 2,
+          "metadata_danger_score": 0.0,
+          "metadata_split_train": 11411,
+          "metadata_split_val": 566,
+          "metadata_split_test": 702,
+          "metadata_positive_fraction": 0.8804,
+          "metadata_n_classes": 2,
+          "metadata_metrics": [
+            "average_precision",
+            "accuracy",
+            "f1"
+          ],
+          "metadata_timedelta_days": 30
+        },
+        {
+          "input": "=== Relational Prediction Task ===\nDataset: rel-f1\nTask: driver-dnf (binary_classification)\nPredict: did_not_finish for entity driverId\nMetrics: average_precision, accuracy, f1, roc_auc\nTimedelta: 30 ...",
+          "output": "0",
+          "metadata_dataset_name": "rel-f1",
+          "metadata_task_name": "driver-dnf",
+          "metadata_task_type": "binary_classification",
+          "metadata_entity_col": "driverId",
+          "metadata_target_col": "did_not_finish",
+          "metadata_entity_id": "29",
+          "metadata_row_index": 2,
+          "metadata_num_tables": 9,
+          "metadata_total_rows": 74063,
+          "metadata_num_fk_edges": 13,
+          "metadata_num_high_cardinality_edges": 2,
+          "metadata_danger_score": 0.0,
+          "metadata_split_train": 11411,
+          "metadata_split_val": 566,
+          "metadata_split_test": 702,
+          "metadata_positive_fraction": 0.8804,
+          "metadata_n_classes": 2,
+          "metadata_metrics": [
+            "average_precision",
+            "accuracy",
+            "f1"
+          ],
+          "metadata_timedelta_days": 30
+        }
+      ]
+    },
+    {
+      "dataset": "rel-stack__user-engagement",
+      "examples": [
+        {
+          "input": "=== Relational Prediction Task ===\nDataset: rel-stack\nTask: user-engagement (binary_classification)\nPredict: contribution for entity OwnerUserId\nMetrics: average_precision, accuracy, f1, roc_auc\nTimed...",
+          "output": "0",
+          "metadata_dataset_name": "rel-stack",
+          "metadata_task_name": "user-engagement",
+          "metadata_task_type": "binary_classification",
+          "metadata_entity_col": "OwnerUserId",
+          "metadata_target_col": "contribution",
+          "metadata_entity_id": "19333",
+          "metadata_row_index": 0,
+          "metadata_num_tables": 7,
+          "metadata_total_rows": 4247264,
+          "metadata_num_fk_edges": 11,
+          "metadata_num_high_cardinality_edges": 0,
+          "metadata_danger_score": 0.0,
+          "metadata_split_train": 1360850,
+          "metadata_split_val": 85838,
+          "metadata_split_test": 88137,
+          "metadata_positive_fraction": 0.05,
+          "metadata_n_classes": 2,
+          "metadata_metrics": [
+            "average_precision",
+            "accuracy",
+            "f1"
+          ],
+          "metadata_timedelta_days": 91
+        },
+        {
+          "input": "=== Relational Prediction Task ===\nDataset: rel-stack\nTask: user-engagement (binary_classification)\nPredict: contribution for entity OwnerUserId\nMetrics: average_precision, accuracy, f1, roc_auc\nTimed...",
+          "output": "0",
+          "metadata_dataset_name": "rel-stack",
+          "metadata_task_name": "user-engagement",
+          "metadata_task_type": "binary_classification",
+          "metadata_entity_col": "OwnerUserId",
+          "metadata_target_col": "contribution",
+          "metadata_entity_id": "30772",
+          "metadata_row_index": 1,
+          "metadata_num_tables": 7,
+          "metadata_total_rows": 4247264,
+          "metadata_num_fk_edges": 11,
+          "metadata_num_high_cardinality_edges": 0,
+          "metadata_danger_score": 0.0,
+          "metadata_split_train": 1360850,
+          "metadata_split_val": 85838,
+          "metadata_split_test": 88137,
+          "metadata_positive_fraction": 0.05,
+          "metadata_n_classes": 2,
+          "metadata_metrics": [
+            "average_precision",
+            "accuracy",
+            "f1"
+          ],
+          "metadata_timedelta_days": 91
+        },
+        {
+          "input": "=== Relational Prediction Task ===\nDataset: rel-stack\nTask: user-engagement (binary_classification)\nPredict: contribution for entity OwnerUserId\nMetrics: average_precision, accuracy, f1, roc_auc\nTimed...",
+          "output": "0",
+          "metadata_dataset_name": "rel-stack",
+          "metadata_task_name": "user-engagement",
+          "metadata_task_type": "binary_classification",
+          "metadata_entity_col": "OwnerUserId",
+          "metadata_target_col": "contribution",
+          "metadata_entity_id": "3537",
+          "metadata_row_index": 2,
+          "metadata_num_tables": 7,
+          "metadata_total_rows": 4247264,
+          "metadata_num_fk_edges": 11,
+          "metadata_num_high_cardinality_edges": 0,
+          "metadata_danger_score": 0.0,
+          "metadata_split_train": 1360850,
+          "metadata_split_val": 85838,
+          "metadata_split_test": 88137,
+          "metadata_positive_fraction": 0.05,
+          "metadata_n_classes": 2,
+          "metadata_metrics": [
+            "average_precision",
+            "accuracy",
+            "f1"
+          ],
+          "metadata_timedelta_days": 91
+        }
+      ]
+    },
+    {
+      "dataset": "rel-hm__user-churn",
+      "examples": [
+        {
+          "input": "=== Relational Prediction Task ===\nDataset: rel-hm\nTask: user-churn (binary_classification)\nPredict: churn for entity customer_id\nMetrics: average_precision, accuracy, f1, roc_auc\nTimedelta: 7 days\n\n=...",
+          "output": "1",
+          "metadata_dataset_name": "rel-hm",
+          "metadata_task_name": "user-churn",
+          "metadata_task_type": "binary_classification",
+          "metadata_entity_col": "customer_id",
+          "metadata_target_col": "churn",
+          "metadata_entity_id": "340249",
+          "metadata_row_index": 0,
+          "metadata_num_tables": 3,
+          "metadata_total_rows": 16664809,
+          "metadata_num_fk_edges": 2,
+          "metadata_num_high_cardinality_edges": 1,
+          "metadata_danger_score": 0.0,
+          "metadata_split_train": 3832692,
+          "metadata_split_val": 76556,
+          "metadata_split_test": 74575,
+          "metadata_positive_fraction": 0.8187,
+          "metadata_n_classes": 2,
+          "metadata_metrics": [
+            "average_precision",
+            "accuracy",
+            "f1"
+          ],
+          "metadata_timedelta_days": 7
+        },
+        {
+          "input": "=== Relational Prediction Task ===\nDataset: rel-hm\nTask: user-churn (binary_classification)\nPredict: churn for entity customer_id\nMetrics: average_precision, accuracy, f1, roc_auc\nTimedelta: 7 days\n\n=...",
+          "output": "1",
+          "metadata_dataset_name": "rel-hm",
+          "metadata_task_name": "user-churn",
+          "metadata_task_type": "binary_classification",
+          "metadata_entity_col": "customer_id",
+          "metadata_target_col": "churn",
+          "metadata_entity_id": "1048426",
+          "metadata_row_index": 1,
+          "metadata_num_tables": 3,
+          "metadata_total_rows": 16664809,
+          "metadata_num_fk_edges": 2,
+          "metadata_num_high_cardinality_edges": 1,
+          "metadata_danger_score": 0.0,
+          "metadata_split_train": 3832692,
+          "metadata_split_val": 76556,
+          "metadata_split_test": 74575,
+          "metadata_positive_fraction": 0.8187,
+          "metadata_n_classes": 2,
+          "metadata_metrics": [
+            "average_precision",
+            "accuracy",
+            "f1"
+          ],
+          "metadata_timedelta_days": 7
+        },
+        {
+          "input": "=== Relational Prediction Task ===\nDataset: rel-hm\nTask: user-churn (binary_classification)\nPredict: churn for entity customer_id\nMetrics: average_precision, accuracy, f1, roc_auc\nTimedelta: 7 days\n\n=...",
+          "output": "1",
+          "metadata_dataset_name": "rel-hm",
+          "metadata_task_name": "user-churn",
+          "metadata_task_type": "binary_classification",
+          "metadata_entity_col": "customer_id",
+          "metadata_target_col": "churn",
+          "metadata_entity_id": "882716",
+          "metadata_row_index": 2,
+          "metadata_num_tables": 3,
+          "metadata_total_rows": 16664809,
+          "metadata_num_fk_edges": 2,
+          "metadata_num_high_cardinality_edges": 1,
+          "metadata_danger_score": 0.0,
+          "metadata_split_train": 3832692,
+          "metadata_split_val": 76556,
+          "metadata_split_test": 74575,
+          "metadata_positive_fraction": 0.8187,
+          "metadata_n_classes": 2,
+          "metadata_metrics": [
+            "average_precision",
+            "accuracy",
+            "f1"
+          ],
+          "metadata_timedelta_days": 7
+        }
+      ]
+    }
+  ],
+  "metadata": {
+    "description": "RelBench Classification + Avito Stress-Test Tasks with FK-Join Cardinality Profiles. Each example represents one prediction instance (entity at a timestamp) in a relational database. Input contains th...",
+    "source": "relbench (Stanford SNAP)",
+    "num_datasets": 4,
+    "total_examples": 2000,
+    "cross_dataset_comparison": {
+      "fk_danger_ranking": [
+        "rel-avito",
+        "rel-stack",
+        "rel-f1"
+      ],
+      "fk_danger_scores": {
+        "rel-avito": 98.1488,
+        "rel-stack": 72.7909,
+        "rel-f1": 65.3676,
+        "rel-hm": 17.3024
+      },
+      "high_cardinality_edges_by_dataset": {
+        "rel-f1": {
+          "num_high_cardinality_edges": 2,
+          "high_cardinality_edge_names": [
+            "results.constructorId -> constructors",
+            "qualifying.constructorId -> constructors"
+          ],
+          "max_mean_cardinality": 127.5625,
+          "max_max_cardinality": 1829
+        },
+        "rel-stack": {
+          "num_high_cardinality_edges": 0,
+          "high_cardinality_edge_names": [],
+          "max_mean_cardinality": 12.947,
+          "max_max_cardinality": 69917
+        },
+        "rel-hm": {
+          "num_high_cardinality_edges": 1,
+          "high_cardinality_edge_names": [
+            "transactions.article_id -> article"
+          ],
+          "max_mean_cardinality": 212.7816,
+          "max_max_cardinality": 31458
+        },
+        "rel-avito": {
+          "num_high_cardinality_edges": 4,
+          "high_cardinality_edge_names": [
+            "AdsInfo.LocationID -> Location",
+            "AdsInfo.CategoryID -> Category",
+            "SearchInfo.LocationID -> Location"
+          ],
+          "max_mean_cardinality": 114625.5,
+          "max_max_cardinality": 929887
+        }
+      },
+      "avito_vs_others_structural_differences": {
+        "avito_max_mean_cardinality": 114625.5,
+        "others_max_mean_cardinality": 212.7816,
+        "avito_max_max_cardinality": 929887,
+        "others_max_max_cardinality": 69917,
+        "avito_extreme_edges": [
+          "AdsInfo.LocationID -> Location",
+          "AdsInfo.CategoryID -> Category",
+          "SearchInfo.LocationID -> Location"
+        ],
+        "avito_num_extreme_edges": 5,
+        "summary": "Avito has 5 extreme FK edges (mean>100 or max>10000) with max mean cardinality 114625.5 vs 212.8 for other datasets. The stream tables (VisitStream, SearchStream, PhoneRequestsStream) have no primary ..."
+      }
+    }
+  }
+}

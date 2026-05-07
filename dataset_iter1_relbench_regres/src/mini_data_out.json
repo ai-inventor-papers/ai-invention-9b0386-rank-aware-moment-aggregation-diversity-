@@ -1,0 +1,1457 @@
+{
+  "metadata": {
+    "description": "RelBench regression task benchmarks with FK-join cardinality profiles",
+    "source": "relbench (Stanford SNAP)",
+    "paper": "RelBench: A Benchmark for Deep Learning on Relational Databases (NeurIPS 2024)",
+    "paper_url": "https://arxiv.org/abs/2407.20060",
+    "cache_dir": "/ai-inventor/aii_pipeline/runs/leskovec-predictive-residual-message-passing-v2_sti/3_invention_loop/iter_1/gen_art/data_id3_it1__opus/relbench_cache",
+    "num_tasks_requested": 4,
+    "num_tasks_downloaded": 3,
+    "blocked_tasks": [
+      {
+        "dataset": "rel-hm",
+        "task": "item-sales",
+        "reason": "Requires Kaggle credentials for H&M competition data"
+      }
+    ],
+    "tasks_metadata": [
+      {
+        "dataset": "rel-f1",
+        "task": "driver-position",
+        "schema": {
+          "dataset": "rel-f1",
+          "tables": {
+            "circuits": {
+              "num_rows": 77,
+              "num_columns": 8,
+              "columns": {
+                "circuitId": "int64",
+                "circuitRef": "string",
+                "name": "string",
+                "location": "string",
+                "country": "string",
+                "lat": "double",
+                "lng": "double",
+                "alt": "double"
+              },
+              "pkey_col": "circuitId",
+              "fkey_col_to_pkey_table": {}
+            },
+            "constructor_results": {
+              "num_rows": 12290,
+              "num_columns": 5,
+              "columns": {
+                "constructorResultsId": "int64",
+                "raceId": "int64",
+                "constructorId": "int64",
+                "points": "double",
+                "date": "timestamp[ns]"
+              },
+              "pkey_col": "constructorResultsId",
+              "fkey_col_to_pkey_table": {
+                "raceId": "races",
+                "constructorId": "constructors"
+              }
+            },
+            "constructor_standings": {
+              "num_rows": 13051,
+              "num_columns": 7,
+              "columns": {
+                "constructorStandingsId": "int64",
+                "raceId": "int64",
+                "constructorId": "int64",
+                "points": "double",
+                "position": "int64",
+                "wins": "int64",
+                "date": "timestamp[ns]"
+              },
+              "pkey_col": "constructorStandingsId",
+              "fkey_col_to_pkey_table": {
+                "raceId": "races",
+                "constructorId": "constructors"
+              }
+            },
+            "constructors": {
+              "num_rows": 211,
+              "num_columns": 4,
+              "columns": {
+                "constructorId": "int64",
+                "constructorRef": "string",
+                "name": "string",
+                "nationality": "string"
+              },
+              "pkey_col": "constructorId",
+              "fkey_col_to_pkey_table": {}
+            },
+            "drivers": {
+              "num_rows": 857,
+              "num_columns": 7,
+              "columns": {
+                "driverId": "int64",
+                "driverRef": "string",
+                "code": "string",
+                "forename": "string",
+                "surname": "string",
+                "dob": "timestamp[ns]",
+                "nationality": "string"
+              },
+              "pkey_col": "driverId",
+              "fkey_col_to_pkey_table": {}
+            },
+            "qualifying": {
+              "num_rows": 9815,
+              "num_columns": 7,
+              "columns": {
+                "qualifyId": "int64",
+                "raceId": "int64",
+                "driverId": "int64",
+                "constructorId": "int64",
+                "number": "int64",
+                "position": "int64",
+                "date": "timestamp[ns]"
+              },
+              "pkey_col": "qualifyId",
+              "fkey_col_to_pkey_table": {
+                "raceId": "races",
+                "driverId": "drivers",
+                "constructorId": "constructors"
+              }
+            },
+            "races": {
+              "num_rows": 1101,
+              "num_columns": 7,
+              "columns": {
+                "raceId": "int64",
+                "year": "int64",
+                "round": "int64",
+                "circuitId": "int64",
+                "name": "string",
+                "date": "timestamp[ns]",
+                "time": "string"
+              },
+              "pkey_col": "raceId",
+              "fkey_col_to_pkey_table": {
+                "circuitId": "circuits"
+              }
+            },
+            "results": {
+              "num_rows": 26080,
+              "num_columns": 15,
+              "columns": {
+                "resultId": "int64",
+                "raceId": "int64",
+                "driverId": "int64",
+                "constructorId": "int64",
+                "number": "double",
+                "grid": "int64",
+                "position": "double",
+                "positionOrder": "int64",
+                "points": "double",
+                "laps": "int64",
+                "milliseconds": "double",
+                "fastestLap": "double",
+                "rank": "double",
+                "statusId": "int64",
+                "date": "timestamp[ns]"
+              },
+              "pkey_col": "resultId",
+              "fkey_col_to_pkey_table": {
+                "raceId": "races",
+                "driverId": "drivers",
+                "constructorId": "constructors"
+              }
+            },
+            "standings": {
+              "num_rows": 34124,
+              "num_columns": 7,
+              "columns": {
+                "driverStandingsId": "int64",
+                "raceId": "int64",
+                "driverId": "int64",
+                "points": "double",
+                "position": "int64",
+                "wins": "int64",
+                "date": "timestamp[ns]"
+              },
+              "pkey_col": "driverStandingsId",
+              "fkey_col_to_pkey_table": {
+                "raceId": "races",
+                "driverId": "drivers"
+              }
+            }
+          }
+        },
+        "fk_cardinality_profiles": [
+          {
+            "edge_type": "races.circuitId -> circuits",
+            "child_table": "races",
+            "fk_column": "circuitId",
+            "parent_table": "circuits",
+            "num_parents_with_children": 77,
+            "num_parents_without_children": 0,
+            "total_fk_references": 1101,
+            "null_fk_count": 0,
+            "cardinality_stats": {
+              "min": 1,
+              "p25": 2,
+              "median": 8,
+              "mean": 14.2987,
+              "p75": 20,
+              "p90": 37,
+              "p95": 44,
+              "p99": 69,
+              "max": 73,
+              "std": 16.4523
+            }
+          },
+          {
+            "edge_type": "results.raceId -> races",
+            "child_table": "results",
+            "fk_column": "raceId",
+            "parent_table": "races",
+            "num_parents_with_children": 1091,
+            "num_parents_without_children": 10,
+            "total_fk_references": 26080,
+            "null_fk_count": 0,
+            "cardinality_stats": {
+              "min": 10,
+              "p25": 20,
+              "median": 22,
+              "mean": 23.9047,
+              "p75": 26,
+              "p90": 31,
+              "p95": 33,
+              "p99": 39,
+              "max": 55,
+              "std": 4.8597
+            }
+          },
+          {
+            "edge_type": "results.driverId -> drivers",
+            "child_table": "results",
+            "fk_column": "driverId",
+            "parent_table": "drivers",
+            "num_parents_with_children": 857,
+            "num_parents_without_children": 0,
+            "total_fk_references": 26080,
+            "null_fk_count": 0,
+            "cardinality_stats": {
+              "min": 1,
+              "p25": 2,
+              "median": 7,
+              "mean": 30.4317,
+              "p75": 30,
+              "p90": 97,
+              "p95": 154,
+              "p99": 256,
+              "max": 370,
+              "std": 54.4879
+            }
+          },
+          {
+            "edge_type": "results.constructorId -> constructors",
+            "child_table": "results",
+            "fk_column": "constructorId",
+            "parent_table": "constructors",
+            "num_parents_with_children": 210,
+            "num_parents_without_children": 1,
+            "total_fk_references": 26080,
+            "null_fk_count": 0,
+            "cardinality_stats": {
+              "min": 1,
+              "p25": 3,
+              "median": 18,
+              "mean": 124.1905,
+              "p75": 111,
+              "p90": 323,
+              "p95": 601,
+              "p99": 1543,
+              "max": 2371,
+              "std": 283.7951
+            }
+          },
+          {
+            "edge_type": "standings.raceId -> races",
+            "child_table": "standings",
+            "fk_column": "raceId",
+            "parent_table": "races",
+            "num_parents_with_children": 1091,
+            "num_parents_without_children": 10,
+            "total_fk_references": 34124,
+            "null_fk_count": 0,
+            "cardinality_stats": {
+              "min": 7,
+              "p25": 22,
+              "median": 26,
+              "mean": 31.2777,
+              "p75": 36,
+              "p90": 47,
+              "p95": 68,
+              "p99": 90,
+              "max": 108,
+              "std": 15.3331
+            }
+          },
+          {
+            "edge_type": "standings.driverId -> drivers",
+            "child_table": "standings",
+            "fk_column": "driverId",
+            "parent_table": "drivers",
+            "num_parents_with_children": 850,
+            "num_parents_without_children": 7,
+            "total_fk_references": 34124,
+            "null_fk_count": 0,
+            "cardinality_stats": {
+              "min": 1,
+              "p25": 8,
+              "median": 19,
+              "mean": 40.1459,
+              "p75": 46,
+              "p90": 106,
+              "p95": 165,
+              "p99": 255,
+              "max": 372,
+              "std": 54.722
+            }
+          },
+          {
+            "edge_type": "qualifying.raceId -> races",
+            "child_table": "qualifying",
+            "fk_column": "raceId",
+            "parent_table": "races",
+            "num_parents_with_children": 460,
+            "num_parents_without_children": 641,
+            "total_fk_references": 9815,
+            "null_fk_count": 0,
+            "cardinality_stats": {
+              "min": 18,
+              "p25": 20,
+              "median": 20,
+              "mean": 21.337,
+              "p75": 22,
+              "p90": 24,
+              "p95": 24,
+              "p99": 26,
+              "max": 28,
+              "std": 1.8063
+            }
+          },
+          {
+            "edge_type": "qualifying.driverId -> drivers",
+            "child_table": "qualifying",
+            "fk_column": "driverId",
+            "parent_table": "drivers",
+            "num_parents_with_children": 168,
+            "num_parents_without_children": 689,
+            "total_fk_references": 9815,
+            "null_fk_count": 0,
+            "cardinality_stats": {
+              "min": 1,
+              "p25": 11,
+              "median": 28,
+              "mean": 58.4226,
+              "p75": 71,
+              "p90": 174,
+              "p95": 221,
+              "p99": 321,
+              "max": 353,
+              "std": 73.22
+            }
+          },
+          {
+            "edge_type": "qualifying.constructorId -> constructors",
+            "child_table": "qualifying",
+            "fk_column": "constructorId",
+            "parent_table": "constructors",
+            "num_parents_with_children": 46,
+            "num_parents_without_children": 165,
+            "total_fk_references": 9815,
+            "null_fk_count": 0,
+            "cardinality_stats": {
+              "min": 8,
+              "p25": 55,
+              "median": 112,
+              "mean": 213.3696,
+              "p75": 238,
+              "p90": 564,
+              "p95": 867,
+              "p99": 919,
+              "max": 920,
+              "std": 250.2915
+            }
+          },
+          {
+            "edge_type": "constructor_results.raceId -> races",
+            "child_table": "constructor_results",
+            "fk_column": "raceId",
+            "parent_table": "races",
+            "num_parents_with_children": 1028,
+            "num_parents_without_children": 73,
+            "total_fk_references": 12290,
+            "null_fk_count": 0,
+            "cardinality_stats": {
+              "min": 2,
+              "p25": 10,
+              "median": 11,
+              "mean": 11.9553,
+              "p75": 14,
+              "p90": 17,
+              "p95": 18,
+              "p99": 20,
+              "max": 20,
+              "std": 3.0329
+            }
+          },
+          {
+            "edge_type": "constructor_results.constructorId -> constructors",
+            "child_table": "constructor_results",
+            "fk_column": "constructorId",
+            "parent_table": "constructors",
+            "num_parents_with_children": 175,
+            "num_parents_without_children": 36,
+            "total_fk_references": 12290,
+            "null_fk_count": 0,
+            "cardinality_stats": {
+              "min": 1,
+              "p25": 2,
+              "median": 17,
+              "mean": 70.2286,
+              "p75": 64,
+              "p90": 198,
+              "p95": 334,
+              "p99": 831,
+              "max": 1012,
+              "std": 143.1677
+            }
+          },
+          {
+            "edge_type": "constructor_standings.raceId -> races",
+            "child_table": "constructor_standings",
+            "fk_column": "raceId",
+            "parent_table": "races",
+            "num_parents_with_children": 1027,
+            "num_parents_without_children": 74,
+            "total_fk_references": 13051,
+            "null_fk_count": 0,
+            "cardinality_stats": {
+              "min": 3,
+              "p25": 10,
+              "median": 11,
+              "mean": 12.7079,
+              "p75": 15,
+              "p90": 18,
+              "p95": 19,
+              "p99": 20,
+              "max": 22,
+              "std": 3.2558
+            }
+          },
+          {
+            "edge_type": "constructor_standings.constructorId -> constructors",
+            "child_table": "constructor_standings",
+            "fk_column": "constructorId",
+            "parent_table": "constructors",
+            "num_parents_with_children": 159,
+            "num_parents_without_children": 52,
+            "total_fk_references": 13051,
+            "null_fk_count": 0,
+            "cardinality_stats": {
+              "min": 1,
+              "p25": 11,
+              "median": 31,
+              "mean": 82.0818,
+              "p75": 78,
+              "p90": 233,
+              "p95": 339,
+              "p99": 853,
+              "max": 1024,
+              "std": 148.0843
+            }
+          }
+        ],
+        "task_stats": {
+          "dataset": "rel-f1",
+          "task": "driver-position",
+          "splits": {
+            "train": {
+              "num_rows": 7453,
+              "num_unique_entities": 771,
+              "columns": [
+                "date",
+                "driverId",
+                "position"
+              ],
+              "target_stats": {
+                "count": 7453,
+                "mean": 13.901438,
+                "std": 7.025734,
+                "min": 1.0,
+                "p25": 9.0,
+                "median": 13.333333333333334,
+                "p75": 18.0,
+                "max": 39.0
+              }
+            },
+            "val": {
+              "num_rows": 499,
+              "num_unique_entities": 47,
+              "columns": [
+                "date",
+                "driverId",
+                "position"
+              ],
+              "target_stats": {
+                "count": 499,
+                "mean": 11.0832,
+                "std": 4.640726,
+                "min": 1.0,
+                "p25": 7.55,
+                "median": 11.4,
+                "p75": 14.666666666666666,
+                "max": 22.0
+              }
+            },
+            "test": {
+              "num_rows": 760,
+              "num_unique_entities": 56,
+              "columns": [
+                "date",
+                "driverId",
+                "position"
+              ],
+              "target_stats": {
+                "count": 760,
+                "mean": 11.926206,
+                "std": 5.213817,
+                "min": 1.0,
+                "p25": 8.0,
+                "median": 12.183333333333334,
+                "p75": 16.0,
+                "max": 24.0
+              }
+            }
+          },
+          "task_type": "regression",
+          "target_col": "position",
+          "entity_col": "driverId",
+          "entity_table": "drivers",
+          "timedelta_days": 60,
+          "metrics": [
+            "mae",
+            "rmse",
+            "r2"
+          ]
+        },
+        "mini_dataset_stats": {
+          "circuits": {
+            "original_rows": 77,
+            "estimated_mini_rows": 77,
+            "sample_frac": 0.05
+          },
+          "constructor_results": {
+            "original_rows": 12290,
+            "estimated_mini_rows": 614,
+            "sample_frac": 0.05
+          },
+          "constructor_standings": {
+            "original_rows": 13051,
+            "estimated_mini_rows": 652,
+            "sample_frac": 0.05
+          },
+          "constructors": {
+            "original_rows": 211,
+            "estimated_mini_rows": 100,
+            "sample_frac": 0.05
+          },
+          "drivers": {
+            "original_rows": 857,
+            "estimated_mini_rows": 100,
+            "sample_frac": 0.05
+          },
+          "qualifying": {
+            "original_rows": 9815,
+            "estimated_mini_rows": 490,
+            "sample_frac": 0.05
+          },
+          "races": {
+            "original_rows": 1101,
+            "estimated_mini_rows": 100,
+            "sample_frac": 0.05
+          },
+          "results": {
+            "original_rows": 26080,
+            "estimated_mini_rows": 1304,
+            "sample_frac": 0.05
+          },
+          "standings": {
+            "original_rows": 34124,
+            "estimated_mini_rows": 1706,
+            "sample_frac": 0.05
+          }
+        }
+      },
+      {
+        "dataset": "rel-stack",
+        "task": "post-votes",
+        "schema": {
+          "dataset": "rel-stack",
+          "tables": {
+            "badges": {
+              "num_rows": 590833,
+              "num_columns": 6,
+              "columns": {
+                "Id": "int64",
+                "UserId": "int64",
+                "Class": "int64",
+                "Name": "large_string",
+                "TagBased": "bool",
+                "Date": "timestamp[us]"
+              },
+              "pkey_col": "Id",
+              "fkey_col_to_pkey_table": {
+                "UserId": "users"
+              }
+            },
+            "comments": {
+              "num_rows": 794597,
+              "num_columns": 7,
+              "columns": {
+                "Id": "int64",
+                "PostId": "int64",
+                "UserId": "int64",
+                "ContentLicense": "large_string",
+                "UserDisplayName": "large_string",
+                "Text": "large_string",
+                "CreationDate": "timestamp[us]"
+              },
+              "pkey_col": "Id",
+              "fkey_col_to_pkey_table": {
+                "PostId": "posts",
+                "UserId": "users"
+              }
+            },
+            "postHistory": {
+              "num_rows": 1486886,
+              "num_columns": 10,
+              "columns": {
+                "Id": "int64",
+                "PostId": "int64",
+                "UserId": "int64",
+                "PostHistoryTypeId": "int64",
+                "UserDisplayName": "large_string",
+                "ContentLicense": "large_string",
+                "RevisionGUID": "large_string",
+                "Text": "large_string",
+                "Comment": "large_string",
+                "CreationDate": "timestamp[us]"
+              },
+              "pkey_col": "Id",
+              "fkey_col_to_pkey_table": {
+                "PostId": "posts",
+                "UserId": "users"
+              }
+            },
+            "postLinks": {
+              "num_rows": 103969,
+              "num_columns": 5,
+              "columns": {
+                "Id": "int64",
+                "RelatedPostId": "int64",
+                "PostId": "int64",
+                "LinkTypeId": "int64",
+                "CreationDate": "timestamp[us]"
+              },
+              "pkey_col": "Id",
+              "fkey_col_to_pkey_table": {
+                "PostId": "posts",
+                "RelatedPostId": "posts"
+              }
+            },
+            "posts": {
+              "num_rows": 415913,
+              "num_columns": 10,
+              "columns": {
+                "Id": "int64",
+                "OwnerUserId": "int64",
+                "PostTypeId": "int64",
+                "ParentId": "int64",
+                "OwnerDisplayName": "large_string",
+                "Title": "large_string",
+                "Tags": "large_string",
+                "ContentLicense": "large_string",
+                "Body": "large_string",
+                "CreationDate": "timestamp[us]"
+              },
+              "pkey_col": "Id",
+              "fkey_col_to_pkey_table": {
+                "OwnerUserId": "users",
+                "ParentId": "posts"
+              }
+            },
+            "users": {
+              "num_rows": 333784,
+              "num_columns": 8,
+              "columns": {
+                "Id": "int64",
+                "AccountId": "double",
+                "DisplayName": "large_string",
+                "Location": "large_string",
+                "ProfileImageUrl": "double",
+                "WebsiteUrl": "large_string",
+                "AboutMe": "large_string",
+                "CreationDate": "timestamp[us]"
+              },
+              "pkey_col": "Id",
+              "fkey_col_to_pkey_table": {}
+            },
+            "votes": {
+              "num_rows": 1673836,
+              "num_columns": 5,
+              "columns": {
+                "Id": "int64",
+                "UserId": "int64",
+                "PostId": "int64",
+                "VoteTypeId": "int64",
+                "CreationDate": "timestamp[us]"
+              },
+              "pkey_col": "Id",
+              "fkey_col_to_pkey_table": {
+                "PostId": "posts",
+                "UserId": "users"
+              }
+            }
+          }
+        },
+        "fk_cardinality_profiles": [
+          {
+            "edge_type": "posts.OwnerUserId -> users",
+            "child_table": "posts",
+            "fk_column": "OwnerUserId",
+            "parent_table": "users",
+            "num_parents_with_children": 106130,
+            "num_parents_without_children": 227654,
+            "total_fk_references": 409899,
+            "null_fk_count": 6014,
+            "cardinality_stats": {
+              "min": 1,
+              "p25": 1,
+              "median": 1,
+              "mean": 3.8622,
+              "p75": 2,
+              "p90": 5,
+              "p95": 9,
+              "p99": 36,
+              "max": 4885,
+              "std": 37.948
+            }
+          },
+          {
+            "edge_type": "posts.ParentId -> posts",
+            "child_table": "posts",
+            "fk_column": "ParentId",
+            "parent_table": "posts",
+            "num_parents_with_children": 141201,
+            "num_parents_without_children": 274712,
+            "total_fk_references": 203244,
+            "null_fk_count": 212669,
+            "cardinality_stats": {
+              "min": 1,
+              "p25": 1,
+              "median": 1,
+              "mean": 1.4394,
+              "p75": 2,
+              "p90": 2,
+              "p95": 3,
+              "p99": 5,
+              "max": 153,
+              "std": 1.1247
+            }
+          },
+          {
+            "edge_type": "comments.PostId -> posts",
+            "child_table": "comments",
+            "fk_column": "PostId",
+            "parent_table": "posts",
+            "num_parents_with_children": 236834,
+            "num_parents_without_children": 179079,
+            "total_fk_references": 794597,
+            "null_fk_count": 0,
+            "cardinality_stats": {
+              "min": 1,
+              "p25": 1,
+              "median": 2,
+              "mean": 3.3551,
+              "p75": 4,
+              "p90": 7,
+              "p95": 9,
+              "p99": 14,
+              "max": 66,
+              "std": 2.848
+            }
+          },
+          {
+            "edge_type": "comments.UserId -> users",
+            "child_table": "comments",
+            "fk_column": "UserId",
+            "parent_table": "users",
+            "num_parents_with_children": 67147,
+            "num_parents_without_children": 266637,
+            "total_fk_references": 781822,
+            "null_fk_count": 12775,
+            "cardinality_stats": {
+              "min": 1,
+              "p25": 1,
+              "median": 2,
+              "mean": 11.6434,
+              "p75": 5,
+              "p90": 11,
+              "p95": 21,
+              "p99": 98,
+              "max": 54607,
+              "std": 268.3444
+            }
+          },
+          {
+            "edge_type": "votes.PostId -> posts",
+            "child_table": "votes",
+            "fk_column": "PostId",
+            "parent_table": "posts",
+            "num_parents_with_children": 342763,
+            "num_parents_without_children": 73150,
+            "total_fk_references": 1529814,
+            "null_fk_count": 144022,
+            "cardinality_stats": {
+              "min": 1,
+              "p25": 1,
+              "median": 2,
+              "mean": 4.4632,
+              "p75": 4,
+              "p90": 8,
+              "p95": 13,
+              "p99": 36,
+              "max": 1903,
+              "std": 11.1199
+            }
+          },
+          {
+            "edge_type": "votes.UserId -> users",
+            "child_table": "votes",
+            "fk_column": "UserId",
+            "parent_table": "users",
+            "num_parents_with_children": 3273,
+            "num_parents_without_children": 330511,
+            "total_fk_references": 6757,
+            "null_fk_count": 1667079,
+            "cardinality_stats": {
+              "min": 1,
+              "p25": 1,
+              "median": 1,
+              "mean": 2.0645,
+              "p75": 2,
+              "p90": 3,
+              "p95": 6,
+              "p99": 16,
+              "max": 168,
+              "std": 5.2226
+            }
+          },
+          {
+            "edge_type": "badges.UserId -> users",
+            "child_table": "badges",
+            "fk_column": "UserId",
+            "parent_table": "users",
+            "num_parents_with_children": 178768,
+            "num_parents_without_children": 155016,
+            "total_fk_references": 590833,
+            "null_fk_count": 0,
+            "cardinality_stats": {
+              "min": 1,
+              "p25": 1,
+              "median": 2,
+              "mean": 3.305,
+              "p75": 3,
+              "p90": 6,
+              "p95": 10,
+              "p99": 26,
+              "max": 2004,
+              "std": 11.5991
+            }
+          },
+          {
+            "edge_type": "postLinks.PostId -> posts",
+            "child_table": "postLinks",
+            "fk_column": "PostId",
+            "parent_table": "posts",
+            "num_parents_with_children": 50814,
+            "num_parents_without_children": 365099,
+            "total_fk_references": 83445,
+            "null_fk_count": 20524,
+            "cardinality_stats": {
+              "min": 1,
+              "p25": 1,
+              "median": 1,
+              "mean": 1.6422,
+              "p75": 2,
+              "p90": 3,
+              "p95": 4,
+              "p99": 6,
+              "max": 26,
+              "std": 1.1373
+            }
+          },
+          {
+            "edge_type": "postLinks.RelatedPostId -> posts",
+            "child_table": "postLinks",
+            "fk_column": "RelatedPostId",
+            "parent_table": "posts",
+            "num_parents_with_children": 32081,
+            "num_parents_without_children": 383832,
+            "total_fk_references": 101655,
+            "null_fk_count": 2314,
+            "cardinality_stats": {
+              "min": 1,
+              "p25": 1,
+              "median": 1,
+              "mean": 3.1687,
+              "p75": 2,
+              "p90": 5,
+              "p95": 9,
+              "p99": 32,
+              "max": 567,
+              "std": 10.035
+            }
+          },
+          {
+            "edge_type": "postHistory.PostId -> posts",
+            "child_table": "postHistory",
+            "fk_column": "PostId",
+            "parent_table": "posts",
+            "num_parents_with_children": 415913,
+            "num_parents_without_children": 0,
+            "total_fk_references": 1486886,
+            "null_fk_count": 0,
+            "cardinality_stats": {
+              "min": 1,
+              "p25": 1,
+              "median": 3,
+              "mean": 3.575,
+              "p75": 5,
+              "p90": 7,
+              "p95": 9,
+              "p99": 14,
+              "max": 82,
+              "std": 2.8905
+            }
+          },
+          {
+            "edge_type": "postHistory.UserId -> users",
+            "child_table": "postHistory",
+            "fk_column": "UserId",
+            "parent_table": "users",
+            "num_parents_with_children": 107068,
+            "num_parents_without_children": 226716,
+            "total_fk_references": 1394767,
+            "null_fk_count": 92119,
+            "cardinality_stats": {
+              "min": 1,
+              "p25": 3,
+              "median": 3,
+              "mean": 13.0269,
+              "p75": 7,
+              "p90": 16,
+              "p95": 28,
+              "p99": 104,
+              "max": 95439,
+              "std": 343.921
+            }
+          }
+        ],
+        "task_stats": {
+          "dataset": "rel-stack",
+          "task": "post-votes",
+          "splits": {
+            "train": {
+              "num_rows": 2453921,
+              "num_unique_entities": 151161,
+              "columns": [
+                "timestamp",
+                "PostId",
+                "popularity"
+              ],
+              "target_stats": {
+                "count": 2453921,
+                "mean": 0.093051,
+                "std": 0.510431,
+                "min": 0.0,
+                "p25": 0.0,
+                "median": 0.0,
+                "p75": 0.0,
+                "max": 78.0
+              }
+            },
+            "val": {
+              "num_rows": 156216,
+              "num_unique_entities": 156216,
+              "columns": [
+                "timestamp",
+                "PostId",
+                "popularity"
+              ],
+              "target_stats": {
+                "count": 156216,
+                "mean": 0.06169,
+                "std": 0.36604,
+                "min": 0.0,
+                "p25": 0.0,
+                "median": 0.0,
+                "p75": 0.0,
+                "max": 36.0
+              }
+            },
+            "test": {
+              "num_rows": 160903,
+              "num_unique_entities": 160903,
+              "columns": [
+                "timestamp",
+                "PostId",
+                "popularity"
+              ],
+              "target_stats": {
+                "count": 160903,
+                "mean": 0.067904,
+                "std": 0.36908,
+                "min": 0.0,
+                "p25": 0.0,
+                "median": 0.0,
+                "p75": 0.0,
+                "max": 26.0
+              }
+            }
+          },
+          "task_type": "regression",
+          "target_col": "popularity",
+          "entity_col": "PostId",
+          "entity_table": "posts",
+          "timedelta_days": 90,
+          "metrics": [
+            "mae",
+            "rmse",
+            "r2"
+          ]
+        },
+        "mini_dataset_stats": {
+          "badges": {
+            "original_rows": 590833,
+            "estimated_mini_rows": 29541,
+            "sample_frac": 0.05
+          },
+          "comments": {
+            "original_rows": 794597,
+            "estimated_mini_rows": 39729,
+            "sample_frac": 0.05
+          },
+          "postHistory": {
+            "original_rows": 1486886,
+            "estimated_mini_rows": 74344,
+            "sample_frac": 0.05
+          },
+          "postLinks": {
+            "original_rows": 103969,
+            "estimated_mini_rows": 5198,
+            "sample_frac": 0.05
+          },
+          "posts": {
+            "original_rows": 415913,
+            "estimated_mini_rows": 20795,
+            "sample_frac": 0.05
+          },
+          "users": {
+            "original_rows": 333784,
+            "estimated_mini_rows": 16689,
+            "sample_frac": 0.05
+          },
+          "votes": {
+            "original_rows": 1673836,
+            "estimated_mini_rows": 83691,
+            "sample_frac": 0.05
+          }
+        }
+      },
+      {
+        "dataset": "rel-amazon",
+        "task": "item-ltv",
+        "schema": {
+          "dataset": "rel-amazon",
+          "tables": {
+            "customer": {
+              "num_rows": 1850193,
+              "num_columns": 2,
+              "columns": {
+                "customer_id": "int64",
+                "customer_name": "string"
+              },
+              "pkey_col": "customer_id",
+              "fkey_col_to_pkey_table": {}
+            },
+            "product": {
+              "num_rows": 506012,
+              "num_columns": 6,
+              "columns": {
+                "product_id": "int64",
+                "category": "list<element: string>",
+                "brand": "string",
+                "title": "string",
+                "description": "string",
+                "price": "double"
+              },
+              "pkey_col": "product_id",
+              "fkey_col_to_pkey_table": {}
+            },
+            "review": {
+              "num_rows": 20862040,
+              "num_columns": 7,
+              "columns": {
+                "review_time": "timestamp[ns]",
+                "customer_id": "int64",
+                "product_id": "int64",
+                "rating": "float",
+                "verified": "bool",
+                "review_text": "string",
+                "summary": "string"
+              },
+              "pkey_col": null,
+              "fkey_col_to_pkey_table": {
+                "customer_id": "customer",
+                "product_id": "product"
+              }
+            }
+          }
+        },
+        "fk_cardinality_profiles": [
+          {
+            "edge_type": "review.customer_id -> customer",
+            "child_table": "review",
+            "fk_column": "customer_id",
+            "parent_table": "customer",
+            "num_parents_with_children": 1815811,
+            "num_parents_without_children": 34382,
+            "total_fk_references": 20862040,
+            "null_fk_count": 0,
+            "cardinality_stats": {
+              "min": 1,
+              "p25": 5,
+              "median": 6,
+              "mean": 11.4891,
+              "p75": 11,
+              "p90": 20,
+              "p95": 31,
+              "p99": 92,
+              "max": 6387,
+              "std": 28.3228
+            }
+          },
+          {
+            "edge_type": "review.product_id -> product",
+            "child_table": "review",
+            "fk_column": "product_id",
+            "parent_table": "product",
+            "num_parents_with_children": 503927,
+            "num_parents_without_children": 2085,
+            "total_fk_references": 20862040,
+            "null_fk_count": 0,
+            "cardinality_stats": {
+              "min": 1,
+              "p25": 6,
+              "median": 12,
+              "mean": 41.3989,
+              "p75": 31,
+              "p90": 81,
+              "p95": 147,
+              "p99": 460,
+              "max": 28975,
+              "std": 176.2207
+            }
+          }
+        ],
+        "task_stats": {
+          "dataset": "rel-amazon",
+          "task": "item-ltv",
+          "splits": {
+            "train": {
+              "num_rows": 2707679,
+              "num_unique_entities": 404525,
+              "columns": [
+                "timestamp",
+                "product_id",
+                "ltv"
+              ],
+              "target_stats": {
+                "count": 2707679,
+                "mean": 67.571904,
+                "std": 590.918825,
+                "min": 0.0,
+                "p25": 12.32,
+                "median": 20.78,
+                "p75": 44.94,
+                "max": 198419.80000000008
+              }
+            },
+            "val": {
+              "num_rows": 166978,
+              "num_unique_entities": 166978,
+              "columns": [
+                "timestamp",
+                "product_id",
+                "ltv"
+              ],
+              "target_stats": {
+                "count": 166978,
+                "mean": 72.096358,
+                "std": 452.01764,
+                "min": 0.0,
+                "p25": 12.95,
+                "median": 22.44,
+                "p75": 49.0,
+                "max": 75901.55
+              }
+            },
+            "test": {
+              "num_rows": 178334,
+              "num_unique_entities": 178334,
+              "columns": [
+                "timestamp",
+                "product_id",
+                "ltv"
+              ],
+              "target_stats": {
+                "count": 178334,
+                "mean": 77.125563,
+                "std": 664.614108,
+                "min": 0.0,
+                "p25": 12.99,
+                "median": 23.72,
+                "p75": 51.14,
+                "max": 206663.5800000016
+              }
+            }
+          },
+          "task_type": "regression",
+          "target_col": "ltv",
+          "entity_col": "product_id",
+          "entity_table": "product",
+          "timedelta_days": 90,
+          "metrics": [
+            "mae",
+            "rmse",
+            "r2"
+          ]
+        },
+        "mini_dataset_stats": {
+          "customer": {
+            "original_rows": 1850193,
+            "estimated_mini_rows": 92509,
+            "sample_frac": 0.05
+          },
+          "product": {
+            "original_rows": 506012,
+            "estimated_mini_rows": 25300,
+            "sample_frac": 0.05
+          },
+          "review": {
+            "original_rows": 20862040,
+            "estimated_mini_rows": 1043102,
+            "sample_frac": 0.05
+          }
+        }
+      }
+    ]
+  },
+  "datasets": [
+    {
+      "dataset": "rel-f1/driver-position",
+      "examples": [
+        {
+          "input": "{\"date\": \"1992-09-06T00:00:00\", \"driverId\": 78, \"driverRef\": \"katayama\", \"code\": \"\\\\N\", \"forename\": \"Ukyo\", \"surname\": \"Katayama\", \"dob\": \"1963-05-29T00:00:00\", \"nationality\": \"Japanese\"}",
+          "output": "12.666667",
+          "metadata_fold": 0,
+          "metadata_task_type": "regression",
+          "metadata_entity_col": "driverId",
+          "metadata_target_col": "position",
+          "metadata_row_index": 78,
+          "metadata_feature_names": [
+            "date",
+            "driverId",
+            "driverRef",
+            "code",
+            "forename",
+            "surname",
+            "dob",
+            "nationality"
+          ]
+        },
+        {
+          "input": "{\"date\": \"1970-03-06T00:00:00\", \"driverId\": 357, \"driverRef\": \"rindt\", \"code\": \"\\\\N\", \"forename\": \"Jochen\", \"surname\": \"Rindt\", \"dob\": \"1942-04-18T00:00:00\", \"nationality\": \"Austrian\"}",
+          "output": "13.0",
+          "metadata_fold": 0,
+          "metadata_task_type": "regression",
+          "metadata_entity_col": "driverId",
+          "metadata_target_col": "position",
+          "metadata_row_index": 357,
+          "metadata_feature_names": [
+            "date",
+            "driverId",
+            "driverRef",
+            "code",
+            "forename",
+            "surname",
+            "dob",
+            "nationality"
+          ]
+        },
+        {
+          "input": "{\"date\": \"1979-03-19T00:00:00\", \"driverId\": 177, \"driverRef\": \"jones\", \"code\": \"\\\\N\", \"forename\": \"Alan\", \"surname\": \"Jones\", \"dob\": \"1946-11-02T00:00:00\", \"nationality\": \"Australian\"}",
+          "output": "11.333333",
+          "metadata_fold": 0,
+          "metadata_task_type": "regression",
+          "metadata_entity_col": "driverId",
+          "metadata_target_col": "position",
+          "metadata_row_index": 177,
+          "metadata_feature_names": [
+            "date",
+            "driverId",
+            "driverRef",
+            "code",
+            "forename",
+            "surname",
+            "dob",
+            "nationality"
+          ]
+        }
+      ]
+    },
+    {
+      "dataset": "rel-stack/post-votes",
+      "examples": [
+        {
+          "input": "{\"timestamp\": \"2019-07-04T00:00:00\", \"PostId\": 232618, \"OwnerUserId\": 128054, \"PostTypeId\": 1, \"ParentId\": null, \"OwnerDisplayName\": null, \"Title\": \"Confidence Interval Upper and Lower Bound\", \"Tags\": \"<machine-learning><statistical-significance><mathematical-statistics><inference><stata>\", \"ContentLicense\": \"CC BY-SA 4.0\", \"CreationDate\": \"2018-05-26T16:27:03.377000\"}",
+          "output": "0.0",
+          "metadata_fold": 0,
+          "metadata_task_type": "regression",
+          "metadata_entity_col": "PostId",
+          "metadata_target_col": "popularity",
+          "metadata_row_index": 232618,
+          "metadata_feature_names": [
+            "timestamp",
+            "PostId",
+            "OwnerUserId",
+            "PostTypeId",
+            "ParentId",
+            "OwnerDisplayName",
+            "Title",
+            "Tags",
+            "ContentLicense",
+            "CreationDate"
+          ]
+        },
+        {
+          "input": "{\"timestamp\": \"2017-10-05T00:00:00\", \"PostId\": 179452, \"OwnerUserId\": 94362, \"PostTypeId\": 1, \"ParentId\": null, \"OwnerDisplayName\": null, \"Title\": \"Distribution resulting from exponentially distributed numbers divided by each other\", \"Tags\": \"<distributions><exponential-distribution><lognormal-distribution>\", \"ContentLicense\": \"CC BY-SA 3.0\", \"CreationDate\": \"2017-02-20T12:13:16.243000\"}",
+          "output": "0.0",
+          "metadata_fold": 0,
+          "metadata_task_type": "regression",
+          "metadata_entity_col": "PostId",
+          "metadata_target_col": "popularity",
+          "metadata_row_index": 179452,
+          "metadata_feature_names": [
+            "timestamp",
+            "PostId",
+            "OwnerUserId",
+            "PostTypeId",
+            "ParentId",
+            "OwnerDisplayName",
+            "Title",
+            "Tags",
+            "ContentLicense",
+            "CreationDate"
+          ]
+        },
+        {
+          "input": "{\"timestamp\": \"2020-01-02T00:00:00\", \"PostId\": 92367, \"OwnerUserId\": 41419, \"PostTypeId\": 1, \"ParentId\": null, \"OwnerDisplayName\": null, \"Title\": \"Setting up data sheet for ANOVA\", \"Tags\": \"<anova><contingency-tables><data-preprocessing>\", \"ContentLicense\": \"CC BY-SA 4.0\", \"CreationDate\": \"2014-11-26T22:43:01.043000\"}",
+          "output": "0.0",
+          "metadata_fold": 0,
+          "metadata_task_type": "regression",
+          "metadata_entity_col": "PostId",
+          "metadata_target_col": "popularity",
+          "metadata_row_index": 92367,
+          "metadata_feature_names": [
+            "timestamp",
+            "PostId",
+            "OwnerUserId",
+            "PostTypeId",
+            "ParentId",
+            "OwnerDisplayName",
+            "Title",
+            "Tags",
+            "ContentLicense",
+            "CreationDate"
+          ]
+        }
+      ]
+    },
+    {
+      "dataset": "rel-amazon/item-ltv",
+      "examples": [
+        {
+          "input": "{\"timestamp\": \"2015-04-02T00:00:00\", \"product_id\": 391310, \"category\": [\"Books\", \"Religion &amp; Spirituality\", \"New Age &amp; Spirituality\"], \"brand\": \"Visit Amazon's Phillip Cooper Page\", \"title\": \"Candle Magic: A Coveted Collection of Spells, Rituals, and Magical Paradigms\", \"price\": 14.95}",
+          "output": "14.95",
+          "metadata_fold": 0,
+          "metadata_task_type": "regression",
+          "metadata_entity_col": "product_id",
+          "metadata_target_col": "ltv",
+          "metadata_row_index": 391310,
+          "metadata_feature_names": [
+            "timestamp",
+            "product_id",
+            "category",
+            "brand",
+            "title",
+            "price"
+          ]
+        },
+        {
+          "input": "{\"timestamp\": \"2013-07-04T00:00:00\", \"product_id\": 78597, \"category\": [\"Books\", \"Literature &amp; Fiction\", \"United States\"], \"brand\": \"Visit Amazon's Michael Herr Page\", \"title\": \"Walter Winchell\", \"price\": 5.19}",
+          "output": "5.19",
+          "metadata_fold": 0,
+          "metadata_task_type": "regression",
+          "metadata_entity_col": "product_id",
+          "metadata_target_col": "ltv",
+          "metadata_row_index": 78597,
+          "metadata_feature_names": [
+            "timestamp",
+            "product_id",
+            "category",
+            "brand",
+            "title",
+            "price"
+          ]
+        },
+        {
+          "input": "{\"timestamp\": \"2015-01-01T00:00:00\", \"product_id\": 2233, \"category\": null, \"brand\": \"Visit Amazon's Holly Smale Page\", \"title\": \"Model Misfit (Geek Girl)\", \"price\": 13.16}",
+          "output": "13.16",
+          "metadata_fold": 0,
+          "metadata_task_type": "regression",
+          "metadata_entity_col": "product_id",
+          "metadata_target_col": "ltv",
+          "metadata_row_index": 2233,
+          "metadata_feature_names": [
+            "timestamp",
+            "product_id",
+            "category",
+            "brand",
+            "title",
+            "price"
+          ]
+        }
+      ]
+    }
+  ]
+}

@@ -1,0 +1,13 @@
+{
+  "id": "data_id4_it1__opus",
+  "type": "code",
+  "title": "RelBench Classification + Avito Stress-Test Tasks with FK-Join Cardinality Profiles",
+  "summary": "Demo notebook for the RelBench Classification + Avito Stress-Test dataset with FK-Join Cardinality Profiles. Loads 12 structured prediction examples (3 per dataset) across 4 RelBench dataset-task pairs: rel-f1/driver-dnf, rel-stack/user-engagement, rel-hm/user-churn, and rel-avito/ad-ctr. Demonstrates parsing FK cardinality profiles from structured input text, displays cross-dataset summary with danger scores, and visualizes mean FK cardinality per edge (log scale) and FK danger scores as bar chart. Highlights Avito's extreme cardinality (mean=114,625) as the structural cause of PRMP failure.",
+  "original_path": "/ai-inventor/aii_pipeline/runs/leskovec-predictive-residual-message-passing-v2_sti/3_invention_loop/iter_1/gen_art/data_id4_it1__opus",
+  "demo_path": "/ai-inventor/aii_pipeline/runs/leskovec-predictive-residual-message-passing-v2_sti/4_gen_paper_repo/data_id4_it1__opus",
+  "out_expected_files": {
+    "notebook": "code_demo.ipynb",
+    "mini_data_file": "mini_demo_data.json"
+  },
+  "notebook_path": "/ai-inventor/aii_pipeline/runs/leskovec-predictive-residual-message-passing-v2_sti/4_gen_paper_repo/data_id4_it1__opus/data_code_demo.ipynb"
+}
