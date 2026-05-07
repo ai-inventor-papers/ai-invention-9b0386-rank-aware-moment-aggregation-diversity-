@@ -1,0 +1,13 @@
+{
+  "id": "exp_id1_it2__opus",
+  "type": "code",
+  "title": "Synthetic Testbed Validation: Rank Collapse Measurement, RAMA vs Baselines, and Gate Behavior Analysis",
+  "summary": "Demonstrates a three-phase synthetic testbed validation of Rank-Aware Moment Aggregation (RAMA): (A) rank collapse measurement with variance-entropy proxy validation (Spearman=0.85), (B) comparison of 5 aggregation methods (Mean, UngatedMeanVar, RAMA, PNA, VPA) on regression and classification tasks where RAMA achieves best regression R\u00b2=0.74, (C) RAMA gate behavior analysis showing gate-cardinality correlation (Spearman=0.82). Uses 81 curated examples from 6 conditions (low/medium \u00d7 rank 2/8/16) with 3 seeds, 50 epochs, and all 5 methods. Training completes in ~71s on CPU.",
+  "original_path": "/ai-inventor/aii_pipeline/runs/leskovec-predictive-residual-message-passing-v2_sti/3_invention_loop/iter_2/gen_art/exp_id1_it2__opus",
+  "demo_path": "/ai-inventor/aii_pipeline/runs/leskovec-predictive-residual-message-passing-v2_sti/4_gen_paper_repo/exp_id1_it2__opus",
+  "out_expected_files": {
+    "notebook": "code_demo.ipynb",
+    "mini_data_file": "mini_demo_data.json"
+  },
+  "notebook_path": "/ai-inventor/aii_pipeline/runs/leskovec-predictive-residual-message-passing-v2_sti/4_gen_paper_repo/exp_id1_it2__opus/method_code_demo.ipynb"
+}

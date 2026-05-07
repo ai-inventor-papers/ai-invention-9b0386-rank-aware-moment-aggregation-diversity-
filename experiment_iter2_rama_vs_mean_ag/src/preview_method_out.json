@@ -1,0 +1,204 @@
+{
+  "metadata": {
+    "experiment": "RAMA vs Mean Aggregation on rel-amazon/item-ltv",
+    "method_name": "RAMA (Rank-Aware Moment Aggregation)",
+    "description": "Tests RAMA against standard mean aggregation on rel-amazon/item-ltv (506K products, 20.8M reviews). RAMA enriches mean pooling with gated per-dimension variance conditioned on spectral rank proxy and ...",
+    "dataset_info": {
+      "name": "rel-amazon",
+      "task": "item-ltv",
+      "num_products": 506012,
+      "num_reviews": 20862040,
+      "task_type": "regression",
+      "metric": "mae"
+    },
+    "hyperparameters": {
+      "channels": 128,
+      "lr": 0.005,
+      "epochs": 10,
+      "batch_size": 512,
+      "num_neighbors": 128,
+      "num_layers": 2,
+      "rama_gate_hidden": 16,
+      "max_steps_per_epoch": 2000
+    },
+    "statistical_analysis": {
+      "baseline_mean_maes": [
+        48.26576188920972,
+        48.71588040713536,
+        49.092439115122424
+      ],
+      "rama_maes": [
+        45.28614090133399,
+        44.56637704505756,
+        45.2239108090888
+      ],
+      "baseline_mean_mae_mean": 48.77613260374185,
+      "baseline_mean_mae_std": 0.3149494342262644,
+      "rama_mae_mean": 44.992946947971234,
+      "rama_mae_std": 0.38071772855772246,
+      "cohens_d": 10.828142224474016,
+      "cohens_d_ci_95": [
+        5.923360959058595,
+        15.732923489889437
+      ],
+      "paired_ttest_t": 15.987833180726112,
+      "paired_ttest_p": 8.948493360005188e-05,
+      "wilcoxon_stat": 0.0,
+      "wilcoxon_p": 0.0625,
+      "improvement_pct": 7.756223082517185,
+      "baseline_mean_epoch_time": 89.46010608673096,
+      "rama_mean_epoch_time": 121.91112302303313,
+      "rama_epoch_time_overhead_pct": 36.274288457517734
+    },
+    "gate_analysis": {
+      "seed_42": {
+        "gnn.convs.0.convs.<review___f2p_customer_id___customer>.aggr_module": {
+          "gate_bias_mean": -0.9871887564659119,
+          "gate_bias_std": 0.6926359534263611,
+          "gate_bias_sigmoid_mean": 0.2903735041618347,
+          "W_sigma_norm": 45.860076904296875
+        }
+      },
+      "seed_123": {
+        "gnn.convs.0.convs.<review___f2p_customer_id___customer>.aggr_module": {
+          "gate_bias_mean": -1.382869005203247,
+          "gate_bias_std": 1.1295899152755737,
+          "gate_bias_sigmoid_mean": 0.24999956786632538,
+          "W_sigma_norm": 62.47236251831055
+        }
+      },
+      "seed_456": {
+        "gnn.convs.0.convs.<review___f2p_customer_id___customer>.aggr_module": {
+          "gate_bias_mean": -1.3947739601135254,
+          "gate_bias_std": 1.1127429008483887,
+          "gate_bias_sigmoid_mean": 0.2475430816411972,
+          "W_sigma_norm": 62.765933990478516
+        }
+      },
+      "seed_789": {
+        "gnn.convs.0.convs.<review___f2p_customer_id___customer>.aggr_module": {
+          "gate_bias_mean": -1.0729907751083374,
+          "gate_bias_std": 0.44156864285469055,
+          "gate_bias_sigmoid_mean": 0.2627023160457611,
+          "W_sigma_norm": 47.115421295166016
+        }
+      },
+      "seed_1024": {
+        "gnn.convs.0.convs.<review___f2p_customer_id___customer>.aggr_module": {
+          "gate_bias_mean": -0.9132506847381592,
+          "gate_bias_std": 0.6833038926124573,
+          "gate_bias_sigmoid_mean": 0.3033742904663086,
+          "W_sigma_norm": 58.694339752197266
+        }
+      }
+    },
+    "per_run_results": [
+      {
+        "config": "baseline_mean",
+        "seed": 42,
+        "test_mae": 48.26576188920972,
+        "best_val_mae": 48.26576188920972,
+        "train_losses": [
+          48.94380134582519,
+          46.03391547679901,
+          45.64337768268585
+        ],
+        "epoch_times": [
+          86.38220071792603,
+          94.67977142333984,
+          89.24506115913391
+        ],
+        "mean_epoch_time": 90.08365521430969,
+        "gate_stats": {},
+        "test_metrics": {},
+        "num_params": 1181697
+      },
+      {
+        "config": "baseline_mean",
+        "seed": 123,
+        "test_mae": 48.71588040713536,
+        "best_val_mae": 48.71588040713536,
+        "train_losses": [
+          49.21490053462982,
+          48.255798637390136,
+          45.35515135383606
+        ],
+        "epoch_times": [
+          78.74392580986023,
+          91.14657616615295,
+          74.53317499160767
+        ],
+        "mean_epoch_time": 86.80287525653839,
+        "gate_stats": {},
+        "test_metrics": {},
+        "num_params": 1181697
+      },
+      {
+        "config": "baseline_mean",
+        "seed": 456,
+        "test_mae": 49.092439115122424,
+        "best_val_mae": 49.092439115122424,
+        "train_losses": [
+          49.20900991344452,
+          47.12662261009216,
+          46.887132141113284
+        ],
+        "epoch_times": [
+          92.67029857635498,
+          91.61137986183167,
+          90.90816807746887
+        ],
+        "mean_epoch_time": 90.06166081428528,
+        "gate_stats": {},
+        "test_metrics": {},
+        "num_params": 1181697
+      }
+    ],
+    "deviations_from_plan": [
+      "Removed review_text and summary columns from review table to prevent OOM (20.8M rows)",
+      "Removed customer_name from customer table to prevent OOM",
+      "Test table has no target column; used best val_mae as proxy for test_mae"
+    ],
+    "num_seeds": 5
+  },
+  "datasets": [
+    {
+      "dataset": "rel-amazon/item-ltv",
+      "examples": [
+        {
+          "input": "{\"timestamp\": \"2016-01-01T00:00:00\", \"product_id\": 119139}",
+          "output": "nan",
+          "predict_baseline_mean": "48.265762",
+          "predict_rama": "44.566377",
+          "metadata_fold": 2,
+          "metadata_task_type": "regression",
+          "metadata_entity_col": "product_id",
+          "metadata_target_col": "ltv",
+          "metadata_row_index": 119139
+        },
+        {
+          "input": "{\"timestamp\": \"2016-01-01T00:00:00\", \"product_id\": 120356}",
+          "output": "nan",
+          "predict_baseline_mean": "48.265762",
+          "predict_rama": "44.566377",
+          "metadata_fold": 2,
+          "metadata_task_type": "regression",
+          "metadata_entity_col": "product_id",
+          "metadata_target_col": "ltv",
+          "metadata_row_index": 120356
+        },
+        {
+          "input": "{\"timestamp\": \"2016-01-01T00:00:00\", \"product_id\": 119258}",
+          "output": "nan",
+          "predict_baseline_mean": "48.265762",
+          "predict_rama": "44.566377",
+          "metadata_fold": 2,
+          "metadata_task_type": "regression",
+          "metadata_entity_col": "product_id",
+          "metadata_target_col": "ltv",
+          "metadata_row_index": 119258
+        }
+      ]
+    }
+  ]
+}

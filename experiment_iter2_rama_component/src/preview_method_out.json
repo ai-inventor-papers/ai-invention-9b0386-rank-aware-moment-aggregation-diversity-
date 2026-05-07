@@ -1,0 +1,524 @@
+{
+  "metadata": {
+    "experiment": "RAMA Component Ablation on rel-f1/driver-position",
+    "description": "Controlled ablation study isolating each RAMA component (variance injection, rank-based gating, LayerNorm confounding) on the rel-f1/driver-position regression task.",
+    "methods": [
+      "standard_mean",
+      "mean_layernorm",
+      "ungated_moment"
+    ],
+    "hyperparameters": {
+      "channels": 128,
+      "num_layers": 2,
+      "lr": 0.005,
+      "batch_size": 512,
+      "epochs": 10,
+      "num_neighbors": [
+        128,
+        128
+      ],
+      "seeds": [
+        42,
+        123,
+        456
+      ]
+    },
+    "dataset_info": {
+      "dataset": "rel-f1",
+      "task": "driver-position",
+      "train_size": 7453,
+      "val_size": 499,
+      "test_size": 760,
+      "num_tables": 9,
+      "num_fk_edges": 13,
+      "key_high_cardinality_edges": [
+        "results.constructorId->constructors (mean=124, max=2371)",
+        "results.driverId->drivers (mean=30, max=370)"
+      ]
+    },
+    "statistical_analysis": {
+      "hypothesis_tests": {
+        "gating_necessity": {
+          "comparison": "ungated_moment vs rama_full",
+          "question": "Does gating add value beyond ungated variance injection?",
+          "d": 5.2756,
+          "se": 1.3385,
+          "ci_lo": 2.6521,
+          "ci_hi": 7.8991,
+          "p_value": 8.1e-05,
+          "conclusion": "rama_full significantly better (d=5.28)"
+        },
+        "rank_conditioning": {
+          "comparison": "rama_no_rank vs rama_full",
+          "question": "Does rank conditioning specifically help?",
+          "d": -0.1349,
+          "se": 0.6332,
+          "ci_lo": -1.3759,
+          "ci_hi": 1.1061,
+          "p_value": 0.831271,
+          "conclusion": "No significant difference (d=-0.13)"
+        },
+        "layernorm_confounder": {
+          "comparison": "standard_mean vs mean_layernorm",
+          "question": "Is LayerNorm a confounder?",
+          "d": -2.1175,
+          "se": 0.7901,
+          "ci_lo": -3.666,
+          "ci_hi": -0.569,
+          "p_value": 0.007358,
+          "conclusion": "standard_mean significantly better (d=-2.12)"
+        },
+        "rama_vs_pna": {
+          "comparison": "pna_style vs rama_full",
+          "question": "Does targeted gated variance beat multi-aggregator?",
+          "d": 3.2546,
+          "se": 0.9642,
+          "ci_lo": 1.3648,
+          "ci_hi": 5.1443,
+          "p_value": 0.000737,
+          "conclusion": "rama_full significantly better (d=3.25)"
+        },
+        "variance_value": {
+          "comparison": "standard_mean vs ungated_moment",
+          "question": "Does variance injection help at all?",
+          "d": 1.7975,
+          "se": 0.7494,
+          "ci_lo": 0.3288,
+          "ci_hi": 3.2663,
+          "p_value": 0.016453,
+          "conclusion": "ungated_moment significantly better (d=1.80)"
+        },
+        "rama_vs_baseline": {
+          "comparison": "standard_mean vs rama_full",
+          "question": "The headline comparison: RAMA vs standard mean",
+          "d": 11.8219,
+          "se": 2.7181,
+          "ci_lo": 6.4945,
+          "ci_hi": 17.1493,
+          "p_value": 1.4e-05,
+          "conclusion": "rama_full significantly better (d=11.82)"
+        }
+      },
+      "per_method_results": {
+        "standard_mean": {
+          "test_mae_per_seed": [
+            3.8072,
+            3.8053,
+            3.8091
+          ],
+          "mean_mae": 3.8102,
+          "std_mae": 0.0069,
+          "num_params": 1796097,
+          "mean_training_time": 11.8
+        },
+        "mean_layernorm": {
+          "test_mae_per_seed": [
+            3.8466,
+            3.8728,
+            3.8672
+          ],
+          "mean_mae": 3.847,
+          "std_mae": 0.0236,
+          "num_params": 1809409,
+          "mean_training_time": 12.2
+        },
+        "ungated_moment": {
+          "test_mae_per_seed": [
+            3.7951,
+            3.7762,
+            3.7422
+          ],
+          "mean_mae": 3.7742,
+          "std_mae": 0.0275,
+          "num_params": 2648065,
+          "mean_training_time": 13.9
+        },
+        "rama_full": {
+          "test_mae_per_seed": [
+            3.6688,
+            3.673,
+            3.6449
+          ],
+          "mean_mae": 3.6526,
+          "std_mae": 0.0175,
+          "num_params": 2763713,
+          "mean_training_time": 19.6
+        },
+        "pna_style": {
+          "test_mae_per_seed": [
+            3.8155,
+            3.6902,
+            3.7707
+          ],
+          "mean_mae": 3.7754,
+          "std_mae": 0.0504,
+          "num_params": 4358657,
+          "mean_training_time": 16.3
+        },
+        "rama_no_rank": {
+          "test_mae_per_seed": [
+            3.6341,
+            3.6846,
+            3.6408
+          ],
+          "mean_mae": 3.6492,
+          "std_mae": 0.0299,
+          "num_params": 2763713,
+          "mean_training_time": 17.1
+        }
+      },
+      "pairwise_cohens_d": {
+        "standard_mean_vs_mean_layernorm": {
+          "d": -2.1175,
+          "se": 0.7901,
+          "ci_lo": -3.666,
+          "ci_hi": -0.569,
+          "p_value": 0.007358,
+          "interpretation": "standard_mean better"
+        },
+        "standard_mean_vs_ungated_moment": {
+          "d": 1.7975,
+          "se": 0.7494,
+          "ci_lo": 0.3288,
+          "ci_hi": 3.2663,
+          "p_value": 0.016453,
+          "interpretation": "ungated_moment better"
+        },
+        "standard_mean_vs_rama_full": {
+          "d": 11.8219,
+          "se": 2.7181,
+          "ci_lo": 6.4945,
+          "ci_hi": 17.1493,
+          "p_value": 1.4e-05,
+          "interpretation": "rama_full better"
+        },
+        "standard_mean_vs_pna_style": {
+          "d": 0.9675,
+          "se": 0.6684,
+          "ci_lo": -0.3426,
+          "ci_hi": 2.2776,
+          "p_value": 0.147786,
+          "interpretation": "pna_style better"
+        },
+        "standard_mean_vs_rama_no_rank": {
+          "d": 7.4065,
+          "se": 1.7728,
+          "ci_lo": 3.9318,
+          "ci_hi": 10.8812,
+          "p_value": 2.9e-05,
+          "interpretation": "rama_no_rank better"
+        },
+        "mean_layernorm_vs_ungated_moment": {
+          "d": 2.8441,
+          "se": 0.8969,
+          "ci_lo": 1.0861,
+          "ci_hi": 4.602,
+          "p_value": 0.001519,
+          "interpretation": "ungated_moment better"
+        },
+        "mean_layernorm_vs_rama_full": {
+          "d": 9.3439,
+          "se": 2.183,
+          "ci_lo": 5.0652,
+          "ci_hi": 13.6225,
+          "p_value": 1.9e-05,
+          "interpretation": "rama_full better"
+        },
+        "mean_layernorm_vs_pna_style": {
+          "d": 1.8211,
+          "se": 0.7522,
+          "ci_lo": 0.3467,
+          "ci_hi": 3.2954,
+          "p_value": 0.015479,
+          "interpretation": "pna_style better"
+        },
+        "mean_layernorm_vs_rama_no_rank": {
+          "d": 7.3332,
+          "se": 1.7575,
+          "ci_lo": 3.8885,
+          "ci_hi": 10.7778,
+          "p_value": 3e-05,
+          "interpretation": "rama_no_rank better"
+        },
+        "ungated_moment_vs_rama_full": {
+          "d": 5.2756,
+          "se": 1.3385,
+          "ci_lo": 2.6521,
+          "ci_hi": 7.8991,
+          "p_value": 8.1e-05,
+          "interpretation": "rama_full better"
+        },
+        "ungated_moment_vs_pna_style": {
+          "d": -0.0298,
+          "se": 0.6325,
+          "ci_lo": -1.2695,
+          "ci_hi": 1.2099,
+          "p_value": 0.962416,
+          "interpretation": "no meaningful difference"
+        },
+        "ungated_moment_vs_rama_no_rank": {
+          "d": 4.3472,
+          "se": 1.1597,
+          "ci_lo": 2.0742,
+          "ci_hi": 6.6202,
+          "p_value": 0.000178,
+          "interpretation": "rama_no_rank better"
+        },
+        "rama_full_vs_pna_style": {
+          "d": -3.2546,
+          "se": 0.9642,
+          "ci_lo": -5.1443,
+          "ci_hi": -1.3648,
+          "p_value": 0.000737,
+          "interpretation": "rama_full better"
+        },
+        "rama_full_vs_rama_no_rank": {
+          "d": 0.1349,
+          "se": 0.6332,
+          "ci_lo": -1.1061,
+          "ci_hi": 1.3759,
+          "p_value": 0.831271,
+          "interpretation": "no meaningful difference"
+        },
+        "pna_style_vs_rama_no_rank": {
+          "d": 3.0426,
+          "se": 0.9289,
+          "ci_lo": 1.2219,
+          "ci_hi": 4.8632,
+          "p_value": 0.001055,
+          "interpretation": "rama_no_rank better"
+        }
+      },
+      "ranking_table": [
+        {
+          "rank": 1,
+          "method": "rama_no_rank",
+          "mean_mae": 3.6492,
+          "std_mae": 0.0299
+        },
+        {
+          "rank": 2,
+          "method": "rama_full",
+          "mean_mae": 3.6526,
+          "std_mae": 0.0175
+        },
+        {
+          "rank": 3,
+          "method": "ungated_moment",
+          "mean_mae": 3.7742,
+          "std_mae": 0.0275
+        }
+      ],
+      "rama_diagnostics": {
+        "rama_full": {
+          "mean_gate_value": NaN,
+          "gate_std": NaN,
+          "mean_effective_rank": NaN,
+          "mean_cardinality": NaN
+        },
+        "rama_no_rank": {
+          "mean_gate_value": NaN,
+          "gate_std": NaN,
+          "mean_cardinality": NaN
+        }
+      }
+    }
+  },
+  "datasets": [
+    {
+      "dataset": "rel-f1/driver-position",
+      "examples": [
+        {
+          "input": "{\"date\": \"1992-09-06T00:00:00\", \"driverId\": 78, \"driverRef\": \"katayama\", \"code\": \"\\\\N\", \"forename\": \"Ukyo\", \"surname\": \"Katayama\", \"dob\": \"1963-05-29T00:00:00\", \"nationality\": \"Japanese\"}",
+          "output": "12.666667",
+          "metadata_fold": 0,
+          "metadata_task_type": "regression",
+          "metadata_entity_col": "driverId",
+          "metadata_target_col": "position",
+          "metadata_row_index": 78,
+          "metadata_feature_names": [
+            "date",
+            "driverId",
+            "driverRef"
+          ],
+          "predict_standard_mean": "mean_test_MAE=3.8102, std=0.0069",
+          "predict_mean_layernorm": "mean_test_MAE=3.847, std=0.0236",
+          "predict_ungated_moment": "mean_test_MAE=3.7742, std=0.0275",
+          "predict_rama_full": "mean_test_MAE=3.6526, std=0.0175",
+          "predict_pna_style": "mean_test_MAE=3.7754, std=0.0504",
+          "predict_rama_no_rank": "mean_test_MAE=3.6492, std=0.0299"
+        },
+        {
+          "input": "{\"date\": \"1970-03-06T00:00:00\", \"driverId\": 357, \"driverRef\": \"rindt\", \"code\": \"\\\\N\", \"forename\": \"Jochen\", \"surname\": \"Rindt\", \"dob\": \"1942-04-18T00:00:00\", \"nationality\": \"Austrian\"}",
+          "output": "13.0",
+          "metadata_fold": 0,
+          "metadata_task_type": "regression",
+          "metadata_entity_col": "driverId",
+          "metadata_target_col": "position",
+          "metadata_row_index": 357,
+          "metadata_feature_names": [
+            "date",
+            "driverId",
+            "driverRef"
+          ],
+          "predict_standard_mean": "mean_test_MAE=3.8102, std=0.0069",
+          "predict_mean_layernorm": "mean_test_MAE=3.847, std=0.0236",
+          "predict_ungated_moment": "mean_test_MAE=3.7742, std=0.0275",
+          "predict_rama_full": "mean_test_MAE=3.6526, std=0.0175",
+          "predict_pna_style": "mean_test_MAE=3.7754, std=0.0504",
+          "predict_rama_no_rank": "mean_test_MAE=3.6492, std=0.0299"
+        },
+        {
+          "input": "{\"date\": \"1979-03-19T00:00:00\", \"driverId\": 177, \"driverRef\": \"jones\", \"code\": \"\\\\N\", \"forename\": \"Alan\", \"surname\": \"Jones\", \"dob\": \"1946-11-02T00:00:00\", \"nationality\": \"Australian\"}",
+          "output": "11.333333",
+          "metadata_fold": 0,
+          "metadata_task_type": "regression",
+          "metadata_entity_col": "driverId",
+          "metadata_target_col": "position",
+          "metadata_row_index": 177,
+          "metadata_feature_names": [
+            "date",
+            "driverId",
+            "driverRef"
+          ],
+          "predict_standard_mean": "mean_test_MAE=3.8102, std=0.0069",
+          "predict_mean_layernorm": "mean_test_MAE=3.847, std=0.0236",
+          "predict_ungated_moment": "mean_test_MAE=3.7742, std=0.0275",
+          "predict_rama_full": "mean_test_MAE=3.6526, std=0.0175",
+          "predict_pna_style": "mean_test_MAE=3.7754, std=0.0504",
+          "predict_rama_no_rank": "mean_test_MAE=3.6492, std=0.0299"
+        }
+      ]
+    },
+    {
+      "dataset": "rel-stack/post-votes",
+      "examples": [
+        {
+          "input": "{\"timestamp\": \"2019-07-04T00:00:00\", \"PostId\": 232618, \"OwnerUserId\": 128054, \"PostTypeId\": 1, \"ParentId\": null, \"OwnerDisplayName\": null, \"Title\": \"Confidence Interval Upper and Lower Bound\", \"Tags\":...",
+          "output": "0.0",
+          "metadata_fold": 0,
+          "metadata_task_type": "regression",
+          "metadata_entity_col": "PostId",
+          "metadata_target_col": "popularity",
+          "metadata_row_index": 232618,
+          "metadata_feature_names": [
+            "timestamp",
+            "PostId",
+            "OwnerUserId"
+          ],
+          "predict_standard_mean": "not_evaluated",
+          "predict_mean_layernorm": "not_evaluated",
+          "predict_ungated_moment": "not_evaluated",
+          "predict_rama_full": "not_evaluated",
+          "predict_pna_style": "not_evaluated",
+          "predict_rama_no_rank": "not_evaluated"
+        },
+        {
+          "input": "{\"timestamp\": \"2017-10-05T00:00:00\", \"PostId\": 179452, \"OwnerUserId\": 94362, \"PostTypeId\": 1, \"ParentId\": null, \"OwnerDisplayName\": null, \"Title\": \"Distribution resulting from exponentially distribute...",
+          "output": "0.0",
+          "metadata_fold": 0,
+          "metadata_task_type": "regression",
+          "metadata_entity_col": "PostId",
+          "metadata_target_col": "popularity",
+          "metadata_row_index": 179452,
+          "metadata_feature_names": [
+            "timestamp",
+            "PostId",
+            "OwnerUserId"
+          ],
+          "predict_standard_mean": "not_evaluated",
+          "predict_mean_layernorm": "not_evaluated",
+          "predict_ungated_moment": "not_evaluated",
+          "predict_rama_full": "not_evaluated",
+          "predict_pna_style": "not_evaluated",
+          "predict_rama_no_rank": "not_evaluated"
+        },
+        {
+          "input": "{\"timestamp\": \"2020-01-02T00:00:00\", \"PostId\": 92367, \"OwnerUserId\": 41419, \"PostTypeId\": 1, \"ParentId\": null, \"OwnerDisplayName\": null, \"Title\": \"Setting up data sheet for ANOVA\", \"Tags\": \"<anova><co...",
+          "output": "0.0",
+          "metadata_fold": 0,
+          "metadata_task_type": "regression",
+          "metadata_entity_col": "PostId",
+          "metadata_target_col": "popularity",
+          "metadata_row_index": 92367,
+          "metadata_feature_names": [
+            "timestamp",
+            "PostId",
+            "OwnerUserId"
+          ],
+          "predict_standard_mean": "not_evaluated",
+          "predict_mean_layernorm": "not_evaluated",
+          "predict_ungated_moment": "not_evaluated",
+          "predict_rama_full": "not_evaluated",
+          "predict_pna_style": "not_evaluated",
+          "predict_rama_no_rank": "not_evaluated"
+        }
+      ]
+    },
+    {
+      "dataset": "rel-amazon/item-ltv",
+      "examples": [
+        {
+          "input": "{\"timestamp\": \"2015-04-02T00:00:00\", \"product_id\": 391310, \"category\": [\"Books\", \"Religion &amp; Spirituality\", \"New Age &amp; Spirituality\"], \"brand\": \"Visit Amazon's Phillip Cooper Page\", \"title\": \"...",
+          "output": "14.95",
+          "metadata_fold": 0,
+          "metadata_task_type": "regression",
+          "metadata_entity_col": "product_id",
+          "metadata_target_col": "ltv",
+          "metadata_row_index": 391310,
+          "metadata_feature_names": [
+            "timestamp",
+            "product_id",
+            "category"
+          ],
+          "predict_standard_mean": "not_evaluated",
+          "predict_mean_layernorm": "not_evaluated",
+          "predict_ungated_moment": "not_evaluated",
+          "predict_rama_full": "not_evaluated",
+          "predict_pna_style": "not_evaluated",
+          "predict_rama_no_rank": "not_evaluated"
+        },
+        {
+          "input": "{\"timestamp\": \"2013-07-04T00:00:00\", \"product_id\": 78597, \"category\": [\"Books\", \"Literature &amp; Fiction\", \"United States\"], \"brand\": \"Visit Amazon's Michael Herr Page\", \"title\": \"Walter Winchell\", \"...",
+          "output": "5.19",
+          "metadata_fold": 0,
+          "metadata_task_type": "regression",
+          "metadata_entity_col": "product_id",
+          "metadata_target_col": "ltv",
+          "metadata_row_index": 78597,
+          "metadata_feature_names": [
+            "timestamp",
+            "product_id",
+            "category"
+          ],
+          "predict_standard_mean": "not_evaluated",
+          "predict_mean_layernorm": "not_evaluated",
+          "predict_ungated_moment": "not_evaluated",
+          "predict_rama_full": "not_evaluated",
+          "predict_pna_style": "not_evaluated",
+          "predict_rama_no_rank": "not_evaluated"
+        },
+        {
+          "input": "{\"timestamp\": \"2015-01-01T00:00:00\", \"product_id\": 2233, \"category\": null, \"brand\": \"Visit Amazon's Holly Smale Page\", \"title\": \"Model Misfit (Geek Girl)\", \"price\": 13.16}",
+          "output": "13.16",
+          "metadata_fold": 0,
+          "metadata_task_type": "regression",
+          "metadata_entity_col": "product_id",
+          "metadata_target_col": "ltv",
+          "metadata_row_index": 2233,
+          "metadata_feature_names": [
+            "timestamp",
+            "product_id",
+            "category"
+          ],
+          "predict_standard_mean": "not_evaluated",
+          "predict_mean_layernorm": "not_evaluated",
+          "predict_ungated_moment": "not_evaluated",
+          "predict_rama_full": "not_evaluated",
+          "predict_pna_style": "not_evaluated",
+          "predict_rama_no_rank": "not_evaluated"
+        }
+      ]
+    }
+  ]
+}

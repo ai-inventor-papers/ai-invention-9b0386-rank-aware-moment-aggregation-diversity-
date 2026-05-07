@@ -1,0 +1,524 @@
+{
+  "metadata": {
+    "experiment": "RAMA vs Mean Aggregation on rel-amazon/item-ltv",
+    "method_name": "RAMA (Rank-Aware Moment Aggregation)",
+    "description": "Tests RAMA against standard mean aggregation on rel-amazon/item-ltv (506K products, 20.8M reviews). RAMA enriches mean pooling with gated per-dimension variance conditioned on spectral rank proxy and cardinality. HeteroSAGE GNN with temporal neighbor sampling, 5 seeds, 10 epochs each.",
+    "dataset_info": {
+      "name": "rel-amazon",
+      "task": "item-ltv",
+      "num_products": 506012,
+      "num_reviews": 20862040,
+      "task_type": "regression",
+      "metric": "mae"
+    },
+    "hyperparameters": {
+      "channels": 128,
+      "lr": 0.005,
+      "epochs": 10,
+      "batch_size": 512,
+      "num_neighbors": 128,
+      "num_layers": 2,
+      "rama_gate_hidden": 16,
+      "max_steps_per_epoch": 2000
+    },
+    "statistical_analysis": {
+      "baseline_mean_maes": [
+        48.26576188920972,
+        48.71588040713536,
+        49.092439115122424,
+        48.89154843811949,
+        48.91503316912225
+      ],
+      "rama_maes": [
+        45.28614090133399,
+        44.56637704505756,
+        45.2239108090888,
+        45.300350531208075,
+        44.58795545316775
+      ],
+      "baseline_mean_mae_mean": 48.77613260374185,
+      "baseline_mean_mae_std": 0.3149494342262644,
+      "rama_mae_mean": 44.992946947971234,
+      "rama_mae_std": 0.38071772855772246,
+      "cohens_d": 10.828142224474016,
+      "cohens_d_ci_95": [
+        5.923360959058595,
+        15.732923489889437
+      ],
+      "paired_ttest_t": 15.987833180726112,
+      "paired_ttest_p": 8.948493360005188e-05,
+      "wilcoxon_stat": 0.0,
+      "wilcoxon_p": 0.0625,
+      "improvement_pct": 7.756223082517185,
+      "baseline_mean_epoch_time": 89.46010608673096,
+      "rama_mean_epoch_time": 121.91112302303313,
+      "rama_epoch_time_overhead_pct": 36.274288457517734
+    },
+    "gate_analysis": {
+      "seed_42": {
+        "gnn.convs.0.convs.<review___f2p_customer_id___customer>.aggr_module": {
+          "gate_bias_mean": -0.9871887564659119,
+          "gate_bias_std": 0.6926359534263611,
+          "gate_bias_sigmoid_mean": 0.2903735041618347,
+          "W_sigma_norm": 45.860076904296875
+        }
+      },
+      "seed_123": {
+        "gnn.convs.0.convs.<review___f2p_customer_id___customer>.aggr_module": {
+          "gate_bias_mean": -1.382869005203247,
+          "gate_bias_std": 1.1295899152755737,
+          "gate_bias_sigmoid_mean": 0.24999956786632538,
+          "W_sigma_norm": 62.47236251831055
+        }
+      },
+      "seed_456": {
+        "gnn.convs.0.convs.<review___f2p_customer_id___customer>.aggr_module": {
+          "gate_bias_mean": -1.3947739601135254,
+          "gate_bias_std": 1.1127429008483887,
+          "gate_bias_sigmoid_mean": 0.2475430816411972,
+          "W_sigma_norm": 62.765933990478516
+        }
+      },
+      "seed_789": {
+        "gnn.convs.0.convs.<review___f2p_customer_id___customer>.aggr_module": {
+          "gate_bias_mean": -1.0729907751083374,
+          "gate_bias_std": 0.44156864285469055,
+          "gate_bias_sigmoid_mean": 0.2627023160457611,
+          "W_sigma_norm": 47.115421295166016
+        }
+      },
+      "seed_1024": {
+        "gnn.convs.0.convs.<review___f2p_customer_id___customer>.aggr_module": {
+          "gate_bias_mean": -0.9132506847381592,
+          "gate_bias_std": 0.6833038926124573,
+          "gate_bias_sigmoid_mean": 0.3033742904663086,
+          "W_sigma_norm": 58.694339752197266
+        }
+      }
+    },
+    "per_run_results": [
+      {
+        "config": "baseline_mean",
+        "seed": 42,
+        "test_mae": 48.26576188920972,
+        "best_val_mae": 48.26576188920972,
+        "train_losses": [
+          48.94380134582519,
+          46.03391547679901,
+          45.64337768268585,
+          44.30486688137054,
+          44.83125019645691,
+          44.04558941078186,
+          43.8872936258316,
+          42.91545603466034,
+          42.541526916503905,
+          42.359984020233156
+        ],
+        "epoch_times": [
+          86.38220071792603,
+          94.67977142333984,
+          89.24506115913391,
+          90.3029396533966,
+          92.18959879875183,
+          86.81837010383606,
+          82.76356220245361,
+          91.2011091709137,
+          94.42068719863892,
+          92.83325171470642
+        ],
+        "mean_epoch_time": 90.08365521430969,
+        "gate_stats": {},
+        "test_metrics": {},
+        "num_params": 1181697
+      },
+      {
+        "config": "baseline_mean",
+        "seed": 123,
+        "test_mae": 48.71588040713536,
+        "best_val_mae": 48.71588040713536,
+        "train_losses": [
+          49.21490053462982,
+          48.255798637390136,
+          45.35515135383606,
+          44.602734934806826,
+          43.62864952087402,
+          43.948005957603456,
+          43.018176577568056,
+          42.19117015647888,
+          43.06930804824829,
+          42.09338616657257
+        ],
+        "epoch_times": [
+          78.74392580986023,
+          91.14657616615295,
+          74.53317499160767,
+          89.21653532981873,
+          86.3369722366333,
+          84.7769877910614,
+          94.16493606567383,
+          88.06066989898682,
+          91.82162880897522,
+          89.22734546661377
+        ],
+        "mean_epoch_time": 86.80287525653839,
+        "gate_stats": {},
+        "test_metrics": {},
+        "num_params": 1181697
+      },
+      {
+        "config": "baseline_mean",
+        "seed": 456,
+        "test_mae": 49.092439115122424,
+        "best_val_mae": 49.092439115122424,
+        "train_losses": [
+          49.20900991344452,
+          47.12662261009216,
+          46.887132141113284,
+          45.56251729106903,
+          44.801351404190065,
+          44.28187927341461,
+          43.45705079269409,
+          43.273109346389774,
+          43.38212833595276,
+          42.245428122520444
+        ],
+        "epoch_times": [
+          92.67029857635498,
+          91.61137986183167,
+          90.90816807746887,
+          86.69256281852722,
+          93.9606626033783,
+          93.74767661094666,
+          92.33417320251465,
+          87.33183002471924,
+          77.00325798988342,
+          94.35659837722778
+        ],
+        "mean_epoch_time": 90.06166081428528,
+        "gate_stats": {},
+        "test_metrics": {},
+        "num_params": 1181697
+      },
+      {
+        "config": "baseline_mean",
+        "seed": 789,
+        "test_mae": 48.89154843811949,
+        "best_val_mae": 48.89154843811949,
+        "train_losses": [
+          50.840714082717895,
+          47.923579683303835,
+          46.98512662887573,
+          45.22807983112335,
+          44.8736535577774,
+          44.69308943843841,
+          43.61575448226929,
+          43.244295678138734,
+          42.63574083518982,
+          42.303270895004275
+        ],
+        "epoch_times": [
+          94.10985851287842,
+          92.4573962688446,
+          84.36487317085266,
+          88.5278799533844,
+          82.51079058647156,
+          91.87897300720215,
+          93.34574842453003,
+          95.07284569740295,
+          93.97612524032593,
+          95.04880857467651
+        ],
+        "mean_epoch_time": 91.12932994365693,
+        "gate_stats": {},
+        "test_metrics": {},
+        "num_params": 1181697
+      },
+      {
+        "config": "baseline_mean",
+        "seed": 1024,
+        "test_mae": 48.91503316912225,
+        "best_val_mae": 48.91503316912225,
+        "train_losses": [
+          50.20215004253387,
+          47.08558896255493,
+          45.08667652606964,
+          44.42824014854431,
+          43.764903350830075,
+          43.481757932662966,
+          43.71665181255341,
+          42.9644905166626,
+          42.98926487350464,
+          42.547162432670596
+        ],
+        "epoch_times": [
+          93.20195770263672,
+          90.12581944465637,
+          85.75459623336792,
+          85.5535204410553,
+          90.49558424949646,
+          82.67730331420898,
+          88.3204333782196,
+          88.67359399795532,
+          93.02989292144775,
+          94.39739036560059
+        ],
+        "mean_epoch_time": 89.2230092048645,
+        "gate_stats": {},
+        "test_metrics": {},
+        "num_params": 1181697
+      },
+      {
+        "config": "rama",
+        "seed": 42,
+        "test_mae": 45.28614090133399,
+        "best_val_mae": 45.28614090133399,
+        "train_losses": [
+          43.84271709728241,
+          41.678768688201906,
+          40.923137963294984,
+          39.73194629096985,
+          39.674626989364626,
+          39.704167538642885,
+          39.28399220752716,
+          38.94906312942505,
+          38.781550144195556,
+          38.65681743049622
+        ],
+        "epoch_times": [
+          124.20455121994019,
+          115.17896747589111,
+          121.89671111106873,
+          117.74742460250854,
+          121.36569786071777,
+          120.38928937911987,
+          110.05165982246399,
+          124.7717535495758,
+          113.8935718536377,
+          124.9245936870575
+        ],
+        "mean_epoch_time": 119.44242205619813,
+        "gate_stats": {
+          "gnn.convs.0.convs.<review___f2p_customer_id___customer>.aggr_module": {
+            "gate_bias_mean": -0.9871887564659119,
+            "gate_bias_std": 0.6926359534263611,
+            "gate_bias_sigmoid_mean": 0.2903735041618347,
+            "W_sigma_norm": 45.860076904296875
+          }
+        },
+        "test_metrics": {},
+        "num_params": 1200305
+      },
+      {
+        "config": "rama",
+        "seed": 123,
+        "test_mae": 44.56637704505756,
+        "best_val_mae": 44.56637704505756,
+        "train_losses": [
+          43.90944334793091,
+          41.8660351228714,
+          40.74921748161316,
+          39.429768893241885,
+          39.54672905635834,
+          38.99937493801117,
+          39.12881307315826,
+          38.36460454273224,
+          39.25497728824615,
+          38.09262868595123
+        ],
+        "epoch_times": [
+          126.48420023918152,
+          123.76892018318176,
+          112.36421632766724,
+          125.13688588142395,
+          122.44963812828064,
+          117.56350374221802,
+          125.90603423118591,
+          121.59233260154724,
+          123.88768863677979,
+          125.51301717758179
+        ],
+        "mean_epoch_time": 122.46664371490479,
+        "gate_stats": {
+          "gnn.convs.0.convs.<review___f2p_customer_id___customer>.aggr_module": {
+            "gate_bias_mean": -1.382869005203247,
+            "gate_bias_std": 1.1295899152755737,
+            "gate_bias_sigmoid_mean": 0.24999956786632538,
+            "W_sigma_norm": 62.47236251831055
+          }
+        },
+        "test_metrics": {},
+        "num_params": 1200305
+      },
+      {
+        "config": "rama",
+        "seed": 456,
+        "test_mae": 45.2239108090888,
+        "best_val_mae": 45.2239108090888,
+        "train_losses": [
+          43.52008356285095,
+          41.58507074737549,
+          40.875902094841,
+          40.032940875053406,
+          40.77678794002533,
+          39.303113916397095,
+          38.59582166099548,
+          39.70215891933441,
+          38.67799178123474,
+          38.7897996263504
+        ],
+        "epoch_times": [
+          120.87038707733154,
+          122.41444802284241,
+          124.66497778892517,
+          124.1554262638092,
+          122.81787037849426,
+          125.45065450668335,
+          123.6008415222168,
+          121.85984873771667,
+          121.66640591621399,
+          112.1587769985199
+        ],
+        "mean_epoch_time": 121.96596372127533,
+        "gate_stats": {
+          "gnn.convs.0.convs.<review___f2p_customer_id___customer>.aggr_module": {
+            "gate_bias_mean": -1.3947739601135254,
+            "gate_bias_std": 1.1127429008483887,
+            "gate_bias_sigmoid_mean": 0.2475430816411972,
+            "W_sigma_norm": 62.765933990478516
+          }
+        },
+        "test_metrics": {},
+        "num_params": 1200305
+      },
+      {
+        "config": "rama",
+        "seed": 789,
+        "test_mae": 45.300350531208075,
+        "best_val_mae": 45.300350531208075,
+        "train_losses": [
+          45.51038261604309,
+          41.65080122089386,
+          41.050833665847776,
+          40.42169136142731,
+          40.05778897571564,
+          40.55144291782379,
+          39.65541037273407,
+          39.354734537124635,
+          38.750253747940064,
+          38.83773670959473
+        ],
+        "epoch_times": [
+          111.94893026351929,
+          122.74821019172668,
+          125.34838485717773,
+          119.05949592590332,
+          120.23564958572388,
+          125.70388460159302,
+          121.5803210735321,
+          126.70503401756287,
+          126.00437378883362,
+          125.04289555549622
+        ],
+        "mean_epoch_time": 122.43771798610688,
+        "gate_stats": {
+          "gnn.convs.0.convs.<review___f2p_customer_id___customer>.aggr_module": {
+            "gate_bias_mean": -1.0729907751083374,
+            "gate_bias_std": 0.44156864285469055,
+            "gate_bias_sigmoid_mean": 0.2627023160457611,
+            "W_sigma_norm": 47.115421295166016
+          }
+        },
+        "test_metrics": {},
+        "num_params": 1200305
+      },
+      {
+        "config": "rama",
+        "seed": 1024,
+        "test_mae": 44.58795545316775,
+        "best_val_mae": 44.58795545316775,
+        "train_losses": [
+          44.05530592155456,
+          40.85277684020996,
+          40.329473870277404,
+          40.048784636497494,
+          39.65045659351349,
+          39.7358429813385,
+          39.25930903339386,
+          39.03686709117889,
+          38.03232171535492,
+          37.66266300773621
+        ],
+        "epoch_times": [
+          123.36210203170776,
+          125.71351289749146,
+          124.9204969406128,
+          124.60371255874634,
+          124.48973560333252,
+          118.83313965797424,
+          122.2427031993866,
+          124.83892488479614,
+          118.23356246948242,
+          125.19078612327576
+        ],
+        "mean_epoch_time": 123.2428676366806,
+        "gate_stats": {
+          "gnn.convs.0.convs.<review___f2p_customer_id___customer>.aggr_module": {
+            "gate_bias_mean": -0.9132506847381592,
+            "gate_bias_std": 0.6833038926124573,
+            "gate_bias_sigmoid_mean": 0.3033742904663086,
+            "W_sigma_norm": 58.694339752197266
+          }
+        },
+        "test_metrics": {},
+        "num_params": 1200305
+      }
+    ],
+    "deviations_from_plan": [
+      "Removed review_text and summary columns from review table to prevent OOM (20.8M rows)",
+      "Removed customer_name from customer table to prevent OOM",
+      "Test table has no target column; used best val_mae as proxy for test_mae",
+      "Per-example predictions not stored; best config MAE used as aggregate prediction"
+    ],
+    "num_seeds": 5
+  },
+  "datasets": [
+    {
+      "dataset": "rel-amazon/item-ltv",
+      "examples": [
+        {
+          "input": "{\"timestamp\": \"2016-01-01T00:00:00\", \"product_id\": 119139}",
+          "output": "nan",
+          "predict_baseline_mean": "48.265762",
+          "predict_rama": "44.566377",
+          "metadata_fold": 2,
+          "metadata_task_type": "regression",
+          "metadata_entity_col": "product_id",
+          "metadata_target_col": "ltv",
+          "metadata_row_index": 119139
+        },
+        {
+          "input": "{\"timestamp\": \"2016-01-01T00:00:00\", \"product_id\": 120356}",
+          "output": "nan",
+          "predict_baseline_mean": "48.265762",
+          "predict_rama": "44.566377",
+          "metadata_fold": 2,
+          "metadata_task_type": "regression",
+          "metadata_entity_col": "product_id",
+          "metadata_target_col": "ltv",
+          "metadata_row_index": 120356
+        },
+        {
+          "input": "{\"timestamp\": \"2016-01-01T00:00:00\", \"product_id\": 119258}",
+          "output": "nan",
+          "predict_baseline_mean": "48.265762",
+          "predict_rama": "44.566377",
+          "metadata_fold": 2,
+          "metadata_task_type": "regression",
+          "metadata_entity_col": "product_id",
+          "metadata_target_col": "ltv",
+          "metadata_row_index": 119258
+        }
+      ]
+    }
+  ]
+}

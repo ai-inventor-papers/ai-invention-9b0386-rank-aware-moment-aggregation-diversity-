@@ -1,0 +1,13 @@
+{
+  "id": "exp_id4_it2__opus",
+  "type": "code",
+  "title": "RAMA vs Mean Aggregation on rel-amazon/item-ltv (Large-Scale Regression)",
+  "summary": "Demo notebook for RAMA (Rank-Aware Moment Aggregation) vs standard Mean Aggregation on rel-amazon/item-ltv. Implements standalone RAMA module in PyTorch with unit tests verifying zero-init correctness and gradient flow. Loads pre-computed results from 5-seed, 10-epoch HeteroSAGE GNN experiment (506K products, 20.8M reviews). Runs statistical analysis (paired t-test p=8.9e-5, Cohen's d=10.83, 7.76% MAE improvement) and produces 4-panel visualization of MAE comparison, training curves, gate analysis, and epoch times.",
+  "original_path": "/ai-inventor/aii_pipeline/runs/leskovec-predictive-residual-message-passing-v2_sti/3_invention_loop/iter_2/gen_art/exp_id4_it2__opus",
+  "demo_path": "/ai-inventor/aii_pipeline/runs/leskovec-predictive-residual-message-passing-v2_sti/4_gen_paper_repo/exp_id4_it2__opus",
+  "out_expected_files": {
+    "notebook": "code_demo.ipynb",
+    "mini_data_file": "mini_demo_data.json"
+  },
+  "notebook_path": "/ai-inventor/aii_pipeline/runs/leskovec-predictive-residual-message-passing-v2_sti/4_gen_paper_repo/exp_id4_it2__opus/method_code_demo.ipynb"
+}

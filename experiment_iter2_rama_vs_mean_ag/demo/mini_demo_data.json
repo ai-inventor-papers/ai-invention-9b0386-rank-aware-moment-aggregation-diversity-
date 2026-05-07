@@ -1,0 +1,182 @@
+{
+  "metadata": {
+    "experiment": "RAMA vs Mean Aggregation on rel-amazon/item-ltv",
+    "method_name": "RAMA (Rank-Aware Moment Aggregation)",
+    "description": "Tests RAMA against standard mean aggregation on rel-amazon/item-ltv (506K products, 20.8M reviews). RAMA enriches mean pooling with gated per-dimension variance conditioned on spectral rank proxy and cardinality. HeteroSAGE GNN with temporal neighbor sampling, 5 seeds, 10 epochs each.",
+    "dataset_info": {
+      "name": "rel-amazon",
+      "task": "item-ltv",
+      "num_products": 506012,
+      "num_reviews": 20862040,
+      "task_type": "regression",
+      "metric": "mae"
+    },
+    "hyperparameters": {
+      "channels": 128,
+      "lr": 0.005,
+      "epochs": 10,
+      "batch_size": 512,
+      "num_neighbors": 128,
+      "num_layers": 2,
+      "rama_gate_hidden": 16,
+      "max_steps_per_epoch": 2000
+    }
+  },
+  "statistical_analysis": {
+    "baseline_mean_maes": [48.2658, 48.7159, 49.0924, 48.8915, 48.9150],
+    "rama_maes": [45.2861, 44.5664, 45.2239, 45.3004, 44.5880],
+    "baseline_mean_mae_mean": 48.7761,
+    "baseline_mean_mae_std": 0.3149,
+    "rama_mae_mean": 44.9929,
+    "rama_mae_std": 0.3807,
+    "cohens_d": 10.8281,
+    "cohens_d_ci_95": [5.9234, 15.7329],
+    "paired_ttest_t": 15.9878,
+    "paired_ttest_p": 8.948e-05,
+    "wilcoxon_stat": 0.0,
+    "wilcoxon_p": 0.0625,
+    "improvement_pct": 7.7562,
+    "baseline_mean_epoch_time": 89.46,
+    "rama_mean_epoch_time": 121.91,
+    "rama_epoch_time_overhead_pct": 36.27
+  },
+  "gate_analysis": {
+    "seed_42": {
+      "gate_bias_mean": -0.9872,
+      "gate_bias_std": 0.6926,
+      "gate_bias_sigmoid_mean": 0.2904,
+      "W_sigma_norm": 45.86
+    },
+    "seed_123": {
+      "gate_bias_mean": -1.3829,
+      "gate_bias_std": 1.1296,
+      "gate_bias_sigmoid_mean": 0.2500,
+      "W_sigma_norm": 62.47
+    },
+    "seed_456": {
+      "gate_bias_mean": -1.3948,
+      "gate_bias_std": 1.1127,
+      "gate_bias_sigmoid_mean": 0.2475,
+      "W_sigma_norm": 62.77
+    },
+    "seed_789": {
+      "gate_bias_mean": -1.0730,
+      "gate_bias_std": 0.4416,
+      "gate_bias_sigmoid_mean": 0.2627,
+      "W_sigma_norm": 47.12
+    },
+    "seed_1024": {
+      "gate_bias_mean": -0.9133,
+      "gate_bias_std": 0.6833,
+      "gate_bias_sigmoid_mean": 0.3034,
+      "W_sigma_norm": 58.69
+    }
+  },
+  "per_run_results": [
+    {
+      "config": "baseline_mean",
+      "seed": 42,
+      "test_mae": 48.2658,
+      "best_val_mae": 48.2658,
+      "train_losses": [48.944, 46.034, 45.643, 44.305, 44.831, 44.046, 43.887, 42.916, 42.542, 42.360],
+      "epoch_times": [86.38, 94.68, 89.25, 90.30, 92.19, 86.82, 82.76, 91.20, 94.42, 92.83],
+      "mean_epoch_time": 90.08,
+      "num_params": 1181697
+    },
+    {
+      "config": "baseline_mean",
+      "seed": 123,
+      "test_mae": 48.7159,
+      "best_val_mae": 48.7159,
+      "train_losses": [49.215, 48.256, 45.355, 44.603, 43.629, 43.948, 43.018, 42.191, 43.069, 42.093],
+      "epoch_times": [78.74, 91.15, 74.53, 89.22, 86.34, 84.78, 94.16, 88.06, 91.82, 89.23],
+      "mean_epoch_time": 86.80,
+      "num_params": 1181697
+    },
+    {
+      "config": "baseline_mean",
+      "seed": 456,
+      "test_mae": 49.0924,
+      "best_val_mae": 49.0924,
+      "train_losses": [49.209, 47.127, 46.887, 45.563, 44.801, 44.282, 43.457, 43.273, 43.382, 42.245],
+      "epoch_times": [92.67, 91.61, 90.91, 86.69, 93.96, 93.75, 92.33, 87.33, 77.00, 94.36],
+      "mean_epoch_time": 90.06,
+      "num_params": 1181697
+    },
+    {
+      "config": "baseline_mean",
+      "seed": 789,
+      "test_mae": 48.8915,
+      "best_val_mae": 48.8915,
+      "train_losses": [50.841, 47.924, 46.985, 45.228, 44.874, 44.693, 43.616, 43.244, 42.636, 42.303],
+      "epoch_times": [94.11, 92.46, 84.36, 88.53, 82.51, 91.88, 93.35, 95.07, 93.98, 95.05],
+      "mean_epoch_time": 91.13,
+      "num_params": 1181697
+    },
+    {
+      "config": "baseline_mean",
+      "seed": 1024,
+      "test_mae": 48.9150,
+      "best_val_mae": 48.9150,
+      "train_losses": [50.202, 47.086, 45.087, 44.428, 43.765, 43.482, 43.717, 42.964, 42.989, 42.547],
+      "epoch_times": [93.20, 90.13, 85.75, 85.55, 90.50, 82.68, 88.32, 88.67, 93.03, 94.40],
+      "mean_epoch_time": 89.22,
+      "num_params": 1181697
+    },
+    {
+      "config": "rama",
+      "seed": 42,
+      "test_mae": 45.2861,
+      "best_val_mae": 45.2861,
+      "train_losses": [43.843, 41.679, 40.923, 39.732, 39.675, 39.704, 39.284, 38.949, 38.782, 38.657],
+      "epoch_times": [124.20, 115.18, 121.90, 117.75, 121.37, 120.39, 110.05, 124.77, 113.89, 124.92],
+      "mean_epoch_time": 119.44,
+      "num_params": 1200305
+    },
+    {
+      "config": "rama",
+      "seed": 123,
+      "test_mae": 44.5664,
+      "best_val_mae": 44.5664,
+      "train_losses": [43.909, 41.866, 40.749, 39.430, 39.547, 38.999, 39.129, 38.365, 39.255, 38.093],
+      "epoch_times": [126.48, 123.77, 112.36, 125.14, 122.45, 117.56, 125.91, 121.59, 123.89, 125.51],
+      "mean_epoch_time": 122.47,
+      "num_params": 1200305
+    },
+    {
+      "config": "rama",
+      "seed": 456,
+      "test_mae": 45.2239,
+      "best_val_mae": 45.2239,
+      "train_losses": [43.520, 41.585, 40.876, 40.033, 40.777, 39.303, 38.596, 39.702, 38.678, 38.790],
+      "epoch_times": [120.87, 122.41, 124.66, 124.16, 122.82, 125.45, 123.60, 121.86, 121.67, 112.16],
+      "mean_epoch_time": 121.97,
+      "num_params": 1200305
+    },
+    {
+      "config": "rama",
+      "seed": 789,
+      "test_mae": 45.3004,
+      "best_val_mae": 45.3004,
+      "train_losses": [45.510, 41.651, 41.051, 40.422, 40.058, 40.551, 39.655, 39.355, 38.750, 38.838],
+      "epoch_times": [111.95, 122.75, 125.35, 119.06, 120.24, 125.70, 121.58, 126.71, 126.00, 125.04],
+      "mean_epoch_time": 122.44,
+      "num_params": 1200305
+    },
+    {
+      "config": "rama",
+      "seed": 1024,
+      "test_mae": 44.5880,
+      "best_val_mae": 44.5880,
+      "train_losses": [44.055, 40.853, 40.329, 40.049, 39.650, 39.736, 39.259, 39.037, 38.032, 37.663],
+      "epoch_times": [123.36, 125.71, 124.92, 124.60, 124.49, 118.83, 122.24, 124.84, 118.23, 125.19],
+      "mean_epoch_time": 123.24,
+      "num_params": 1200305
+    }
+  ],
+  "example_predictions": [
+    {"product_id": 119139, "predict_baseline_mean": 48.2658, "predict_rama": 44.5664},
+    {"product_id": 120356, "predict_baseline_mean": 48.2658, "predict_rama": 44.5664},
+    {"product_id": 119258, "predict_baseline_mean": 48.2658, "predict_rama": 44.5664}
+  ]
+}

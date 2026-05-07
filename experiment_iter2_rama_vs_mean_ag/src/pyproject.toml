@@ -1,0 +1,38 @@
+[project]
+name = "rama-experiment"
+version = "0.1.0"
+requires-python = ">=3.10,<3.12"
+dependencies = [
+    "torch==2.5.1+cu121",
+    "torchvision==0.20.1+cu121",
+    "torch-geometric==2.7.0",
+    "torch-frame==1.7.5",
+    "pytorch-frame==0.2.3",
+    "torch-scatter==2.1.2+pt25cu121",
+    "torch-sparse==0.6.18+pt25cu121",
+    "pyg-lib==0.4.0+pt25cu121",
+    "relbench==2.1.1",
+    "sentence-transformers==3.4.1",
+    "transformers==4.57.6",
+    "tokenizers==0.22.2",
+    "scikit-learn==1.6.1",
+    "scipy==1.15.3",
+    "numpy==2.2.6",
+    "pandas==2.3.3",
+    "pyarrow==23.0.1",
+    "loguru==0.7.3",
+    "tqdm==4.66.5",
+    "psutil==7.2.2",
+    "datasets==2.19.1",
+    "accelerate==1.13.0",
+    "safetensors==0.7.0",
+    "networkx==3.4.2",
+    "tabulate==0.10.0",
+    "duckdb==1.5.0",
+]
+
+[tool.uv]
+extra-index-url = [
+    "https://download.pytorch.org/whl/cu121",
+    "https://data.pyg.org/whl/torch-2.5.0+cu121.html",
+]
