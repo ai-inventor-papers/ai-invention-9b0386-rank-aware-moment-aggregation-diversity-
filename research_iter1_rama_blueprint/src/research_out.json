@@ -101,7 +101,7 @@
     },
     {
       "index": 17,
-      "url": "https://github.com/ai-inventor-outputs/ai-invention-b2d5b0-predictive-residual-message-passing-filt",
+      "url": "https://github.com/ai-inventor-papers/ai-invention-b2d5b0-predictive-residual-message-passing-filt",
       "title": "PRMP First Draft Repository",
       "summary": "Documented PRMP evaluation methodology: 5 variants x 5 seeds x 3 tasks, gradient-detached ablations, cross-table R2 diagnostics, claims-to-evidence audits. 8-10 tasks across 5 datasets."
     },
@@ -131,7 +131,7 @@
     },
     {
       "index": 22,
-      "url": "https://raw.githubusercontent.com/ai-inventor-outputs/ai-invention-b2d5b0-predictive-residual-message-passing-filt/main/evaluation_iter7_definitive_prmp/src/eval.py",
+      "url": "https://raw.githubusercontent.com/ai-inventor-papers/ai-invention-b2d5b0-predictive-residual-message-passing-filt/main/evaluation_iter7_definitive_prmp/src/eval.py",
       "title": "PRMP Definitive Evaluation Script",
       "summary": "Extracted complete evaluation methodology: Cohen's d computation, DerSimonian-Laird random-effects meta-analysis, Cochran's Q test, Egger's test, meta-regression by task type. 5 seeds primary, 8-10 tasks, 5 datasets."
     },

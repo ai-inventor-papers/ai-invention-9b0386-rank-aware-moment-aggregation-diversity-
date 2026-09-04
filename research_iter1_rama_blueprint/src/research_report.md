@@ -118,7 +118,7 @@ Seven baselines: (A) mean, (B) sum, (C) PRMP, (D) mean+LayerNorm, (E) ungated mu
 
 [16] [RelGNN Per-Dataset Configs (get_configs)](https://raw.githubusercontent.com/snap-stanford/RelGNN/main/examples/utils.py) — Extracted all 27 dataset-task configs. Most use aggr='sum', channels=128; rel-trial exceptions use aggr='mean'.
 
-[17] [PRMP First Draft Repository](https://github.com/ai-inventor-outputs/ai-invention-b2d5b0-predictive-residual-message-passing-filt) — Documented PRMP evaluation: 5 variants x 5 seeds x 3 tasks, gradient-detached ablations, 8-10 tasks across 5 datasets.
+[17] [PRMP First Draft Repository](https://github.com/ai-inventor-papers/ai-invention-b2d5b0-predictive-residual-message-passing-filt) — Documented PRMP evaluation: 5 variants x 5 seeds x 3 tasks, gradient-detached ablations, 8-10 tasks across 5 datasets.
 
 [18] [Roy & Vetterli 2007: Effective Rank Definition](https://www.eurasip.org/Proceedings/Eusipco/Eusipco2007/Papers/a5p-h05.pdf) — Original erank(A) = exp(-sum p_i log p_i) formula with normalized singular values. Bounds: 1 <= erank <= rank.
 
@@ -128,7 +128,7 @@ Seven baselines: (A) mean, (B) sum, (C) PRMP, (D) mean+LayerNorm, (E) ungated mu
 
 [21] [RelBench Paper (NeurIPS 2024)](https://arxiv.org/html/2407.20060v1) — Complete list of 30 tasks across 7 datasets with Table 9 hyperparameters. Two exceptions from defaults documented.
 
-[22] [PRMP Definitive Evaluation Script](https://raw.githubusercontent.com/ai-inventor-outputs/ai-invention-b2d5b0-predictive-residual-message-passing-filt/main/evaluation_iter7_definitive_prmp/src/eval.py) — Cohen's d computation, DerSimonian-Laird meta-analysis, Cochran's Q, Egger's test. 5 seeds, 8-10 tasks.
+[22] [PRMP Definitive Evaluation Script](https://raw.githubusercontent.com/ai-inventor-papers/ai-invention-b2d5b0-predictive-residual-message-passing-filt/main/evaluation_iter7_definitive_prmp/src/eval.py) — Cohen's d computation, DerSimonian-Laird meta-analysis, Cochran's Q, Egger's test. 5 seeds, 8-10 tasks.
 
 [23] [PNA: Principal Neighbourhood Aggregation (NeurIPS 2020)](https://arxiv.org/abs/2004.05718) — PNA combines mean/std/min/max aggregators with degree scalers. Strongest multi-aggregator baseline.
 
